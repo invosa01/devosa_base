@@ -461,11 +461,13 @@ class clsSalaryCalculation
             * $this->arrDetail[$strID]['base_jamsostek'] *= $this->arrDetail[$strID]['prorate'];
             * Prorate dihilangkan karena langsung dari UMK Cabang
             */
-            $employeeUmk = $this->arrDetail[$strID]['base_jamsostek'];
+            //$employeeUmk = $this->arrDetail[$strID]['base_jamsostek'];
             //$basePension = ($this->arrDetail[$strID]['base_jamsostek'] > $this->arrConf['pension_max']) ? $this->arrConf['pension_max'] : $this->arrDetail[$strID]['base_jamsostek'];
-            $baseJamsostek = $employeeUmk;
-            $basePension = $employeeUmk;
-            $baseBPJS = $employeeUmk;
+            //$baseJamsostek = $employeeUmk;
+            $baseJamsostek = $this->arrDetail[$strID]['base_jamsostek'];
+            $basePension = ($baseJamsostek > $this->arrConf['pension_max']) ? $this->arrConf['pension_max'] : $baseJamsostek;
+            $baseBPJS = $baseJamsostek;
+
             if ($fltProrate == 0) {
                 $basePension = 0;
             }
