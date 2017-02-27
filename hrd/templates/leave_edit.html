@@ -1,0 +1,222 @@
+  <script src="scripts/invosa.js"></script>
+  <script src="scripts/calendar.js"></script>
+  <script src="scripts/calendar-en.js"></script>
+  <link href="../css/calendar.css" rel="stylesheet" type="text/css">
+  <script src="scripts/acEmployee.js"></script>
+  <script src="scripts/ylib.js"></script>
+  <script src="employee_data.php"></script>
+  <link href="../css/ac.css" rel="stylesheet" type="text/css">
+  <script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+  </script>
+  <script>
+  <!--
+
+  function clearForm() {
+    document.formInput.dataEmployee.value = "";
+    document.formInput.dataNote.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataDateFrom.focus();
+  }//clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+    if (document.formInput.dataDateFrom.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateFrom.focus();
+      return false;
+    }
+    if (document.formInput.dataDateThru.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+    if (document.formInput.dataEmployee.value == "") {
+      alert("Empty Employee ID!");
+      document.formInput.dataEmployee.focus();
+      return false;
+    }
+    tmp = dateCompare(document.formInput.dataDateFrom.value, document.formInput.dataDateThru.value);
+    if (tmp == 1) {
+      alert("Date thru is before date from!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+
+    // cek apakah user employee
+    // jika employee, gak boleh entry data kemarin
+    if (document.formInput.dataUserRole.value == 2)
+    {
+      tmp = dateCompare(document.formInput.dataDate.value, document.formInput.dataDateFrom.value);
+      if (tmp == 1) {
+        alert("Cannot entry date BEFORE application date!");
+        document.formInput.dataDateFrom.focus();
+        return false;
+      }
+    }
+
+    ok = validateForm(document.formInput);
+
+    return ok;
+  } //validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDate.focus();
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+    init();
+    onCodeBlur();
+  }//initPage
+  -->
+  </script>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td align="left">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="pageHeaderTitle" align="left">
+      <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30">&nbsp;</td>
+            <td class="pageHeaderTitleText" nowrap="nowrap">&nbsp;LEAVE
+DATA</td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30">&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;<strong>Data Entry | <a
+ href="leave_list.php">Leave List</a> | <a href="leave_annual.php">Employee
+Annual Leave </a></strong></td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="inputTop">&nbsp;[var.strWordsINPUTDATA]</td>
+    </tr>
+    <tr>
+      <td [var.strMsgClass] align="center">[var.strMessages]</td>
+    </tr>
+    <tr>
+      <td class="inputBox" valign="top">
+      <form action="" method="post" name="formInput" id="formInput"
+ onsubmit="return validInput();">
+        <table border="0" cellpadding="2" cellspacing="0">
+          <tbody>
+            <tr>
+              <td valign="top">
+              <table align="left" border="0" cellpadding="1"
+ cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td align="center" width="15">&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;Leave Request Date</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputDate]&nbsp;</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp; </td>
+                    <td align="center">&nbsp; </td>
+                    <td nowrap="nowrap">&nbsp;</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;Leave Date From</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputDateFrom]&nbsp; <input
+ name="btnDateFrom" id="btnDateFrom" value=".." type="button"></td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;Leave Date Thru</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputDateThru]&nbsp; <input
+ name="btnDateThru" id="btnDateThru" value=".." type="button"></td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap"> &nbsp;Leave Type</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputType]</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap"> &nbsp;Employee ID</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputEmployee]<br>
+                    <strong id="employee_name"></strong>&nbsp;</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;Note</td>
+                    <td align="center">:</td>
+                    <td>[var.strInputNote]</td>
+                  </tr>
+                  <tr valign="top">
+                    <td nowrap="nowrap">&nbsp;Status</td>
+                    <td align="center">:</td>
+                    <td><strong>[var.strInputStatus] </strong></td>
+                  </tr>
+                  <tr valign="top">
+                    <td>&nbsp;</td>
+                    <td align="center">&nbsp;</td>
+                    <td> <input name="btnSave" id="btnSave"
+ value="Save" type="submit"> [var.strButtons] <input name="btnNew"
+ id="btnNew" value="Clear" onclick="location.href='leave_edit.php';"
+ type="button"> <input name="dataID" id="dataID"
+ value="[var.strDataID]" type="hidden"> <input name="dataUserRole"
+ value="[var.strUserRole]" type="hidden"> </td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td align="center">&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+              </td>
+              <td valign="top" width="20">&nbsp;</td>
+              <td valign="top"><p>&nbsp;</p><br>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>

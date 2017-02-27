@@ -1,0 +1,171 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+          <a href="evaluation_category.php">[var.strWordsEvaluationCategory] </a> |  
+          <a href="evaluation_criteria_all.php">[var.strWordsKRA]</a> |
+		  [var.strWordsEmployeeKRA] |
+          <a href="evaluation_feedback_setup.php">[var.strWordsEvaluationFeedbackSetup]</a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td valign="top">
+      [var.formFilter;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+      [var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" height="100%">
+      [var.DataGrid;protect=no;htmlconv=no]
+   </td>
+  </tr>
+</table>
+<script type="text/javascript">
+	var myClient = {
+    editData : function(idx)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataEndorse').value = "false";
+        $('dataID').value = "";
+        $('dataIDCategory').value = "";
+        $('dataIDParent').value = "";
+        $('dataCriteriaTemp').value = "";
+        $('dataEmployee').value = $F("dataEmployee");
+        $('dataWeight').value = "";
+        $('dataTargetDate').value = "";
+        $('dataAccomplishmentDate').value = "";
+        $('dataActive').checked = true;
+        $('dataTargetAchievement').value = "";
+        $('dataScore1').value = 5;
+        $('dataScore2').value = 4;
+        $('dataScore3').value = 3;
+        $('dataScore4').value = 2;
+        $('dataScore5').value = 1;
+        $('dataScore1Note').value = "";
+        $('dataScore2Note').value = "";
+        $('dataScore3Note').value = "";
+        $('dataScore4Note').value = "";
+        $('dataScore5Note').value = "";
+        $('dataChangesNote').value = "New";
+      }
+      else if (idx != '')
+      {
+        $('dataEndorse').value = "false";
+        $('dataID').value = $F("detailID" + idx);
+        $('dataIDCategory').value = $F("detailIDCategory" + idx);
+        $('dataIDParent').value = $F("detailIDParent" + idx);
+        $('dataCriteriaTemp').value = $F("detailCriteria" + idx);
+        $('dataEmployee').value = $F("detailEmployee" + idx);
+        $('dataWeight').value = $F("detailWeight" + idx);
+        $('dataTargetDate').value = $F("detailTargetDate" + idx);
+        $('dataAccomplishmentDate').value = $F("detailAccomplishmentDate" + idx);
+        $('dataTargetAchievement').value = $F("detailTargetAchievement" + idx);
+        $('dataActive').checked = ($F("detailActive" + idx) == 't');
+        $('dataScore1').value = $F("detailScore1" + idx);
+        $('dataScore2').value = $F("detailScore2" + idx);
+        $('dataScore3').value = $F("detailScore3" + idx);
+        $('dataScore4').value = $F("detailScore4" + idx);
+        $('dataScore5').value = $F("detailScore5" + idx);
+        $('dataScore1Note').value = $F("detailScore1Note" + idx);
+        $('dataScore2Note').value = $F("detailScore2Note" + idx);
+        $('dataScore3Note').value = $F("detailScore3Note" + idx);
+        $('dataScore4Note').value = $F("detailScore4Note" + idx);
+        $('dataScore5Note').value = $F("detailScore5Note" + idx);
+        $('dataChangesNote').value = $F("detailChangesNote" + idx);
+      }
+      $('dataCriteriaTemp').focus();
+    },
+    endorseData : function(idx)
+    {
+      if (idx != '')
+      {
+        if ($F("detailIDParent" + idx) != '')
+        {
+          $('dataIDParent').value = $F("detailIDParent" + idx);
+        }
+        else if ($F("detailID" + idx) != '')
+        {
+          $('dataIDParent').value = $F("detailID" + idx);
+        }
+
+        $('dataEndorse').value = "true";
+        $('dataID').value = $F("detailID" + idx);
+        $('dataIDCategory').value = $F("detailIDCategory" + idx);
+        $('dataCriteria').value = $F("detailCriteria" + idx);
+        $('dataCriteriaTemp').value = $F("detailCriteria" + idx);
+        $('dataEmployee').value = $F("detailEmployee" + idx);
+        $('dataWeight').value = $F("detailWeight" + idx);
+        $('dataTargetDate').value = $F("detailTargetDate" + idx);
+        $('dataAccomplsihmentDate').value = $F("detailAccomplsihmentDate" + idx);
+        $('dataTargetAchievement').value = $F("detailTargetAchievement" + idx);
+        $('dataActive').checked = ($F("detailActive" + idx) == 't');
+        $('dataScore1').value = $F("detailScore1" + idx);
+        $('dataScore2').value = $F("detailScore2" + idx);
+        $('dataScore3').value = $F("detailScore3" + idx);
+        $('dataScore4').value = $F("detailScore4" + idx);
+        $('dataScore5').value = $F("detailScore5" + idx);
+        $('dataScore1Note').value = $F("detailScore1Note" + idx);
+        $('dataScore2Note').value = $F("detailScore2Note" + idx);
+        $('dataScore3Note').value = $F("detailScore3Note" + idx);
+        $('dataScore4Note').value = $F("detailScore4Note" + idx);
+        $('dataScore5Note').value = $F("detailScore5Note" + idx);
+        $('dataChangesNote').value = "";
+      }
+      $('dataTargetDate').focus();
+      $('dataTargetDate').select();
+      $('dataCriteriaTemp').disabled = true;
+
+    },
+    setTargetAchievement : function(strTarget)
+    {
+       if ($('dataTargetAchievement').value == '')
+       {
+         $('dataTargetAchievement').value = $('dataScore3Note').value;       
+       }
+    },
+    hideHistory : function(strHideHistory)
+    { 
+      document.formData.dataHideHistory.value = strHideHistory;
+    },
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+
+  function initPage_()
+  {
+    document.formFilter.dataEmployee.focus();
+  }
+
+</script>

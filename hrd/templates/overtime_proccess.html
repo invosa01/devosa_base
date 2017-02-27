@@ -1,0 +1,121 @@
+<script>
+	<!--
+	// fungsi memeriksa validasi input
+	function validInput() {
+
+		return true;
+	} //validInput
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmCancel() {
+    return confirm("Are you sure want to cancel selected data?");
+  } //confirmDelete
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+
+	// fungsi untuk inisialisasi
+	function initPage_() {
+		document.formInput.dataDateFrom.focus();
+	}//initPage
+	-->
+</script>
+<script>
+	//menampilkan detail karyawan yang ikut lembur
+	function showDetail(index) {
+		if (index == "" || index == "undefined") {
+			return 0;
+		}
+
+    kiri = (screen.width / 2) - 150;
+    atas = (screen.height / 2) - 10;
+
+		id = eval("document.formData.chkID" + index + ".value");
+    url = "overtimeApplicationShowDetailFull.php?dataID=" + id + "&objectName=detail" + index;
+    properti = "width=300, height=20, resizable=no, statusbar=no,menubar=no, titlebar=no, top=" + atas + ", left=" + kiri;
+
+		var obj = window.open("","popup",properti);
+    obj.document.write("Please wait ...");
+    obj.document.title = "Please wait ..";
+		window.open(url,"popup",properti);
+	}
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">OVERTIME </td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>&nbsp;<strong><a href="overtimeApplicationEdit.php">Input
+            Data</a> | <a href="overtimeApplicationList.php">Search Application
+            Form</a> | <a href="overtimeApplicationCheck.php">Application Check</a>
+            | <a href="overtimeApplicationApproval.php">Application Approval</a>
+            | Overtime Proccess </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr valign="top">
+            <td>&nbsp;Section</td>
+            <td width="15" align="center">:</td>
+            <td nowrap>[var.strInputSection]</td>
+            <td width="15" nowrap>&nbsp;</td>
+            <td nowrap><input name="btnShow" type="submit" id="btnShow" value="Show Data"></td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="listTop"><strong>LIST OF OVERTIME APPLICATION FORM [var.strInfo]</strong></td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData">
+        <table border="0" cellpadding="0" cellspacing="0" class="gridTable">
+          <tr align="center" class="tableHeader">
+            <td width="5" nowrap class="tableHeader">&nbsp;</td>
+            <td nowrap class="tableHeader">&nbsp;OVERTIME DATE&nbsp;</td>
+            <td nowrap class="tableHeader">&nbsp;SECTION&nbsp;</td>
+            <td nowrap class="tableHeader"> &nbsp;#EMPL.&nbsp;</td>
+            <td nowrap class="tableHeader">&nbsp;STATUS&nbsp;</td>
+            <td nowrap class="tableHeader">&nbsp;NOTE&nbsp;</td>
+            <td width="20" nowrap class="tableHeader">&nbsp;</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td> <input name="chkAll" type="checkbox" id="chkAll" value="All" onChange="checkAll();">
+              &nbsp;</td>
+            <td colspan="6"> &nbsp; &nbsp;
+              <input name="totalData" type="hidden" id="totalData" value="[var.intTotalData]">
+              [var.strHidden] &nbsp; </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>attendance</title>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <link href="[var.strPrintCss]" rel="stylesheet" type="text/css">
+  <script src="scripts/ylib.js"></script>
+  <script src="scripts/invosa.js"></script>
+  <link href="../css/ac.css" rel="stylesheet" type="text/css">
+  <script>
+  <!--
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    [var.strPrintInit]
+  }//initPage
+  -->
+  </script>
+</head>
+<body leftmargin="10" topmargin="0" onLoad="initPage_();"
+ marginheight="0" marginwidth="10">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td align="left">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="pageHeaderTitle" align="left">
+      <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30">&nbsp;</td>
+            <td class="pageHeaderTitleText" nowrap="nowrap">&nbsp;[var.strWordsAttendanceDataForOnsiteEmployee]<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><strong>[var.strInfo]</strong></td>
+    </tr>
+    <tr>
+      <td>
+      <form action="" method="post" name="formData" id="formData" onSubmit="return validInputData()">
+        <table class="gridTable" border="0" cellpadding="0"
+ cellspacing="0" width="100%">
+          <tbody>
+            <tr class="tableHeader" align="center">
+              <td class="tableHeader" nowrap="nowrap">&nbsp;</td>
+              <td colspan="4" class="tableHeader" nowrap="nowrap">[var.strWordsEMPLOYEE]</td>
+              <td rowspan="1" colspan="3" class="tableHeader"
+ nowrap="nowrap">[var.strWordsATTENDANCE]</td>
+              <td rowspan="1" colspan="5" class="tableHeader"
+ nowrap="nowrap">&nbsp;[var.strWordsOVERTIME]</td>
+            </tr>
+            <tr class="tableHeader" align="center">
+              <td class="tableHeader" nowrap="nowrap">&nbsp;</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsID]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsNAME]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsDEPT]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsSECT]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsATTD]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsLATE]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsEARLY]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsOT1]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsOT2]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsOT3]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsOT4]</td>
+              <td valign="top">[var.strWordsTOTAL]</td>
+            </tr>
+            [var.strDataDetail]
+          </tbody>
+        </table>
+      </form>
+<!--/td--> </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="center">[var.strCopyright]</td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

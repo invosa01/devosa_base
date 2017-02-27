@@ -1,0 +1,56 @@
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-6">
+  			<div id='msg1' class='alert alert-warning'><h4 class="no-margin">[var.strMessage1]</h4></div>
+        <div id='msg2' class='alert alert-warning'><h4 class="no-margin">[var.strMessage2]</h4></div>
+  		</div>
+  	</div>
+  </div>
+  <script type="text/javascript" src="../js/prototype.js"></script>
+  <script type="text/javascript">
+    function doVacuum()
+    {
+      new Ajax.Request("db_optimizing.php",
+        { method:'get',
+          parameters: "do=vacuum",
+          onComplete: function(transport, json)
+          {
+            if ((transport.responseText || '') == '') return false;
+            arrData = transport.responseText.split("|");
+            $('msg1').innerHTML = '<h4 class="no-margin">'+ arrData[0] +'</div>';
+            $('msg2').innerHTML = '<h4 class="no-margin">'+ arrData[1] +'</div>';
+            $('msg1').className = 'alert alert-success';
+            doReindex();
+          },
+          onLoading: function()
+          {
+          },
+          onFailure: function()
+          {
+          }
+        });
+    }
+    
+    function doReindex()
+    {
+      new Ajax.Request("db_optimizing.php",
+        { method:'get',
+          parameters: "do=reindex",
+          onComplete: function(transport, json)
+          {
+            if ((transport.responseText || '') == '') return false;
+            $('msg2').innerHTML = '<h4 class="no-margin">'+ transport.responseText +'</div>';
+            $('msg2').className = 'alert alert-success';
+          },
+          onLoading: function()
+          {
+          },
+          onFailure: function()
+          {
+          }
+        });
+    }
+
+    doVacuum();
+  </script>

@@ -1,0 +1,74 @@
+<script type="text/javascript">
+    var myClient = {
+        editData : function(params)
+        {
+            arrParam  = params.split("|");
+            idx = arrParam[0];
+            strSet = arrParam[1];
+            intMaxSet = arrParam[2];
+            $('formMessage').style.visibility = 'hidden';
+            if (idx == 0)
+            {
+                //reset data
+                $('dataID').value = "";
+                $('dataCode').value = "";
+                $('dataType').value = "";
+                $('dataAmount').value = "";
+                $('dataCompanyId').value = ""
+
+            }
+            else if (idx != '')
+            {
+                $('dataID').value = $F("detailID" + idx);
+                $('dataCode').value = $F("detailCode" + idx);
+                $('dataType').value = $F("detailType" + idx);
+                $('dataAmount').value = $F("detailAmount" + idx);
+                $('dataCompanyId').value = $F("detailCompanyId" + idx);
+            }
+            $('dataCode').focus();
+            $('dataCode').select();
+        },
+
+        confirmDelete : function()
+        {
+            return confirm('[var.strConfirmDelete]');
+        },
+
+        confirmSave : function()
+        {
+            return confirm('[var.strConfirmSave]');
+        }
+    }
+    jQuery(function($) {
+        $('.edit-data').on('click', function(){
+            var strID = $(this).attr('id');
+            var splitID = strID.split('-');
+            $('#dataCompanyId').val($('#detailCompanyId'+ splitID[1]).val());
+            $('#dataCompanyId').select2('destroy');
+            $('#dataCompanyId').select2();
+        });
+    })
+</script>
+[var.pageHeader]
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            [var.formInput;protect=no;htmlconv=no]
+        </div>
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-actions">
+                        <div class="pull-right" >
+                            <a href="#" data-toggle="collapse" data-target="#functional-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="panel-title">OVERTIME TERAPIS LIST</h3>
+                </div>
+                <div id="functional-panel" class="panel-body collapse in">
+                    [var.DataGrid;protect=no;htmlconv=no]
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

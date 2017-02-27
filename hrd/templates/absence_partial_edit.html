@@ -1,0 +1,149 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script src="scripts/ajax.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  // script-script tambahan, khusus untu loockup employee
+  AC_targetElements = ["dataEmployee"];
+
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+  function setDuration()
+  {
+    if($('dataStartTime').value == "" || $('dataFinishTime').value == "" || $('dataDuration').value == '' || $('dataDuration').value == 'NaN' || $('dataDuration').value < 0)
+      $('dataDuration').value = "00:00";
+    else
+      $('dataDuration').value = minuteToTime(getMinute($('dataFinishTime').value) - getMinute($('dataStartTime').value));
+		console.log($('dataDuration').value);
+
+  }
+
+  function getMinute(strTime)
+  {
+    arrTmp = strTime.split(":");
+    intTime = (60 * parseFloat(arrTmp[0])) + parseFloat(arrTmp[1]);
+    return intTime;
+  } 
+
+  function minuteToTime(intMin) 
+  {
+    strResult = "";
+    intJam = Math.floor(intMin / 60);
+    intMin = (intMin % 60);
+    // format
+    if (intJam < 10 && intJam >= 0){
+    	intJam = "0" + intJam;
+    }else if(intJam > -10 && intJam < 0){
+    	intJam = "-0" + abs(intJam);
+    }
+    if (intMin < 10 && intMin >= 0){
+    	intMin = "0" + intMin;
+    }else if (intMin > -10 && intMin < 0){
+    	intMin = "-0" + abs(intMin);
+    }
+    strResult = intJam + ":" + intMin;
+    return strResult;
+  }// minuteToTime
+
+  function getAttendanceInfo()
+  {
+      ajDate = $('dataDate').value;
+      ajEmployee = $('dataEmployee').value;
+      ajType = $('dataType').value;
+      var objAjax = new createRequestObject();
+      getDataAjax(objAjax, "post", "absence_partial_edit.php?ajax=getAttendance&ajDate=" + ajDate + "&ajEmployee=" + ajEmployee + "&ajType=" + ajType, "", "setAttendanceInfo");
+  }
+
+  function setAttendanceInfo(str)
+  {
+    arrStr  = str.split("|");
+    $('dataStartTime').value = arrStr[0];
+    $('dataFinishTime').value = arrStr[1];
+    $('labelStart').innerHTML = arrStr[2];
+    $('labelFinish').innerHTML = arrStr[3];
+    setDuration();
+  }
+
+  function initPage_() {
+   init();
+   onCodeBlur();
+  }//initPage
+  
+  function setDurationJquery($)
+  {
+    if($('#dataStartTime').val() == "" || $('#dataFinishTime').val() == "" || $('#dataDuration').val() == "" || !$('#dataDuration').val() || parseInt($('#dataDuration').val()) < 0){
+      $('#dataDuration').val("00:00");
+      $('#dataApprovedDuration').val("00:00");
+    }else{
+    	var durationData = minuteToTime(getMinute($('#dataFinishTime').val()) - getMinute($('#dataStartTime').val()));
+      $('#dataDuration').val(durationData);
+      $('#dataApprovedDuration').val(durationData);
+    }
+		console.log($('#dataDuration').val());
+  }
+  
+  jQuery(function($) {
+  	$('#dataDate').on('keyup', function(){
+  		$('#dataType').change();
+  	});
+  	$('#dataDate').on('change', function(){
+  		$('#dataType').change();
+  	});
+  	$('#dataType').on('change', function(){
+  		var ajType = $(this).val();
+  		var strDate = $('#dataDate').val();
+  		var splitDate = strDate.split('/');
+  		var ajDate = splitDate[2] + '-' + splitDate[0] +'-'+ splitDate[1];
+  		
+  		var ajEmployee = $('#dataEmployee').val().trim();
+  		var strAddress = 'absence_partial_edit.php?ajax=getAttendance&ajDate=' + ajDate + '&ajEmployee=' + ajEmployee + '&ajType=' + ajType;
+			$.ajax({
+				type: "GET",
+				url: strAddress,
+				cache: false,
+				success: function(data){
+					var returnData = data.trim().split('|');
+					if (returnData[0] == 0){
+						var startTime  = returnData[1];
+						var finishTime  = returnData[2];
+						var labelStartTime  = returnData[3];
+						var labelFinishTime  = returnData[4];
+					}else{
+						var startTime  = returnData[0];
+						var finishTime  = returnData[1];
+						var labelStartTime  = returnData[2];
+						var labelFinishTime  = returnData[3];
+					}
+					$('#dataStartTime').val(startTime);
+					$('#labelStart').html(labelStartTime);
+					$('#dataFinishTime').val(finishTime);
+					$('#labelFinish').html(labelFinishTime);
+					setDurationJquery($);
+				}
+			});
+  	});
+  })
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.pageSubMenu]
+	    	<p></p>
+			</div>
+  		<div class="col-md-12">
+  			[var.formInput;protect=no;htmlconv=no]
+  		</div>
+  	</div>
+  </div>
+

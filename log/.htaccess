@@ -1,0 +1,4 @@
+AuthName "devosalog"
+AuthUserFile "/var/www/html/devosa/log/userauth"
+AuthType Basic
+require valid-user

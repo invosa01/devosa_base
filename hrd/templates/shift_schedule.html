@@ -1,0 +1,216 @@
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+  <!--
+  //fungsi untuk togle display/hide baris untuk mengisi patern roaster secara otomatis.
+  function roast(intRow)
+  {
+    a = eval("document.formData.genShift" + intRow);
+    if (document.getElementById("row" + intRow).style.display == "none")
+    {
+      document.getElementById("row" + intRow).style.display = "table-row";
+      a.value = "Close ";
+    }
+    else 
+    {
+      document.getElementById("row" + intRow).style.display = "none";
+      a.value = "Roster";
+    }
+  }//roast
+
+  function clearShift(index)
+  {
+    pattern = eval("document.formData.dataPattern" + index + ".value");
+    start   = 1;
+    end     = eval("document.formData.dataEnd" + index + ".value");
+    for (i = start; i <= end; i++)
+    {            
+       obj = eval("document.formData.dataShift" + index + "_" + i);
+       obj.value = "";
+    }
+  }//apply
+
+  //fungsi untuk mengisi textbox shift setiap tanggal pada baris index dengan pattern yg di pilih pada baris index
+  function apply(index)
+  {
+    pattern = eval("document.formData.dataPattern" + index + ".value");
+    start   = parseInt(eval("document.formData.dataStart" + index + ".value"));
+    end     = eval("document.formData.dataEnd" + index + ".value");
+    arrPat  = pattern.split(",");
+    for (i = start; i <= end; i++)
+    {            
+       j = (i - start) % arrPat.length;
+       obj = eval("document.formData.dataShift" + index + "_" + i);
+       obj.value = arrPat[j];
+    }
+  }//apply
+  
+  //fungsi untuk mengisi textbox shift setiap tanggal pada setiap baris dengan pattern yg di set pada baris index
+  function applyAll(index)
+  {
+
+    pattern = eval("document.formData.dataPattern" + index + ".value");
+    start   = parseInt(eval("document.formData.dataStart" + index + ".value"));
+    end     = parseInt(eval("document.formData.dataEnd" + index + ".value"));
+    max     = parseInt(document.formData.totalData.value);
+    arrPat  = pattern.split(",");
+
+    for (i = 1; i <= max; i++)
+    {  
+      for (ii = start; ii <= end; ii++)
+      {
+         j = (ii - start) % arrPat.length;
+       obj = eval("document.formData.dataShift" + i + "_" + ii);
+       obj.value = arrPat[j];
+      }
+    }
+  } 
+
+  // fungsi untuk menuju ke page tertentu
+  function goPage(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnShow.click();
+    }
+  }//goPage
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    init();
+    onCodeBlur();
+  }//initPage
+  -->
+  jQuery(function($) {
+		$('#dataEmployee').autocomplete({
+			source: "hrd_ajax_source.php?action=getemployee",
+			minLength: 2,
+			select: function( event, ui ) {
+				console.log(ui);
+				$('#employee_name').html(ui.item.label);
+			}
+		});
+	});
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.pageSubMenu]
+	    	<p></p>
+			</div>
+			<div class="col-md-12">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#input-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">[var.strWordsINPUTDATA]</h3>
+					</div>
+					<div id="input-panel" class="panel-body collapse in">
+						<form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();"  class="form-horizontal" role="form">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataMonth">[var.strWordsMonth]</label>
+									<div class="col-sm-8">
+										[var.strInputMonth]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployee">[var.strWordsEmployeeID]</label>
+									<div class="col-sm-8">
+										[var.strInputEmployee]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployee">&nbsp;</label>
+									<div class="col-sm-8">
+										<strong id="employee_name"></strong>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataActive">[var.strWordsActive]</label>
+									<div class="col-sm-8">
+										[var.strInputActive]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataCompany">[var.strCompany]</label>
+									<div class="col-sm-8">
+										[var.strInputCompany]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataDivision">[var.strWordsDivision]</label>
+									<div class="col-sm-8">
+										[var.strInputDivision]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataDepartment">[var.strWordsDepartment]</label>
+									<div class="col-sm-8">
+										[var.strInputDepartment]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataSection">[var.strWordsSection]</label>
+									<div class="col-sm-8">
+										[var.strInputSection]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataSubSection">[var.strWordsSubSection]</label>
+									<div class="col-sm-8">
+										[var.strInputSubsection]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 form-actions">
+								<input class="btn btn-primary btn-sm" name="btnShow" type="submit" id="btnShow" value="[var.strWordsShow]">	
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">[var.strWordsShiftSchedule] [var.strInfo]</h3>
+					</div>
+					<div id="list-panel" class="panel-body collapse in">
+						[var.strMessages]
+						<form action="shift_schedule.php" method="post" name="formData" id="formData">
+				      [var.strDataDetail]
+				    </form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

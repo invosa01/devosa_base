@@ -1,0 +1,199 @@
+  <link href="../css/ac.css" rel="stylesheet" type="text/css">
+
+  <script type="text/javascript" src="../js/acEmployee.js"></script>
+  <script type="text/javascript" src="../js/ylib.js"></script>
+  <script src="employee_data.php"></script>
+  <script type="text/javascript">
+    // script-script tambahan, khusus untu loockup employee
+
+    AC_targetElements = ["filterEmployeeID"];
+
+    // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+    // kehilangan fokus.
+    function onCodeBlur() {
+      var kode = document.formInput.filterEmployeeID.value;
+      var nama = AC_getNameByCode(kode);
+      var obj = document.getElementById("employee_name");
+      obj.innerHTML = nama;
+      return 1;
+    }
+  </script>
+  <script>
+  <!--
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+  }//checkAll
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("Are you sure want to delete selected data?");
+  } //confirmDelete
+
+
+  // fungsi untuk minta konfirmasi chek data
+  function confirmCheck() {
+    return confirm("Are you sure want to check/approve selected data?");
+  } //confirmDelete
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.filterDepartment.focus();
+    //init();
+  }//initPage
+
+
+  // fungsi untuk menuju ke print page tertentu
+  function printData(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnPrint.click();
+
+    }
+  }//printData
+
+
+  // fungsi untuk menuju ke page tertentu
+  function goPage(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnSearch.click();
+    }
+  }//goPage
+
+  // fungsi untuk refresh halaman, dengan sorting tertentu
+  function goSort(kolom) {
+    if (kolom != "") {
+      document.formInput.dataSort.value = kolom;
+      document.formInput.btnSearch.click();
+    }
+  }//goSort
+  -->
+</script>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="pageHeaderTitle" align="left"> <table border="0" cellpadding="1" cellspacing="0">
+        <tbody>
+          <tr>
+            <td class="blank" width="20">&nbsp;</td>
+            <td class="pageHeaderTitleText" nowrap="nowrap"> &nbsp;[var.strPageTitle]</td>
+          </tr>
+        </tbody>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp; </td>
+  </tr>
+  <tr>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="left" class="inputBox"> <form action="" method="post" name="formInput" id="formInput">
+        <table border="0" cellpadding="2" cellspacing="0">
+          <tr>
+            <td valign="top">
+              <table align="left" border="0" cellpadding="1" cellspacing="0">
+                <tr>
+                    <td height="21" nowrap="NOWRAP"> &nbsp;[var.strWordsReport]</td>
+                    <td width="10">:</td>
+                    <td nowrap><select name="ReportView" onchange="select()">
+                      <option value="TrainingList" selected="selected">[var.strWordsTrainingList]</option>
+                      <option Value="EmployeeTraining">[var.strWordsEmployeeTraining]</option>
+                      </select></td>
+                </tr>
+                <tr>
+                    <td height="21" nowrap="NOWRAP"> &nbsp;[var.strWordsYear]</td>
+                    <td width="10">:</td>
+                    <td nowrap>[var.strInputFilterYear]</td>
+                  </tr>
+                  <!--<tr>
+                    <td>&nbsp;[var.strWordsEmployeeID]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputFilterEmployeeID]</td>
+                  </tr>-->
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td nowrap><strong id="employee_name"></strong></td>
+                  </tr>
+                  <tr valign="bottom" height="25">
+                    <td>&nbsp; <input type=hidden name="dataPage" value=1> <input type=hidden name="dataSort" value="[var.strInputSortBy]"></td>
+                    <td>&nbsp;</td>
+                    <td nowrap> <input name="btnSearch" id="btnSearch" value="[var.strWordsShowData]" type="submit" onClick="document.formInput.target = ''">
+                      <input name="btnPrint" type="submit" id="btnPrint" value="[var.strWordsPrint]" onClick="document.formInput.target = '_blank'">
+                    </td>
+                  </tr>
+              </table>
+            </td>
+            <td width="20">&nbsp;</td>
+            <td valign="top">
+              <table align="left" border="0" cellpadding="1" cellspacing="0">
+                  <tr>
+                    <td nowrap="nowrap">&nbsp;[var.strWordsDivision]</td>
+                    <td width="10">:</td>
+                    <td nowrap>[var.strFilterDivision]</td>
+                  </tr>                  <tr>
+                    <td nowrap="nowrap">&nbsp;[var.strWordsDepartment]</td>
+                    <td width="10">:</td>
+                    <td nowrap>[var.strFilterDepartment]</td>
+                  </tr>                  <tr>
+                    <td nowrap="nowrap">&nbsp;[var.strWordsSection]</td>
+                    <td width="10">:</td>
+                    <td nowrap>[var.strFilterSection]</td>
+                  </tr>
+                  <tr>
+                    <td nowrap="NOWRAP">&nbsp;[var.strWordsSubSection]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strFilterSubSection]</td>
+                  </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="listTop"><strong>[var.strWordsTrainingRequestList]</strong></td>
+  </tr>
+  <tr>
+    <td>
+      <form action="" method="post" name="formData" id="formData">
+        <table class="gridTable" border="0" cellpadding="1" cellspacing="0">
+          <tr>
+            <th width="5">[var.strWordsNO]</th>
+            <th>[var.strWordsDepartment]</th>
+            <th>[var.strWordsTrainingTopic]</th>
+            <th>[var.strWordsParticipant]</th>
+            <th nowrap="nowrap" class="tableHeader">[var.strWordsNumber]</th>
+            <th nowrap="nowrap" class="tableHeader">[var.strWordsPurpose]</th>
+            <th>[var.strWordsInstitution]</th>
+            <th>[var.strWordsTrainingDate]</th>
+            <th nowrap="nowrap" class="tableHeader">[var.strWordsCost]</th>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="8">
+              [var.strButtons]
+              <input name="totalData" id="totalData" value="[var.intTotalData]" type="hidden">
+            [var.strHidden] </td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>

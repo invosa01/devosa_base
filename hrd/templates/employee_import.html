@@ -1,0 +1,45 @@
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  function goUrl(url) {
+    if (url != "") {
+
+      if (document.formInput.dataEmployeeID.value == "") {
+        alert("Please save data first");
+      } else {
+        location.href = url + ".php?dataID=" + document.formInput.dataID.value;
+      }
+    }
+  }//goUrl
+</script>
+
+<table width="90%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan="2" align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strWordsEmployeeData]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr align="left"> <td valign="top" class="inputBox">
+      <form action="" method="post" enctype="multipart/form-data"  name="formInput" id="formInput" onsubmit="return validInput();">
+      <table>
+     <tr>
+      [var.strInputImport]
+     </tr></table>
+      </form>
+    </td>
+  </tr>
+    <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+</table>

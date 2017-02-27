@@ -1,0 +1,79 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<script src="scripts/invosa.js"></script>
+
+<script>
+	<!--
+	// fungsi memeriksa validasi input
+	function validInput() {
+		return validateForm(document.formData);
+	} //validInput
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmCancel() {
+    bolOK = confirm("Are you sure want to cancel?");
+    if (bolOK) {
+      location.href = "absence_list.php";
+    }
+    return bolOK;
+  } //confirmCancel
+
+	// fungsi untuk inisialisasi
+	function initPage_() {
+
+	}//initPage
+	-->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">LEAVE DATA - Denied</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>&nbsp;<strong><a href="leave_edit.php">Data Entry</a> | <a href="leave_list.php">Leave
+            List</a> | <a href="leave_annual.php">Employee Annual Leave</a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="listTop"><strong>LIST OF EMPLOYEE LEAVE [var.strInfo]</strong></td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData" onSubmit="return validInput();">
+        <table border="0" cellpadding="0" cellspacing="0" class="gridTable">
+          <tr align="center" class="tableHeader">
+            <td width="5" nowrap class="tableHeader">&nbsp;</td>
+            <td nowrap class="tableHeader">REQUEST DATE</td>
+            <td nowrap class="tableHeader">FORM NO.</td>
+            <td nowrap class="tableHeader">DATE FROM </td>
+            <td nowrap class="tableHeader">DATE THRU</td>
+            <td nowrap class="tableHeader">EMPL. ID</td>
+            <td nowrap class="tableHeader">NAME</td>
+            <td nowrap class="tableHeader">LEAVE. TYPE</td>
+            <td nowrap class="tableHeader">DURATION</td>
+            <td nowrap class="tableHeader">NOTE</td>
+            <td nowrap class="tableHeader">STATUS</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td> &nbsp;</td>
+            <td colspan="10">
+            <input name="btnSave" type="submit" value="Save"> [var.strButtonList]
+            <input name="btnCancel" type="button" value="Cancel" onClick="return confirmCancel();"> [var.strButtonList]
+              <input name="totalData" type="hidden" id="totalData" value="[var.intTotalData]">
+              [var.strHidden] &nbsp; </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

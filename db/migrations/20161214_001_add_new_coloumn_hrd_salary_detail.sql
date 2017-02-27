@@ -1,0 +1,1 @@
+﻿ALTER TABLE public.hrd_salary_detail ADD COLUMN calculated_tax numeric;

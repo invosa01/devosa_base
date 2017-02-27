@@ -1,0 +1,411 @@
+
+
+body {
+    /*background-color : #FFFFFF;
+    */ font-family : Arial, Helvetica;
+    font-size : 11px;
+    margin-bottom : 0px;
+    margin-left : 0px;
+    margin-right : 0px;
+    margin-top : 0px;
+    overflow:auto;
+  }
+
+
+td, th {
+    font-family : Arial, Helvetica;
+    font-size : 11px;
+  }
+
+
+a:hover {
+    color : #c00000;
+    text-decoration : none;
+  }
+
+
+.loginHeader {
+    background-color : #6666ff;
+    border-bottom-color : #9c0000;
+    border-bottom-style : dotted;
+    border-bottom-width : 1px;
+    border-top-color : #9c0000;
+    border-top-style : dotted;
+    border-top-width : 1px;
+    color : #ccffff;
+    font-weight : bold;
+  }
+
+
+.mainBg {
+    background:#c0dcff;
+  }
+
+
+.alert {
+    color : #ff0000;
+    font-weight : bold;
+  }
+
+
+input, textarea, select {
+    border-bottom-color : #C3C3C3;
+    border-right-color : #C3C3C3;
+    border-top-color : #666666;
+    border-left-color : #666666;
+    border-style : solid;
+    border-width : 1px;
+    font-size : 11px;
+    padding-left : 2px;
+    padding-right : 2px;
+    font-family : Arial, Helvetica;
+    font-size : 11px;
+  }
+
+
+input.button, button {
+    border-top-color : #C3C3C3;
+    border-left-color : #C3C3C3;
+    border-bottom-color : #666666;
+    border-right-color : #666666;
+    border-style : solid;
+    border-width : 1px;
+    font-size : 11px;
+  }
+
+
+input.numeric {
+    text-align : right;
+  }
+
+input.numeric_percent {
+    text-align : right;
+  }
+
+
+legend {
+    font-weight : bold;
+  }
+
+
+li {
+    list-style-type : square;
+  }
+
+/*
+button {
+    border-bottom-color : #666666;
+    border-right-color : #666666;
+    border-top-color : #C3C3C3;
+    border-left-color : #C3C3C3;
+    border-style : solid;
+    border-width : 1px;
+    font-size : 10pt;
+  }
+*/
+
+
+._disabled {
+    cursor : default;
+    Filter : Gray;
+  }
+
+
+.copyright {
+    border-top-color : #336699;
+    border-top-style : dotted;
+    border-top-width : 1px;
+    color : #6699cc;
+    font-size : 10px;
+  }
+
+
+.pageHeader {
+    background-color : #ffffff;
+    background-image : url('../images/bg.jpg');
+    background-repeat : no-repeat;
+  }
+
+
+.mainMenuBar {
+    background-color : #80a6c1;
+    border-top-color : #336699;
+    border-top-style : solid;
+    border-top-width : 6px;
+    border-bottom-color : #336699;
+    border-bottom-style : solid;
+    border-bottom-width : 1px;
+    color : #000000;
+    font-family : Arial, Helvetica;
+    font-weight : bold;
+    text-indent : 2px;
+    padding: 3px;
+  }
+
+.mainMenuBar a {
+    text-decoration : none;
+    color : #000000;
+    padding-top: 1px;
+    padding-bottom: 1px;
+  }
+
+
+.mainMenuBar a:hover {
+    text-decoration : none;
+    color : #CC0000;
+    /* border-right: 1px solid #336699;
+    border-bottom: 1px solid #336699;
+    border-top: 1px solid #c0dcff;
+    border-left: 1px solid #c0dcff;
+    */
+  }
+
+
+.pageTitle {
+    background-color : #9bc9ea;
+    color : #336699;
+    font-family : Arial, Helvetica;
+    font-size : 14px;
+    font-weight : bold;
+    padding-right : 10px;
+    /*margin-left : 10px;
+    text-align : right;
+    */ text-indent : 5px;
+    border-bottom-color : #336699;
+    border-bottom-style : dotted;
+    border-bottom-width : 1px;
+  }
+
+
+.moduleMenu {
+    border-left-color : #336699;
+    border-left-style : dotted;
+    border-left-width : 1px;
+    border-top-color : #336699;
+    border-top-style : dotted;
+    border-top-width : 1px;
+    color : #000000; /* #336699; */
+    font-weight : bold;
+    padding-left : 5px;
+    padding-right : 5px;
+  }
+
+
+.moduleMenu a {
+    text-decoration : none;
+    color : #000000;
+  }
+
+
+.moduleMenu a:hover {
+    color : #cc0033;
+  }
+
+
+.inputArea {
+    background-color : #CCFFCC;
+    border-color : #666666;
+    border-style : solid;
+    border-width : 1px;
+  }
+
+
+.boxEmbossed {
+    border-bottom-color : #666666;
+    border-bottom-style : solid;
+    border-bottom-width : 2px;
+    border-left-color : #FCFCFC;
+    border-left-style : solid;
+    border-left-width : 2px;
+    border-right-color : #666666;
+    border-right-style : solid;
+    border-right-width : 2px;
+    border-top-color : #FCFCFC;
+    border-top-style : solid;
+    border-top-width : 2px;
+    padding-left : 5px;
+    padding-right : 5px;
+  }
+
+
+.tableHeader, tr th {
+    background-color : #80a6c1;
+    font-weight : bold;
+    color : #ffffff;
+  }
+
+
+.tableFooter {
+    background-color : #9BC9EA;
+    border-top-width : 1px;
+    border-top-style : solid;
+    border-bottom-width : 1px;
+    border-bottom-style : solid;
+  }
+
+
+.gridTable {
+    border-top-color : #666666;
+    border-top-style : solid;
+    border-top-width : 1px;
+    border-left-color : #666666;
+    border-left-style : solid;
+    border-left-width : 1px;
+  }
+
+
+.gridTable td {
+    border-bottom-color : #666666;
+    border-bottom-style : solid;
+    border-bottom-width : 1px;
+    border-right-color : #666666;
+    border-right-style : solid;
+    border-right-width : 1px;
+  }
+
+
+.gridTable th {
+    border-bottom-color : #666666;
+    border-bottom-style : solid;
+    border-bottom-width : 1px;
+    border-right-color : #666666;
+    border-right-style : solid;
+    border-right-width : 1px;
+  }
+
+
+.gridTable tr:hover {
+    background-color : #ffff66;
+  }
+
+
+.bgOK {
+    background-color : #99ff00;
+    color : #000000;
+    font-size : 14px;
+    font-weight : bold;
+  }
+
+
+.bgError {
+    background-color : #cc3300;
+    color : #ffff66;
+    font-size : 14px;
+    font-weight : bold;
+  }
+
+/* dropdown menu */
+
+
+
+
+
+div.menu {
+    background-color: #80a6c1;
+    left: 0px;
+    /*padding: 0px 1px 1px 0px;
+    */ position: absolute;
+    top: 0px;
+    /*visibility: hidden;
+    */ z-index: 1;
+    font-weight : normal;
+    border-right: 1px solid #336699;
+    border-bottom: 1px solid #336699;
+    display : none;
+    /*border-top: 1px solid #c0dcff;
+    border-left: 1px solid #c0dcff;
+    */ /*border-top: 1px solid #f0f0f0;
+    border-right: 1px solid #660000;
+    border-bottom: 1px solid #660000;
+    border-left: 1px solid #f0f0f0;
+    */;
+  }
+
+
+div.menu a.menuItem {
+    color: #000000;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+    width: 150px;
+  }
+
+
+div.menu a.menuItem:hover, div.menu a.menuItemHighlight {
+    background-color: #336699;
+    color: #FFFFFF;
+  }
+
+/* -- end menu */
+
+/* togle */
+
+
+.toggleUp {
+    border-top-color : #C3C3C3;
+    border-left-color : #C3C3C3;
+    border-bottom-color : #666666;
+    border-right-color : #666666;
+    border-style : solid;
+    border-width : 1px;
+    padding : 3px;
+    font-weight:bold;
+    cursor : pointer;
+    background-color:#99FF99;
+  }
+
+
+.toggleDown {
+    border-top-color : #666666;
+    border-left-color : #666666;
+    border-bottom-color : #C3C3C3;
+    border-right-color : #C3C3C3;
+    border-style : solid;
+    border-width : 1px;
+    padding : 3px;
+    font-weight:bold;
+    background-color:#FFFFCC;
+  }
+
+
+.toggleDisabled {
+    border-top-color : #666666;
+    border-left-color : #666666;
+    border-bottom-color : #C3C3C3;
+    border-right-color : #C3C3C3;
+    border-style : solid;
+    border-width : 1px;
+    padding : 3px;
+    font-weight:bold;
+    background-color:#CCCCCC;
+  }
+
+/**/
+
+/* -- style agar fix --- */
+
+
+
+
+
+div#fixme {
+    /* IE5.5+/Win - this is more specific than the IE 5.0 version */ left: expression( ( 0 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+    top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+    z-index:10;
+  }
+
+
+#fixme {
+    /* Netscape 4, IE 4.x-5.0/Win and other lesser browsers will use this */ position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index:10;
+  }
+
+
+body > div#fixme {
+    /* used by Opera 5+, Netscape6+/Mozilla, Konqueror, Safari, OmniWeb 4.5+, iCab, ICEbrowser */ position: fixed;
+  }
+
+/* == end fix */

@@ -1,0 +1,214 @@
+<script>
+  <!--
+  // fungsi memeriksa validasi input
+  function validInput() {
+      /*if (document.formInput.dataDateFrom.value == "") {
+        alert("Empty Date!");
+        document.formInput.dataDateFrom.focus();
+        return false;
+      }
+      if (document.formInput.dataDateThru.value == "") {
+        alert("Empty Date!");
+        document.formInput.dataDateThru.focus();
+        return false;
+      }
+      if (document.formInput.dataDate.value == "") {
+        alert("Empty Date!");
+        document.formInput.dataDate.focus();
+        return false;
+      }*/
+      if (isNaN(document.formInput.dataRevenue.value)) {
+        alert("Enter appropriate value for total revenue!");
+        document.formInput.dataRevenue.focus();
+        return false;
+      }
+      else
+      return true;
+    } //validInput
+    // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+      return confirm("[var.strConfirmDelete]");
+    } //confirmDelete
+  function confirmApprove() {
+      return confirm("Are you sure want to approve selected salary data?");
+    } //confirmApprove
+    // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+      var intData = document.formData.totalData.value;
+      var isChecked = document.formData.chkAll.checked;
+      for (i = 1; i <= intData; i++) {
+        if (isChecked) {
+          eval("document.formData.chkID" + i + ".checked = true");
+        } else {
+          eval("document.formData.chkID" + i + ".checked = false");
+        }
+      } //for
+    } //checkAll
+    // fungsi untuk inisialisasi
+  function initPage_() {
+      /*document.formInput.dataDateFrom.focus();
+      Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+      Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+      Calendar.setup({ inputField:"dataTHRDateFrom", button:"btnTHRDateFrom" });
+      Calendar.setup({ inputField:"dataTHRDateThru", button:"btnTHRDateThru" });
+      Calendar.setup({ inputField:"dataDate", button:"btnDate" });*/
+    } //initPage
+    -->
+
+  jQuery(function ($) {
+    $('td.day').mouseup(function () {
+      console.log('alert');
+    });
+  });
+</script>
+[var.pageHeader]
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="panel-actions">
+            <div class="pull-right" id="collapse-filter">
+              <a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+            </div>
+          </div>
+          <h3 class="panel-title">[var.strWordsFILTERDATA]</h3>
+        </div>
+        <div id="list-panel" class="panel-body collapse in">
+          <form name="formReferer1" action="salary_calculation_result_hotel.php" method="post">
+            <input name="dataID" value="" type="hidden" />
+          </form>
+          <form action="" method="post" name="formInput" id="formInput" onsubmit="return validInput();" class="form-horizontal" role="form">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="dataEmployee">[var.strWordsCompany]</label>
+                <div class="col-sm-8">
+                  [var.strInputCompany]
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="dataEmployee">[var.strWordsSalarySet]</label>
+                <div class="col-sm-8">
+                  [var.strInputSalarySet]
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="dataDate">[var.strWordsSalaryDate]</label>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    [var.strInputDate]
+                    <span class="input-group-addon">
+	                          <i class="fa fa-calendar"></i>
+	                      </span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="dataDateFrom">[var.strWordsAttendanceDate]</label>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    [var.strInputDateFrom]
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </span>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    [var.strInputDateThru]
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="dataRevenue">[var.strWordsRevenue]</label>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    [var.strInputRevenue]
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="dataDateFromSC">[var.strWordsAttendanceDateSC]</label>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    [var.strInputSCDateFrom]
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </span>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    [var.strInputSCDateThru]
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="dataTHRDateFrom">[var.strWordsPeriodForTHR]</label>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    [var.strInputTHRDateFrom]
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </span>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    [var.strInputTHRDateThru]
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="col-sm-12">
+                  [var.strInputIrregular]
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  [var.strInputHideBlank]
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  [var.strInputNote]
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 form-actions">
+              <input class="btn btn-primary btn-small" name="btnStart" id="btnStart" value="[var.strWordsStartCalculation]" type="submit">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="panel-actions">
+            <div class="pull-right" id="collapse-filter">
+              <a href="#" data-toggle="collapse" data-target="#salary-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+            </div>
+          </div>
+          <h3 class="panel-title">SALARY CALCULATION LIST</h3>
+        </div>
+        <div id="salary-panel" class="panel-body collapse in">
+          <form action="" method="post" name="formData" id="formData">
+            [var.strDataDetail]
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

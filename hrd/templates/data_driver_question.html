@@ -1,0 +1,71 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td class="blank">&nbsp;</td>
+          <td class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;<strong><a href="data_recruitment_process_type.php">[var.strWordsRecruitmentProcessType]</a> | <a href="data_reference_question.php">[var.strWordsInterviewQuestion]</a> | [var.strWordsDriverQuestion]</strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top">
+[var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr>
+    <td height="5"></td>
+  </tr>
+  <tr>
+    <td valign="top" height="100%">
+[var.DataGrid;protect=no;htmlconv=no]
+  </td>
+  </tr>
+</table>
+<script type="text/javascript">
+  var myClient = {
+    editData : function(idx)
+    {
+      if ($('formMessage')) $('formMessage').style.visibility = 'hidden';
+      if ($('datagridMessage')) $('datagridMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataID').value = "";
+        $('question').value = "";
+        $('note').value = "";
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $F("detailID" + idx);
+        $('question').value = $F("question" + idx);
+        $('note').value = $F("note" + idx);
+      }
+      $('question').focus();
+      $('question').select();
+    },
+
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+</script>

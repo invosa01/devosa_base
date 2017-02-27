@@ -1,0 +1,152 @@
+<script src="scripts/ylib.js"></script>
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="scripts/acEmployee.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+	// script-script tambahan, khusus untu loockup employee
+
+	AC_targetElements = ["dataEmployee"];
+
+	// fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+	// kehilangan fokus.
+	function onCodeBlur() {
+    var kode = document.formFilter.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+	//fungsi untuk menampilkan baris baru untuk menambahkan data anak
+	function showMoreInput() { //kode = Address, or Phone
+		//document.form1.numShow.value++;
+    var n = eval("document.formInput.numShow.value;");
+    var max = eval("document.formInput.maxDetail.value;");
+    n++;
+    if (n < max) {
+			strNama = "detailRows" + n;
+      ylib_getObj(strNama).style.display = document.all ? "block" : "table-row";
+      eval("document.formInput.numShow.value++;");
+      eval("document.formInput.detailDate" + n + ".disabled = false");
+      eval("document.formInput.detailGrade" + n + ".disabled = false");
+      eval("document.formInput.detailNote" + n + ".disabled = false");
+      eval("document.formInput.detailDate" + n + ".focus()");
+    } else {
+      //alert(document.form1.numShow.value + " -- " + document.form1.maxDetail.value);
+    }
+	} //showMoreInput
+
+  //ketika checkbox delete berubah
+  function chkDeleteChanged(index) { //kode = Address, or Phone
+
+    if (index != "") {
+      var chk = eval("document.formInput.chkID" + index + ".checked");
+      if (chk) {
+        str = "true";
+      } else {
+        str = "false";
+      }
+
+      eval("document.formInput.detailDate" + index + ".disabled = " + str);
+      eval("document.formInput.detailGrade" + index + ".disabled = " + str);
+      eval("document.formInput.detailNote" + index + ".disabled = " + str);
+    }
+	} //showMoreInput
+
+</script>
+<script>
+	<!--
+  // menuju ke suatu URL
+  function goUrl(url) {
+    if (url != "") {
+
+      if (document.formInput.dataID.value == "") {
+        location.href = url + ".php";
+      } else {
+        location.href = url + ".php?dataID=" + document.formInput.dataID.value;
+      }
+    }
+  }//goUrl
+
+  // mengolah waktu load
+  function initPage_() {
+    [var.strInitCalendar]
+		init();
+		document.formFilter.dataEmployee.focus();
+		onCodeBlur();
+  }//initPage
+
+	-->
+</script>
+</head>
+
+<body leftmargin="10" topmargin="0" marginwidth="10" marginheight="0" onLoad="initPage_()">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">HISTORY OF&nbsp;Employee
+            Data </td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>&nbsp;<strong><a href="salary_basic.php">Employee Basic Salary</a> |
+           Salary Grade History </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputBox">
+<form action="" method="get" name="formFilter" id="formFilter">
+        <table border="0" cellpadding="2" cellspacing="0">
+          <tr>
+            <td nowrap>&nbsp;<strong>Employee :</strong>&nbsp;</td>
+            <td nowrap><input name="dataEmployee" type="text" id="dataEmployee" value="[var.strDataEmployee]" size="20" maxlength="20">
+              &nbsp; <input name="btnShow" type="submit" id="btnShow2" value="Show">
+              &nbsp; </td>
+            <td nowrap>&nbsp;<strong id="employee_name"> </strong> </td>
+          </tr>
+        </table>
+
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>HISTORY OF SALARY GRADE</strong></td>
+  </tr>
+  <tr align="left">
+    <form action="" method="post" name="formInput" id="formInput">
+      <td valign="top"><table border="0" cellpadding="1" cellspacing="0" class="gridTable">
+          <tr class="tableHeader">
+            <td nowrap>Start Date</td>
+            <td nowrap>Salary Grade</td>
+            <td nowrap>Note</td>
+            <td nowrap>Delete</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td colspan="4"><a href="javascript:showMoreInput();">More</a></td>
+          </tr>
+          <tr>
+            <td colspan="4"><input name="btnSave" type="submit" id="btnSave" value="Save">
+              <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]">
+            </td>
+          </tr>
+        </table></td>
+    </form>
+  </tr>
+</table>

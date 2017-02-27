@@ -1,0 +1,202 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script>
+  <!--
+  [var.strShiftTypeArray]
+
+  // fungsi untuk handle saat shift type berubah
+  // mencari start dan finish time
+  function shiftTypeChange() {
+    var kode = document.formInput.dataShiftType.value;
+
+    if (kode != "") {
+      start = document.formInput.dataStart.value;
+      finish = document.formInput.dataFinish.value;
+      var total = arrShiftType.length;
+
+      for (i = 0; i < total; i++) {
+        if (arrShiftType[i][0] == kode) {
+          start = arrShiftType[i][1];
+          finish = arrShiftType[i][2];
+          break;
+        }
+      }
+
+      document.formInput.dataStart.value = start;
+      document.formInput.dataFinish.value = finish;
+
+    }
+
+  }//shiftTypeChgange
+
+  //fungsi untuk memeriksa apakah input valid
+  function validInput() {
+    if (document.formInput.dataGroup.value == "") {
+      alert("Group Empty!");
+      document.formInput.dataGroup.focus();
+      return false;
+    }
+    if (document.formInput.dataDate.value == "") {
+      alert("Date Empty!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+    return true;
+  }//validInput
+
+  //edit data tanggal tertentu
+  function editData(tanggal) {
+    if (tanggal != "") {
+      var bln = document.formInput.dataMonth.value;
+      var thn = document.formInput.dataYear.value;
+
+      document.formInput.dataDate.value = thn + "-" + bln + "-" + tanggal;
+      eval("document.formInput.dataNote.value = document.formData.dataNote"+tanggal+".value");
+      eval("document.formInput.dataStart.value = document.formData.dataStart"+tanggal+".value");
+      eval("document.formInput.dataFinish.value = document.formData.dataFinish"+tanggal+".value");
+      eval("document.formInput.dataGroup.value = document.formData.dataGroup"+tanggal+".value");
+      eval("document.formInput.dataShiftType.value = document.formData.dataShiftCode"+tanggal+".value");
+      document.formInput.dataGroup.focus();
+    }
+  } //editEvent
+
+  //clear form
+  function addData(tanggal) {
+    if (tanggal != "") {
+      var bln = document.formInput.dataMonth.value;
+      var thn = document.formInput.dataYear.value;
+
+      document.formInput.dataDate.value = thn + "-" + bln + "-" + tanggal;
+      document.formInput.dataNote.value = "";
+      document.formInput.dataStart.value = "00:00:00";
+      document.formInput.dataFinish.value = "00:00:00";
+      document.formInput.dataGroup.value = "";
+      document.formInput.dataShiftType.value = "";
+      document.formInput.dataID.value = "";
+      document.formInput.dataShiftType.focus();
+    }
+  } //editEvent
+
+  // fungsi untuk menghapus data
+  function deleteData(id) {
+    if (id != "" && id != "undefined") {
+      var bln = document.formInput.dataMonth.value;
+      var thn = document.formInput.dataYear.value;
+
+      if (confirm("[var.strConfirmDelete]")) {
+        location.href = "shift_schedule_group.php?btnDelete=Delete&dataMonth=" + bln + "&dataYear=" + thn + "&dataID=" + id;
+      }
+
+    }
+  }//deleteEvent
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText"> &nbsp;SHIFT SCHEDULE</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table width="100%" border="0" cellpadding="1" cellspacing="0">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText"> <table width="100%" border="0" cellspacing="0" cellpadding="1">
+              <tr>
+                <td nowrap><strong><a href="shift_group.php">Shift Group</a> |
+                  Group Shift Schedule | <a href="shift_schedule_employee.php">Employee
+                  Shift Schedule</a> </strong></td>
+                <td align="right" nowrap>&nbsp; </td>
+              </tr>
+            </table>
+            </td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>Add/Edit Schedule: </strong></td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="shift_schedule_group.php" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table border="0" cellpadding="2" cellspacing="0">
+          <tr valign="top">
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td width="15%"><strong>&nbsp;Date:</strong></td>
+            <td nowrap> <input name="dataDate" type="text" id="dataDate" value="[var.strNow]" size="10" maxlength="10">
+              <input name="btnDate" type="button" id="btnDate" value=".."> &nbsp;<strong>Shift
+              Type: [var.strShiftType]</strong></td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;<strong>Start:</strong></td>
+            <td><input name="dataStart" type="text" id="dataStart3" value="00:00:00" size="10" maxlength="8">
+              &nbsp;<strong>&nbsp;Finish:
+              <input name="dataFinish" type="text" id="dataFinish" value="00:00:00" size="10" maxlength="8">
+              </strong></td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;<strong>Group:</strong></td>
+            <td>[var.strShiftGroup]</td>
+          </tr>
+          <tr valign="top">
+            <td><strong>&nbsp;Note:</strong></td>
+            <td><strong>
+              <input name="dataNote" type="text" id="dataNote" size="50" maxlength="50">
+              </strong></td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;</td>
+            <td><strong>
+              <input name="btnSave" type="submit" id="btnSave2" value="Save">
+              <input name="dataMonth" type="hidden" id="dataMonth" value="[var.strDataMonth]">
+              <input name="dataYear" type="hidden" id="dataYear" value="[var.strDataYear]">
+              <input name="dataID" type="hidden" id="dataID">
+              </strong></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputBox">
+<form action="shift_schedule_group.php" method="post" name="formFilter" id="formFilter">
+        &nbsp;<strong>Select Month :</strong> [var.strMonthList] [var.strYearList]
+        <input name="btnShow" type="submit" id="btnShow2" value="Show" onclick="document.formFilter.target = ''">
+        &nbsp;
+        <input name="btnRoaster" type="submit" id="btnRoaster" value="Show Roaster" onclick="document.formFilter.target = '_blank'">
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><form action="shift_schedule_group.php" method="post" name="formData" id="formData">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+          <tr valign="top">
+            <td width="85%">[var.strCalendar]</td>
+            <td width="15%" align="right">[var.strLegend]</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

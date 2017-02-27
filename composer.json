@@ -1,0 +1,6 @@
+{
+    "require": {
+       "phpoffice/phpword": "v0.13.*",
+        "dompdf/dompdf": "^0.7.0"
+    }
+}

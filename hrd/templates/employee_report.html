@@ -1,0 +1,165 @@
+  <script src="scripts/calendar.js"></script>
+  <script src="scripts/calendar-en.js"></script>
+  <link href="../css/calendar.css" rel="stylesheet" type="text/css">
+  <script>
+  <!--
+
+  // menentukan kriteria apa aja yang aktif, sesuai jenis report
+  function configureCriteria() {
+    var pilihan = document.formInput.dataType.value;
+    /* batal
+    if (pilihan == 0) {
+      document.formInput.dataDateFrom.disabled = false;
+      document.formInput.dataDateThru.disabled = true;
+      document.formInput.dataSection.disabled = false;
+      //document.formInput.dataSubsection.disabled = false;
+    } else if (pilihan == 1) {
+      document.formInput.dataDateFrom.disabled = false;
+      document.formInput.dataDateThru.disabled = false;
+      document.formInput.dataSection.disabled = false;
+      //document.formInput.dataSubsection.disabled = false;
+    }*/
+    //document.formInput.dataDateFrom.disabled = (pilihan == 2);
+
+  }//configgure Criteri
+
+
+  function goShow(tipe) {
+    var pilihan = document.formInput.dataType.value;
+    str = (tipe == 0) ? "" : "?btnExcel=Excel";
+    document.formInput.target = (tipe == 1) ? "" : "_blank";
+    if (pilihan == 0) {
+
+      document.formInput.action = "employee_report_new.php" + str;
+      document.formInput.submit();
+    } else if (pilihan == 1) {
+
+      document.formInput.action = "employee_report_resign.php" + str;
+      document.formInput.submit();
+    } else if (pilihan == 2) {
+
+      document.formInput.action = "employee_report_recap.php" + str;
+      document.formInput.submit();
+    }
+
+
+  }
+
+  function initPage_() {
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+    configureCriteria();
+  } // initPage
+  -->
+  </script>
+  [var.pageHeader]
+  <div class="main-content">
+  	<div class="row">
+			<div class="col-md-12">
+				[var.pageSubMenu]
+	    	<p></p>
+			</div>
+			<div class="col-md-12">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#filter-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">[var.strWordsFILTERDATA]</h3>
+					</div>
+					<div id="filter-panel" class="panel-body collapse in">
+						<form action="" method="post" name="formInput" class="form-horizontal" id="formInput" role="form">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataType">[var.strReportType]</label>
+									<div class="col-sm-9">
+										[var.strInputReportType]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataDateFrom">[var.strDateFrom]</label>
+									<div class="col-sm-9">
+	                  <div class="input-group">
+	                      [var.strInputDateFrom]
+	                      <span class="input-group-addon">
+	                          <i class="fa fa-calendar"></i>
+	                      </span>
+	                	</div>
+	                </div>	
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataDateThru">[var.strDateThru]</label>
+									<div class="col-sm-9">
+	                  <div class="input-group">
+	                      [var.strInputDateThru]
+	                      <span class="input-group-addon">
+	                          <i class="fa fa-calendar"></i>
+	                      </span>
+	                	</div>
+	                </div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataEmployeeStatus">[var.strWordsCompany]</label>
+									<div class="col-sm-9">
+										[var.strInputCompany]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataManagement">[var.strWordsManagement]</label>
+									<div class="col-sm-9">
+										[var.strInpuManagement]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataDivision">[var.strWordsDivision]</label>
+									<div class="col-sm-9">
+	                  [var.strInputDivision]
+	                </div>	
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataDepartment">[var.strWordsDepartment]</label>
+									<div class="col-sm-9">
+	                  [var.strInputDepartment]
+	                </div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataSection">[var.strWordsSection]</label>
+									<div class="col-sm-9">
+										[var.strInputSection]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataManagement">[var.strWordsSubSection]</label>
+									<div class="col-sm-9">
+										[var.strInputSubSection]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataDivision">[var.strWordsGrade]</label>
+									<div class="col-sm-9">
+	                  [var.strInputGrade]
+	                </div>	
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataDepartment">[var.strWordsLevel]</label>
+									<div class="col-sm-9">
+	                  [var.strInputPosition]
+	                </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<input class="btn btn-primary" name="btnShow" id="btnShow" value="[var.strWordsShow]" type="submit" onClick="goShow(0);">
+		            <input class="btn btn-info" name="btnExcel" type="button" id="btnExcel" value="[var.strWordsExcel]" onClick="goShow(1);">
+		          </div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

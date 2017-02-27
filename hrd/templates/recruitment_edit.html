@@ -1,0 +1,164 @@
+
+<script type="text/javascript">
+  
+  function openWindowDialog(url) 
+  {
+    var winName = "_blank";
+    var width=800;
+    var height=500;
+    var left = (screen.width - width) / 2;
+    var top = (screen.height - height) / 2;
+    var foo = window.open(url,winName,"menubar=no,status=no,resizable=yes,scrollbars=yes,modal=yes,top="+top+",left="+left+",width="+width+",height="+height+"");
+    foo.focus();
+  }
+  
+  	
+  
+</script>
+<script type="text/javascript">
+  //this function javascript below use prototype.js (if you use datagrid class you don't have to include this script//
+  jQuery(function($) {
+  	
+	
+	$('#division_code').on('change', function(){
+		var dataDivision=$(this).val();
+		$.ajax({
+				type:"POST",
+				url:"recruitment_edit.php",    
+				data: "requestAjax=ajax&codeDivision=" + dataDivision,
+				success: function(data){  
+				var dataDepartment = new Array();
+				var dataVal = new Array();
+				dataDepartment = data.split(",");
+				$("#department_code").empty();
+					$.each(dataDepartment, function(index, value) {
+					dataVal = value.split(" ");
+						$("#department_code").append(
+							$("<option></option>").val(dataVal[0]).html(value)
+						);
+					});
+					
+				}
+			}); 
+	
+	});
+	$('#department_code').on('change', function(){
+		var dataDepartment=$(this).val();
+		$.ajax({
+				type:"POST",
+				url:"recruitment_edit.php",    
+				data: "requestAjax=ajax&codeDepartment=" + dataDepartment,
+				success: function(data){  
+				var dataSection = new Array();
+				dataSection = data.split(",");
+				$("#section_code").empty();
+					$.each(dataSection, function(index, value) {
+					dataVal = value.split(" ");
+						$("#section_code").append(
+							$("<option></option>").val(dataVal[0]).html(value)
+						);
+						
+					});					
+				}
+			}); 
+	});
+	
+	$('#section_code').on('change', function(){
+		var dataSection=$(this).val();
+		$.ajax({
+				type:"POST",
+				url:"recruitment_edit.php",    
+				data: "requestAjax=ajax&codeSection=" + dataSection,
+				success: function(data){  
+				var dataSubSection = new Array();
+				dataSubSection = data.split(",");
+				$("#sub_section_code").empty();
+					$.each(dataSubSection, function(index, value) {
+					dataVal = value.split(" ");
+						$("#sub_section_code").append(
+							$("<option></option>").val(dataVal[0]).html(value)
+						);
+						
+					});					
+				}
+			}); 
+	});
+	
+	$('#position_code').on('change', function(){
+		var dataPosition=$(this).val();
+		$.ajax({
+				type:"POST",
+				url:"recruitment_edit.php",    
+				data: "requestAjax=ajax&codePosition=" + dataPosition,
+				success: function(data){  
+					$("#label_actual_number").html(data);	
+					$("#actual_number").val(data);					
+				}
+			}); 
+	});
+	  var myClient = {
+	    submitCount : 0,
+	    doChangeDepartment : function(val)
+	    {
+	      if (this.submitCount != 0) return false;
+	      this.submitCount++;
+	
+	      queryString = "ajax=1&action=changeDepartment&department_code=" + val;
+	      var obj = this;
+	      new Ajax.Request("recruitment_edit.php",
+	      { method:'get',
+	        parameters: queryString,
+	        onComplete: function(transport, json)
+	        {
+	          //alert(transport.responseText  );
+	          //if ((transport.responseText || '') == '') return false;
+	          $('actual_number').value = transport.responseText;
+	          $('label_actual_number').update ( transport.responseText );
+	          obj.submitCount = 0;
+	        },
+	        onLoading: function()
+	        {
+	        },
+	        onFailure: function()
+	        {
+	        }
+	      });
+	    },
+	   doChangeRequest: function(val) {
+		// var sect = document.formInput.user_name.value;
+			
+		}, 
+	    confirmSave : function()
+	    {
+	      if (this.submitCount != 0) return false;
+	      this.submitCount++;
+	      if (myformInput.doSubmit())
+	      {
+	        return confirm('[var.strConfirmSave]');
+	      }
+	      else
+	      {
+	        this.submitCount = 0;
+	        return false;
+	      }
+	    }
+	  }
+	  
+	  function  doChangeRequest() {
+		var sect = document.formInput.user_name.value;
+		alert(sect);
+		}  
+		})  
+</script>
+[var.pageHeader]
+<div class="main-content">
+	<div class="row">
+		<div class="col-md-12">
+			[var.pageSubMenu]
+			<p></p>
+		</div>
+		<div class="col-md-12">
+			[var.formInput;protect=no;htmlconv=no]
+		</div>
+	</div>
+</div>

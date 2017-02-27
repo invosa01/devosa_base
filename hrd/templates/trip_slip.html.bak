@@ -1,0 +1,39 @@
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.pageSubMenu]
+	    	<p></p>
+  		</div>
+  		<div class="col-md-12">
+  			[var.formFilter;protect=no;htmlconv=no]
+  		</div>
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">BUSINESS TRIP SLIP</h3>
+					</div>
+					<div id="list-panel" class="panel-body collapse in">
+						[var.DataGrid;protect=no;htmlconv=no]
+					</div>
+				</div>
+  		</div>
+  	</div>
+  </div>
+<script type="text/javascript">
+	var myClient = {
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+</script>

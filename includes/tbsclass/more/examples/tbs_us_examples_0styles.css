@@ -1,0 +1,40 @@
+.title-page {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+}
+.text-mini {
+	font-size: 10px;
+}
+.title-section {
+	font-weight: bold;
+}
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	background-color: #ECE6FB;
+
+}
+table {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.text-section2 {
+	font-style: italic;
+	color: #0099CC;
+}
+.text-example2 {
+	color: #006600;
+}
+.title-section2 {
+	font-weight: bold;
+	text-decoration: underline;
+}
+.back-special2 {
+	background-color: #D7D7FF;
+}
+.text-prm {
+	color: #333399;
+}.borders01 {
+	border: 1px solid #006699;
+}

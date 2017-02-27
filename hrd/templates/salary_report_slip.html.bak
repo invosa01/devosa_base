@@ -1,0 +1,82 @@
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+
+<!--<link type="text/css" rel="stylesheet" href="artajasa.css">-->
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<link href="ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+
+AC_targetElements = ["employee_name"];
+        // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan foku
+function onCodeBlur() {
+var kode = document.formData.strIdentitasPemotongNIK.value;
+var nama = AC_getNameByCode(kode);
+//      alert(kode);
+var obj = document.getElementById("employeeName");
+obj.innerHTML = nama;
+
+return 1;
+}
+// fungsi memeriksa validasi input
+  function goPage(no) {
+  if (no != "") {
+    document.formInput.dataPage.value = no;
+    document.formInput.btnShow.click();
+  }
+}//goPage
+
+function validInput() {
+  if (document.form1.dataCompany.value == "") {
+    alert("Please Choose Company!");
+    return false;
+  }
+  else {
+    return true;
+  }
+} //validInput
+
+[var.strInitAction]
+</script>
+
+<form name="form1" id="form1" method="post">
+<body leftmargin="10" topmargin="0"  marginheight="0" marginwidth="10">
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+  <td class="pageHeaderTitle" align="left"> <table border="0" cellpadding="1" cellspacing="0">
+      <tbody>
+        <tr>
+          <td class="blank" width="20">&nbsp;</td>
+          <td class="pageHeaderTitleText" nowrap="nowrap">&nbsp;Salary Slip</td>
+        </tr>
+      </tbody>
+    </table></td>
+</tr>
+<!-- <tr>
+  <td> <table border="0" cellspacing="0" cellpadding="1">
+      <tr>
+        <td width="20" class="blank">&nbsp;</td>
+        <td nowrap>&nbsp;<strong><a href="salary_report.php">Salary Report</a> | <a href="salary_report_tax.php">Tax Report</a> | <a href="salary_report_jamsostek.php">BPJS Ketenagakerjaan Report</a> | BPJS Kesehatan Report | <a href="salary_report_overtime.php">Overtime Report</a> | <a href="salary_report_espt.php">E-SPT Report</a></strong></td>
+      </tr>
+    </table></td>
+</tr> -->
+  <tr><td>&nbsp;</td></tr>
+          <tr>
+            <td valign="top" class="inputBox">
+        [var.formInput; protect=no; htmlconv=no]
+           </form>
+            </td>
+          </tr>
+  <tr><td>&nbsp;</td></tr>
+          <tr style="width:100%">
+            <td>
+        [var.dataGrid; protect=no; htmlconv=no]
+            </td>
+          </tr>
+</table>
+
+
+  </body>
+  </html>

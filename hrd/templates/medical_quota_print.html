@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title></title>
+
+
+  <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+
+  <link type="text/css" rel="stylesheet" href="[var.strPrintCss]">
+
+  <script type="text/javascript">
+  <!--
+	
+  // fungsi untuk inisialisasi
+  function initPage() {
+    [var.strPrintInit]
+  }//initPage
+  -->
+  </script>
+  <style>
+    [onload;file=[var.strStyle];noerr]
+  </style>
+</head>
+
+
+<body leftmargin="10" topmargin="0" onLoad="initPage();" marginheight="0" marginwidth="10">
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr> 
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td></td>
+  </tr>
+  <tr> 
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr class="listTop"> 
+    <td><strong>LIST OF MEDICAL QUOTA DETAIL</strong></td>
+  </tr>
+  <tr> 
+    <td> <form action="" method="post" name="formData" id="formData">
+        <table class="gridTable" border="0" cellpadding="1" cellspacing="0">
+          <tbody>
+            <tr class="tableHeader">
+              <td rowspan="3" nowrap="nowrap" class="tableHeader" align="center"> [var.strWordsID]</td>
+              <td rowspan="3" nowrap="nowrap" class="tableHeader" align="center">[var.strWordsEmployeeName]</td>
+              <td rowspan="3" nowrap="nowrap" class="tableHeader" align="center">[var.strWordsGender]</td>
+              <td rowspan="3" nowrap="nowrap" class="tableHeader" align="center">[var.strWordsGrade]</td>
+              <td rowspan="3" nowrap="nowrap" class="tableHeader" align="center">Family<br>Status</td>
+              <td rowspan="3" nowrap="nowrap" class="tableHeader" align="center">Medical<br>Quota<br>Status</td>
+              <td rowspan="2" colspan="6"nowrap="nowrap" class="tableHeader" align="center">[var.strWordsOutpatient]</td>
+
+              [var.strDataHeader]
+              [var.strDataDetail]
+        </table>
+      </form></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,32 @@
+# This file has been generated using '.gitattributes Generator'.
+# You can generate yours at http://ihopepeace.github.io/gitattributes_generator
+
+* text=auto
+
+# Explicitly declare text files that should be normalized and converted
+# to native line endings on checkout.
+*.md text
+*.txt text
+*.lock text
+*.env text
+*.gitignores text
+*.ini text
+*.htaccess text
+
+# Declare files that should have CRLF line endings on checkout.
+*.bat eol=crlf
+*.sh eol=crlf
+
+# Declare files that should have LF line endings on checkout.
+*.php eol=lf
+*.css eol=lf
+*.js eol=lf
+*.json eol=lf
+*.xml eol=lf
+*.yml eol=lf
+
+# Declare files that are truly binary and shouldn't be modified.
+*.jpeg binary
+*.png binary
+*.jpg binary
+*.ico binary

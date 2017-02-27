@@ -1,0 +1,291 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+  <!--
+
+  function clearForm() {
+    document.formInput.dataEmployee.value = "";
+    document.formInput.dataNote.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataDateFrom.focus();
+  }//clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+
+    if (document.formInput.dataEmployee.value == "") {
+      alert("Empty Employee ID!");
+      document.formInput.dataEmployee.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  // fungsi untuk menghitung total
+  function getTotalRight() {
+    var total = 0;
+    
+    if (!isNaN(document.formInput.dataPesangon.value) && document.formInput.dataPesangon.value != "")
+      total += parseFloat(document.formInput.dataPesangon.value);
+    if (!isNaN(document.formInput.dataOtherRight.value) && document.formInput.dataOtherRight.value != "")
+      total += parseFloat(document.formInput.dataOtherRight.value);
+
+    document.formInput.dataTotalRight.value = total;
+  }
+
+  // fungsi untuk menghitung total kewajiabn
+  function getTotalObligation() {
+    var total = 0;
+    if (!isNaN(document.formInput.dataLoan.value) && document.formInput.dataLoan.value != "")
+      total += parseFloat(document.formInput.dataLoan.value);
+    if (!isNaN(document.formInput.dataOtherLoan.value) && document.formInput.dataOtherLoan.value != "")
+      total += parseFloat(document.formInput.dataOtherLoan.value);
+    if (!isNaN(document.formInput.dataOtherObligation.value) && document.formInput.dataOtherObligation.value != "")
+      total += parseFloat(document.formInput.dataOtherObligation.value);
+
+    document.formInput.dataTotalObligation.value = total;
+  }
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDate.focus();
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+    Calendar.setup({ inputField:"dataResignDate", button:"btnResignDate" });
+    init();
+    onCodeBlur();
+
+  }//initPage
+  -->
+  jQuery(function($) {
+		$('#dataEmployee').autocomplete({
+			source: "hrd_ajax_source.php?action=getemployee",
+			minLength: 2,
+			select: function( event, ui ) {
+				console.log(ui);
+				$('#employee_name').html(ui.item.label);
+			}
+		});
+	});
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+				[var.pageSubMenu]
+	    	<p></p>
+			</div>
+			<div class="col-md-12">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#input-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">[var.strWordsINPUTDATA]</h3>
+					</div>
+					<div id="input-panel" class="panel-body collapse in">
+						[var.strMessages]
+						<form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();" class="form-horizontal" role="form">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsProposalDate]</label>
+									<div class="col-sm-8">
+										<div class="input-group">
+                      [var.strInputDate]
+                      <span class="input-group-addon">
+                          <i class="fa fa-calendar"></i>
+                      </span>
+	                	</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsProposalType]</label>
+									<div class="col-sm-8">
+										[var.strInputType]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataType">[var.strWordsEmployeeID]</label>
+									<div class="col-sm-8">
+										<div class="input-group">
+		                    [var.strInputEmployee]
+		                    <span class="input-group-addon" style="padding: 2px 8px !important;">
+		                        <i class="fa fa-info-circle"></i>
+		                        <input name="btnGet" type="submit" id="btnGet" value="[var.strWordsGetInfo]">
+		                    </span>
+		              	</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataType">&nbsp;</label>
+									<div class="col-sm-8">
+										<strong id="employee_name">[var.strEmpName]</strong>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsResignDate]</label>
+									<div class="col-sm-8">
+										<div class="input-group">
+                      [var.strInputResignDate]
+                      <span class="input-group-addon">
+                          <i class="fa fa-calendar"></i>
+                      </span>
+	                	</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataType">[var.strWordsNoteReason]</label>
+									<div class="col-sm-8">
+										[var.strInputNote]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataType">[var.strWordsStatus]</label>
+									<div class="col-sm-8" style="padding-top: 7px;">
+										<strong>[var.strInputStatus]</strong>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">	
+								<h4 class="header-line no-margin">[var.strWordsEmployeeInformation]</h4>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataType">[var.strWordsJoinDate]</label>
+									<div class="col-sm-8" style="padding-top: 7px;">
+										<strong>[var.strInputEmployeeJoin]</strong>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataType">[var.strWordsEmployeeStatus]</label>
+									<div class="col-sm-8" style="padding-top: 7px;">
+										<strong>[var.strInputEmployeeStatus]</strong>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataType">[var.strWordsSalary]</label>
+									<div class="col-sm-8" style="padding-top: 7px;">
+										<strong>[var.strInputEmployeeSalary]</strong>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataType">&nbsp;</label>
+									<div class="col-sm-8" style="padding-top: 7px;">
+										<strong>{Basic Salary + Transport + Housing}</strong>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataType">[var.strWordsLeaveRemain]</label>
+									<div class="col-sm-8" style="padding-top: 7px;">
+										<strong>[var.strInputEmployeeLeave]</strong>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataType">[var.strWordsAttendance]</label>
+									<div class="col-sm-8" style="padding-top: 7px;">
+										<strong>[var.strInputAttendance] of [var.strInputWorkingDays]</strong>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">	
+								<h4 class="header-line no-margin">[var.strWordsEmployeeRights]</h4>
+								<div>&nbsp;</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataType">[var.strWordsSeparationPay]</label>
+									<div class="col-sm-5">
+										[var.strInputPesangon]
+									</div>
+									<div class="col-sm-3" style="padding-top: 7px;">
+										{n * [var.strWordsSalary]}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsOthers]</label>
+									<div class="col-sm-8">
+										[var.strInputOtherRight]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsTotalRight]</label>
+									<div class="col-sm-8">
+										<input class="form-control numeric" type="text" name="dataTotalRight" id="dataTotalRight" value="[var.strInputTotalRight]" readonly >
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsRightNote]</label>
+									<div class="col-sm-8">
+										[var.strInputRightNote]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">	
+								<h4 class="header-line no-margin">[var.strWordsEmployeeObligation]</h4>
+								<div>&nbsp;</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsOutstandingLoan]</label>
+									<div class="col-sm-8">
+										[var.strInputLoan]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsOtherLoan]</label>
+									<div class="col-sm-8">
+										[var.strInputOtherLoan]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsOthers]</label>
+									<div class="col-sm-8">
+										[var.strInputOtherObligation]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsTotalObligation]</label>
+									<div class="col-sm-8">
+										<input type="text" name="dataTotalObligation" id="dataTotalObligation" value="[var.strInputTotalObligation]" readonly class='form-control numeric'>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsNote]</label>
+									<div class="col-sm-8">
+										[var.strInputObligationNote]
+									</div>
+								</div>
+							</div>	
+							<div class="col-md-12">
+								<input class="btn btn-primary" name="btnSave" type="submit" id="btnSave2" value="[var.strWordsSave]">
+	              <input class="btn btn-danger" name="btnNew" type="button" id="btnNew" value="[var.strWordsClearForm]" onClick="location.href = 'resign_edit.php';"> 
+	              [var.strBtnPrint]
+                <input name="dataID" type="hidden" id="dataID2" value="[var.strDataID]">	
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

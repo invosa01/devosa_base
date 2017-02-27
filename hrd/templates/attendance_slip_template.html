@@ -1,0 +1,103 @@
+<table style="width:100%;">
+    <tr>
+        <td><strong style="font-size: 15px;">[var.strCompany]</strong></td>
+        <td style="font-size: 12px;text-align: right;">Print Date : [var.strNow]</td>
+    </tr>
+    <tr>
+        <td><span style="font-size: 12px;">[var.strCompanyAdress]</span></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td><span style="font-size: 12px;">Phone: [var.strCompanyPhone], Fax : [var.strCompanyFax]</span></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td><span style="font-size: 12px;">[var.strCompanyCity]</span></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;"><strong style="font-size: 13px;">Attendance Detail By
+                                                                                     Regional</strong></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;font-size: 13px;">Period : [var.strDateFromView] to
+                                                                    [var.strDateThruView]
+        </td>
+    </tr>
+</table>
+<table style="width:100%;">
+    <thead>
+    <tr>
+        <th style="width : 12%;background: none;">&nbsp;</th>
+        <th style="width : 35%;background: none;">&nbsp;</th>
+        <th style="width : 4%;background: none;">&nbsp;</th>
+        <th style="width : 11%;background: none;">&nbsp;</th>
+        <th style="background: none;">&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td style="font-size: 12px;"><strong>Employee</strong></td>
+        <td style="font-size: 12px;">: [var.strEmployeeName]</td>
+        <td style="font-size: 12px;">&nbsp;</td>
+        <td style="font-size: 12px;"><strong>Department</strong></td>
+        <td style="font-size: 12px;">: [var.strDivision]</td>
+    </tr>
+    <tr>
+        <td style="font-size: 12px;"><strong>Employee ID</strong></td>
+        <td style="font-size: 12px;">: [var.strEmployeeID]</td>
+        <td style="font-size: 12px;">&nbsp;</td>
+        <td style="font-size: 12px;"><strong>Section</strong></td>
+        <td style="font-size: 12px;">: [var.strSection]</td>
+    </tr>
+    <tr>
+        <td style="font-size: 12px;"><strong>Branch</strong></td>
+        <td style="font-size: 12px;">: [var.strBranch]</td>
+        <td style="font-size: 12px;">&nbsp;</td>
+        <td style="font-size: 12px;"><strong>Job Title</strong></td>
+        <td style="font-size: 12px;">: [var.strFunctional]</td>
+    </tr>
+    </tbody>
+</table>
+<table id="attendance-slip"
+       border="1"
+       style="width:100%;border: 1px solid #999;border-collapse: collapse;margin-top:10px;">
+    <thead>
+    <tr>
+        <th style="padding: 4px;background: none;width: 10%;font-size: 11px;text-align: center;" rowspan="2">
+            <strong>No.</strong></th>
+        <th style="padding: 4px;background: none;width: 30%;font-size: 11px;text-align: center;" colspan="2">
+            <strong>IN</strong></th>
+        <th style="padding: 4px;background: none;width: 10%;font-size: 11px;text-align: center;" rowspan="2"><strong>Attendance
+                                                                                                                     Code</strong>
+        </th>
+        <!-- <th style="padding: 4px;background: none;width: 10%;font-size: 11px;text-align: center;" rowspan="2"><strong>Shift</strong></th> -->
+        <th style="padding: 4px;background: none;width: 30%;font-size: 11px;text-align: center;" colspan="2">
+            <strong>OUT</strong></th>
+        <th style="padding: 4px;background: none;width: 10%;font-size: 11px;text-align: center;" rowspan="2"><strong>Late
+                                                                                                                     in
+                                                                                                                     Minute</strong>
+        </th>
+        <th style="padding: 4px;background: none;width: 10%;font-size: 11px;text-align: center;" rowspan="2"><strong>Early
+                                                                                                                     Duty
+                                                                                                                     Off</strong>
+        </th>
+        <!-- <th style="padding: 4px;background: none;font-size: 11px;text-align: center;" rowspan="2"><strong>Late Deduction</strong></th>	 -->
+    </tr>
+    <tr>
+        <th style="padding: 4px;width: 20%;background: none;font-size: 11px;text-align: center;"><strong>Date</strong>
+        </th>
+        <th style="padding: 4px;width: 10%;background: none;font-size: 11px;text-align: center;"><strong>Duty
+                                                                                                         On</strong>
+        </th>
+        <th style="padding: 4px;width: 20%;background: none;font-size: 11px;text-align: center;"><strong>Date</strong>
+        </th>
+        <th style="padding: 4px;width: 10%;background: none;font-size: 11px;text-align: center;"><strong>Duty
+                                                                                                         Off</strong>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    [var.strResult]
+    </tbody>
+</table>

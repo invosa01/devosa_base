@@ -1,0 +1,157 @@
+<script>
+   <!--
+   function resetInput() {
+
+      document.formInput.dataName.value = "";
+      document.formInput.dataNote.value = "";
+      document.formInput.dataID.value = "";
+      document.formInput.dataName.focus();
+   }//resetInput
+
+   // fungsi untuk menyiapkan data diedit
+   function editData(index) {
+      if (index != "") {
+         document.formInput.dataName.value = eval("document.formData.detailName" + index + ".value");
+         document.formInput.dataNote.value = eval("document.formData.detailNote" + index + ".value");
+         document.formInput.dataID.value = eval("document.formData.chkID" + index + ".value");
+         document.formInput.dataName.select();
+      }
+   }//editData
+
+   //fungsi untuk memeriksa apakah input valid
+   function validInput() {
+      if (document.formInput.dataName.value == "") {
+         alert("Empty Group Name");
+         document.formInput.dataName.value
+         return false;
+      }
+      return true;
+   }//validInput
+
+   // fungsi untuk menngecek atau menguncheck checkbox
+   function checkAll() {
+      var intData = document.formData.totalData.value;
+      var isChecked = document.formData.chkAll.checked;
+
+      for (i = 1; i <= intData; i++) {
+         if (isChecked) {
+            eval("document.formData.chkID" + i + ".checked = true");
+         } else {
+            eval("document.formData.chkID" + i + ".checked = false");
+         }
+      } //for
+
+   }//checkAll
+
+   // fungsi untuk minta konfirmasi delete
+   function confirmDelete() {
+      return confirm("[var.strConfirmDelete]");
+   } //confirmDelete
+
+   // fungsi untuk inisialisasi
+   function initPage_() {
+      document.formInput.dataName.focus();
+   }//initPage
+   -->
+</script>
+<script>
+   //menampilkan detail karyawan yang ikut lembur
+   function showDetail(index) {
+      if (index == "" || index == "undefined") {
+         return 0;
+      }
+
+    kiri = (screen.width / 2) - 150;
+    atas = (screen.height / 2) - 10;
+
+      id = eval("document.formData.chkID" + index + ".value");
+    url = "shift_group_show_member.php?dataID=" + id + "&objectName=detailData" + index;
+    url += "&objectView=detail" + index;
+    properti = "width=300, height=20, resizable=no, statusbar=no,menubar=no, titlebar=no, top=" + atas + ", left=" + kiri;
+
+      var obj = window.open("","popup",properti);
+    obj.document.write("Please wait ...");
+    obj.document.title = "Please wait ..";
+      window.open(url,"popup",properti);
+   }
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">SHIFT Data</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="20">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText"><strong>Shift Group | <a href="shift_schedule_group.php">Group
+            Shift Schedule</a> | <a href="shift_schedule_employee.php">Employee
+            Shift Schedule</a> </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table width="400" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr>
+            <td colspan="3">&nbsp;<strong>Input Data Shift Group</strong></td>
+          </tr>
+          <tr>
+            <td width="15%" nowrap>&nbsp;Group Name</td>
+            <td width="5%">:</td>
+            <td width="80%"><input name="dataName" type="text" id="dataName" size="50" maxlength="20"></td>
+          </tr>
+          <tr>
+            <td height="21" nowrap> &nbsp;Note</td>
+            <td>:</td>
+            <td><input name="dataNote" type="text" id="dataCode3" size="50" maxlength="50"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><input name="btnSave" type="submit" id="btnSave" value="Save">
+              <input name="dataID" type="hidden" id="dataID"> <input name="btnNew" type="button" id="btnNew" value="Add New" onClick="resetInput();"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="listTop"><strong>LIST OF SHIFT GROUP</strong></td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData">
+        <table width="400" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+          <tr class="tableHeader">
+            <td width="5">&nbsp;</td>
+            <td nowrap class="tableHeader"> GROUP NAME</td>
+            <td nowrap class="tableHeader">NOTE</td>
+            <td align="right" nowrap class="tableHeader">MEMBER</td>
+            <td width="19">&nbsp;</td>
+            <td width="19">&nbsp;</td>
+            <td width="19">&nbsp;</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td><input name="chkAll" type="checkbox" id="chkAll" value="checkbox" onClick="checkAll();"></td>
+            <td colspan="6"><input name="btnDelete" type="submit" id="btnDelete" value="Delete" onClick="return confirmDelete();">
+              <input name="totalData" type="hidden" id="totalData" value="[var.intTotalData]"></td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

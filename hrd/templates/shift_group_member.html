@@ -1,0 +1,195 @@
+
+<script>
+  <!--
+  function resetInput() {
+
+    document.formInput.dataName.value = "";
+    document.formInput.dataNote.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataName.focus();
+  }//resetInput
+
+  // fungsi untuk menyiapkan data diedit
+  function editData(index) {
+    if (index != "") {
+      document.formInput.dataName.value = eval("document.formData.detailName" + index + ".value");
+      document.formInput.dataNote.value = eval("document.formData.detailNote" + index + ".value");
+      document.formInput.dataID.value = eval("document.formData.chkID" + index + ".value");
+      document.formInput.dataName.select();
+    }
+  }//editData
+
+  //fungsi untuk memeriksa apakah input valid
+  function validInput() {
+    if (document.formInput.dataEmployee.value == "") {
+      alert("Empty Employee ID");
+      document.formInput.dataEmployee.value
+      return false;
+    }
+    return true;
+  }//validInput
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll(tipe) {
+    var intData = eval("document.formData" + tipe + ".totalData" + tipe + ".value");
+    var isChecked = eval("document.formData" + tipe + ".chkAll" + tipe + ".checked");
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData" + tipe + ".chkID" + tipe + i + ".checked = true");
+      } else {
+        eval("document.formData" + tipe + ".chkID" + tipe + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataEmployee.focus();
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan="2" align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">SHIFT Data</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="2"><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="20">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText"><strong><a href="shift_group.php">Shift
+            Group</a> | <a href="shift_schedule_group.php">Group Shift Schedule</a>
+            | <a href="shift_schedule_employee.php">Employee Shift Schedule</a>
+             </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"> <table width="95%" border="0" cellspacing="0" cellpadding="0">
+        <tr valign="top">
+          <td width="50%" class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+              <table width="95%" border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td colspan="3" nowrap><strong>&nbsp;Group : [var.strGroupName]</strong></td>
+                </tr>
+                <tr>
+                  <td width="15%" nowrap>&nbsp;Employee ID</td>
+                  <td width="5%">:</td>
+                  <td width="80%" nowrap> <input name="dataEmployee" type="text" id="dataEmployee2" size="30" maxlength="20">
+                    <input name="btnAdd" type="submit" value="Add To Group"> &nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td> <input name="dataID" type="hidden" value="[var.strDataID]">
+                  </td>
+                </tr>
+              </table>
+            </form></td>
+        </tr>
+        <tr valign="top">
+          <td>&nbsp;</td>
+        </tr>
+        <tr valign="top">
+          <td class="listTop"><strong>LIST OF Member Group [var.strGroupName]</strong></td>
+        </tr>
+        <tr valign="top">
+          <td><form action="" method="post" name="formData" id="formData">
+              <table width="100%" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+                <tr class="tableHeader">
+                  <td width="5">&nbsp;</td>
+                  <td nowrap class="tableHeader"> EMPLOYEE ID</td>
+                  <td nowrap class="tableHeader">EMPLOYEE NAME</td>
+                </tr>
+                [var.strDataDetail]
+                <tr>
+                  <td><input name="chkAll" type="checkbox" id="chkAll5" value="checkbox" onClick="checkAll('');"></td>
+                  <td colspan="2"><input name="btnDelete" type="submit" id="btnDelete4" value="Remove From Group" onClick="return confirmDelete();">
+                    <input name="totalData" type="hidden" id="totalData4" value="[var.intTotalData]">
+                    <input name="dataID" type="hidden" value="[var.strDataID]"></td>
+                </tr>
+              </table>
+            </form></td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"> <table width="95%" border="0" cellpadding="2" cellspacing="0" bgcolor="#FFFFEC">
+        <tr>
+          <td class="inputBox"> <form action="" method="post" name="formSearch" id="formSearch">
+              <table width="100%" border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td colspan="3" nowrap><strong>&nbsp;SEARCH EMPLOYEE</strong></td>
+                </tr>
+                <tr>
+                  <td nowrap>&nbsp;Department</td>
+                  <td>:</td>
+                  <td nowrap>[var.strFilterDepartment]</td>
+                </tr>
+                <tr>
+                  <td nowrap>&nbsp;Section</td>
+                  <td>:</td>
+                  <td nowrap>[var.strFilterSection]</td>
+                </tr>
+                <tr>
+                  <td nowrap>&nbsp;Employee ID/Name</td>
+                  <td width="5%">:</td>
+                  <td nowrap> [var.strFilterEmployee] </td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td> <input name="dataID" type="hidden" value="[var.strDataID]">
+                    <input name="btnSearch" type="submit" id="btnSearch" value="Search">
+                  </td>
+                </tr>
+              </table>
+            </form></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><strong>Search Result</strong></td>
+        </tr>
+        <tr>
+          <td><form action="" method="post" name="formDataSearch" id="formDataSearch">
+              <table width="100%" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+                <tr class="tableHeader">
+                  <td width="5">&nbsp;</td>
+                  <td nowrap class="tableHeader"> EMPLOYEE ID</td>
+                  <td nowrap class="tableHeader">EMPLOYEE NAME</td>
+                </tr>
+                [var.strDataDetailSearch]
+                <tr>
+                  <td><input name="chkAllSearch" type="checkbox" value="checkbox" onClick="checkAll('Search');"></td>
+                  <td colspan="2"><input name="btnAddMore" type="submit" id="btnAddMore" value="Add To Group">
+                    <input name="totalDataSearch" type="hidden" value="[var.intTotalDataSearch]">
+                    [var.strHidden]
+                    <input name="dataID3" type="hidden" value="[var.strDataID]"></td>
+                </tr>
+              </table>
+            </form></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+      </table></td>
+  </tr>
+</table>

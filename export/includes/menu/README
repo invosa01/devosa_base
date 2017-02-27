@@ -1,0 +1,16 @@
+#==============================================================================#
++-----------------------------------+
+| PHP DHTML MENU generator Class    |
++-----------------------------------+
+
+Author	: Dedy Sukandar
+Email   : dedy@sukandar.com
+Website	: http://www.sukandar.com/
+Licence	: Free
+Version	: 1.0
+
+clsMenu is a class for generating DHTML menu
+
+For using this class:
+  see demo.php
+#==============================================================================#

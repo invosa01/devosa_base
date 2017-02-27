@@ -1,0 +1,145 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+  <!--
+
+  function clearForm() {
+    document.formInput.dataEmployee.value = "";
+    document.formInput.dataNote.value = "";
+    document.formInput.dataAmount.value = "0";
+    document.formInput.dataID.value = "";
+    document.formInput.dataEmployee.focus();
+
+  }//clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+    if (document.formInput.dataEmployee.value == "") {
+      alert("Empty Employee ID!");
+      document.formInput.dataEmployee.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataEmployee.focus();
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+    init();
+    onCodeBlur();
+  }//initPage
+	-->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan="3" align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3" align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">Reward Data</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="3"><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>&nbsp;<strong>Data Entry | <a href="reward_list.php">Reward
+            List</a>  </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3" class="inputTop">[var.strWordsINPUTDATA]</td>
+  </tr>
+  <tr>
+    <td width="45%" valign="top" class="inputBox">
+      <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;Employee ID</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputEmployee]&nbsp; 
+                    <br> <strong id="employee_name"></strong>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Reward Code</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputCode]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Reward Date</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDate]&nbsp; <input name="btnDate" type="button" id="btnDate" value=".."></td>
+                </tr>
+
+                <tr valign="top">
+                  <td nowrap>&nbsp;Note</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputNote]</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td> <input name="btnSave" type="submit" id="btnSave" value="Save">
+                    <input name="btnNew" type="button" id="btnNew" value="Clear" onClick="clearForm();">
+                    <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]"></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+            <td width="20" valign="top">&nbsp;</td>
+            <td valign="top">&nbsp; </td>
+          </tr>
+        </table>
+      </form></td>
+
+  </tr>
+</table>

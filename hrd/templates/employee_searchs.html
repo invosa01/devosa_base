@@ -1,0 +1,364 @@
+<script type="text/javascript" src="../js/ajax.js"></script>
+<!--<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="scripts/acEmployee.js"></script>
+<script type="text/javascript" src="employee_data.php"></script>-->
+<script type="text/javascript">
+
+  //AC_targetElements = ["dataEmployeeID"];
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  
+  /*function onCodeBlur() {
+    var kode = document.formInput.dataEmployeeID.value;
+    var nama = AC_getNameByCode(kode);
+    //var obj = document.getElementById("dataName");
+    //obj.value = nama;
+
+    if (nama != "") {
+      document.formInput.dataName.value = nama;
+    }
+
+    return 1;
+  }*/
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+
+
+  // fungsi untuk minta konfirmasi chek data
+  function confirmDenied() {
+    ok = confirm("Are you sure want to denied changes of selected data?");
+    if (ok) {
+      // cari dulu, minta alasan
+      var intData = document.formData.totalData.value;
+      for (i = 1; i <= intData; i++) 
+      {
+        if (eval("document.formData.DataGrid1_chkID" + i + ".checked")) 
+        {
+          nama = eval("document.formData.detailName" + i + ".value");
+          str = prompt("Enter denial note for \n " + nama);
+          eval("document.formData.detailDenied" + i + ".disabled = false");
+          if (str != null)
+            eval("document.formData.detailDenied" + i + ".value = '" + str + "' ");
+          else
+            return false;
+        }
+      } //for
+    }
+    return ok;
+  } //confirmDelete
+
+  // fungsi untuk minta konfirmasi chek data
+  function confirmCheck() {
+    return confirm("Are you sure want to check/approve selected data?");
+  } //confirmDelete
+
+  // fungsi untuk inisialisasi
+  function initPage_()
+  {
+     document.formInput.dataEmployeeID.focus();  
+  }//initPage
+
+
+  // fungsi untuk menuju ke print page tertentu
+  function printData() 
+  {
+    document.formData.btnPrint.click();
+  }//printData
+ 
+  function checkFull(chk)
+  {
+    if (chk)
+      document.formData.dataFull.value = 1;
+    else
+      document.formData.dataFull.value = 0;
+  }
+  
+  
+  //
+  var createElement = (function()
+  {
+  	// Detect IE using conditional compilation
+    if (/*@cc_on @*//*@if (@_win32)!/*@end @*/false)
+    {
+        // Translations for attribute names which IE would otherwise choke on
+        var attrTranslations =
+        {
+            "class": "className",
+            "for": "htmlFor"
+        };
+
+        var setAttribute = function(element, attr, value)
+        {
+            if (attrTranslations.hasOwnProperty(attr))
+            {
+                element[attrTranslations[attr]] = value;
+            }
+            else if (attr == "style")
+            {
+                element.style.cssText = value;
+            }
+            else
+            {
+                element.setAttribute(attr, value);
+            }
+        };
+
+        return function(tagName, attributes)
+        {
+            attributes = attributes || {};
+	
+            // See http://channel9.msdn.com/Wiki/InternetExplorerProgrammingBugs
+            if (attributes.hasOwnProperty("name") ||
+                attributes.hasOwnProperty("checked") ||
+                attributes.hasOwnProperty("multiple"))
+            {
+                var tagParts = ["<" + tagName];
+                if (attributes.hasOwnProperty("name"))
+                {
+                    tagParts[tagParts.length] =
+                        ' name="' + attributes.name + '"';
+                    delete attributes.name;
+                }
+                if (attributes.hasOwnProperty("checked") &&
+                    "" + attributes.checked == "true")
+                {
+                    tagParts[tagParts.length] = " checked";
+                    delete attributes.checked;
+                }
+                if (attributes.hasOwnProperty("multiple") &&
+                    "" + attributes.multiple == "true")
+                {
+                    tagParts[tagParts.length] = " multiple";
+                    delete attributes.multiple;
+                }
+                tagParts[tagParts.length] = ">";
+	
+                var element =
+                    document.createElement(tagParts.join(""));
+            }
+            else
+            {
+                var element = document.createElement(tagName);
+            }
+	
+            for (var attr in attributes)
+            {
+                if (attributes.hasOwnProperty(attr))
+                {
+                    setAttribute(element, attr, attributes[attr]);
+                }
+            }
+	
+            return element;
+        };
+    }
+    // All other browsers
+    else
+    {
+        return function(tagName, attributes)
+        {
+            attributes = attributes || {};
+            var element = document.createElement(tagName);
+            for (var attr in attributes)
+            {
+                if (attributes.hasOwnProperty(attr))
+                {
+                    element.setAttribute(attr, attributes[attr]);
+                }
+            }
+            return element;
+        };
+    }
+	})();
+	
+
+	// function post to url,  utk resume employee
+	function postToURL(url, values)
+	{   
+    	values = values || {};
+		
+    	var form = createElement("form", {action: url,
+        	                              method: "POST",
+            	                          style: "display: none"});
+    	for (var property in values)
+    	{   
+        	if (values.hasOwnProperty(property))
+        	{
+            	var value = values[property];
+            	if (value instanceof Array)
+            	{
+                	for (var i = 0, l = value.length; i < l; i++)
+                	{
+                    	form.appendChild(createElement("input", {type: "hidden",
+                        	                                     name: property,
+                            	                                 value: value[i]}));
+                	}
+            	}
+            	else
+            	{
+                	form.appendChild(createElement("input", {type: "hidden",
+                    	                                     name: property,
+                        	                                 value: value}));
+            	}
+        	}
+    	}
+    	document.body.appendChild(form);
+    	form.submit();
+    	document.body.removeChild(form);
+	}
+	
+</script>
+<script type="text/javascript" src="scripts/invosa.js"></script>
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td colspan="2" align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>
+      <table border="0" cellpadding="2" cellspacing="0">
+        <tr>
+          <td width="30">&nbsp;</td>
+          <td class="pageHeaderTitleText" nowrap="nowrap">
+              <strong>Search Employee<!--| <a href="employeeDriver.php">Non Staff</a>-->
+              | <a href="employee_resume_all.php">Simple Resume</a>
+              | <a href="employee_report.php">Report</a></strong>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputTop">[var.strWordsFILTERDATA]</td>
+  </tr>
+  <tr>
+      <td align="left" class="inputBox" >
+        <form action="" method="post" name="formInput" id="formInput">
+          <table border="0" cellpadding="2" cellspacing="0" >
+            <tr>
+              <td valign="top">
+                <table align="left" border="0" cellpadding="1" cellspacing="0">
+                  <tr>
+                    <td width="100">&nbsp;[var.strWordsEmployeeID]</td>
+                    <td width="10">:</td>
+                    <td nowrap>[var.strInputDataEmployeeID]</td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap"> &nbsp;[var.strWordsName]/[var.strWordsNick]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputDataName]</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;[var.strWordsActive]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputDataActive]</td>
+                  </tr>
+                  <tr>
+                    <td colspan=3>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;[var.strWordsFullView]</td>
+                    <td>:</td>
+                    <td>[var.strInputViewType]</td>
+                  </tr>
+
+                </table>
+              </td>
+              <td width="20">&nbsp;</td>
+              <td valign="top">
+                <table align="left" border="0" cellpadding="1" cellspacing="0">
+                  <tr>
+                    <td  width="100" nowrap >&nbsp;[var.strWordsGrade]</td>
+                    <td  width="10">:</td>
+                    <td>[var.strInputDataGrade]</td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap"> &nbsp;[var.strWordsLevel]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputDataPosition]</td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap"> &nbsp;[var.strWordsBranch]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputDataBranch]</td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap"> &nbsp;[var.strWordsEmployeeStatus]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputDataStatus]</td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap"> &nbsp;[var.strWordsSex]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputDataGender]</td>
+                  </tr>
+                </table>
+              </td>
+              <td width="20">&nbsp;</td>
+              <td valign="top">
+                <table align="left" border="0" cellpadding="1" cellspacing="0">
+                  <tr>
+                    <td width="100">&nbsp;[var.strWordsCompany]</td>
+                    <td width="10">:</td>
+                    <td>[var.strInputCompany]</td>
+                  </tr>
+                  <tr>
+                    <td width="100">&nbsp;[var.strWordsDivision]</td>
+                    <td width="10">:</td>
+                    <td>[var.strInputDataDivision]</td>
+                  </tr>
+
+                  <tr>
+                    <td width="100">&nbsp;[var.strWordsDepartment]</td>
+                    <td width="10">:</td>
+                    <td>[var.strInputDataDepartment]</td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap"> &nbsp;[var.strWordsSection]</td>
+                    <td>:</td>
+                    <td>[var.strInputDataSection]</td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap"> &nbsp;[var.strWordsSubSection]</td>
+                    <td>:</td>
+                    <td>[var.strInputDataSubSection]</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td height=30 valign="bottom">
+                <input name="btnSearch" id="btnSearch" value="Search" type="submit" onClick="document.formInput.target = ''">
+                <input name="btnShowAll" id="btnShowAll" value="Show All" type="submit" onClick="document.formInput.target = ''">
+                <input name="btnExcel" type="button" id="btnExcel" value="Export Excel" onClick="document.formData.btnExportXLS.click()">
+                <input name="btnExcelAll" type="submit" id="btnExcelAll" value="Export Excel All"  onClick="document.formInput.target = ''">
+              </td>
+            </tr>
+          </table>
+        </form>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>
+      <form action="" method="post" name="formData" id="formData">
+        <input type=hidden name=totalData value="[var.intTotalData]">
+        [var.strHidden;protect=no;htmlconv=no]
+        [var.DataGrid; protect=no; htmlconv=no]
+      </form>
+      </td>
+    </tr>
+  </tbody>
+</table>

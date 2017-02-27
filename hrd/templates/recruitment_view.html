@@ -1,0 +1,209 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script>
+  <!--
+
+  function clearForm() {
+    document.formInput.dataDepartment.value = "";
+    document.formInput.dataNote.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataDate.focus();
+  }//clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+    if (document.formInput.dataDue.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDue.focus();
+      return false;
+    }
+    return true;
+  } //validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDateFrom.focus();
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+  }//initPage
+  -->
+</script>
+</head>
+
+<body leftmargin="10" topmargin="0" marginwidth="10" marginheight="0" onLoad="initPage_();">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">Recruitment Need </td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>&nbsp;<strong><a href="candidateEdit.html">Data Entry</a>
+            | <a href="recruitment_list.php">Recruitment List</a> | <a href="recruitment_approval.php">Recruitment
+            Approval</a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Department</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDepartment]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Position</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputPosition]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;Job Desc.</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDescription]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Requirement</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputRequirement]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;PIC</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputPIC]</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td> <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]"></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+            <td width="20" valign="top">&nbsp;</td>
+            <td valign="top"><table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Recruitment Start</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDate]&nbsp; </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Due Date</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDue]&nbsp; </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;Number</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputNumber]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;Cost</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputCost]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;External Ref.</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputExternal]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Internal Ref.</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputInternal]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Status</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputStatus] (New/Approved/OK/Denied)</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td> <input name="dataID2" type="hidden" id="dataID4" value="[var.strDataID]"></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table> </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="listTop"><strong>LIST OF CANDIDATE</strong></td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData">
+        <table border="0" cellpadding="0" cellspacing="0" class="gridTable">
+          <tr align="center" class="tableHeader">
+            <td width="5" nowrap class="tableHeader">&nbsp;</td>
+            <td nowrap class="tableHeader">NAME</td>
+            <td nowrap class="tableHeader">ADDRESS</td>
+            <td nowrap class="tableHeader"> PHONE</td>
+            <td nowrap class="tableHeader">EMAIL</td>
+            <td nowrap class="tableHeader">GENDER</td>
+            <td nowrap class="tableHeader">AGE</td>
+            <td nowrap class="tableHeader">EDUCATION</td>
+            <td nowrap class="tableHeader">GENDER</td>
+            <td nowrap class="tableHeader">&nbsp;</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td>&nbsp;</td>
+            <td>xxx</td>
+            <td>xx</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td align="center">M</td>
+            <td align="right">21</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><a href="recruitmentEdit.html">INVITE</a></td>
+          </tr>
+          <tr>
+            <td> <input name="chkAll" type="checkbox" id="chkAll" value="All" onChange="checkAll();">
+              &nbsp;</td>
+            <td colspan="9"> <input name="btnDelete" type="submit" id="btnDelete" value="Delete" onClick="return confirmDelete();">
+              <input name="totalData" type="hidden" id="totalData" value="[var.intTotalData]">
+              [var.strHidden] &nbsp; </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

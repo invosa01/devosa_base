@@ -1,0 +1,214 @@
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script>
+  <!--
+  //fungsi untuk memeriksa apakah input valid
+  function validInput() {
+      var x = confirm("Are you sure?");
+      if(x)
+        return validateForm(document.formData);
+      else
+          return false;
+  }//validInput
+
+  -->
+</script>
+<script>
+  // menampilkan tampilan yang hilang
+  function moreInput(tipe) {
+    var x = parseFloat(eval("document.formData.numShow"+tipe+".value")) + 1;
+    var max = parseFloat(eval("document.formData.maxDetail"+tipe+".value"));
+  
+    if (x <= max) {
+      var tmp = "detailData" + tipe + "_" + x;
+      var obj = document.getElementById(tmp);
+      obj.style.display = document.all ? "block" : "table-row";
+
+      eval("document.formData.dataSeq"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataCode"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataName"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataAmount"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataActive"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataShow"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataProrate"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataOT"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataTax"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataHidezero"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataDaily"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataJams"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.numShow"+tipe+".value++");
+      eval("document.formData.dataBen"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataIr"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataNum"+tipe+"_"+x+".disabled = false");
+    }
+  }//moreInput
+
+  // fungsi saat kode tunjangan/potongan berubah, otomatis mengubah nama
+  function changeCode(tipe,index) {
+    if (tipe != "" && index != "") {
+      eval("document.formData.dataName"+tipe+"_"+index+".value=document.formData.dataCode"+tipe+"_"+index+".value");
+    }
+  }//changeCode
+
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.pageSubMenu]
+	    	<p></p>
+  		</div>
+  		<div class="col-md-12">
+  			[var.strMessages]
+  			<div><strong><font color="red" style="text-transform: uppercase;">[var.strCurrentActiveTemplate]</font></strong></div>
+  				<h6 class="header"><strong>[var.strWordsCommonSetting]</strong></h6>
+	  			<form action="" method="post" name="formData" id="formData" onSubmit="return validInput()" class="form-horizontal" role="form">
+	  				<div class="col-md-4">
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="strDays">[var.strWordsDaysPerMonth]</label>
+								<div class="col-sm-8">
+									<input name="strDays" type="text" id="strDays" value="[var.strDays]" size="50" maxlength="10" class="numeric form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="strRound">[var.strWordsRoundSalaryTo]</label>
+								<div class="col-sm-8">
+									<input name="strRound" type="text" id="strRound" value="[var.strRound]" size="50" maxlength="10" class="numeric form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="strTaxMethod">[var.strWordsTaxMethod]</label>
+								<div class="col-sm-8">
+									<div class="checkbox">
+										<label><input name="strTaxMethod" type="checkbox" id="strTaxMethod" value="t" [var.strTaxMethod] size="50" maxlength="10">Gross Up</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+			  			<h6 class="header"><strong>[var.strWordsBasicAllowanceList]</strong></h6>
+			  			<table border="0" cellpadding="0" cellspacing="0" class="table table-striped table-hover table-bordered gridTable">
+			  				<thead>
+	                <tr align="center" class="tableHeader">
+	                  <th width="19px" nowrap>&nbsp;</th>
+	                  <th nowrap>[var.strWordsSeq]</th>
+	                  <th nowrap>[var.strWordCode]</th>
+	                  <th nowrap>[var.strWordsDispName]</th>
+	                  <th nowrap>[var.strWordsAmount]</th>
+	                  <th width="60px" nowrap>[var.strWordsActive]</th>
+	                  <th width="60px" nowrap>[var.strWordsSlip]</th>
+	                  <th width="60px" nowrap>[var.strWordsProrate]</th>
+	                  <th width="60px" nowrap>[var.strWordsOT] </th>
+	                  <th width="60px" nowrap>[var.strWordsTax]</th>
+	                  <th width="60px" nowrap>[var.strWordsJamsostek]</th>
+	                  <th width="60px" nowrap>[var.strWordsHideIfZero]</th>
+	                  <th width="60px" nowrap>[var.strWordsDaily]</th>
+	                  <th width="60px" nowrap>[var.strWordsBenefit]</th>
+	                  <th width="60px" nowrap>[var.strWordsIrregular]</th>
+	                  <!--td nowrap>Include<br>
+	                    Conjuncture</td-->    
+	                </tr> 
+	              </thead>
+	              <tbody>
+                [var.strDetailAllowance]
+                <tr>
+                  <td colspan="15">
+                  	<a class="btn btn-primary btn-sm" href="javascript:moreInput('Allowance')">[var.strWordsMoreAllowance]</a> [var.strHiddenAllowance]
+                    <input class="btn btn-danger btn-sm" name="btnDelete" type="submit" id="btnDelete" value="[var.strWordsDelete]">
+                  </td>
+                </tr>
+                </tbody> 
+              </table>
+			  		</div>
+			  		<div class="col-md-12">
+			  			<h6 class="header"><strong>[var.strWordsDeductionList]</strong></h6>
+			  			<table border="0" cellpadding="0" cellspacing="0" class="table table-striped table-hover table-bordered gridTable">
+			  				<thead>
+	                <tr align="center" class="tableHeader">
+	                  <th width="19px" nowrap></th>
+	                  <th nowrap>[var.strWordsSeq]</th>
+	                  <th nowrap>[var.strWordCode]</th>
+	                  <th nowrap>[var.strWordsDispName]</th>
+	                  <th nowrap>[var.strWordsAmount]</th>
+	                  <th nowrap>[var.strWordsMaxLink]</th>
+	                  <th width="60px" nowrap>[var.strWordsActive]</td>
+	                  <th width="60px" nowrap>[var.strWordsSlip]</th>
+	                  <th width="60px" nowrap>[var.strWordsProrate]</th>
+	                  <th width="60px" nowrap>[var.strWordsOT] </th>
+	                  <th width="60px" nowrap>[var.strWordsTax]</th>
+	                  <th width="60px" nowrap>[var.strWordsJamsostek]</th>
+	                  <th width="60px" nowrap>[var.strWordsHideIfZero]</th>
+	                  <th width="60px" nowrap>[var.strWordsDaily]</th>
+	                  <th width="60px" nowrap>&nbsp;</th>
+	                  <!--td nowrap>Include<br>
+	                    Conjuncture</td-->
+	                </tr>
+                </thead>
+                <tbody>
+                [var.strDetailDeduction]
+                <tr>
+                  <td colspan="15">
+                  	<a class="btn btn-sm btn-primary" href="javascript:moreInput('Deduction')">[var.strWordsMoreDeduction]</a>[var.strHiddenDeduction]
+                    <input class="btn btn-sm btn-danger" name="btnDelete" type="submit" id="btnDelete" value="[var.strWordsDelete]">
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+			  		</div>
+			  		<div class="col-md-12">
+				  		<div class="col-md-6">
+				  			<div class="form-group">
+									<div class="col-sm-4">
+										<input class="form-control" name="inputTemplateName" type="text" id="inputTemplateName" onClick="">
+									</div>
+									<div class="col-sm-8 left">
+										<input class="btn btn-sm2 btn-primary" name="btnTemplateSave" type="submit" id="btnTemplateSave" value="[var.strWordsSaveTemplate]">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-4">
+										[var.templateList]
+									</div>
+									<div class="col-sm-8 left">
+										<input class="btn btn-sm2 btn-primary" name="btnTemplateLoad" type="submit" id="btnTemplateLoad" value="[var.strWordsLoadTemplate]">&nbsp;
+										<input class="btn btn-sm2 btn-danger" name="btnTemplateDelete" type="submit" id="btnTemplateDelete" value="[var.strWordsDeleteTemplate]">
+									</div>
+								</div>
+				  		</div>
+				  		<div class="col-md-12 form-actions">
+				  			<input class="btn btn-primary btn-small" name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]">
+				  		</div>
+			  		</div>
+	  			</form>
+  		</div>
+  	</div>
+  </div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td  [var.strMsgClass] align="center"></td>
+  </tr>
+  <tr>
+    <td>
+      
+        <table border="0" cellpadding="2" cellspacing="0">
+          <tr>
+            <td align="center">&nbsp; </td>
+            <td align="center"> </td>
+          </tr>
+          <tr>
+            <td align="center">&nbsp; </td>
+            <td align="center"> </td>
+          </tr>
+          <tr>
+            <td align="center">&nbsp; </td>
+            <td align="center"> </td>
+          </tr>
+          <tr>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+          </tr>
+        </table>
+        <!--[var.helperScript]-->
+      </form></td>
+  </tr>
+</table>

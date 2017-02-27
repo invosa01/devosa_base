@@ -1,0 +1,76 @@
+2015-09-01, 14:56:34
+Query:INSERT INTO "hrd_bank" 
+( "bank_code", "bank_name" )
+VALUES 
+( 'BCA', 'bank Central Asia' ) ; : ERROR:  duplicate key value violates unique constraint "hrd_bank_bank_code_key"
+DETAIL:  Key (bank_code)=(BCA) already exists.
+2015-09-01, 14:58:39
+Query:INSERT INTO "hrd_bank" 
+( "bank_code", "bank_name" )
+VALUES 
+( 'BCA', 'bank Central Asia' ) ; : ERROR:  duplicate key value violates unique constraint "hrd_bank_bank_code_key"
+DETAIL:  Key (bank_code)=(BCA) already exists.
+2015-09-01, 14:59:14
+Query:INSERT INTO "hrd_bank" 
+( "bank_code", "bank_name" )
+VALUES 
+( 'BCA', 'bank Central Asia' ) ; : ERROR:  duplicate key value violates unique constraint "hrd_bank_bank_code_key"
+DETAIL:  Key (bank_code)=(BCA) already exists.
+2015-09-01, 14:59:39
+Query:INSERT INTO "hrd_bank" 
+( "bank_code", "bank_name" )
+VALUES 
+( 'BCA', 'bank Central Asia' ) ; : ERROR:  duplicate key value violates unique constraint "hrd_bank_bank_code_key"
+DETAIL:  Key (bank_code)=(BCA) already exists.
+2015-09-01, 15:01:51
+Query:INSERT INTO "hrd_bank" 
+( "bank_code", "bank_name" )
+VALUES 
+( 'BCA', 'bank Central Asia' ) ; : ERROR:  duplicate key value violates unique constraint "hrd_bank_bank_code_key"
+DETAIL:  Key (bank_code)=(BCA) already exists.
+2015-09-01, 15:02:04
+Query:INSERT INTO "hrd_bank" 
+( "bank_code", "bank_name" )
+VALUES 
+( 'BCA', 'bank Central Asia' ) ; : ERROR:  duplicate key value violates unique constraint "hrd_bank_bank_code_key"
+DETAIL:  Key (bank_code)=(BCA) already exists.
+2015-09-01, 15:02:11
+Query:INSERT INTO "hrd_bank" 
+( "bank_code", "bank_name" )
+VALUES 
+( 'BCA', 'bank Central Asia' ) ; : ERROR:  duplicate key value violates unique constraint "hrd_bank_bank_code_key"
+DETAIL:  Key (bank_code)=(BCA) already exists.
+2015-09-01, 15:02:18
+Query:INSERT INTO "hrd_bank" 
+( "bank_code", "bank_name" )
+VALUES 
+( 'BCA', 'bank Central Asia' ) ; : ERROR:  duplicate key value violates unique constraint "hrd_bank_bank_code_key"
+DETAIL:  Key (bank_code)=(BCA) already exists.
+2015-09-01, 15:03:57
+Query:INSERT INTO "hrd_bank" 
+( "bank_code", "bank_name" )
+VALUES 
+( 'NIA', 'jkj' ) ; : ERROR:  duplicate key value violates unique constraint "hrd_bank_bank_code_key"
+DETAIL:  Key (bank_code)=(NIA) already exists.
+2015-09-01, 15:04:20
+Query:INSERT INTO "hrd_education_level" 
+( "code", "name", "note", "created_by" )
+VALUES 
+( 'SMU', 'test', 'test', 1034 ) ; : ERROR:  duplicate key value violates unique constraint "hrd_education_level_pk"
+DETAIL:  Key (code)=(SMU) already exists.
+2015-09-01, 15:05:08
+Query:INSERT INTO "hrd_education_level" 
+( "code", "name", "note", "created_by" )
+VALUES 
+( 'SMU', 'test', 'test', 1034 ) ; : ERROR:  duplicate key value violates unique constraint "hrd_education_level_pk"
+DETAIL:  Key (code)=(SMU) already exists.
+2015-09-01, 15:06:21
+Query:INSERT INTO "hrd_religion" 
+( "code", "name", "note", "created_by" )
+VALUES 
+( 'KAT', 'gh', 'g', 1034 ) ; : ERROR:  duplicate key value violates unique constraint "hrd_religion_pk"
+DETAIL:  Key (code)=(KAT) already exists.
+2015-09-01, 15:08:35
+Query:UPDATE hrd_employee SET modified_by = '1034', employee_id = 'INV001', employee_name = 'Testing Nama Karyawan',  barcode = '10001', gender = '0', primary_address = '', salary_currency = '0', salary_payment_type = '0', primary_city = '', primary_zip = '', primary_phone = '', is_birthday = 't', private_phone = '', private_email = '' birthplace = '', "birthday" = '2015-09-01', emergency_contact = '', emergency_relation = '', emergency_address = '', emergency_phone = '', nationality = '', id_card = '', driver_license_a = '', driver_license_b = '', driver_license_c = '', weight = '0', height = '0', blood_type = '', religion_code = '', education_level_code = '', family_status_code = '', employee_status = '0', id_company= '15', living_cost_code = '', medical_quota_status = '', inspouse = 'f', department_code = '', management_code = '', division_code = '', section_code = '', sub_section_code = '', branch_code = '', position_code = '', grade_code = '', join_date = '2015-09-01', due_date = NULL, resign_date = NULL, permanent_date = NULL, bank_account = '', bank_account_type = '', bank_branch = '', bank_code = '', bank2_account = '', bank2_account_type = '', bank2_branch = '', bank2_code = '', active = '1', note = '', npwp = '', bank_account_name = 'Testing Nama Karyawan',bank2_account_name = 'Testing Nama Karyawan',functional_code = '', email = '', wedding_date = NULL, zakat = 'f', jamsostek_no = '', transport = '', transport_fee = '0', nickname = 'Testing', letter_code = 'INV/10/2015', passport = '', major_code = '' WHERE id = '1645'  : ERROR:  syntax error at or near "birthplace"
+LINE 1: ...day = 't', private_phone = '', private_email = '' birthplace...
+                                                             ^

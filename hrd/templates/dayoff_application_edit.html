@@ -1,0 +1,771 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ajax.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script>
+   // script-script tambahan, khusus untu loockup employee
+   
+   AC_targetElements = ["dataEmployee"];
+  
+   // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+   // kehilangan fokus. 
+   function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+var strDataDetail = "[var.strDataDetail]";
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formInput.totalData.value;
+    var isChecked = document.formInput.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formInput.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formInput.chkID" + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+
+  function resetInput() {
+  /*
+    document.formInput.dataSection.value = "";
+    document.formInput.dataSubSection.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataSection.focus();
+    */
+    location.href = "dayoff_application_edit.php";
+  }//resetInput
+
+  //fungsi untuk memeriksa apakah input valid
+  function validInput() {
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date Data");
+      document.formInput.dataDate.value
+      return false;
+    }
+    /*if (document.formInput.dataSection.value == "") {
+      alert("Empty Section");
+      document.formInput.dataSection.value
+      return false;
+    }*/
+
+    return true;
+  }//validInput
+
+  function checkIsOutdated() {
+    strOutdated = document.formInput.dataIsOutdatedTemp.value;
+    if (strOutdated == "f" || strOutdated == "t")
+    {
+       document.formInput.dataIsOutdated.checked = (document.formInput.dataIsOutdatedTemp.value == "t");
+       setSalaryMonth(document.formInput.dataIsOutdated.checked);
+    }
+    else
+    {
+      strSalaryStart  = document.formInput.dataSalaryStart.value ;
+      strSalaryFinish = document.formInput.dataSalaryFinish.value ;
+      //apakah OTDate sudah lewat tanggal penggajian nya (seharusnya bulan lalu)
+      intOTDate    = dateCompare(strSalaryStart, document.formInput.dataDate.value);
+      //apakah EntryDate baru (tanggal entrynya sudah masuk tanggal penggajian bulan ini)
+      intEntryDate = dateCompare(document.formInput.dataEntryDate.value, strSalaryStart);
+      comboList =       document.formInput.dataSalaryMonth;
+      if (intOTDate == 1 && intEntryDate  == 1) {
+        document.formInput.dataIsOutdated.checked   = true;
+        setSalaryMonth(true)
+      }
+      else
+      {
+        document.formInput.dataIsOutdated.checked   = false;
+        setSalaryMonth(false);
+      }
+    }
+
+  }//checkIsOutdated
+
+  // menampilkan tampilan yang hilang
+  function moreInput(tipe) {
+    var x = parseFloat(eval("document.formInput.numShow"+tipe+".value"));
+    var max = parseFloat(eval("document.formInput.maxDetail"+tipe+".value"));
+    if (x < max) {
+      ylib_getObj("detailData"+tipe+"_"+x).style.display = document.all ? "block" : "table-row";
+
+      eval("document.formInput.dataBreak"+tipe+"_"+x+".disabled = false");
+      eval("document.formInput.dataDuration"+tipe+"_"+x+".disabled = false");
+      eval("document.formInput.dataNote"+tipe+"_"+x+".disabled = false");
+      eval("document.formInput.numShow"+tipe+".value++");
+    }
+  }//moreInput
+
+
+ //mengambil data karyawan untuk ditampilkan di fieldset berdasarkan nilai dari filter
+ function searchEmployee()
+ { 
+   if (document.formSearch.dataSubSection.value != "")
+   {
+      strCategory = "sub_section";
+      strKey = document.formSearch.dataSubSection.value;
+      var objAjax = new createRequestObject();
+      getDataAjax(objAjax, "post", "dayoff_application_edit.php?ajax=searchEmployee&strCategory=" + strCategory + "&strKey=" + strKey, "", "showEmployee");
+   }
+   else if (document.formSearch.dataSection.value != "")
+   {
+      strCategory = "section";
+      strKey = document.formSearch.dataSection.value;
+      var objAjax = new createRequestObject();
+      getDataAjax(objAjax, "post", "dayoff_application_edit.php?ajax=searchEmployee&strCategory=" + strCategory + "&strKey=" + strKey, "", "showEmployee");
+   }
+   else if (document.formSearch.dataDepartment.value != "")
+   {
+      strCategory = "department";
+      strKey = document.formSearch.dataDepartment.value;
+      var objAjax = new createRequestObject();
+      getDataAjax(objAjax, "post", "dayoff_application_edit.php?ajax=searchEmployee&strCategory=" + strCategory + "&strKey=" + strKey, "", "showEmployee");
+   }
+   else if (document.formSearch.dataDivision.value != "")
+   {
+      strCategory = "division";
+      strKey = document.formSearch.dataDivision.value;
+      var objAjax = new createRequestObject();
+      getDataAjax(objAjax, "post", "dayoff_application_edit.php?ajax=searchEmployee&strCategory=" + strCategory + "&strKey=" + strKey, "", "showEmployee");
+   }
+ } 
+
+ //menampilkan data karyawan yang diambil di function searchEmployee
+ function showEmployee(str)
+ {
+   strResult = "[var.strSearchHeader]";
+   arrStr  = str.split("|");
+
+   for(i=1; i < arrStr.length; i++)
+    {
+       strResult += "<tr><td>";
+       j = i-1;
+       arrData = arrStr[j].split(",");
+   
+       strResult += "<input type='checkBox' id='chkSearchID" + i + "' name='chkSearchID" + i + "' value='" + arrData[1] + "' onClick='editSearchList()'>" ;
+      
+       strResult += "</td><td>" + arrData[1] + "</td><td>";
+       strResult += arrData[2] + "</tr>";
+    }
+
+   document.formInput.totalSearchData.value = i;
+
+   strResult += "[var.strSearchFooter]";
+
+   var obj = document.getElementById("dataSearchEmployee");
+   obj.innerHTML = strResult;
+ }
+
+ //fungsi untuk menyesuaikan daftar employee di fieldset search yang akan di insert di fieldset List of Employee
+ function editSearchList()
+ {
+    var intData    = document.formInput.totalSearchData.value;
+    var strSearchData = "";
+
+    for (i = 1; i < intData; i++)
+    {
+      itemSearch = document.getElementById("chkSearchID" + i);
+      if (itemSearch.checked)
+      {
+        itemSearch = document.getElementById("chkSearchID" + i);
+        strSearchData += "|" + itemSearch.value ;
+      }
+    } //for
+    document.formInput.dataSearchEmployee.value = strSearchData;
+ }//editSearchList
+
+ //fungsi untuk menyesuaikan early time di detail berdasarkan di data
+ function setEarly()
+ { 
+    bolChecked    = document.formInput.chkEarly.checked;
+    bolChecked    = !bolChecked;
+
+    document.formInput.dataStartEarly.disabled  = bolChecked;
+    document.formInput.dataFinishEarly.disabled = bolChecked;
+    for (i=1; i <= document.formInput.totalData.value; i++)
+    {
+       eval("document.formInput.detailStartEarlyActual"  + i + ".disabled = " + bolChecked);
+       eval("document.formInput.detailFinishEarlyActual"  + i + ".disabled = " + bolChecked);
+    }
+ }//setEArly
+ function setSalaryMonth(bolChecked)
+ { 
+       document.formInput.dataSalaryMonth.disabled = !bolChecked;
+       document.formInput.dataSalaryYear.disabled  = !bolChecked;
+       if (!bolChecked)
+       {
+          document.formInput.dataSalaryMonth.value    = "";
+          document.formInput.dataSalaryYear.value    = "";
+       }
+       else
+       {
+          comboList =       document.formInput.dataSalaryMonth;
+          for (i = 1; i < comboList.length; i++)
+          {
+             if (comboList[i].value == strSalaryFinish)
+             {
+                strSelected = document.getElementById(comboList[i].value);
+                strSelected .selected = true;
+             }
+          }
+          document.formInput.dataSalaryYear.value    = document.formInput.dataFinishYear.value;
+       }
+ }
+
+ //fungsi untuk mengecek apakah early overtime aktif atau tidak
+ function checkEarly()
+ { 
+    var bolChecked    = document.formInput.chkEarly.checked;
+    bolChecked = !bolChecked;
+    document.formInput.dataStartEarly.disabled = bolChecked;
+    document.formInput.dataFinishEarly.disabled = bolChecked;
+
+ }//checkEarly
+
+ // fungsi untuk menngecek atau menguncheck checkbox pada field search employee
+ function checkSearchAll()
+ {
+    var intData = document.formInput.totalSearchData.value;
+    var objSearchAll = document.getElementById("chkSearchAll");
+
+    for (i = 1; i < intData; i++)
+    {
+      if (objSearchAll.checked) {
+        itemSearch = document.getElementById("chkSearchID" + i);
+        itemSearch.checked = true;
+      } else {
+        itemSearch = document.getElementById("chkSearchID" + i);
+        itemSearch.checked = false;
+
+      }
+    } //for
+    editSearchList();
+
+ }//checkSearchAll
+
+ // mengambil data karyawan untuk di tambahkan ke fieldset list of employee
+ function addEmployee(strList)
+ { 
+   strDate      = document.formInput.dataDate.value;
+   strOldList   = document.formInput.dataListEmployee.value;
+   intTotalData = document.formInput.totalData.value;
+   var objAjax = new createRequestObject();
+   getDataAjax(objAjax, "post", "dayoff_application_edit.php?ajax=addEmployee&strList=" + strList + "&strDate=" + strDate + "&intTotalData=" + intTotalData + "&strOldList=" + strOldList, "", "updateEmployee");
+ } 
+
+ // menampilkan data karyawan di fieldset list of employee yang diambil dgn function addEmployee
+ function updateEmployee(str)
+ {
+ 
+   arrTemp  = str.split("~");
+   if (arrTemp[0].length > 10)
+      return false;
+   oldTotal = document.formInput.totalData.value;
+   document.formInput.totalData.value = arrTemp[0];
+   document.formInput.dataListEmployee.value = arrTemp[1];
+   objMasterStartEarlyPlan = document.formInput.dataStartEarly;
+   objMasterFinishEarlyPlan = document.formInput.dataFinishEarly;
+   objMasterStartPlan = document.formInput.dataStart;
+   objMasterFinishPlan = document.formInput.dataFinish;
+   bolEarlyOT = document.formInput.chkEarly.checked;
+   arrEmp = arrTemp[2].split("|");
+   for (i=1; i < arrEmp.length; i++)
+   {
+      arrDetail = arrEmp[i-1].split(">");
+      j = parseInt(oldTotal) + parseInt(i);
+  
+      objDetail = document.getElementById("row" + j);
+      objDetail.style.display = "table-row";
+      eval("document.formInput.chkID" + j + ".checked = true");
+      eval("document.formInput.chkID" + j + ".disabled = false");
+                
+      eval("document.formInput.chkID" + j + ".value = " + arrDetail[0] + "; ");
+
+
+      objIDEmployee                   = eval("document.formInput.detailIDEmployee" + j);
+      objStartEarlyPlan               = eval("document.formInput.detailStartEarlyPlan" + j);
+      objFinishEarlyPlan              = eval("document.formInput.detailFinishEarlyPlan" + j);
+      //objStartEarlyAuto               = eval("document.formInput.detailStartEarlyAuto" + j);
+      //objFinishEarlyAuto              = eval("document.formInput.detailFinishEarlyAuto" + j);
+      objStartEarlyActual             = eval("document.formInput.detailStartEarlyActual" + j);
+      objFinishEarlyActual            = eval("document.formInput.detailFinishEarlyActual" + j);
+      objStartActual                  = eval("document.formInput.detailStartActual" + j);
+      objFinishActual                 = eval("document.formInput.detailFinishActual" + j);
+      objStartPlan                    = eval("document.formInput.detailStartPlan" + j);
+      objFinishPlan                   = eval("document.formInput.detailFinishPlan" + j);
+      //objStartAuto                    = eval("document.formInput.detailStartAuto" + j);
+      //objFinishAuto                   = eval("document.formInput.detailFinishAuto" + j);
+      objAttStart                     = eval("document.formInput.detailAttendanceStart" + j);
+      objAttFinish                    = eval("document.formInput.detailAttendanceFinish" + j);
+
+      objHoliday                      = eval("document.formInput.chkHoliday" + j);
+      objTransport                    = eval("document.formInput.detailTransport" + j);
+      objTransportFee                 = eval("document.formInput.detailTransportFee" + j);
+      objPurpose                      = eval("document.formInput.detailPurpose" + j);
+
+      objID                           = document.getElementById("detailEmployeeID" + j);
+      objName                         = document.getElementById("detailEmployeeName" + j);
+
+      objID.innerHTML                 = arrDetail[1];
+      objName.innerHTML               = arrDetail[2];
+      objIDEmployee.value             = arrDetail[0];
+      bolAutoOT                       = (arrDetail[3] == "t");
+ 
+      //objStartAuto.value              = (bolAutoOT) ? arrDetail[5] : ""; //normal finish
+      //objFinishAuto.value             = (bolAutoOT) ? arrDetail[9] : ""; //finish auto (normal finish + 1 hour)
+
+      objStartPlan.value              = objMasterStartPlan.value;
+      objFinishPlan.value             = objMasterFinishPlan.value;
+
+      objStartActual.value            = objMasterStartPlan.value;
+      objFinishActual.value           = arrDetail[7]; //attendance finish
+
+
+      objHoliday.checked              = (arrDetail[10] == "t");
+
+      if (bolEarlyOT == true)
+      {
+         objStartEarlyPlan.value       = objMasterStartEarlyPlan.value;
+         objFinishEarlyPlan.value      = objMasterFinishEarlyPlan.value;
+
+         if (false /*bolAutoOT*/)
+         {
+           objStartEarlyAuto.value     = arrDetail[8]; //start early auto (normal start - 1 hour)
+           objFinishEarlyAuto.value    = arrDetail[4]; //normal start
+         }
+
+         objStartEarlyActual.value     = arrDetail[6]; //attendance start
+         objFinishEarlyActual.value    = objMasterFinishEarlyPlan.value;
+
+         objStartEarlyPlan.disabled    = !bolEarlyOT;
+         objFinishEarlyPlan.disabled   = !bolEarlyOT;
+
+         //objStartEarlyAuto.disabled    = (!bolEarlyOT || !bolAutoOT);
+         //objFinishEarlyAuto.disabled   = (!bolEarlyOT || !bolAutoOT);
+
+         objStartEarlyActual.disabled  = !bolEarlyOT;
+         objFinishEarlyActual.disabled = !bolEarlyOT;
+      }
+      else
+      {
+         objStartEarlyPlan.value       = "";
+         objFinishEarlyPlan.value      = "";
+
+         //objStartEarlyAuto.value       = ""; 
+         //objFinishEarlyAuto.value      = "";
+
+         objStartEarlyActual.value     = "";
+         objFinishEarlyActual.value    = "";
+      }
+
+      objAttStart.value               = arrDetail[6]; //attendance start
+      objAttFinish.value              = arrDetail[7]; //attendance finish
+      objTransport.value              = arrDetail[11]; //transport
+      objTransportFee.value           = arrDetail[12]; //transportfee
+
+      //objStartAuto.disabled           = !bolAutoOT;
+      //objFinishAuto.disabled          = !bolAutoOT;
+      objStartPlan.disabled           = false;
+      objFinishPlan.disabled          = false;
+      objStartActual.disabled         = false;
+      objFinishActual.disabled        = false;
+      objHoliday.disabled             = false;
+      objTransport.disabled           = false;
+      objTransportFee.disabled        = false;
+      objPurpose.disabled             = false;
+      checkAttendance(j)
+   }
+ }
+ function checkAttendance(index)
+ {
+    intTotal = document.formInput.totalData.value;
+    if (index == "0" || index == "" || index == 0  )
+    {
+      for (i = 1; i <= intTotal; i++)
+      {
+         checkAttendance(i);
+      }
+      return true;
+    }
+
+    objStartEarlyPlan    = eval("document.formInput.detailStartEarlyPlan"  + index);
+    objFinishEarlyPlan   = eval("document.formInput.detailFinishEarlyPlan" + index);
+    //objStartEarlyAuto    = eval("document.formInput.detailStartEarlyAuto"  + index);
+    //objFinishEarlyAuto   = eval("document.formInput.detailFinishEarlyAuto" + index);
+    objStartEarlyActual  = eval("document.formInput.detailStartEarlyActual"  + index);
+    objFinishEarlyActual = eval("document.formInput.detailFinishEarlyActual" + index);
+    objAttendanceStart   = eval("document.formInput.detailAttendanceStart"   + index);
+
+    objStartPlan         = eval("document.formInput.detailStartPlan"         + index);
+    objFinishPlan        = eval("document.formInput.detailFinishPlan"        + index);
+    //objStartAuto         = eval("document.formInput.detailStartAuto"         + index);
+    //objFinishAuto        = eval("document.formInput.detailFinishAuto"        + index);
+    objStartActual       = eval("document.formInput.detailStartActual"       + index);
+    objFinishActual      = eval("document.formInput.detailFinishActual"      + index);
+    objFinishActualTemp  = eval("document.formInput.detailFinishActualTemp"  + index);
+    objAttendanceFinish  = eval("document.formInput.detailAttendanceFinish"  + index);
+
+    objStartActual.value       = objStartPlan.value;
+    objFinishEarlyActual.value = objFinishEarlyPlan.value;
+
+   if (objAttendanceFinish.value == "" || objAttendanceStart.value == "")
+   { 
+      objFinishActual.value = objAttendanceFinish.value;
+      objStartEarlyActual.value = objAttendanceStart.value;
+   }
+   else
+   {
+      if (false/*objStartEarlyAuto.value != "" && objFinishEarlyAuto.value != "" */)
+      {
+        if (getMinute(objFinishEarlyPlan.value) < getMinute(objFinishEarlyAuto.value) && getMinute(objAttendanceStart.value) <= getMinute(objStartEarlyAuto.value))
+          objFinishEarlyActual.value = objFinishEarlyAuto.value;
+      }
+      if (false/*objStartAuto.value != "" && objFinishAuto.value != "" */)
+      {
+        if (getMinute(objStartPlan.value) > getMinute(objStartAuto.value) && getMinute(objAttendanceFinish.value) >= getMinute(objFinishAuto.value))
+          objStartActual.value= objStartAuto.value;
+      }
+      if (getMinute(objStartPlan.value) <= getMinute(objFinishPlan.value))
+      {
+        if ((getMinute(objAttendanceFinish.value) >= getMinute(objFinishPlan.value)) || (getMinute(objFinishActual.value) > getMinute(objFinishPlan.value)))
+        {
+           objFinishActual.value = objFinishPlan.value;
+        }
+        else 
+        {
+           objFinishActual.value = objAttendanceFinish.value;
+        }
+      }
+      if (document.formInput.chkEarly.checked)
+      {
+         if (getMinute(objStartEarlyPlan.value) <= getMinute(objFinishEarlyPlan.value))
+         {
+           if ((getMinute(objAttendanceStart.value) <= getMinute(objStartEarlyPlan.value)) || (getMinute(objStartEarlyActual.value) < getMinute(objStartEarlyPlan.value)))
+           { 
+              objStartEarlyActual.value   = objStartEarlyPlan.value;
+           }
+           else 
+           { 
+              objStartEarlyActual.value   = objAttendanceStart.value;
+           }
+         }
+      }
+   }
+   if ((getMinute(objStartEarlyActual.value) >= getMinute(objFinishEarlyActual.value)) || objStartEarlyActual.value == "")
+   {
+      objStartEarlyActual.value   = "";
+      objFinishEarlyActual.value  = "";
+   }
+   if ((getMinute(objStartActual.value) >= getMinute(objFinishActual.value)) || objFinishActual.value == "")
+   {
+      objStartActual.value        = "";
+      objFinishActual.value       = "";
+   }     
+    return true;
+  }// checkAttendance
+  function getMinute(strTime)
+  {
+    arrTmp = strTime.split(":");
+    intTime = (60 * parseFloat(arrTmp[0])) + parseFloat(arrTmp[1]);
+    return intTime;
+  }
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDate.focus();
+    Calendar.setup({ inputField:"dataDate", button:"btnDate"/*, onUpdate:checkIsOutdated*/});
+    Calendar.setup({ inputField:"dataEntryDate", button:"btnEntryDate"/*, onUpdate:checkIsOutdated*/});
+    
+    Calendar.setup({ inputField:"dataDate2", button:"btnDate2"/*, onUpdate:checkIsOutdated*/});
+    Calendar.setup({ inputField:"dataEntryDueDate", button:"btnEntryDueDate"/*, onUpdate:checkIsOutdated*/});
+    init();
+    onCodeBlur();
+    checkEarly();
+    //checkIsOutdated() 
+    if (document.formSearch.dataSubSection.value != "")
+      searchEmployee("sub_section", document.formSearch.dataSubSection.value)
+    else if (document.formSearch.dataSection.value != "")
+      searchEmployee("section", document.formSearch.dataSection.value)
+    else if (document.formSearch.dataDepartment.value != "")
+      searchEmployee("department", document.formSearch.dataDepartment.value)
+    else if (document.formSearch.dataDivision.value != "")
+      searchEmployee("division", document.formSearch.dataDivision.value)
+    document.formInput.dataDate.focus();
+
+ }//initPage
+
+  -->
+</script>
+<script>
+
+  // melakukan pengisian default untuk semua data, jadi isinya sesuai default
+  // tipe = start/finish
+  function setDefault(tipe)
+  { 
+    var total = document.formInput.totalData.value;
+    var timeStart  = eval("document.formInput.dataStart" + tipe + ".value");
+    var timeFinish = eval("document.formInput.dataFinish" + tipe + ".value");
+
+    for (i = 1; i <= total; i++) {
+
+      eval("document.formInput.detailStart" + tipe + "Plan" + i + ".value = " + "'" + timeStart  + "'");
+      eval("document.formInput.detailFinish" + tipe + "Plan" + i + ".value = " + "'" + timeFinish + "'");
+    }
+    checkAttendance(0);
+    
+  }//setDefault
+
+  // menyusaikan nilai start dan finish pada detail dengan form utama
+  //function checkDefaultEarly() {
+  //    setDefault("Early");
+  //}
+  function checkDefaultAfternoon() {
+      setDefault("");
+  }
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle" colspan="3"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td ><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>[var.strWordsDataEntry] |
+            <a href="dayoff_application_list_employee.php">[var.strWordsOvertimeList]|</a>
+            <a href="dayoff_realization.php">[var.strWordsDayoffRealization]|</a>
+        </tr>
+      </table>
+    </td>
+    <td style="border-left:dotted 1px darkred;">&nbsp;</td>
+    <td >&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="10px" ></td>
+    <td rowspan=4 style="border-left:dotted 1px darkred">&nbsp;</td>
+    <td rowspan=4 valign="top"  style="padding-right:3px; padding-left:3px" ><form name="formSearch">
+        <table border="0" >
+          <tr valign="top">
+            <td colspan=3 nowrap><strong>&nbsp;[var.strWordsSearchEmployee]</strong></td>
+          </tr>
+          <tr valign="top">
+            <td nowrap >&nbsp;</td>
+            <td >&nbsp;</td>
+            <td nowrap>&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsDivision]</td>
+            <td>:</td>
+            <td>[var.strInputDivision]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsDepartment]</td>
+            <td>:</td>
+            <td>[var.strInputDepartment]</td>
+          </tr>
+           <tr valign="top">
+            <td nowrap>[var.strWordsSection]</td>
+            <td>:</td>
+            <td>[var.strInputSection]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsSubSection]</td>
+            <td>:</td>
+            <td>[var.strInputSubSection]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>&nbsp;</td>
+            <td >&nbsp;</td>
+            <td nowrap>&nbsp;</td>
+          </tr>
+          <tr align="left">
+            <td colspan="3" valign="top">
+               <table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable" id="dataSearchEmployee">
+               [var.strSearchHeader][var.strSearchFooter]
+               </table>              
+            </td>
+          </tr>
+       </table></form>
+       </td>
+  </tr>
+  <tr>
+    <td height="10px"></td>
+  </tr>
+  <form action="" method="post" enctype="multipart/form-data" name="formInput" id="formInput" onSubmit="return validInput();">
+  <tr align="left" >
+      <td valign="top" nowrap width="75%"  >
+      <table border="0" cellpadding="0" cellspacing="0" align="left" width="100%">
+       <tr>
+        <td width="100%" style="padding-right:10px"  valign="top">
+        <table border="0" cellpadding="1" cellspacing="0" align="left"  class="inputBox" width="100%">
+          <tr valign="top">
+            <td class="inputTop" colspan=3>[var.strWordsINPUTDATA]</td>
+          </tr>
+          <tr valign="top">
+            <td width="20%" nowrap>&nbsp;</td>
+            <td >&nbsp;</td>
+            <td width="78%" nowrap>&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td width="20%" nowrap>&nbsp;[var.strWordsEntryDate]</td>
+            <td >:</td>
+            <td width="78%" nowrap>
+              <table border=0><tr>
+                <td width="200">[var.strInputEntryDate]&nbsp; 
+                  <input name="btnEntryDate" type="button" id="btnEntryDate" value=".." style="display:none">
+                </td>
+                <!--<td width=50>&nbsp;</td>
+                <td width=80 nowrap>&nbsp;[var.strWordsIsOutdated]</td>
+                <td></td>
+                <td>[var.strInputIsOutdated]</td>-->
+               </tr></table>
+             </td>
+          </tr>
+          <tr valign="top">
+            <td width="20%" nowrap>&nbsp;[var.strWordsOvertimeDate]</td>
+            <td >:</td>
+            <td width="78%" nowrap>
+              <table border=0><tr>
+                <td width="200">[var.strInputDate]&nbsp; 
+                  <input name="btnDate" type="button" id="btnDate" value="..">
+                </td>
+                
+            <td>&nbsp;[var.strWordsDueDate]</td>
+            <td >:</td>
+                <td width="200">[var.strInputEntryDueDate]&nbsp; 
+                  <input name="btnDate2" type="button" id="btnDate2" value="..">
+                </td>
+                <!--<td width=50>&nbsp;</td>
+                <td width=80 nowrap>&nbsp;[var.strWordsSalaryMonth]</td>
+                <td ></td>
+                <td>[var.strInputSalaryMonth]</td>-->
+              </tr></table>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>&nbsp;[var.strWordsEarlyOvertime]</td>
+            <td>:</td>
+            <td nowrap>[var.strInputEarly]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>&nbsp;[var.strWordsAfternoonOvertime]</td>
+            <td>:</td>
+            <td nowrap>[var.strInputAfternoon]</td>
+          </tr>
+          <tr valign="top">
+            <td width="20%" nowrap>&nbsp;</td>
+            <td >&nbsp;</td>
+            <td width="78%" nowrap>&nbsp;</td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;[var.strWordsBreakTime]</td>
+            <td valign="top">:</td>
+            <td>
+              <table border="1" cellspacing="0" cellpadding="1">
+                <tr>
+                  <td nowrap><strong>[var.strWordsStartTime]</strong></td>
+                  <td nowrap><strong>[var.strWordsDurMin]</strong></td>
+                  <td nowrap><strong>[var.strWordsFinishTime]</strong></td>
+                  <td nowrap><strong>[var.strWordsNote]</strong></td>
+                </tr>
+                [var.strBreakNormal]
+              </table>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td width="20%" nowrap>&nbsp;</td>
+            <td >&nbsp;</td>
+            <td width="78%" nowrap>&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap> &nbsp;[var.strWordsEmployeeID]</td>
+            <td>:</td>
+            <td>[var.strInputEmployee]</td>
+          </tr>
+          <tr valign="top">
+            <td colspan=2 nowrap>&nbsp;</td>
+            <td nowrap><strong id="employee_name">&nbsp;</strong></td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordsNote]</td>
+            <td>:</td>
+            <td>[var.strInputNote]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap colspan="3">
+            </td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordsStatus]</td>
+            <td>:</td>
+            <td>[var.strInputStatus]</td>
+          </tr>
+          <tr valign="top">
+            <td width="20%" nowrap>&nbsp;</td>
+            <td >&nbsp;</td>
+            <td width="78%" nowrap>&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><input name="btnSave" type="submit" id="btnSave3" value="[var.strWordsCreate]">
+              <input name="dataID" type="hidden" id="dataID3" value="[var.strDataID]">
+              <input name="btnNew" type="button" id="btnNew3" value="[var.strWordsAddNew]" onClick="resetInput();">
+              [var.strButtonPrint]
+            </td>
+          </tr>
+          <tr align="left">
+            <td colspan=3>
+               <div  id="detail"></div>
+               [var.strSalaryMonthInfo]
+               <input name="totalData"          type="hidden" id="totalData"          value="[var.intTotalData]">
+               <input name="totalSearchData"    type="hidden" id="totalSearchData"    value="0">
+               <input name="dataSearchEmployee" type="hidden" id="dataSearchEmployee" value="">
+               <input name="dataListEmployee"   type="hidden" id="dataListEmployee"   value="[var.strEmployeeList]">
+            </td>
+          </tr>
+          </table></td></tr>
+        </table><br>
+        </td>
+    </tr>
+
+    <tr>
+      <td colspan=3>
+         &nbsp;
+      </td>
+     </tr>
+    <tr>
+      <td colspan=3>
+         <table id=dataDetail border='0' cellpadding='0' cellspacing='0' class='gridTable' width="100%">
+              [var.strDataDetail][var.strDetailFooter]
+         </table>
+       </td>
+     </tr>
+  </table>
+  </td>
+  </tr>
+  </form>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+

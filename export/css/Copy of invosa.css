@@ -1,0 +1,804 @@
+body
+{
+  margin              : 0px;
+  padding             : 0px;
+  color               : #333;
+  background-color    : #FFF;
+  font-size           : 10px;
+  font-family         : Verdana, Helvetica, sans-serif;
+}
+
+table
+{
+  border-collapse : collapse;
+}
+
+td {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 10px;
+  color: #000000;
+}
+
+
+th {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  background : #aaa;
+  color: #000000;
+  padding : 1px 2px 1px 2px;
+}
+
+a
+{
+  text-decoration     :none;
+}
+
+p
+{
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 10px;
+  color               : #000000;
+}
+
+input[type=text], input[type=file], textarea, select
+{
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 10px;
+  color               : #000000;
+  border-color        : #666666;
+  border-style        : solid;
+  border-width        : 1px;
+  padding-left        : 2px;
+  padding-right       : 0px;
+}
+
+input[type=button], input[type=submit], input[type=reset]
+{
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 10px;
+  background-color    : #aaaaaa;
+  border-color        : grey;
+  border-style        : solid;
+  border-width        : 1px;
+  cursor              : pointer;
+
+}
+input[disabled=true]
+{
+  background-color    : #ffffff
+  border-color        : grey;
+  border-style        : solid;
+  border-width        : 1px;
+  cursor              : pointer;
+
+}
+
+input[type=button]:hover, input[type=submit]:hover
+{
+  background-color    : lightyellow;
+}
+
+.login
+{
+  margin-left         : auto;
+  margin-right        : auto;
+  margin-top          : 6em;
+  padding             : 15px;
+  border              : 1px solid #cccccc;
+  width               : 429px;
+  background          : #F1F3F5;
+}
+
+.login h1 {
+  background          : url(../images/login_header.png) no-repeat;
+  background-position : left top;
+  color               : #333;
+  margin              : 0px;
+  height              : 50px;
+  padding             : 15px 4px 0 50px;
+  text-align          : left;
+  font-size           : 1.5em;
+}
+
+.login p
+{
+  padding             : 0 1em 0 1em;
+}
+
+
+.login-form
+{
+  text-align          : left;
+  float               : right;
+  width               : 60%;
+}
+
+.login-text
+{
+  text-align          : left;
+  width               : 40%;
+  float               : left;
+}
+
+.form-block
+{
+  border              : 1px solid #cccccc;
+  background          : #E9ECEF;
+  padding-top         : 15px;
+  padding-left        : 10px;
+  padding-bottom      : 10px;
+  padding-right       : 10px;
+}
+
+
+.inputlabel
+{
+  font-weight         : bold;
+  text-align          : left;
+}
+
+.inputBox
+{
+  /* background-color: #C3D9FF; */
+  background-color: #e1e1e1;
+  border: 1px solid grey;
+ 
+}
+
+.inputTop
+{
+  background          : url("../images/top_bg.png") repeat-x;
+  border              : 1px solid grey;
+  border-bottom       : none;
+  padding-left        : 10px;
+  text-transform      : uppercase;
+  font-weight         : bold;
+  height              : 20px;
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 10px;
+}
+
+.listTop
+{
+  padding-bottom      : 3px;
+  text-transform      : uppercase;
+  font-weight         : bold;
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 10px;
+}
+
+
+.inputselect
+{
+  width               : 150px;
+  margin              : 0 0 1em 0;
+  border              : 1px solid #cccccc;
+}
+
+.ctr
+{
+  text-align          : center;
+}
+
+
+.clr
+{
+  clear               : both;
+}
+
+.commonButton
+{
+  border              : solid 1px #cccccc;
+  background          : #E9ECEF;
+  color               : #666666;
+  font-weight         : bold;
+  font-size           : 10px;
+  padding             : 4px;
+}
+
+table.content
+{
+  width               : 100%;
+  text-align          : left;
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 10px;
+  background-color    : 
+;
+  color               : black;
+  padding-top         : 2px;
+  padding-left        : 10px;
+  padding-right       : 10px;
+  padding-bottom      : 2px;
+}
+
+div.footer
+{
+  width               : 100%;
+  height              : 15px;
+  text-align          : left;
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 10px;
+  background-color    : #1e501a;
+  color               : white;
+}
+
+td.bottomMenu
+{
+  text-align          : center;
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 10px;
+  padding-left        : 4px;
+  padding-right       : 4px;
+  color               : white;
+  cursor              : pointer;
+}
+
+td.bottomSeparator
+{
+  width               : 1px;
+  background-image    : url(../images/separatorBottom.gif);
+  background-repeat   : no-repeat;
+  background-position : left;
+  padding-left        : 0px;
+  padding-right       : 0px;
+}
+
+td.bottomMenuHover
+{
+  text-align          : center;
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 10px;
+  background-color    : white;
+  color               : #1e501a;
+  padding-left        : 4px;
+  padding-right       : 4px;
+  cursor              : pointer;
+}
+
+div.footer div.footerPage
+{
+  background-image    : url(../images/kmiicon.gif);
+  background-repeat   : no-repeat;
+  background-position : left;
+  background-color    : #1e501a;
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 10px;
+  padding-left        : 20px;
+  width               : 35%;
+  float               : left;
+
+}
+
+td.bottomCopyright
+{
+  text-align          : center;
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 9px;
+}
+
+.master
+{
+  height             : 100%;
+  width              : 100%;
+}
+
+.header
+{
+  height              : 40px;
+}
+
+.content
+{
+  clear               : both;
+}
+
+.footer
+{
+  height              : 20px;
+}
+
+
+#wrapper
+{
+  display             : table;
+  height              : 100%;
+  width               : 100%;
+}
+
+.pageHeaderTitle
+{
+  background-color    : #FFFFFF;
+  border-bottom       : 1px dotted #660000;
+}
+
+.pageHeaderTitle .pageHeaderTitleText
+{
+  font-size           : 12px;
+  font-weight         : bold;
+  color               : darkred;
+  font-family         : Verdana, Helvetica, sans-serif;
+  /*border-left         : 1px dotted #660000;*/
+  text-transform      : uppercase;
+  height              : 20px;
+}
+.pageHeaderTitle .blank
+{
+  width               : 15px;
+  height              : 15px;
+  background          : url("../images/blank_bg.gif") repeat-x;
+  border-left         : 1px solid lightred;
+  border-right        : 1px solid lightred;
+}
+
+.errMessage {
+  color               : red;
+  font-weight         : bold;
+  font-size           : 12px;
+  background-color    : white;
+  border              : 1px solid red;
+}
+
+
+.moduleSelected
+{
+  font-size           : 10px;
+  color               : white;
+  background-image    : url(../images/bgModuleSelected.gif);
+  background-repeat   : no-repeat;
+  background-position : top;
+  height              : 22px;
+  width               : 90px;
+  text-align          : center;
+  vertical-align      : top;
+  padding-top         : 3px;
+  cursor              : default;
+}
+
+
+td.moduleNormal
+{
+  font-size           : 10px;
+  color               : #255900;
+  background-image    : url(../images/bgModule.gif);
+  background-repeat   : no-repeat;
+  background-position : top;
+  height              : 22px;
+  width               : 90px;
+  text-align          : center;
+  vertical-align      : top;
+  padding-top         : 3px;
+  cursor              : pointer;
+}
+
+td.moduleNormalHover
+{
+  font-size           : 10px;
+  color               : #255900;
+  background-image    : url(../images/bgModuleHover.gif);
+  background-repeat   : no-repeat;
+  background-position : top;
+  height              : 22px;
+  width               : 90px;
+  text-align          : center;
+  vertical-align      : top;
+  padding-top         : 3px;
+  cursor              : pointer;
+}
+
+
+td.topMenuLeft
+{
+  height              : 18px;
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 10px;
+  font-weight         : bold;
+  background-color    : black;
+  color               : white;
+  text-align          : right;
+  padding-left        : 5px;
+  padding-right       : 5px;
+  cursor              : default;
+  background-image    : url(../images/menuborderleft.gif);
+  background-position : left;
+  background-repeat   : no-repeat;
+}
+
+td.topMenu
+{
+  height              : 18px;
+  text-align          : center;
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 10px;
+  background-color    : #cdcdcd;
+  background-image    : url(../images/separator.gif);
+  background-repeat   : no-repeat;
+  background-position : right;
+  color               : black;
+  padding-left        : 4px;
+  padding-right       : 4px;
+  cursor              : pointer;
+}
+
+td.topMenuHover
+{
+  height              : 18px;
+  text-align          : center;
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 10px;
+  background-color    : black;
+  color               : white;
+  padding-left        : 4px;
+  padding-right       : 4px;
+  cursor              : pointer;
+}
+
+td.topMenuRight
+{
+  height              : 18px;
+  text-align          : center;
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 10px;
+  background-color    : #cdcdcd;
+  color               : black;
+  background-image    : url(../images/menuborderright.gif);
+  background-position : right;
+  background-repeat   : no-repeat;
+  padding-left        : 4px;
+  padding-right       : 4px;
+  cursor              : pointer;
+}
+
+td.topMenuRightHover
+{
+  height              : 18px;
+  text-align          : center;
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size           : 10px;
+  background-color    : black;
+  color               : white;
+  background-image    : url(../images/menuborderrighton.gif);
+  background-position : right;
+  background-repeat   : no-repeat;
+  padding-left        : 4px;
+  padding-right       : 4px;
+  cursor              : pointer;
+}
+
+
+
+
+div#fixme
+{
+  /* IE5.5+/Win - this is more specific than the IE 5.0 version */
+  left                : expression( ( document.body.clientWidth - 85 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+  top                 : expression( ( document.body.clientHeight - 19 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+  z-index             : 100;
+}
+
+
+#fixme
+{
+  /* Netscape 4, IE 4.x-5.0/Win and other lesser browsers will use this */
+  position            : absolute;
+  left                : 0px;
+  top                 : 0px;
+  z-index             : 100;
+}
+
+
+body > div#fixme
+{
+  /* used by Opera 5+, Netscape6+/Mozilla, Konqueror, Safari, OmniWeb 4.5+, iCab, ICEbrowser */
+  position            : fixed;
+}
+
+.pageHeader1 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #3366CC;
+  border-bottom-width: 1px;
+  border-bottom-style: dotted;
+  border-bottom-color: #006699;
+  text-decoration: none;
+}
+.pageHeader1 a{
+  color: #3366CC;
+  text-decoration: none;
+}
+.pageHeader2 {
+  font-size: 10px;
+  font-weight: normal;
+  color: #3366CC;
+  border-bottom-width: 1px;
+  border-bottom-style: dotted;
+  border-bottom-color: #006699;
+  text-decoration: none;
+  font-family: Verdana, Helvetica, sans-serif;
+}
+
+.pageHeader3 {
+  font-weight: bold;
+  font-size: 12px;
+  color: #777;
+  text-decoration: none;
+  cursor:default;
+}
+
+.pageHeader3 a{
+  color: #3f9b1f;
+  text-decoration: none;
+  cursor:pointer;
+}
+.pageHeader3 a:hover{
+  color: #045711;
+  text-decoration: underline;
+  cursor:pointer;
+}
+
+.pageHeader4 {
+  font-size: 12px;
+  font-weight: bold;
+  color: #0f7b88;
+  text-decoration: none;
+  cursor:default;
+}
+.pageHeader4 a{
+  color: #0f7b88;
+  text-decoration: none;
+  cursor:pointer;
+}
+
+.pageHeader4 a:hover{
+  color: #0a1780;
+  text-decoration: underline;
+  cursor:pointer;
+}
+
+.pageHeader5 {
+  font-size: 10px;
+  color: #333;
+  text-decoration: none;
+  font-style : italic;
+}
+
+.tableHeader {
+  background-color    : #E2E2E2;
+  border-right        : 1px solid #CCCCCC;
+  border-bottom       : 1px solid #CCCCCC;
+  font-family         : Verdana, Helvetica, sans-serif;
+  color               : black;
+  padding             : 0px 3px 0px 3px;
+  font-weight         : bold;
+  text-align          : center;
+  text-transform      : uppercase;
+
+}
+
+.gridTable
+{
+  border-left         : 1px solid #CCCCCC;
+  border-right        : 1px solid #CCCCCC;
+  border-top          : 1px solid #CCCCCC;
+  border-collapse     : collapse;
+  empty-cells         : show;
+  background-color    : #fff;;
+}
+.gridTable  td
+{
+  border-right        : 1px solid #CCCCCC;
+  border-bottom       : 1px solid #CCCCCC;
+  font-family         : Verdana, Verdana;
+  font-weight         : normal;
+  font-size           : 10px;
+  padding             : 1px 3px 1px 3px;
+}
+
+.gridTable th {
+  background-color    : #E2E2E2;
+  border-right        : 1px solid #CCCCCC;
+  border-bottom       : 1px solid #CCCCCC;
+  font-family         : Verdana, Helvetica, sans-serif;
+  color               : black;
+  padding             : 0px 3px 0px 3px;
+  font-weight         : bold;
+  text-align          : center;
+  }
+
+
+.gridTable tr:hover {
+    background-color : #dddddd;
+  }
+
+.noGridTable {
+  border: 0px;
+}
+.noGridTable  td {
+  border: 0px;
+}
+.copyright {
+  font-size: 9px;
+  color: #999999;
+}
+
+.bgLate {
+  background-color: lightblue;
+}
+
+.bgReadonly {
+  background-color: #e3e3e3;
+}
+
+/* buat catering */
+.bgSeninKamis {
+  background-color: #FFCC99;
+}
+.bgNoCatering {
+  background-color: #00FF00;
+}
+.bgCatering{
+  background-color: #FFFFF0;
+}
+.bgCateringAbsence {
+  background-color: #009900;
+  color:#FFFF00;
+  font-weight:bold;
+}
+.bgAbsence {
+  background-color: #FF3300;
+}
+.bgError {
+  font-size: 10px;
+  font-weight: bold;
+  background-color    : #ffffff;
+  color               : darkred;
+  border              : 1px solid red;
+}
+.bgOK {
+  font-family         : Verdana, Helvetica, sans-serif;
+  font-size: 10px;
+  background-color    : #ffffff;
+  color               : darkgreen;
+  border              : 1px solid #00cc00;
+  font-weight:bold;
+}
+.inputBoxBottomLine {
+  border-bottom: 1px solid #003399;
+
+}
+.bgDenied {
+  background-color: ddddbb;
+}
+.bgMutation{
+  background-color:#3366CC;
+}
+.bgNewEmp {
+  background-color:#6699FF;
+}
+.bgNewRevised {
+  background-color: #FFFFbb;
+}
+
+/* -- untuk membedakan data yang diupdate, udah diapprove atau belum */
+.bgNewData {
+  background-color: #bbddFF;
+}
+.cBlue {
+  color: darkblue;
+}
+.cOrange {
+  color: orange;
+}
+.bgCheckedData {
+  background-color: #CCFFCC;
+}
+
+.bgVerifiedData {
+  background-color: #FFFFbb;
+}
+
+.bgBlocked {
+  background-color: #FF3300;
+}
+
+/* ----  */
+
+
+.formHeader { /* header buat formulir */
+  font-weight: bold;
+  font-size: 9pt;
+  color: #000033;
+  background-color: #E2E2E2;
+}
+.dateMsg{
+  /*message error pas cek tanggal*/
+  font-size: 9pt;
+  color: #FF0000;
+}
+
+.footer{
+  font-size: 8pt;
+  color: #003399;
+}
+
+.footerText{
+  font-size: 7pt;
+  color: #003399;
+}
+
+.tblUp{
+  background-color: #0066CC;
+}
+
+
+.inputArea {
+  background-color: #C3D9FF;
+  border: 1px solid #003399;
+  padding : 5px;
+}
+
+div.backtotop
+{
+  background : url('../images/backtotop.png') no-repeat;
+  width : 85px;
+  height : 19px;
+  color : #1e501a;
+  cursor : pointer;
+}
+
+/* untuk angka */
+.numeric
+{
+  text-align: right;
+}
+
+#loadingMenu{
+  width  : 100%;
+  height : 20px;
+  padding-left : 10px;
+  padding-top : 2px;
+  background : url('../images/loading.gif');
+}
+
+.logoTop
+{
+  background : url('../images/logo_inside1.gif') no-repeat;
+  background-position : center left;
+}
+
+.logoTop2
+{
+  background : url('../images/logo.gif') no-repeat;
+  background-position : top right;
+}
+.spanExpand
+{
+  cursor : pointer;
+}
+
+
+table.tableCalendar
+{
+  border-collapse : collapse;
+  border : 1px solid #777;
+	font-family         : Verdana, Helvetica, sans-serif;
+	font-size           : 10px;
+}
+
+table.tableCalendar td
+{
+  border : 1px solid #777;
+}
+
+table.tableCalendar th
+{
+  white-space : nowrap;
+  text-align : center;
+  border : 1px solid #777777;
+	font-size : 10px;
+  font-weight: bold;
+  background : #999999;
+  color : #ffffff;
+}
+

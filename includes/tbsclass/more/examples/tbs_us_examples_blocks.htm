@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>TinyButStrong</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="tbs_us_examples_0styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<p align="center" class="title-page">Example of Block Syntaxes</p>
+<p align="center">These examples illustrate the different available syntaxes for Merge-Blocks.</p>
+<p><span class="title-section2">-&gt; Absolute Syntax:</span><span class="title-section"><br>
+  </span><span class="text-section2"><br>
+  The block is defined by a beginning TBS tag and an ending TBS tag.</span></p>
+<p class="text-example2">[blk1;block=begin][blk1.val]<br>
+  [blk1;block=end]</p>
+<p><span class="title-section2">-&gt; Relative Syntax:</span><span class="title-section"><br>
+  </span> <span class="text-section2"><br>
+  The block is defined relatively to the HTML tags that surround the TBS tag.<br>
+  Only one TBS tag is needed to define the block.</span></p>
+<table width="300" border="1" cellpadding="2" cellspacing="0" bordercolor="#006699">
+  <tr>
+    <td class="text-example2">[blk2.val][blk2;block=tr]</td>
+  </tr>
+</table>
+<p><span class="title-section2">-&gt; Simplified Syntax:</span><span class="title-section"><br>
+  </span><span class="text-section2"><br>
+  Only one TBS tag is needed for the Field or the Block.</span></p>
+<table width="300" border="1" cellpadding="2" cellspacing="0" bordercolor="#006699">
+  <tr>
+    <td class="text-example2">[blk3.val;block=tr]</td>
+  </tr>
+</table>
+<p><span class="title-section2">-&gt; Without Block Definition:</span><span class="title-section"><u><br>
+  </u></span><span class="text-section2"><br>
+  If the block definition is omitted, then only the first record is merged.<font color="#006600"><u></u></font></span><font color="#006600"><em><span class="title-section"><u><br>
+  </u></span></em><br>
+  </font>Example: <span class="text-example2">[blk5.val]</span></p>
+<p><span class="title-section2"><span class="title-section2">-&gt; </span>With Encapsulation:<br>
+  <br>
+  </span><span class="text-section2">It is possible to define a block on the pair of Html tags on a higher level.<br>
+  For this, it's enough to set the encapsulation level using parentheses.<br>
+  In the example below, the block is bounded by the pink row.</span></p>
+<table width="300" border="1" cellpadding="4" cellspacing="0" bordercolor="#FF6699">
+  <tr>
+    <td width="211"><table width="300" border="1" cellpadding="2" cellspacing="0" bordercolor="#006699">
+        <tr>
+          <td class="text-example2">[blk4.val;block=((tr))]</td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</body>
+</html>

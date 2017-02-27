@@ -1,0 +1,199 @@
+<script type="text/javascript" src="../js/calendar.js"></script>
+<script type="text/javascript" src="../js/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/acEmployee.js"></script>
+<script type="text/javascript" src="../js/ylib.js"></script>
+<script type="text/javascript" src="employee_data.php"></script>
+<script type="text/javascript" src="../js/prototype.js"></script>
+<script type="text/javascript" src="../js/numberformat.js"></script>
+
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() 
+  {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+
+    return 1;
+  }
+</script>
+<script type="text/javascript">
+  <!--
+  
+  // fungsi untuk mengupdate total gaji
+  function calculateTotalAmount()
+  {
+  }
+
+  function clearForm() 
+  {
+    document.formInput.dataEmployee.value = "";
+    document.formInput.dataNote.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataDateFrom.focus();
+  }//clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput() 
+  {
+    if (document.formInput.dataDate.value == "") 
+    {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+
+    if (document.formInput.dataEmployee.value == "") 
+    {
+      alert("Empty Employee ID!");
+      document.formInput.dataEmployee.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() 
+  {
+    var total = 0;
+    document.formInput.dataDate.focus();
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+
+    init();
+    onCodeBlur();
+
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>
+      <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;
+            <strong>[var.strWordsEntry] | 
+              <a href="salary_changes_list.php">[var.strWordsList]</a>
+            </strong>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputTop">[var.strWordsINPUTDATA]</td>
+  </tr>
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table width="100%" border="0" cellpadding="2" cellspacing="0">
+          <tr class="inputBoxBottomLine">
+            <td valign="top">&nbsp;</td>
+            <td valign="top">
+              <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td width="120px">&nbsp;</td>
+                  <td width="" align="center">&nbsp;</td>
+                  <td width="">&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsProposalDate]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDate]&nbsp; <input name="btnDate" type="button" id="btnDate" value=".."></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong> [var.strWordsEmployeeID]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputEmployee]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td><strong id="employee_name"></strong>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;</td>
+            <td valign="top">
+              <table width="" border="0" align="left" cellpadding="1" cellspacing="0" class="gridTable">
+                <tr>
+                  <td colspan="5" class="inputTop"><strong>[var.strWordsSalaryAdjustment]</strong></td>
+                </tr>
+                <tr valign="top">
+                  <th width="19">[var.strWordsNo]</th>
+                  <th width="150">[var.strWordsAllowance]</th>
+                  <th>[var.strWordsAmount]</th>
+                </tr>
+                [var.strDataDetail]
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td align="center" valign="top">&nbsp;</td>
+            <td align="center" valign="top">
+              <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr valign="top">
+                  <td width="120px" nowrap><strong>[var.strWordsNote]</strong></td>
+                  <td width="" align="center">:</td>
+                  <td width="" nowrap>[var.strInputNote]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong> [var.strWordsStatus]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputStatus]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td><strong id="employee_name"></strong><br><input name="btnSave" type="submit" id="btnSave2" value="[var.strWordsSave]">
+                    &nbsp; <input name="btnNew" type="button" id="btnNew" value="[var.strWordsClearForm]" onClick="location.href = 'salary_changes_edit.php';"> [var.strBtnPrint]
+                    <input name="dataID" type="hidden" id="dataID2" value="[var.strDataID]">
+                  </td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td align="center" valign="top">&nbsp;</td>
+            <td align="center" valign="top">&nbsp; </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

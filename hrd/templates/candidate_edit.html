@@ -1,0 +1,264 @@
+<link href="../includes/datagrid/css/aqua.css" rel="stylesheet" type="text/css">
+<!--<script type="text/javascript" src="../js/tiny_mce/tiny_mce_src.js"></script>-->
+<script type="text/javascript">
+  $.noConflict();
+</script>
+<script type="text/javascript" src="../js/prototype.js"></script>
+<script type="text/javascript">
+  //this function javascript below use prototype.js (if you use datagrid class you don't have to include this script//
+  var myClient = {
+    submitCount : 0,
+    changeMRF : function()
+    {
+      txt = $('id_recruitment_need').options[$('id_recruitment_need').selectedIndex].text;
+      arr = txt.split(" - ");
+      if (arr.length > 1) $('position').value = arr[1];
+
+    },
+    confirmDelete : function()
+    {
+      return confirm('Are you sure to delete this data?');
+    },
+
+    getElementsByName_iefix : function(tag, name)
+    {
+      var elem = document.getElementsByTagName(tag);
+      var arr = new Array();
+      for(i = 0,iarr = 0; i < elem.length; i++) {
+          att = elem[i].getAttribute("name");
+          if(att == name)
+          {
+               arr[iarr] = elem[i];
+               iarr++;
+          }
+      }
+      return arr;
+    },
+
+    confirmSave : function()
+    {
+      if (this.submitCount != 0) return false;
+      this.submitCount++;
+      if (myformInput.doSubmit())
+      {
+        var arr = this.getElementsByName_iefix('input', 'reference_type'); //document.getElementsByName(elName);
+        var isFound = false;
+        for(i = 0; i < arr.length; i++)
+        {
+          if (arr[i].checked)
+          {
+            if ($('reference' + arr[i].value).value == "")
+            {
+              alert('Please complete the job reference');
+              arr[i].focus();
+              this.submitCount = 0;
+              return false;
+            }
+            isFound = true;
+          }
+        }
+        if (!isFound)
+        {
+          alert('Please select the job reference first!');
+          if (arr.length > 0) arr[0].focus();
+          this.submitCount = 0;
+          return false;
+        }
+        if (confirm('Do you want to save this entry?'))
+        {
+          return true;
+        }
+      }
+      this.submitCount = 0;
+      return false;
+    },
+
+    // untuk menampilkan lebih banyak field untuk data pendidikan
+    showMoreEducation : function()
+    {
+      totalMain = parseInt($('hNumTotalEducation').value);
+      shown = parseInt($('hNumShowEducation').value);
+      if (shown < totalMain)
+      {
+        shown++;
+        $('dataEducationRow' + shown).style.display = (document.all) ? "block" : "table-row";
+        $('hNumShowEducation').value = shown;
+      }
+    },
+
+	// untuk menampilkan lebih banyak field untuk data sosial
+    showMoreSocialActivities : function()
+    {
+      totalMain = parseInt($('hNumTotalSocialActivities').value);
+      shown = parseInt($('hNumShowSocialActivities').value);
+      if (shown < totalMain)
+      {
+        shown++;
+        $('dataSocialActivitiesRow' + shown).style.display = (document.all) ? "block" : "table-row";
+        $('hNumShowSocialActivities').value = shown;
+      }
+    },
+
+    // untuk menampilkan lebih banyak field untuk data experience
+    showMoreWorkingExperience: function()
+    {
+      totalMain = parseInt($('hNumTotalWorkingExperience').value);
+      shown = parseInt($('hNumShowWorkingExperience').value);
+      if(shown < totalMain)
+      {
+        shown++;
+        $('dataWorkingExperienceRow2_' + shown).style.display = "";
+        $('dataWorkingExperienceRow' + shown).style.display = "";
+        $('hNumShowWorkingExperience').value = shown;
+      }
+    },
+
+    showMoreLanguageSkill: function()
+    {
+        totalMain = parseInt($('hNumTotalLanguageSkill').value);
+        shown = parseInt($('hNumShowLanguageSkill').value);
+        if(shown < totalMain)
+        {
+          shown++;
+          $('dataLanguageRow' + shown).style.display = "";
+          $('hNumShowLanguageSkill').value = shown;
+        }
+    },
+
+    // untuk menampilkan lebih banyak field untuk entry keluarga
+    showMoreFamily : function(tipe)
+    {
+      if (tipe == 0) // ini mainFamily
+      {
+        totalMain = parseInt($('hiddenTotalMain').value);
+        shown = parseInt($('hiddenShowMain').value);
+        if (shown < totalMain)
+        {
+          shown++;
+          $('mainFamily' + shown).style.display = (document.all) ? "block" : "table-row";
+          $('hiddenShowMain').value = shown;
+        }
+      }
+      if (tipe == 1) // ini mainFamily
+      {
+        totalMain = parseInt($('hiddenTotalOwn').value);
+        shown = parseInt($('hiddenShowOwn').value);
+        if (shown < totalMain)
+        {
+          shown++;
+          $('mainFamily' + shown).style.display = (document.all) ? "block" : "table-row";
+          $('hiddenShowOwn').value = shown;
+        }
+      }
+    },
+
+    // inisialisasi tampilan data anggota keluarga, tampilkan sebagian dulu
+    initFamilyView : function()
+    {
+      intMax = 8;
+      // main family dulu
+      totalMain = parseInt($('hiddenTotalMain').value);
+      if (isNaN(totalMain)) totalMain = 0;
+      shown = totalMain;
+      for (j = totalMain; j > intMax; j--)
+      {
+        if ($('familyName' + j).value == "")
+        {
+          $('mainFamily' + j).style.display = 'none';
+          shown--;
+        }
+        else
+          break;
+      }
+      $('hiddenShowMain').value = shown;
+
+      // own family
+      intMax = intMax + totalMain - 1;
+      totalOwn = parseInt($('hiddenTotalOwn').value);
+      if (isNaN(totalOwn)) totalOwn = 0;
+      shown = totalOwn;
+      for (j = totalOwn; j > intMax; j--)
+      {
+        if ($('familyName' + j).value == "")
+        {
+          $('mainFamily' + j).style.display = 'none';
+          shown--;
+        }
+        else
+          break;
+      }
+      $('hiddenShowOwn').value = shown;
+    },
+
+    changeJobRef : function (tipe, obj)
+    {
+      bolstart = false; // apakah dipanggil saat awal atau tidak
+      if (arguments.length > 2) bolstart = true;
+
+      if (typeof arrJobPost == 'undefined' || typeof (arrJobPost[tipe]) == 'undefined') return 0; // dari file job_posting_js.php
+      nama = obj.value;
+      if (typeof (arrJobPost[tipe][nama]) == 'undefined') return 0;
+
+      arr = arrJobPost[tipe][nama];
+      total = arr.length;
+      oldvalue = $('job_reference_date').value;
+
+      // $('job_reference_date').innerHTML = "";
+      objJ = $('job_reference_date');
+      objJ.options.length = 0;
+      str = "<option value=''> </option> ";
+      bolfound = false;
+      for (i = 0; i < total; i++)
+      {
+        chk = "";
+        objJ.options.length++;
+        objJ.options[i].value = arr[i];
+        objJ.options[i].text = arr[i];
+        if (arr[i] == oldvalue)
+        {
+          bolfound = true;
+          chk = "selected";
+          objJ.options[i].selected = true;
+        }
+        str += "<option value='" + arr[i] + "' " + chk + ">" + arr[i] + "</option>";
+      }
+      if (!bolfound && oldvalue != "" && bolstart)
+      {  // tambahkan satu baris lagi di data lama
+        str += "<option value='" + oldvalue + "' selected>" + oldvalue + "</option>";
+      }
+      //$('job_reference_date').innerHTML = str;
+
+    }
+  }
+
+  function initPage_()
+  {
+    // susah
+    [var.strActionOnLoad]
+  }
+</script>
+[var.pageHeader]
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      [var.formInput;protect=no;htmlconv=no]
+    </div>
+    <div class="col-md-12" align="center">
+      <small>Last update: [var.strLastUpdatePHP] | 22-Feb-2008</small>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  /*for(var i = 1; i<= $('hNumShowWorkingExperience').value; i++)
+  {
+    tinyMCE.execCommand('mceAddControl', false, "jobDescription"+i);
+  }*/
+  
+  var n = $('hNumShowWorkingExperience').value;
+  for(i = 1; i <= n ; i++)
+  {
+    if ($('lastSalary'+i)) maskEdit($('lastSalary'+i), editKeyBoardNumeric);
+  }
+  
+  myClient.initFamilyView();
+</script>

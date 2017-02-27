@@ -1,0 +1,238 @@
+  <script src="scripts/calendar.js"></script>
+  <script src="scripts/calendar-en.js"></script>
+  <link href="../css/calendar.css" rel="stylesheet" type="text/css">
+  <script>
+  <!--
+
+  // menentukan kriteria apa aja yang aktif, sesuai jenis report
+  function configureCriteria() {
+    var pilihan = document.formInput.dataType.value;
+    /* batal
+    if (pilihan == 0) {
+      document.formInput.dataDateFrom.disabled = false;
+      document.formInput.dataDateThru.disabled = true;
+      document.formInput.dataSection.disabled = false;
+      //document.formInput.dataSubsection.disabled = false;
+    } else if (pilihan == 1) {
+      document.formInput.dataDateFrom.disabled = false;
+      document.formInput.dataDateThru.disabled = false;
+      document.formInput.dataSection.disabled = false;
+      //document.formInput.dataSubsection.disabled = false;
+    }*/
+    //document.formInput.dataDateFrom.disabled = (pilihan == 2);
+
+  }//configgure Criteri
+
+
+  function goShow(tipe) {
+	var checkValid = document.formInput.dataSalaryDate.value;
+	var pilihan = document.formInput.dataType.value;
+	if(checkValid == '' && pilihan!=3 && pilihan!=4) {
+		alert("Please use valid input for salary date!");
+		return;
+	}
+  
+    str = (tipe == 0) ? "" : "?btnExcel=Excel";
+    document.formInput.target = (tipe == 1) ? "" : "_blank";
+    if (pilihan == 0) {
+
+      document.formInput.action = "workhabit_report_leave.php" + str;
+      document.formInput.submit();
+    } else if (pilihan == 1) {
+
+      document.formInput.action = "workhabit_report_late.php" + str;
+      document.formInput.submit();
+    } else if (pilihan == 2) {
+
+      document.formInput.action = "workhabit_report_early.php" + str;
+      document.formInput.submit();
+    } else if (pilihan == 3) {
+
+      document.formInput.action = "workhabit_report_leavedetail.php" + str;
+      document.formInput.submit();
+    } else if (pilihan == 4) {
+
+      document.formInput.action = "workhabit_report_ATO.php" + str;
+      document.formInput.submit();
+    } else if (pilihan == 5) {
+
+      document.formInput.action = "workhabit_report_status.php" + str;
+      document.formInput.submit();
+    }
+  }
+
+  function initPage_() {
+  
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+	
+    configureCriteria();
+	showInterval();
+  } // initPage
+  
+  function showInterval(){
+  
+	var opt = document.getElementById("dataType").value;
+	var tgt_tr = document.getElementById("showDataInterval");
+	var tgt = document.getElementById("dataInterval");
+	
+    if(!(opt==3 || opt==4 || opt==5))
+    {
+        tgt_tr.style.display = "table-row";
+    }
+    else
+    {
+        tgt_tr.style.display = "none";
+		tgt.value = "";
+    }
+	
+	tgt_tr = document.getElementById("showDataDateFrom");
+	tgt = document.getElementById("dataDateFrom");
+	var hide_tr = document.getElementById("showDataSalaryDate");
+	var hide = document.getElementsByName("dataSalaryDate")[0];
+	if(opt==3 || opt==4){
+		tgt_tr.style.display = "table-row";
+		tgt.value = "[var.strNow]";
+		hide_tr.style.display = "none";
+		hide.value = "";
+	}else{
+		tgt_tr.style.display = "none";
+		tgt.value = "";
+		hide_tr.style.display = "table-row";
+	}
+	
+	tgt_tr = document.getElementById("showDataDateThru");
+	tgt = document.getElementById("dataDateThru");
+	if(opt==3 || opt==4){
+		tgt_tr.style.display = "table-row";
+		tgt.value = "[var.strNow]";
+	}else{
+		tgt_tr.style.display = "none";
+		tgt.value = "";
+	}
+  }
+  -->
+  </script>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td class="pageHeaderTitle" align="left"> <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30"><img width="30" src="[var.pageIcon]" border="0" /></td>
+            <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+          </tr>
+        </tbody>
+      </table></td>
+  </tr>
+  <tr>
+    <td> <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30"></td>
+            <td class="pageHeaderTitleText" nowrap="nowrap"><strong>Workhabit Report</strong></td>
+          </tr>
+        </tbody>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp</td>
+  </tr>
+  <tr>
+    <td class="inputTop">[var.strWordsFILTERDATA]</td>
+  </tr>
+
+  <tr>
+    <td align="left" class="inputBox"> <form action="" method="post" name="formInput" target="_blank" id="formInput">
+        <table width="700" border="0" cellpadding="2" cellspacing="0">
+          <tr>
+            <td valign="top"> <table align="left" border="0" cellpadding="1" cellspacing="0">
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap" width="15%">&nbsp;Report Type</td>
+                    <td width="5%">:</td>
+                    <td width="80%"><select name="dataType" id="dataType" style="width:200px" onchange="showInterval();">
+                        <option value="0">Leave</option>
+                        <option value="1">Late</option>
+                        <option value="2">Early Leave</option>
+						<option value="3">Detailed Leave Data</option>
+                        <option value="4">Annual Turn Over</option>
+						<option value="5">Work Status</option>
+                    </select></td>
+                  </tr>
+				  <tr id="showDataInterval" style="display:none">
+                    <td nowrap>&nbsp;[var.strWordsInterval]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputInterval]<!-- <span id="labelMillion" style="display:none">&nbsp;in thousands</span> --></td>
+                  </tr>
+                  <tr id="showDataDateFrom" style="display:none">
+                    <td height="21" nowrap="nowrap"> &nbsp;Date From</td>
+                    <td>:</td>
+                    <td><input name="dataDateFrom" type="text" id="dataDateFrom" value="[var.strNow]" size="15" maxlength="10">
+                      <input name="btnDateFrom" type="button" id="btnDateFrom" value=".."></td>
+                  </tr>
+                  <tr id="showDataDateThru" style="display:none">
+                    <td height="21" nowrap="nowrap"> &nbsp;Date Thru</td>
+                    <td>:</td>
+                    <td><input name="dataDateThru" type="text" id="dataDateThru" value="[var.strNow]" size="15" maxlength="10">
+                      <input name="btnDateThru" type="button" id="btnDateThru" value=".."></td>
+                  </tr>   
+                  <tr id="showDataSalaryDate">
+                    <td>&nbsp;[var.strWordsDate]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputDate]</td>
+                  </tr>
+				  <tr>
+                    <td colspan=3> &nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;[var.strWordsCompany]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputCompany]</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;[var.strWordsDivision]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputDivision]</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;[var.strWordsDepartment]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputDepartment]</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;[var.strWordsSection]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputSection]</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;[var.strWordsSubSection]</td>
+                    <td>:</td>
+                    <td nowrap>[var.strInputSubSection]</td>
+                  </tr>
+                  <tr>
+                    <td colspan=3> &nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td nowrap> <input name="btnShow" id="btnShow" value="Show" type="button" onClick="goShow(0);">
+                    <!--<input name="btnShow" id="btnExcel" value="Excel" type="button" onClick="goShow(1);">-->
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+              </table></td>
+            <td valign="top">&nbsp; </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,198 @@
+  <script>
+
+  // fungsi cek validasi
+  function validInput() {
+    return validateForm(document.formData);
+  }//validInput
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+  }//checkAll
+
+  // fungsi untuk minta konfirmasi save
+  function confirmSave() {
+    return confirm("Are you sure want to SAVE leave data?");
+  } //confirmSave
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    //init();
+    //onCodeBlur();
+    //initDiv("filterDivision", "filterDepartment", "filterSection", "filterSubsection", "");
+  }//initPage
+
+
+  // fungsi untuk menuju ke print page tertentu
+  function printData(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnPrint.click();
+    }
+  }//printData
+
+  // fungsi untuk menuju ke page tertentu
+  function goPage(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnShow.click();
+    }
+  }//goPage
+  jQuery(function($) {
+		$('#filteremployee_id').autocomplete({
+			source: "hrd_ajax_source.php?action=getemployee",
+			minLength: 2,
+			select: function( event, ui ) {
+				console.log(ui);
+				$('#employee_name').html(ui.item.label);
+			}
+		});
+	});
+  </script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.pageSubMenu]
+	    	<p></p>
+			</div>
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#filter-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">FILTER DATA</h3>
+					</div>
+					<div id="filter-panel" class="panel-body collapse in">
+						<form action="" method="post" name="formInput" id="formInput" enctype="multipart/form-data"  class="form-horizontal" role="form">
+		  				<div class="col-md-4">
+		  					<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataCompany">[var.strWordsCompany]</label>
+									<div class="col-sm-8">
+										[var.strInputFilterCompany]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="filterDivision">[var.strWordsDivision]</label>
+									<div class="col-sm-8">
+										[var.strInputFilterDivision]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="filterDepartment">[var.strWordsDepartment]</label>
+									<div class="col-sm-8">
+										[var.strInputFilterDepartment]
+									</div>
+								</div>
+		  				</div>
+		  				<div class="col-md-4">
+		  					<div class="form-group">
+									<label class="col-sm-4 control-label" for="filterSection">[var.strWordsSection]</label>
+									<div class="col-sm-8">
+										[var.strInputFilterSection]
+									</div>
+								</div>
+		  					<div class="form-group">
+									<label class="col-sm-4 control-label" for="filterSection">[var.strWordsEmployeeId]</label>
+									<div class="col-sm-8">
+										[var.strInputFilteremployee_id]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="filterSection">&nbsp;</label>
+									<div class="col-sm-8">
+										<strong id="employee_name">[var.strEmployeeName]</strong>
+									</div>
+								</div>
+		  				</div>
+		  				<div class="col-sm-12 form-actions">
+		  					<input type=hidden name="dataPage" value=1>
+              	<input class="btn btn-danger btn-small [var.strButtonResetDisplay]" name="btnReset" id="btnReset" value="[var.strWdReset]" type="submit">  
+              	<input class="btn btn-primary btn-small" name="btnShow" id="btnShow" value="[var.strWdShow]" type="submit" onClick="document.formInput.target = ''">
+                <input class="btn btn-info btn-small" name="btnPrint" type="submit" id="btnPrint" value="[var.strWdPrint]" onClick="document.formInput.target = '_blank'">
+                <input class="btn btn-info btn-small [var.strButtonPrintAllDisplay]" name="btnPrintAll" type="submit" id="btnPrintAll" value="[var.strWdPrintAll]" onClick="document.formInput.target = '_blank'">
+                <input class="btn btn-success btn-small" name="btnExcel" id="btnExcel" value="[var.strWdExcel]" type="submit" onClick="document.formInput.target = ''">	
+		  				</div>
+		  			</form>
+					</div>
+				</div>
+  		</div>  
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">[var.strListTop]</h3>
+					</div>
+					<div id="list-panel" class="panel-body collapse in">
+						 <form action="" method="post" name="formData" id="formData" action="leave_annual.php" onSubmit="return validInput();">
+			        <table class="table table-striped table-hover table-bordered gridTable" border="0" cellpadding="1" cellspacing="0" width=100%>
+			          <thead>
+			            <tr class="tableHeader center">
+			              <th rowspan="2" nowrap="nowrap" class="tableHeader center">[var.strEmpID]</th>
+			              <th rowspan="2" nowrap="nowrap" class="tableHeader center">[var.strEmpName]</th>
+			              <th rowspan="2" nowrap="nowrap" class="tableHeader center">[var.strStatus]</th>
+			              <th rowspan="2" nowrap="nowrap" class="tableHeader center">[var.strJoinDate]</th>
+              			  <td rowspan="2" nowrap="nowrap" class="tableHeader">[var.strNoS]</td>
+			              <th colspan="7" nowrap="nowrap" class="tableHeader center">[var.strPrevYear]</th>
+			        
+			              <th colspan="8" nowrap="nowrap" class="tableHeader center">[var.strThisYear]</th>
+			              <!--th rowspan="2" nowrap="nowrap" class="tableHeader center">[var.strTotal]<br>[var.strRemain]</th-->
+			            </tr>
+			         
+			            <tr class="tableHeader center">
+			  <td align="center" nowrap="nowrap" class="tableHeader">[var.strYears]</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">[var.strQuota]</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">[var.strAddQuota]</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">[var.strHoliday]</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">[var.strTaken]</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">[var.strAddTaken]</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">[var.strRemain]</td>
+              <!--td align="center" nowrap="nowrap" class="tableHeader">[var.strRemain] Add</td-->
+			      
+			  <td align="center" nowrap="nowrap" class="tableHeader">[var.strYears]</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">[var.strQuota]</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">[var.strAddQuota]</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">[var.strHoliday]</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">[var.strTaken]</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">[var.strAddTaken]</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">[var.strRemain]</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">Add Valid</td>
+              <!--td align="center" nowrap="nowrap" class="tableHeader">[var.strRemain] Add</td-->
+			            </tr>
+								</thead>
+								<tbody>
+				          [var.strDataDetail]
+				          <!--tr>
+				            <td nowrap colspan=5>&nbsp;<input name="totalData" id="totalData" value="[var.intTotalData]" type="hidden">[var.strBtnPrint][var.strHidden]</td>
+				            <td class="left" nowrap colspan=8 align="center">&nbsp;[var.strBtnSave]</td>
+				            <td class="left" nowrap colspan=8 align="center">&nbsp;[var.strBtnSave1]</td>            
+				            <td nowrap>&nbsp;</td>
+				          </tr-->
+				          <tr class="center">
+				            <td colspan="15" nowrap >
+				              &nbsp; &nbsp;  <strong>[var.strPaging]</strong></td>
+				          <tr>
+			          </tbody>
+			        </table>
+			      </form>
+					</div>
+				</div>
+			</div>
+  	</div>
+  </div>
+

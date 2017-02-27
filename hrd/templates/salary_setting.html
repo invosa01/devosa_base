@@ -1,0 +1,235 @@
+<script src="../js/ylib.js"></script>
+<script src="../js/invosa.js"></script>
+<script>
+  <!--
+
+  //fungsi untuk memeriksa apakah input valid
+  function validInput() {
+
+    return validateForm(document.formData);
+  }//validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    //document.formInput.dataCode.focus();
+  }//initPage
+  -->
+</script>
+<script>
+  // menampilkan tampilan yang hilang
+  function moreInput(tipe) {
+
+    var x = parseFloat(eval("document.formData.numShow"+tipe+".value")) + 1;
+    var max = parseFloat(eval("document.formData.maxDetail"+tipe+".value"));
+    if (x < max) {
+      var tmp = "detailData" + tipe + "_" + x;
+      var obj = document.getElementById(tmp);
+      obj.style.display = document.all ? "block" : "table-row";
+
+      eval("document.formData.dataCode"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataName"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataAmount"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataActive"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataShow"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataOT"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataTax"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataJams"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.numShow"+tipe+".value++");
+    }
+  }//moreInput
+
+  // fungsi saat kode tunjangan/potongan berubah, otomatis mengubah nama
+  function changeCode(tipe,index) {
+    if (tipe != "" && index != "") {
+      eval("document.formData.dataName"+tipe+"_"+index+".value=document.formData.dataCode"+tipe+"_"+index+".value");
+    }
+  }//changeCode
+
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strWordsSalarySetting]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr>
+    <td>
+      <form action="" method="post" name="formData" id="formData" onSubmit="return validInput()">
+        <table border="0" cellpadding="2" cellspacing="0">
+          <tr>
+            <td width="20" nowrap>&nbsp;</td>
+            <td><strong>[var.strWordsCommonSetting]</strong></td>
+          </tr>
+          <tr bgcolor="#FFFFCC">
+            <td nowrap>&nbsp;</td>
+            <td nowrap><table width="300" border="0" cellpadding="2" cellspacing="0" class="gridTable">
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsHourPerMonth]</strong></td>
+                  <td><strong>:</strong></td>
+                  <td> <input name="strHour" type="text" id="strHour" value="[var.strHour]" size="20" maxlength="10" class="numeric"></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsDaysPerMonth]</strong></td>
+                  <td><strong>:</strong></td>
+                  <td> <input name="strDays" type="text" id="strDays" value="[var.strDays]" size="20" maxlength="10" class="numeric"></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsRoundSalaryto] (Rp)</strong></td>
+                  <td>:</td>
+                  <td><input name="strRound" type="text" id="strRound" value="[var.strRound]" size="20" maxlength="10" class="numeric"></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsDefaultMealandOTDate]</strong></td>
+                  <td><strong>:</strong></td>
+                  <td nowrap=""> dari : [var.strInputSalaryDateFrom] sampai : [var.strInputSalaryDateThru]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsDefaultSalaryDate]</strong></td>
+                  <td><strong>:</strong></td>
+                  <td>[var.strInputSalaryDate]</td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td><strong>[var.strWordsTAXCOMPONENT] </strong></td>
+          </tr>
+          <tr bgcolor="#FFFFCC">
+            <td nowrap>&nbsp;</td>
+            <td nowrap><table width="300" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+                <tr valign="top" class="tableHeader">
+                  <td width="175" nowrap><strong>[var.strWordsINCOME]</strong></td>
+                  <td width="11">&nbsp;</td>
+                  <td width="101" align="center" nowrap><strong>[var.strWordsINCLUDETAX]</strong></td>
+                </tr>
+                <tr valign="top">
+                  <<td nowrap>[var.strWordsTHP]</td>
+                  <td>&nbsp;</td>
+                  <td align="center"><strong>[&radic;]</strong></td>
+                </tr>
+                <tr valign="top">343
+                  <td nowrap>[var.strWordsMEDICALCLAIM]</td>
+                  <td>&nbsp;</td>
+                  <td align="center"><input name="strIsTaxMedical" type="checkbox" id="strIsTaxMedical" value="t" [var.strIsTaxMedical]></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>[var.strWordsTIRAS]</td>
+                  <td>&nbsp;</td>
+                  <td align="center"><input name="strIsTaxTiras" type="checkbox" id="strIsTaxTiras" value="t" [var.strIsTaxTiras]></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>[var.strWordsBUSINESSTRIPALLOWANCE]</td>
+                  <td>&nbsp;</td>
+                  <td align="center"><input name="strIsTaxTripAllowance" type="checkbox" id="strIsTaxTripAllowance" value="t" [var.strIsTaxTripAllowance]></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>[var.strWordsBUSINESSTRIPEXPEND]</td>
+                  <td>&nbsp;</td>
+                  <td align="center"><input name="strIsTaxTrip" type="checkbox" id="strIsTaxTrip" value="t" [var.strIsTaxTrip]></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>[var.strWordsTRAINING]</td>
+                  <td>&nbsp;</td>
+                  <td align="center"><input name="strIsTaxTraining" type="checkbox" id="strIsTaxTraining" value="t" [var.strIsTaxTraining]></td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="2">&nbsp;</td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td><strong>[var.strWordsBASICANDALLOWANCELIST]</strong></td>
+          </tr>
+          <tr>
+            <td nowrap bgcolor="#FFFFCC">&nbsp;</td>
+            <td nowrap bgcolor="#FFFFCC"> <table border="0" cellpadding="0" cellspacing="0" class="gridTable">
+                <tr align="center" class="tableHeader">
+                  <td nowrap><strong>[var.strWordsCode]</strong></td>
+                  <td nowrap>[var.strWordsDisplayName]</td>
+                  <td nowrap><strong>[var.strWordsAmount]</strong></td>
+                  <td nowrap><strong>[var.strWordsActive]</strong></td>
+                  <td nowrap><strong>[var.strWordsShowSlip]<br>
+                    </strong></td>
+                  <td nowrap>[var.strWordsIncludeOT]<br>
+                     </td>
+                  <td nowrap><strong>[var.strWordsIncludeTax]<br>
+                    </strong></td>
+                  <td nowrap>[var.strWordsIncludeJamsostek]<br>
+                    </td>
+                  <td nowrap>[var.strWordsIncludeConjuncture]<br>
+                    </td>
+                </tr>
+                [var.strDetailAllowance]
+                <tr>
+                  <td colspan="9">&nbsp;[<a href="javascript:moreInput('Allowance')">[var.strWordsMoreAllowance]</a>] [var.strHiddenAllowance]</td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td nowrap>&nbsp;</td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td nowrap><strong>[var.strWordsDEDUCTIONLIST]</strong></td>
+          </tr>
+          <tr>
+            <td nowrap bgcolor="#FFFFCC">&nbsp;</td>
+            <td nowrap bgcolor="#FFFFCC"> <table border="0" cellpadding="0" cellspacing="0" class="gridTable">
+                <tr align="center" class="tableHeader">
+                  <td nowrap><strong>[var.strWordsCode]</strong></td>
+                  <td nowrap>[var.strWordsDisplayName]</td>
+                  <td nowrap><strong>[var.strWordsAmount]</strong></td>
+                  <td nowrap><strong>[var.strWordsActive]</strong></td>
+                  <td nowrap><strong>[var.strWordsShowSlip] <br>
+                    </strong></td>
+                  <td nowrap>[var.strWordsIncludeOT]<br>
+                    </td>
+                  <td nowrap><strong>[var.strWordsIncludeTax]<br>
+                    </strong></td>
+                  <td nowrap>[var.strWordsIncludeJamsostek]<br>
+                    </td>
+                  <td nowrap>[var.strWordsIncludeConjuncture]<br>
+                    </td>
+                </tr>
+					[var.strDetailDeduction]
+                <tr>
+                  <td colspan="9">&nbsp;[<a href="javascript:moreInput('Deduction')">[var.strWordsMoreDeduction]</a>][var.strHiddenDeduction]</td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td align="center">&nbsp; </td>
+            <td align="center"> <input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]"></td>
+          </tr>
+          <tr>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  
+</table>
+

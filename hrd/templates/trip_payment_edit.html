@@ -1,0 +1,263 @@
+<script src="scripts/ylib.js"></script>
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/invosa.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+  //fungsi untuk menampilkan baris baru untuk menambahkan data anak
+  function showMoreInput() { //kode = Address, or Phone
+    //document.form1.numShow.value++;
+    var n = eval("document.formInput.numShow.value;");
+    var max = eval("document.formInput.maxDetail.value;");
+    n++;
+    if (n < max) {
+      strNama = "detailRows" + n;
+      ylib_getObj(strNama).style.display = document.all ? "block" : "table-row";
+      eval("document.formInput.numShow.value++;");
+      eval("document.formInput.detailNote" + n + ".disabled = false");
+      eval("document.formInput.detailCost" + n + ".disabled = false");
+      eval("document.formInput.detailCostOther" + n + ".disabled = false");
+      eval("document.formInput.detailNote" + n + ".focus()");
+    } else {
+      //alert(document.form1.numShow.value + " -- " + document.form1.maxDetail.value);
+    }
+  } //showMoreInput
+
+  //ketika checkbox delete berubah
+  function chkDeleteChanged(index) { //kode = Address, or Phone
+
+    if (index != "") {
+      var chk = eval("document.formInput.chkID" + index + ".checked");
+      if (chk) {
+        str = "true";
+      } else {
+        str = "false";
+      }
+
+      eval("document.formInput.detailNote" + index + ".disabled = " + str);
+      eval("document.formInput.detailCost" + index + ".disabled = " + str);
+      eval("document.formInput.detailCostOther" + index + ".disabled = " + str);
+      //eval("document.formInput.detailCostApproved" + index + ".disabled = " + str);
+
+    }
+  } //showMoreInput
+
+  // fungsi menghitung total cost
+  function getTotalCost() {
+    var max = eval("document.formInput.maxDetail.value;");
+    var total = 0;
+
+    str = (arguments.length > 0) ? arguments[0] : ""; // apakah Other atau bukan
+    for (i = 1; i <= max; i++) {
+      x = eval("document.formInput.detailCost" + str + i + ".value");
+      if (!isNaN(x)) {
+        total += parseFloat(x);
+      }
+    }
+    if (str == "")
+      total = total + parseFloat(document.formInput.dataAllowance.value);
+
+    eval("document.formInput.totalCost" + str + ".value = " + total);
+  } //getTotalCost
+
+  // saat cost berubah
+  function onCostChanged(index) {
+    if (index != "") {
+      // cek validasi
+      str = (arguments.length > 1) ? arguments[1] : ""; // apakah Other atau bukan
+      nilai = eval("document.formInput.detailCost" + str + index + ".value");
+      if (isNaN(nilai) || nilai == "")
+        eval("document.formInput.detailCost" + str + index + ".value = 0"); // dikoreksi
+
+      if (arguments.length > 1)
+        getTotalCost(arguments[1]);
+      else
+        getTotalCost();
+    }
+  }//onCostChanged
+
+</script>
+<script>
+  <!--
+
+  function validInput() {
+    return validateForm(document.formInput);
+  }//validInput
+
+  // mengolah waktu load
+  function initPage_() {
+    document.formInput.dataDate.focus();
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+    Calendar.setup({ inputField:"dataPaymentDate", button:"btnPayment" });
+    //[var.strInitCalendar]
+    init();
+    onCodeBlur();
+    getTotalCost();
+    getTotalCost('Other');
+  }//initPage
+
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">Business Trip Payment Form</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap><strong><a href="trip_edit.php">Data Entry</a> | <a href="trip_list.php">Business Trip List</a>
+            | <a href="trip_report.php">Business Trip Report</a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>BUSINESS TRIP PAYMENT FORM</strong></td>
+  </tr>
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr align="left">
+    <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput()">
+      <td valign="top" class="inputBox"> <br>
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr valign=top>
+            <td width="129"><strong>Form No.</strong></td>
+            <td width="18">:</td>
+            <td nowrap>[var.strInputNo] &nbsp; <strong>Last no: <em>[var.strInputLastNo]</em></strong></td>
+          </tr>
+          <tr>
+            <td><strong>Request Date</strong></td>
+            <td>:</td>
+            <td>[var.strInputDate]
+              <input name="btnDate" type="button" id="btnDate" value=".."></td>
+          </tr>
+          <tr>
+            <td><strong>Account. No</strong></td>
+            <td>:</td>
+            <td>[var.strInputAccount]</td>
+          </tr>
+          <tr>
+            <td><strong>Budget Code</strong></td>
+            <td>:</td>
+            <td>[var.strInputBudget]</td>
+          </tr>
+          <tr>
+            <td><strong>Payment Date</strong></td>
+            <td>:</td>
+            <td>[var.strInputPaymentDate]
+              <input name="btnPayment" type="button" id="btnPayment" value=".."></td>
+          </tr>
+          <tr valign=top>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td nowrap>&nbsp;</td>
+          </tr>
+          <tr valign=top>
+            <td><strong>Employee ID</strong></td>
+            <td>:</td>
+            <td nowrap>[var.strInputEmployee]&nbsp; <strong id="employee_name">&nbsp;
+              </strong> &nbsp;</td>
+          </tr>
+          <tr valign=top>
+            <td><strong>Busness Trip Location</strong></td>
+            <td>:</td>
+            <td nowrap>[var.strInputLocation]</td>
+          </tr>
+          <tr valign=top>
+            <td><strong>Purpose</strong></td>
+            <td>:</td>
+            <td nowrap>[var.strInputPurpose]</td>
+          </tr>
+          <tr valign=top>
+            <td><strong>Task Detail</strong></td>
+            <td>:</td>
+            <td nowrap>[var.strInputTask]</td>
+          </tr>
+          <tr valign=top>
+            <td><strong>Date</strong></td>
+            <td>:</td>
+            <td nowrap>[var.strInputTripDate]</td>
+          </tr>
+          <tr valign=top>
+            <td><strong>Total Days</strong></td>
+            <td>:</td>
+            <td nowrap>[var.strInputDuration]</td>
+          </tr>
+          <tr valign=top>
+            <td><strong>Allowance</strong></td>
+            <td>:</td>
+            <td nowrap>[var.strInputAllowance]</td>
+          </tr>
+        </table>
+        <br>
+        <table border="0" cellpadding="0" cellspacing="0" class="gridTable">
+          <tr align="center" class="tableHeader">
+            <td nowrap>No</td>
+            <td nowrap>Note</td>
+            <td nowrap>Cost (Rp)</td>
+            <td nowrap>Cost ($)</td>
+            <td nowrap>Delete</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td>&nbsp;</td>
+            <td><a href="javascript:showMoreInput();">More</a></td>
+            <td align="center"><input name="totalCost" type="text" class="numeric" id="totalCost" value="0" size="10" maxlength="20" readonly>
+            <td align="center"><input name="totalCostOther" type="text" class="numeric" id="totalCostOther" value="0" size="10" maxlength="20" readonly>
+            </td>
+            <td align="center">&nbsp;</td>
+          </tr>
+        </table>
+        <br>
+        <table width="400" border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td width="129"><strong>Payment Method</strong></td>
+            <td width="18">:</td>
+            <td width="241">[var.strInputMethod]</td>
+          </tr>
+          <tr>
+            <td><strong>Status</strong></td>
+            <td>:</td>
+            <td><strong>[var.strInputStatus] </strong></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><input name="dataTripID" type="hidden" id="dataTripID" value="[var.strDataTripID]"></td>
+            <td><input type=hidden name=dataID value="[var.strDataID]"> <input name="btnSave" type="submit" id="btnSave3" value="Save">
+              &nbsp; <input name="btnClear" type="button" id="btnClear" value="Cancel" onClick="location.href = 'trip_payment_list.php';">
+              &nbsp;  [var.strButtons]
+              </td>
+          </tr>
+        </table>
+        <br>
+      </td>
+    </form>
+  </tr>
+</table>

@@ -1,0 +1,283 @@
+<script src="scripts/ylib.js"></script>
+<script>
+  <!--
+
+  var MAX_BUS = [var.intMaxBus];
+  var SHOW_BUS = 1; // jumlah input bus yang ditampilkan
+
+  function resetInput() {
+    document.formInput.dataCode.value = "";
+    document.formInput.dataAllowance.value = "0";
+    document.formInput.dataArea.value = "";
+    document.formInput.dataLocation.value = "";
+    document.formInput.dataArea.value = "";
+    document.formInput.dataID.value = "";
+    resetInputBus();
+    document.formInput.dataCode.focus();
+  }//resetInput
+
+  // mereset tampilan input bus
+  function resetInputBus() {
+    i = 1;
+    document.formInput.dataBusID1.disabled = false;
+    document.formInput.dataBusCode1.disabled = false;
+    document.formInput.dataBusSeat1.disabled = false;
+    document.formInput.dataBusNote1.disabled = false;
+
+    //beri nilai default
+    document.formInput.dataBusID1.value = "";
+    document.formInput.dataBusCode1.value = "";
+    document.formInput.dataBusSeat1.value = 0;
+    document.formInput.dataBusNote1.value = "";
+    document.formInput.chkBus1.checked = false;
+
+    while (i < MAX_BUS) {
+      i++;
+      eval("document.formInput.dataBusID" + i + ".disabled = true");
+      eval("document.formInput.dataBusCode" + i + ".disabled = true");
+      eval("document.formInput.dataBusSeat" + i + ".disabled = true");
+      eval("document.formInput.dataBusNote" + i + ".disabled = true");
+      eval("document.formInput.chkBus" + i + ".checked = false");
+      ylib_getObj("detailInputBus" + i).style.display = "none";
+    }
+
+    SHOW_BUS = 1;
+
+  }//resetInputBus
+
+  function showMoreBus() {
+    if (SHOW_BUS < MAX_BUS) {
+      SHOW_BUS++;
+      eval("document.formInput.dataBusID" + SHOW_BUS + ".disabled = false");
+      eval("document.formInput.dataBusCode" + SHOW_BUS + ".disabled = false");
+      eval("document.formInput.dataBusSeat" + SHOW_BUS + ".disabled = false");
+      eval("document.formInput.dataBusNote" + SHOW_BUS + ".disabled = false");
+
+      // isi dengan default
+      eval("document.formInput.dataBusID" + SHOW_BUS + ".value = ''");
+      eval("document.formInput.dataBusCode" + SHOW_BUS + ".value = ''");
+      eval("document.formInput.dataBusSeat" + SHOW_BUS + ".value = 0");
+      eval("document.formInput.dataBusNote" + SHOW_BUS + ".value = ''");
+
+      eval("document.formInput.chkBus" + SHOW_BUS + ".disabled = false");
+      ylib_getObj("detailInputBus" + SHOW_BUS).style.display = document.all ? "block" : "table-row";
+    }
+  }//showMoreBus
+
+
+  //ketika checkbox delete berubah
+  function chkDeleteChanged(index) { //kode = Address, or Phone
+    if (index != "") {
+      var chk = eval("document.formInput.chkBus" + index + ".checked");
+      if (chk) {
+        str = "true";
+      } else {
+        str = "false";
+      }
+
+      //eval("document.formInput.dataBusID" + index + ".disabled = " + str);
+      eval("document.formInput.dataBusCode" + index + ".disabled = " + str);
+      eval("document.formInput.dataBusSeat" + index + ".disabled = " + str);
+      eval("document.formInput.dataBusNote" + index + ".disabled = " + str);
+    }
+  } //chkDeleteChanged
+
+  // fungsi untuk menyiapkan data diedit
+  function editData(index) {
+    if (index != "") {
+      document.formInput.dataCode.value = eval("document.formData.detailCode" + index + ".value");
+      document.formInput.dataLocation.value = eval("document.formData.detailLocation" + index + ".value");
+      document.formInput.dataArea.value = eval("document.formData.detailArea" + index + ".value");
+      document.formInput.dataAllowance.value = eval("document.formData.detailAllowance" + index + ".value");
+      document.formInput.dataNote.value = eval("document.formData.detailNote" + index + ".value");
+      document.formInput.dataID.value = eval("document.formData.chkID" + index + ".value");
+
+      editDataBus(index);
+
+      document.formInput.dataCode.focus();
+      document.formInput.dataCode.select();
+    }
+  }//editData
+
+  //menyiapkan edit bus
+  function editDataBus(index) {
+    if (index != "") {
+      resetInputBus();
+
+      var total = eval("document.formData.detailTotalBus" + index + ".value");
+      if (total > 0) {
+        for (i = 1; i <= total; i++) {
+          eval("document.formInput.dataBusID" + i + ".disabled = false");
+          eval("document.formInput.dataBusCode" + i + ".disabled = false");
+          eval("document.formInput.dataBusSeat" + i + ".disabled = false");
+          eval("document.formInput.dataBusNote" + i + ".disabled = false");
+
+          // isi dengan default
+          eval("document.formInput.dataBusID" + i + ".value = document.formData.detailBusID" + index + "_" + i + ".value");
+          eval("document.formInput.dataBusCode" + i + ".value = document.formData.detailBusCode" + index + "_" + i + ".value");
+          eval("document.formInput.dataBusSeat" + i + ".value = document.formData.detailBusSeat" + index + "_" + i + ".value");
+          eval("document.formInput.dataBusNote" + i + ".value = document.formData.detailBusNote" + index + "_" + i + ".value");
+
+          eval("document.formInput.chkBus" + i + ".disabled = false");
+          ylib_getObj("detailInputBus" + i).style.display = document.all ? "block" : "table-row";
+        }
+        SHOW_BUS = i;
+      }
+    }
+  }//editDataBus
+
+  //fungsi untuk memeriksa apakah input valid
+  function validInput() {
+    if (document.formInput.dataCode.value == "") {
+      alert("Empty Code");
+      document.formInput.dataCode.value
+      return false;
+    }
+    return true;
+  }//validInput
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+
+	// membuka jendela untuk tampilan print
+	function printData() {
+		url = "data_transport.php?btnPrint=Print";
+		window.open(url);
+	} //printData
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataCode.focus();
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strWordsTRANSPORTATION(AAJK)Data]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+   <td class="inputTop">[var.strWordsINPUTDATA]</td>
+  </tr>
+  <tr>
+    <td class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="15%" nowrap>&nbsp;[var.strWordsCode]</td>
+            <td width="5%">:</td>
+            <td width="80%"><input name="dataCode" type="text" id="dataCode" size="50" maxlength="20"></td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsTargetLocation]</td>
+            <td>:</td>
+            <td><input name="dataLocation" type="text" id="dataLocation" size="50" maxlength="50"></td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsArea]</td>
+            <td>:</td>
+            <td><input name="dataArea" type="text" id="dataArea" size="50" maxlength="80"></td>
+          </tr>
+          <tr>
+            <td height="21" nowrap> &nbsp;[var.strWordsAllowance] &nbsp;</td>
+            <td>:</td>
+            <td><input name="dataAllowance" type="text" id="dataCode3" value="0" size="50" maxlength="20"></td>
+          </tr>
+          <tr valign="top" >
+            <td height="21" nowrap> &nbsp;[var.strWordsBus]</td>
+            <td>:</td>
+            <td><table border="0" cellpadding="0" cellspacing="0" class="gridTable">
+                <tr bgcolor="#009999">
+                  <td><strong>NO.</strong></td>
+                  <td><strong>Seat</strong></td>
+                  <td><strong>Note</strong></td>
+                  <td><strong>Del</strong></td>
+                </tr>
+                [var.strDetailBus]
+                <tr>
+                  <td colspan="4">[<a href="javascript:showMoreBus()">More Bus</a>]</td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td height="21" nowrap> &nbsp;[var.strWordsNote]</td>
+            <td>:</td>
+            <td><input name="dataNote" type="text" id="dataCode3" size="50" maxlength="50"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]">
+              <input name="dataID" type="hidden" id="dataID"> <input name="btnNew" type="button" id="btnNew" value="[var.strWordsAddNew]" onClick="resetInput();"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="listTop"><strong>[var.strWordsLISTOFTRANSPORT]</strong></td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData">
+        <table width="600" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+          <tr class="tableHeader">
+            <td width="5" rowspan="2">&nbsp;</td>
+            <td rowspan="2" nowrap class="tableHeader"> [var.strWordsCODE]</td>
+            <td rowspan="2" nowrap class="tableHeader">[var.strWordsTARGET]</td>
+            <td rowspan="2" nowrap class="tableHeader">[var.strWordsAREA]</td>
+            <td rowspan="2" align="right" nowrap class="tableHeader">[var.strWordsALLOWANCE]</td>
+            <td colspan="3" align="center" nowrap class="tableHeader">[var.strWordsBUS]</td>
+            <td rowspan="2" class="tableHeader">[var.strWordsNOTE]</td>
+            <td width="19" rowspan="2">&nbsp;</td>
+          </tr>
+          <tr class="tableHeader">
+            <td nowrap class="tableHeader">[var.strWordsNO].</td>
+            <td align="right" nowrap class="tableHeader">[var.strWordsSEAT]</td>
+            <td nowrap class="tableHeader">[var.strWordsNOTE]</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td><input name="chkAll" type="checkbox" id="chkAll" value="checkbox" onClick="checkAll();"></td>
+            <td colspan="9"><input name="btnDelete" type="submit" id="btnDelete" value="[var.strWordsDelete]" onClick="return confirmDelete();">
+              <input name="totalData" type="hidden" id="totalData" value="[var.intTotalData]">
+              <input name="btnPrint" type="button" id="btnPrint" value="[var.strWordsPrint]" onClick="printData();"> </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

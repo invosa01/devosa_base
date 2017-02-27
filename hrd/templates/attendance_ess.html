@@ -1,0 +1,87 @@
+<script src="scripts/invosa.js"></script>
+
+<script type="text/javascript">
+// fungsi untuk menngecek atau menguncheck checkbox
+  function setNote(bolChecked) {
+    document.formInput.dataNote1.disabled = !bolChecked;
+  }//checkAll
+
+  // fungsi untuk inisialisasi
+  function initPage_()
+  {
+  }//initPage
+
+</script>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td >&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    
+  <tr>
+    <td valign="top"align="center">
+    <form action="" method="post" name="formInput" id="formInput">
+      <table border="0" width="25%"  cellpadding=4 class="inputBox" >
+       <tr ><td colspan=3 class="inputTop">
+        <table border="0" width="100%"  ><tr>
+          <td><strong>[var.strEmployeeInfo]</strong></td>
+          <td width="15" align="right"><strong>[var.strTime]</strong></td></tr>
+          </table></td>
+       </tr>
+
+        <tr valign="top" >
+          <td width="15%">&nbsp;<h3></h3></td>
+          <td width="5%">&nbsp;</td>
+          <td width="15">&nbsp;</td>
+        </tr>
+
+        <tr valign="top" >
+          <td width="15%">&nbsp;[var.strWordsIn]</td>
+          <td width="5%">:</td>
+          <td width="15">[var.strInputIn]&nbsp;<strong id="time_in">[var.strDataAttendanceStart]&nbsp;</strong></td>
+        </tr>
+        <tr valign="top">
+          <td>&nbsp;[var.strWordsOut]</td>
+          <td>:</td>
+          <td>[var.strInputOut]&nbsp;<strong id="time_out">[var.strDataAttendanceFinish]</strong>
+              &nbsp;&nbsp;&nbsp;&nbsp;[var.strInputNote1]</td>
+        </tr>
+        <tr valign="top">
+          <td>&nbsp;[var.strWordsNote]</td>
+          <td>:</td>
+          <td>[var.strInputNote2]&nbsp;</td>
+        </tr>
+        <tr valign="top">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>[var.strButton][var.strHidden]</td>
+        </tr>
+        <tr valign="top">
+          <td colspan=3>&nbsp;</td>
+        </tr>
+     </table>
+     </form>
+     </td>
+  </tr>
+  <tr>
+    <td height="10px"></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+

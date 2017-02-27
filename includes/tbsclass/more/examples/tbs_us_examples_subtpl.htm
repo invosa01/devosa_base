@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>TinyButStrong</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="tbs_us_examples_0styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<p align="center" class="title-page">Example of Sub-template</p>
+<div align="center">
+  <table width="500" border="0" align="center" cellpadding="2" cellspacing="0">
+    <tr>
+      <td><p>Parameter <span class="text-prm">file</span> enables you to include a static sub-template into the main template.<br>
+        Parameter <span class="text-prm">script</span>, with parameter <span class="text-prm">subtpl</span>, enable you to include a dynamic sub-template.
+        <br>
+        <br>
+          <span class="text-section2">In this example, header and footer are static sub-templates.  
+          Headings are also static-sub-templates but they depends to a global variable ($tmpl_article). The login area is a dynamic sub-template. It is managed by a sub-script which can be run under the TBS Subtemplate Mode. <br>
+</span><br>
+        </p></td>
+    </tr>
+  </table>
+  <br>
+  <table width="500" border="1" cellspacing="0" cellpadding="2">
+    <tr valign="top" bgcolor="#FFCC99">
+      <td height="40" colspan="2" bgcolor="#D1F3D2">[onload;file='tbs_us_examples_subtpl_header.htm']</td>
+    </tr>
+    <tr>
+      <td colspan="2" valign="top" bgcolor="#FFCC99">[onload;script=tbs_us_examples_subtpl_login.php;subtpl]</td>
+    </tr>
+    <tr>
+      <td width="100" valign="top" bgcolor="#FFCCCC">[onload;file=[var.tmpl_menu]]</td>
+      <td valign="top" bgcolor="#B1B1B1">[onload;file=[var.tmpl_article]]<br>
+&nbsp;</td>
+    </tr>
+    <tr bgcolor="#D1F3D2">
+      <td colspan="2" valign="top" bgcolor="#D1F3D2">[onload;file='tbs_us_examples_subtpl_footer.htm']</td>
+    </tr>
+  </table>
+  <br>
+  <table width="500" border="0" cellpadding="0" cellspacing="0" class="text-mini">
+    <tr>
+      <td>- See <a href="tbs_us_examples_subtpl_header.htm">Header sub-template</a><br>
+        - See <a href="tbs_us_examples_subtpl_footer.htm">Footer sub-template</a><br>
+        - See <a href="tbs_us_examples_subtpl_menu.htm">Menu sub-template</a><br>
+        - See <a href="tbs_us_examples_subtpl_article0.htm">Main Page sub-template</a><br>
+        - See <a href="tbs_us_examples_subtpl_article1.htm">Heading 1 sub-template </a><br>
+        - See <a href="tbs_us_examples_subtpl_article2.htm">Heading 2 sub-template</a> <br>
+        - See <a href="tbs_us_examples_subtpl_article3.htm">Heading 3 sub-template</a><br>
+        - See <a href="[var..script_name]?subsrc">Login sub-script source </a> <br>
+        - See <a href="tbs_us_examples_subtpl_login.htm">Login sub-template </a> </td>
+    </tr>
+  </table>
+  </div>
+</body>
+</html>

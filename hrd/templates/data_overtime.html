@@ -1,0 +1,223 @@
+<script src="scripts/invosa.js"></script>
+<script>
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() 
+  {
+    var intData = document.formDataReason.totalData.value;
+    var isChecked = document.formDataReason.chkAll.checked;
+    
+    for (i = 1; i <= intData; i++) 
+    {
+      if (isChecked) 
+      {
+        eval("document.formDataReason.chkID" + i + ".checked = true");
+      } 
+      else 
+      {
+        eval("document.formDataReason.chkID" + i + ".checked = false");
+      }
+    } //for
+  }//checkAll
+  
+  function editData($id)
+  {
+    document.formInputReason.dataCode.value = eval("document.formDataReason.hidCode" + $id + ".value");
+    document.formInputReason.dataReason.value = eval("document.formDataReason.hidReason" + $id + ".value");
+    document.formInputReason.dataCode.select();
+    
+  }
+  <!--
+
+  //fungsi untuk memeriksa apakah input valid
+  function validInput() {
+
+    return validateForm(document.formData);
+  }//validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInputReason.dataCode.focus();
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strWordsOVERTIMESETTING]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+
+  <tr>
+    
+    <td>
+      <table>
+      
+        <tr>
+          <td>
+            <form action="" method="post" name="formData" id="formData" onSubmit="return validInput()">
+              <table border="0" cellpadding="1" cellspacing="0" class="gridTable">
+                <tr class="tableHeader">
+                  <td nowrap class="tableHeader"> [var.strWordsCODE]</td>
+                  <td align="center" nowrap class="tableHeader">[var.strWordsSCALE]</td>
+                  <td nowrap class="tableHeader">[var.strWordsNOTE]</td>
+                </tr>
+                <tr>
+                  <td nowrap>[var.strWordsOT1] (L1)</td>
+                  <td><input name="dataAmount1" type="text" id="dataAmount1" value="[var.intAmountL1]" size="20" maxlength="10" class="numeric"></td>
+                  <td><input name="dataNote1" type="text"  value="[var.strNoteL1]" size="50" maxlength="50"></td>
+                </tr>
+                <tr>
+                  <td nowrap>[var.strWordsOT2] (L2)</td>
+                  <td><input name="dataAmount2" type="text" id="dataAmount2" value="[var.intAmountL2]" size="20" maxlength="10" class="numeric"></td>
+                  <td><input name="dataNote2" type="text" value="[var.strNoteL2]" size="50" maxlength="50"></td>
+                </tr>
+                <tr>
+                  <td nowrap>[var.strWordsOT3] (L3)</td>
+                  <td><input name="dataAmount3" type="text" id="dataAmount3" value="[var.intAmountL3]" size="20" maxlength="10" class="numeric"></td>
+                  <td><input name="dataNote3" type="text" value="[var.strNoteL3]" size="50" maxlength="50"></td>
+                </tr>
+                <tr>
+                  <td nowrap>[var.strWordsOT4] (L4)</td>
+                  <td><input name="dataAmount4" type="text" id="dataAmount4" value="[var.intAmountL4]" size="20" maxlength="10" class="numeric"></td>
+                  <td><input name="dataNote4" type="text" value="[var.strNoteL4]" size="50" maxlength="50"></td>
+                </tr>
+                <tr>
+                  <td nowrap colspan="3">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td nowrap colspan="3"><strong>[var.strWordsOVERTIMECOMPENSATIONSETTING]</strong></td>
+                </tr>
+                <tr class="tableHeader" align="center" >
+                  <td nowrap class="tableHeader">[var.strWordsSTATUS]</td>
+                  <td nowrap class="tableHeader">[var.strWordsMEAL] (Rp)</td>
+                  <td nowrap class="tableHeader">[var.strWordsTRANSPORT] (Rp)</td>
+                </tr>
+                <tr>
+                  <td nowrap colspan="3"><strong>[var.strWordsNORMALDAY]</strong></td>
+                </tr>
+                <tr>
+                  <td nowrap>[var.strWordsPermanentContract]&nbsp;</td>
+                  <td align="center"><input name="dataMealNormalPermanent" type="text" id="dataMealNormalPermanent" value="[var.dataMealNormalPermanent]" size="20" maxlength="20" class="numeric"></td>
+                  <td align="center"><input name="dataTransportNormalPermanent" type="text" id="dataTransportNormalPermanent" value="[var.dataTransportNormalPermanent]" size="20" maxlength="20" class="numeric"></td>
+                </tr>
+                <tr>
+                  <td nowrap>[var.strWordsOutsource]&nbsp;</td>
+                  <td align="center"><input name="dataMealNormalOutsource" type="text" id="dataMealNormalOutsource" value="[var.dataMealNormalOutsource]" size="20" maxlength="20" class="numeric"></td>
+                  <td align="center"><input name="dataTransportNormalOutsource" type="text" id="dataTransportNormalOutsource" value="[var.dataTransportNormalOutsource]" size="20" maxlength="20" class="numeric"></td>
+                </tr>
+                <tr>
+                  <td nowrap colspan="3"><strong>[var.strWordsHOLIDAY]</strong></td>
+                </tr>
+                <tr>
+                  <td nowrap>[var.strWordsPermanentContract]&nbsp;</td>
+                  <td align="center"><input name="dataMealHolidayPermanent" type="text" id="dataMealHolidayPermanent" value="[var.dataMealHolidayPermanent]" size="20" maxlength="20" class="numeric"></td>
+                  <td align="center"><input name="dataTransportHolidayPermanent" type="text" id="dataTransportHolidayPermanent" value="[var.dataTransportHolidayPermanent]" size="20" maxlength="20" class="numeric"></td>
+                </tr>
+                <tr>
+                  <td nowrap>[var.strWordsOutsource]&nbsp;</td>
+                  <td align="center"><input name="dataMealHolidayOutsource" type="text" id="dataMealHolidayOutsource" value="[var.dataMealHolidayOutsource]" size="20" maxlength="20" class="numeric"></td>
+                  <td align="center"><input name="dataTransportHolidayOutsource" type="text" id="dataTransportHolidayOutsource" value="[var.dataTransportHolidayOutsource]" size="20" maxlength="20" class="numeric"></td>
+                </tr>
+                <tr>
+                  <td nowrap colspan="3">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td nowrap colspan="3"><strong>[var.strWordsTimeLimitforCompensation]</strong></td>
+                </tr>
+                <tr>
+                  <td nowrap>[var.strWordsNormalDayTranspor]&nbsp;</td>
+                  <td align="center"><input name="dataTransportLimitNormal" type="text" id="dataTransportLimitNormal" value="[var.dataTransportLimitNormal]" size="20" maxlength="10" class="time"></td>
+                  <td >&nbsp;(HH:MM:SS)</td>
+                </tr>
+                <tr>
+                  <td nowrap>[var.strWords1rstMeal]&nbsp;</td>
+                  <td align="center"><input name="dataMealLimit1" type="text" id="dataMealLimit1" value="[var.dataMealLimit1]" size="20" maxlength="10" class="numeric"></td>
+                  <td >&nbsp;(hours)</td>
+                </tr>
+                <tr>
+                  <td nowrap>[var.strWords2ndMeal]&nbsp;</td>
+                  <td align="center"><input name="dataMealLimit2" type="text" id="dataMealLimit2" value="[var.dataMealLimit2]" size="20" maxlength="10" class="numeric"></td>
+                  <td >&nbsp;(hour)</td>
+                </tr>
+                <tr>
+                  <td nowrap>[var.strWords3rdMeal]&nbsp;</td>
+                  <td align="center"><input name="dataMealLimit3" type="text" id="dataMealLimit3" value="[var.dataMealLimit3]" size="20" maxlength="10" class="numeric"></td>
+                  <td >&nbsp;(hour)</td>
+                </tr>
+                <tr>
+                  <td nowrap colspan="3">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]">
+                  </td>
+                </tr>
+              </table>
+            </form>
+       
+            <table  border="0" cellpadding="0" cellspacing="0" class="" width ="100%">
+              <tr>
+                <td  width ="100%">
+                  <form action="" method="post" name="formInputReason" id="formInputReason" onSubmit="return validInput()">
+                    <table border="0" align="left" cellpadding="1" cellspacing="0" class='gridTable'  width ="100%">
+                      <tr class="tableHeader" valign="top">
+                        <td  class="tableHeader" valign="top" colspan='3'> [var.strWordsStandartAlasanLembur]</td>
+                        
+                      </tr>
+                      <tr>
+                        <td nowrap> [var.strWordsCODE]</td>
+                        <td>:</td>
+                        <td nowrap="nowrap"><input type='text' name='dataCode' id='dataCode' /></td>
+                      </tr>
+                      <tr>
+                        <td> [var.strWordsKETERANGAN]</td>
+                        <td >:</td>
+                        <td><input type='text' name='dataReason' id='dataReason' /></td>
+                        
+                      </tr>
+                      <tr>
+                        <td colspan="3">
+                          <input name="btnSaveReason" type="submit" id="btnSaveReason" value="[var.strWordsSave]">
+                        </td>
+                      </tr>
+                    </table>
+                  </form>
+                </td>
+              <tr>
+                <td>
+                  <form action="" method="post" name="formDataReason" id="formDataReason" onSubmit="return validInput()">
+                    <table border="0" align="left" cellpadding="1" cellspacing="0" class='gridTable'  width ="100%">
+                      <tr>
+                        <td nowrap class="tableHeader">&nbsp; </td>
+                        <td nowrap class="tableHeader"> [var.strWordsCODE]</td>
+                        <td align="center" nowrap class="tableHeader">[var.strWordsKETERANGAN]</td>
+                        <td align="center" nowrap class="tableHeader">&nbsp;</td>
+                      </tr>
+                      [var.strInputData]
+                      <tr>
+                        <td><input type='checkbox' name='chkAll' onclick="javascript: checkAll();" /> </td>
+                        <td colspan='3'><input type='submit' name='btnDelete' id='btnDelete' value='[var.strWordsDelete]'/></td>
+                      </tr>
+                    </table>
+                  </form>
+              
+                </td>
+                
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  
+    
+  </tr>
+</table>

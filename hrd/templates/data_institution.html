@@ -1,0 +1,68 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+[var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top" height="100%">
+[var.DataGrid;protect=no;htmlconv=no]
+   </td>
+  </tr>
+</table>
+<script type="text/javascript">
+	var myClient = {
+    editData : function(idx)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataID').value = "";
+        $('dataCode').value = "";
+        $('dataName').value = "";
+        $('dataAddress').value = "";
+        $('dataPhone').value = "";
+        $('dataPIC').value = "";
+		$('dataSubject').value = "";
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $F("detailID" + idx);
+        $('dataCode').value = $F("detailCode" + idx);
+        $('dataName').value = $F("detailName" + idx);
+        $('dataAddress').value = $F("detailAddress" + idx);
+        $('dataPhone').value = $F("detailPhone" + idx);
+        $('dataPIC').value = $F("detailPIC" + idx);
+		$('dataSubject').value = $F("detailSubject" + idx);
+      }
+      $('dataCode').focus();
+    },
+    
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+    
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+</script>

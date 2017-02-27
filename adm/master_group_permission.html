@@ -1,0 +1,111 @@
+<script type="text/javascript">
+  <!--
+  function checkClick(obj)
+  {
+    var isMainParent ;
+    var strName;
+    var arrName;
+    if (obj != null)
+    {
+      arrName = obj.name.split("_"); // mengambil 
+      //alert(arrName);
+      var currObj;
+      var preNameTested;
+      //untuk check all anak(child)nya
+      for(i=0;i<document.formData.elements.length;i++)
+      {
+        currObj = document.formData.elements[i];
+        if (currObj.name.length<obj.name.length) continue;
+        preNameTested = currObj.name.substring(0,obj.name.length);
+        if ((currObj.type=='checkbox') && (preNameTested == obj.name) && (currObj.name != obj.name))
+          if (currObj.name.split("_").length>arrName.length){ 
+          	currObj.checked = obj.checked;
+          	if (obj.checked){
+          		currObj.parentNode.className = "checked";
+          	}else{
+          		currObj.parentNode.className = "";
+          	}
+          }
+      }
+      //sekarang cek untuk checkbox parentnya
+      if (!isMainParent)
+      {
+        var level = arrName.length-1;
+        var currName;
+        var parentName = obj.name;
+        for(j=level; j>1; j--)
+        {
+          currName = parentName;
+          parentName = arrName[0];
+          for(i=1; i<j; i++) parentName = parentName + '_' + arrName[i];
+
+          if (checkParent(currName, parentName)){ 
+            document.formData.elements[parentName].checked = obj.checked;
+            if (obj.checked){
+            	document.formData.elements[parentName].parentNode.className = "checked";
+            }else{
+            	document.formData.elements[parentName].parentNode.className = "";
+            }
+          }else{
+            document.formData.elements[parentName].checked = true;//false;
+            document.formData.elements[parentName].parentNode.className = "checked";
+          }
+          //bikin checkbox unstate karena salah satu anak tidak terpilih
+        }
+      }
+    }
+  }
+  
+  function checkParent(currName, parentName)
+  {
+    //e.g misal name adalah chkIDview_1_1
+    //     maka parentName adalah chkIDview_1
+    var arrName = currName.split("_");
+    var arrTest = parentName.split("_");
+    var level = arrTest.length;
+    //kemudian cari friend / tetangga yang satu level
+    var countFriend = 0;
+    var countFriendChecked = 0;
+    for(i=0;i<document.formData.elements.length;i++)
+    {
+      currObj = document.formData.elements[i];
+      if (currObj.name.length<parentName.length) continue;
+      preNameTested = currObj.name.substring(0,parentName.length);
+      if ((currObj.type=='checkbox') && (parentName == preNameTested) && (currObj.name != parentName))
+      {
+        arrTested = currObj.name.split("_");
+        if ((arrTested.length>level) && (arrTested.length=arrName.length))
+        {
+          countFriend++;
+          if (currObj.checked) countFriendChecked++;
+        }
+      }
+    }
+    return ((countFriend==countFriendChecked) || (countFriendChecked==0))
+  }
+  
+  function doCancel()
+  {
+    return confirm("[var.strWordCancelEntry]");
+  }
+  -->
+</script>
+<link rel="stylesheet" type="text/css" href="[var.globalRelativeFolder]css/invosa.css" />
+[var.pageHeader]
+<table  width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td>
+      <table width="100%" >
+        <tr> 
+          <td class="[var.errMessage]" align="center" >[var.strMessage]</td>
+        </tr>
+      </table>
+      <form method="post" name="formData" id="formData">
+        [var.strDataPrivileges; htmlconv=no; protect=no] 
+        <br />
+        <input class="commonButton" name="btnSave" id="btnSave" type="submit" value="[var.strWordSave]" />&nbsp;
+        <input class="commonButton" name="btnCancel" id="btnCancel" type="submit" value="[var.strWordCancel]" onClick="javascript:return doCancel()" />
+      </form>
+    </td>
+  </tr>
+</table>

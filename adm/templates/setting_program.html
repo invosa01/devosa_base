@@ -1,0 +1,75 @@
+<link href="../css/admin.css" rel="stylesheet" type="text/css">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;Program Setting</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr> 
+    <td class="tableHeader">
+<form action="" method="post" name="formData" id="formData">
+        <table border="0" cellpadding="1" cellspacing="0">
+          <tr> 
+            <td width="20" nowrap>&nbsp;</td>
+            <td width="20">&nbsp;</td>
+            <td width="20">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr> 
+            <td nowrap>&nbsp;</td>
+            <td colspan="3"><strong>Program Setting</strong></td>
+          </tr>
+          <tr> 
+            <td nowrap>&nbsp;</td>
+            <td nowrap>Number Rows Per Page</td>
+            <td align="center">:</td>
+            <td nowrap> <input name="strRowsPerPage" type="text" id="strRowsPerPage" value="[var.strRowsPerPage]" size="40" maxlength="10"> 
+              <input name="oldRowsPerPage" type="hidden" id="oldRowsPerPage" value="[var.oldRowsPerPage]"> 
+            </td>
+          </tr>
+          <tr> 
+            <td nowrap>&nbsp;</td>
+            <td nowrap>Save User Activity Log</td>
+            <td align="center">:</td>
+            <td nowrap> <input name="strUserLog" type="checkbox" id="strUserLog" value="t" [var.strUserLog]> 
+              <input name="oldUserLog" type="hidden" id="oldUserLog" value="[var.oldUserLog]"></td>
+          </tr>
+          <tr valign=top> 
+            <td nowrap>&nbsp;</td>
+            <td nowrap>File name for attendance <br>machine data (Fullpath)  &nbsp;</td>
+            <td align="center">:</td>
+            <td nowrap> <input name="strAttendanceFile" type="text" id="strAttendanceFile" value="[var.strAttendanceFile]" size="60" maxlength="150"> 
+            </td>
+          </tr>
+          <tr> 
+            <td colspan="4">&nbsp;</td>
+          </tr>
+          </tr>
+          <tr> 
+            <td align="center">&nbsp; </td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td> <input name="btnSave" type="submit" id="btnSave" value="Save"></td>
+          </tr>
+          <tr> 
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

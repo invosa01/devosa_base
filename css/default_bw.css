@@ -1,0 +1,345 @@
+
+
+body {
+    font-family : Arial, Helvetica;
+    font-size : 10px;
+  }
+
+
+td, th {
+    font-family : Arial, Helvetica;
+    font-size : 10px;
+  }
+
+
+a:hover {
+    color : #c00000;
+    text-decoration : none;
+  }
+
+
+.loginHeader {
+    background-color : #c3c3c3;
+    border-bottom-color : #9c0000;
+    border-bottom-style : dotted;
+    border-bottom-width : 1px;
+    border-top-color : #9c0000;
+    border-top-style : dotted;
+    border-top-width : 1px;
+    color : #ffffff;
+    font-weight : bold;
+  }
+
+
+.mainBg {
+    background-color : #fcfcfc;
+  }
+
+
+.printHeader {
+    font-size : 14pt;
+    font-weight : bold;
+  }
+
+
+.printHeader2 {
+    font-size : 11pt;
+    font-weight : bold;
+  }
+
+
+.companyName {
+    font-weight : bold;
+  }
+
+
+input, textarea, select {
+    border-bottom-color : #C3C3C3;
+    border-right-color : #C3C3C3;
+    border-top-color : #666666;
+    border-left-color : #666666;
+    border-style : solid;
+    border-width : 1px;
+    font-size : 10 pt;
+    padding-left : 2px;
+    padding-right : 2px;
+  }
+
+
+input.button, button {
+    border-bottom-color : #000000;
+    border-bottom-style : solid;
+    border-bottom-width : 1px;
+    border-left-color : #000000;
+    border-left-style : solid;
+    border-left-width : 1px;
+    border-right-color : #000000;
+    border-right-style : solid;
+    border-right-width : 1px;
+    border-top-color : #000000;
+    border-top-style : solid;
+    border-top-width : 1px;
+    font-size : 10 pt;
+  }
+
+
+input.numeric {
+    text-align : right;
+  }
+
+
+legend {
+    font-weight : bold;
+  }
+
+
+li {
+    list-style-type : square;
+  }
+
+
+.copyright {
+    border-top-color : #585858;
+    border-top-style : dotted;
+    border-top-width : 1px;
+    color : #a0a0a0;
+    font-size : 10px;
+  }
+
+
+.pageHeader {
+    background-color : #ffffff;
+    background-image : url('../images/bg.jpg');
+    background-repeat : no-repeat;
+  }
+
+
+.mainMenuBar {
+    background-color : #a0a0a0;
+    border-bottom-color : #336699;
+    border-bottom-style : solid;
+    border-bottom-width : 1px;
+    border-top-color : #336699;
+    border-top-style : solid;
+    border-top-width : 6px;
+    color : #000000;
+    font-family : Arial, Helvetica;
+    font-weight : bold;
+    padding-bottom : 3px;
+    padding-left : 3px;
+    padding-right : 3px;
+    padding-top : 3px;
+    text-indent : 2px;
+  }
+
+
+.mainMenuBar a {
+    color : #000000;
+    padding-bottom : 1px;
+    padding-top : 1px;
+    text-decoration : none;
+  }
+
+
+.mainMenuBar a:hover {
+    text-decoration : none;
+    color : #000000;
+  }
+
+
+.pageTitle {
+    text-indent : 5px;
+    margin-left : 10px;
+    background-color : #c3c3c3;
+    border-bottom-color : #336699;
+    border-bottom-style : dotted;
+    border-bottom-width : 1px;
+    color : #585858;
+    font-family : Arial, Helvetica;
+    font-size : 14px;
+    font-weight : bold;
+    padding-right : 10px;
+    text-align : right;
+  }
+
+
+.moduleMenu {
+    border-left-color : #336699;
+    border-left-style : dotted;
+    border-left-width : 1px;
+    color : #808080;
+    font-weight : bold;
+    padding-left : 5px;
+    padding-right : 5px;
+  }
+
+
+.moduleMenu a {
+    color : #808080;
+    text-decoration : none;
+  }
+
+
+.moduleMenu a:hover {
+    color : #cc0033;
+  }
+
+
+.inputArea {
+    background-color : #ffffff;
+    border-bottom-color : #666666;
+    border-bottom-style : solid;
+    border-bottom-width : 1px;
+    border-left-color : #666666;
+    border-left-style : solid;
+    border-left-width : 1px;
+    border-right-color : #666666;
+    border-right-style : solid;
+    border-right-width : 1px;
+    border-top-color : #666666;
+    border-top-style : solid;
+    border-top-width : 1px;
+  }
+
+
+.boxEmbossed {
+    border-bottom-color : #666666;
+    border-bottom-style : solid;
+    border-bottom-width : 2px;
+    border-left-color : #FCFCFC;
+    border-left-style : solid;
+    border-left-width : 2px;
+    border-right-color : #666666;
+    border-right-style : solid;
+    border-right-width : 2px;
+    border-top-color : #FCFCFC;
+    border-top-style : solid;
+    border-top-width : 2px;
+    padding-left : 5px;
+    padding-right : 5px;
+  }
+
+
+.tableHeader, tr th {
+    background-color : #c3c3c3;
+    color : #000000;
+    font-weight : bold;
+  }
+
+
+.tableFooter {
+    background-color : #c3c3c3;
+    border-bottom-style : solid;
+    border-bottom-width : 1px;
+    border-top-style : solid;
+    border-top-width : 1px;
+    color : #000000;
+  }
+
+
+.gridTable {
+    border-left-color : #000000;
+    border-left-style : solid;
+    border-left-width : 1px;
+    border-top-color : #000000;
+    border-top-style : solid;
+    border-top-width : 1px;
+  }
+
+
+.gridTable tr {
+    border-left-color : #000000;
+    border-left-style : solid;
+    border-left-width : 1px;
+    border-top-color : #000000;
+    border-top-style : solid;
+    border-top-width : 1px;
+  }
+
+
+.gridTable td {
+    border-bottom-color : #000000;
+    border-bottom-style : solid;
+    border-bottom-width : 1px;
+    border-right-color : #000000;
+    border-right-style : solid;
+    border-right-width : 1px;
+  }
+
+
+.gridTable th {
+    border-bottom-color : #000000;
+    border-bottom-style : solid;
+    border-bottom-width : 1px;
+    border-right-color : #000000;
+    border-right-style : solid;
+    border-right-width : 1px;
+  }
+
+
+.gridTable tr:hover {
+    background-color : #ffff66;
+  }
+
+
+.bgOK {
+    background-color : #99ff00;
+    color : #000000;
+    font-size : 14px;
+    font-weight : bold;
+  }
+
+
+.bgError {
+    background-color : #cc3300;
+    color : #ffff66;
+    font-size : 14px;
+    font-weight : bold;
+  }
+
+
+.singleBorderFull {
+    border-color:#000000;
+    border-style:solid;
+    border-width:1px;
+  }
+
+
+.dottedTopLine {
+    border-top-color:#000000;
+    border-top-style:dotted;
+    border-top-width:1px;
+  }
+
+
+.totalData1 {
+    font-weight:bold;
+  }
+
+
+.tableHeader1 { /* header, dengan garis atas dan bawah */
+    border-bottom-color : #000000;
+    border-bottom-style : solid;
+    border-bottom-width : 1px;
+    border-top-color : #000000;
+    border-top-style : solid;
+    border-top-width : 2px;
+    font-weight:bold;
+  }
+
+
+.tableHeader2 { /* header, dengan garis atas dan bawah, width 2 semua */
+    border-bottom-color : #000000;
+    border-bottom-style : solid;
+    border-bottom-width : 2px;
+    border-top-color : #000000;
+    border-top-style : solid;
+    border-top-width : 2px;
+    font-weight:bold;
+  }
+.tableHeader3 { /* header, dengan garis bawah aja */
+    border-bottom-color : #000000;
+    border-bottom-style : solid;
+    border-bottom-width : 2px;
+    font-weight:bold;
+  }

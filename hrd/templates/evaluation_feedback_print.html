@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+  <link href="[var.strPrintCss;magnet=link;mtype=m*]" rel="stylesheet" type="text/css">
+  <style>
+    [onload;magnet=style;mtype=m*m;file='[var.strStyle]';htmlconv=no;protect=no]
+  </style>
+  <link href="../css/ac.css" rel="stylesheet" type="text/css">
+
+  <script type="text/javascript" src="../js/ylib.js"></script>
+  <script type="text/javascript">
+  <!--
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    [var.strPrintInit]
+  }//initPage
+  -->
+  </script>
+</head>
+
+
+<body leftmargin="10" topmargin="0" onload="initPage_();" marginheight="0" marginwidth="10">
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+  <tbody>
+    <tr>
+
+    <td colspan="1" align="left">&nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td colspan="1" class="pageHeaderTitle" align="left">
+      <table border="0" cellpadding="2" cellspacing="0">
+
+        <tbody>
+          <tr>
+
+          <td width="30">&nbsp;</td>
+
+          <td class="pageHeaderTitleText" nowrap="nowrap">&nbsp;Employee Evaluation</td>
+
+        </tr>
+
+
+        </tbody>
+      </table>
+      </td>
+
+  </tr>
+
+  <tr>
+
+    <td colspan="1">&nbsp;</td>
+
+  </tr>
+
+  <tr>
+      <td>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tbody>
+          <tr>
+
+    <td class="">
+            <form action="" method="get" name="formFilter" id="formFilter">
+
+              <table border="0" cellpadding="2" cellspacing="0">
+
+          <tbody>
+                  <tr>
+
+            <td nowrap="nowrap"><strong>&nbsp;Periode</strong></td>
+
+            <td nowrap="nowrap"><strong> :</strong></td>
+
+            <td nowrap="nowrap"><strong>[var.strPeriode]</strong></td>
+
+          </tr>
+
+          <tr>
+
+            <td nowrap="nowrap"><strong>&nbsp;Employee</strong></td>
+
+            <td nowrap="nowrap"><strong>:</strong></td>
+
+            <td nowrap="nowrap"><strong>[var.strEmployee]
+              <input name="dataID" id="dataID" value="[var.strDataID]" type="hidden">
+              </strong></td>
+
+          </tr>
+
+
+                </tbody>
+              </table>
+
+
+      </form>
+            </td>
+
+  </tr>
+          <tr>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+
+    <form action="" method="post" name="formInput" id="formInput" onsubmit="return validInput();">
+
+    <td valign="top" width="50%">
+
+      <table border="0" cellpadding="2" cellspacing="0">
+
+          <tbody>
+          <tr>
+            <td valign="top">
+            <table align="left" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+
+                <tbody>
+                <tr>
+
+                  <td colspan="3" rowspan="1" class="tableHeader">&nbsp;<span style="font-weight: bold;">FEEDBACK</span></td>
+                </tr>
+
+                <tr valign="top">
+
+                  <td nowrap="nowrap"><strong>&nbsp;Employee Note (Comment)</strong></td>
+
+                  <td align="center">:</td>
+
+                  <td nowrap="nowrap">[var.strInputEmployeeNote]</td>
+
+                </tr>
+
+                <tr valign="top">
+
+                  <td nowrap="nowrap"><strong>&nbsp;Manager Note (Comment)</strong></td>
+
+                  <td align="center">:</td>
+
+                  <td nowrap="nowrap">[var.strInputManagerNote] <strong></strong></td>
+
+                </tr>
+
+                <tr valign="top">
+
+                  <td nowrap="nowrap"><strong>&nbsp;Employee Strong Point</strong></td>
+
+                  <td align="center">:</td>
+
+                  <td nowrap="nowrap">[var.strInputEmployeeStrong] <br>
+                  <strong id="employee_name"></strong></td>
+
+                </tr>
+
+                <tr valign="top">
+
+                  <td nowrap="nowrap"><strong>&nbsp;Impovement Need</strong></td>
+
+                  <td align="center">:</td>
+
+                  <td nowrap="nowrap">[var.strInputImprovement]</td>
+
+                </tr>
+
+                <tr valign="top">
+
+                  <td nowrap="nowrap">&nbsp;</td>
+
+                  <td align="center">&nbsp;</td>
+
+                  <td nowrap="nowrap">&nbsp; </td>
+
+                </tr>
+                <tr valign="top">
+
+                  <td colspan="3" nowrap="nowrap" class="tableHeader">&nbsp;<span style="font-weight: bold;">DEVELOPMENT&nbsp;</span><strong></strong></td>
+
+                </tr>
+
+                <tr valign="top">
+                  <td nowrap="nowrap"> <strong>&nbsp; Training</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap="nowrap">[var.strInputTraining]</td>
+                </tr>
+<tr valign="top">
+                  <td nowrap="nowrap"> <strong>&nbsp; Rotation/Apprentice</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap="nowrap">[var.strInputMutation]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap="nowrap"> <strong>&nbsp; Others</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap="nowrap">[var.strInputOther]</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+
+                  <td>&nbsp;</td>
+
+                  <td align="center">&nbsp;</td>
+
+                  <td>&nbsp;</td>
+
+                </tr>
+
+
+              </tbody>
+            </table>
+            </td>
+
+          </tr>
+
+
+        </tbody>
+      </table>
+
+      </td>
+
+    </form>
+
+  </tr>
+
+
+  <tr>
+
+    <td colspan="1">&nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td colspan="1">&nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td colspan="1" align="center">[var.strCopyright]</td>
+
+  </tr>
+
+  </tbody>
+</table>
+
+</body>
+</html>

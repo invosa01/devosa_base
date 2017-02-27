@@ -1,0 +1,92 @@
+<script>
+	<!--
+
+	// cek apakah import file benar
+	function checkImport() {
+		if (document.formImport.dataFile.value == "") {
+			alert("File is empty!");
+			return false;
+		}
+		return true;
+	}
+
+	// fungsi untuk inisialisasi
+	function initPage_() {
+		//document.formInput.dataCode.focus();
+	}//initPage
+	-->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strWordsDepartmentData]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="20">&nbsp;</td>
+          <td nowrap>&nbsp;<strong><a href="data_department.php">[var.strWordsInputData]</a>|
+            <a href="data_department_tree.php">[var.strWordsDepartmentList]</a> | [var.strWordsImportData]</strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>[var.strWordsIMPORTDATA(EXCEL)]</strong></td>
+  </tr>
+  <tr>
+    <td valign="top" nowrap class="inputBox"> <form action="" method="post" enctype="multipart/form-data" name="formImport" id="formImport" onSubmit="return checkImport();">
+        <p><br>
+          &nbsp;
+          <input name="dataFile" type="file" id="dataFile" size="50">
+          <br>
+          <br>
+          &nbsp;
+          <input name="btnImport" type="submit" id="btnImport" value="[var.strWordsImport]">
+          <br>
+        </p>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>[var.strWordsFORMATDATA]</strong></td>
+  </tr>
+  <tr>
+    <td height="100" valign="top">
+<table width="100%" border="0" cellpadding="2" cellspacing="0" class="gridTable">
+        <tr align="center" class="tableHeader">
+          <td colspan="2">[var.strWordsDIVISI]</td>
+          <td colspan="2">[var.strWordsDEPARTMENT]</td>
+          <td colspan="2">[var.strWordsSECTION]</td>
+          <td colspan="2">[var.strWordsSUBSECTION]</td>
+        </tr>
+        <tr align="center" class="tableHeader">
+          <td class="tableHeader">[var.strWordsCODE]</td>
+          <td class="tableHeader">[var.strWordsNAME]</td>
+          <td>[var.strWordsCODE]</td>
+          <td>[var.strWordsNAME]</td>
+          <td>[var.strWordsCODE]</td>
+          <td>[var.strWordsNAME]</td>
+          <td>[var.strWordsCODE]</td>
+          <td>[var.strWordsNAME]</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table></td>
+  </tr>

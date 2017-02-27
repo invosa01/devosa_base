@@ -1,0 +1,331 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <link href="[var.strPrintCss]" rel="stylesheet" type="text/css">
+  <link href="../css/calendar.css" rel="stylesheet" type="text/css">
+  <script>
+  <!--
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    [var.strPrintInit]
+  }//initPage
+  -->
+  </script>
+</head>
+<body leftmargin="10" topmargin="0" onLoad="initPage_();"
+ marginheight="0" marginwidth="10">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td align="left">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="pageHeaderTitle" align="left"><img
+ alt="Logo" src="../images/logo.gif"></td>
+    </tr>
+    <tr>
+      <td class="tableHeader" align="center">
+      <h2>USULAN PERUBAHAN STATUS PEGAWAI<br>
+      </h2>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp; <br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">
+      <table align="center" border="0" cellpadding="2" cellspacing="0"
+ width="95%">
+        <tbody>
+          <tr>
+            <td width="20%">&nbsp;</td>
+            <td align="center" width="15">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;NIK/Nama Pegawai<br>
+            </td>
+            <td align="center" valign="top">:<br>
+            </td>
+            <td valign="top">[var.strInputEmployee]&nbsp;<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;Posisi/Grade<br>
+            </td>
+            <td align="center" valign="top">:<br>
+            </td>
+            <td valign="top">[var.strInputPosition] /
+[var.strInputGrade]<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;Tanggal Mulai Kerja<br>
+            </td>
+            <td align="center" valign="top">:<br>
+            </td>
+            <td valign="top">[var.strInputJoinDate]&nbsp;<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;Status Pegawai<br>
+            </td>
+            <td align="center" valign="top">:<br>
+            </td>
+            <td valign="top">[var.strInputEmployeeStatus]&nbsp;<br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;Departemen</td>
+            <td align="center">:</td>
+            <td nowrap="nowrap">[var.strInputDepartment]&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td colspan="3" nowrap="nowrap"><strong>&nbsp;<u>KONFIRMASI
+MENGENAI PEGAWAI</u><br>
+            </strong></td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;Status</td>
+            <td align="center">:</td>
+            <td nowrap="nowrap">[var.strInputStatusNew]&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;Sejak Tanggal<br>
+            </td>
+            <td align="center">:</td>
+            <td nowrap="nowrap">[var.strInputStatusDateFrom] s.d.
+[var.strInputStatusDateThru]<br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td colspan="3" rowspan="1">&nbsp;<u><b>PERUBAHAN
+POSISI/JABATAN</b></u><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;Dari <br>
+            </td>
+            <td align="center">:</td>
+            <td nowrap="nowrap">[var.strInputPositionOld] Grade :
+[var.strInputGradeOld] Sejak : [var.strInputPositionOldDate]<br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;Menjadi <br>
+            </td>
+            <td align="center">:</td>
+            <td nowrap="nowrap">[var.strInputPositionNew] Grade :
+[var.strInputGradeNew] Sejak : [var.strInputPositionNewDate]<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top"><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" rowspan="1" valign="top">&nbsp;<u><b>MUTASI/PERUBAHAN
+DEPARTEMEN/LOKASI</b></u> </td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;Dari <br>
+            </td>
+            <td align="center" valign="top">: <br>
+            </td>
+            <td valign="top">[var.strInputDepartmentOld]&nbsp;<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;Menjadi <br>
+            </td>
+            <td align="center" valign="top">: <br>
+            </td>
+            <td valign="top">[var.strInputDepartmentNew]&nbsp;<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;Sejak Tanggal<br>
+            </td>
+            <td align="center" valign="top">:<br>
+            </td>
+            <td valign="top">[var.strInputDepartmentNewDate]&nbsp;<br>
+            </td>
+          </tr>
+		  <tr>
+            <td colspan="3" rowspan="1" valign="top">&nbsp;<u><b>MUTASI/PERUBAHAN SALARY
+</b></u> </td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;Dari <br></td>
+            <td align="center" valign="top">&nbsp;</td>
+            <td valign="top"></td>
+          </tr>
+		  <tr>
+		    <td nowrap>&nbsp; &nbsp;- Basic Salary</td>
+            <td valign="top" align="center">:</td>
+            <td valign="top">[var.strInputBasicSalaryOld]&nbsp; <br></td>
+	      <tr>
+            <td nowrap>&nbsp; &nbsp;- Position Allowance </td>
+            <td valign="top" align="center">:</td>
+            <td valign="top">[var.strInputPositionAllowOld]&nbsp; <br></td>
+		  </tr>
+		  <tr>
+            <td nowrap>&nbsp; &nbsp;- Meal Allowance </td>
+            <td valign="top" align="center">:</td>
+            <td valign="top">[var.strInputMealAllowOld]&nbsp; <br></td>
+		  </tr>
+		  <tr>
+            <td nowrap>&nbsp; &nbsp;- Transport Allowance </td>
+            <td valign="top" align="center">:</td>
+            <td valign="top">[var.strInputTransportAllowOld]&nbsp; <br></td>
+		  </tr>
+		  <tr>
+            <td nowrap>&nbsp; &nbsp;- Vehicle Allowance </td>
+            <td valign="top" align="center">:</td>
+            <td valign="top">[var.strInputVehicleAllowOld]&nbsp; <br></td>
+		  </tr>
+		  <tr>
+            <td valign="top">&nbsp;Menjadi <br></td>
+            <td align="center" valign="top">&nbsp;</td>
+            <td valign="top"></td>
+          </tr>
+		  <tr>
+		    <td nowrap>&nbsp; &nbsp;- Basic Salary</td>
+            <td valign="top" align="center">:</td>
+            <td valign="top">[var.strInputBasicSalaryNew]&nbsp; <br></td>
+	      <tr>
+            <td nowrap>&nbsp; &nbsp;- Position Allowance </td>
+            <td valign="top" align="center">:</td>
+            <td valign="top">[var.strInputPositionAllowNew]&nbsp; <br></td>
+		  </tr>
+		  <tr>
+            <td nowrap>&nbsp; &nbsp;- Meal Allowance </td>
+            <td valign="top" align="center">:</td>
+            <td valign="top">[var.strInputMealAllowNew]&nbsp; <br></td>
+		  </tr>
+		  <tr>
+            <td nowrap>&nbsp; &nbsp;- Transport Allowance </td>
+            <td valign="top" align="center">:</td>
+            <td valign="top">[var.strInputTransportAllowNew]&nbsp; <br></td>
+		  </tr>
+		  <tr>
+            <td nowrap>&nbsp; &nbsp;- Vehicle Allowance </td>
+            <td valign="top" align="center">:</td>
+            <td valign="top">[var.strInputVehicleAllowNew]&nbsp; <br></td>
+		  </tr>
+          <tr>
+            <td valign="top">&nbsp;Sejak Tanggal<br>
+            </td>
+            <td align="center" valign="top">:<br>
+            </td>
+            <td valign="top">[var.strInputStartNewDate]&nbsp;<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top"><br>
+            </td>
+            <td align="center" valign="top"><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;<u><b>CATATAN</b></u><br>
+            </td>
+            <td align="center">:</td>
+            <td nowrap="nowrap">[var.strInputNote]&nbsp;<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top"><br>
+            </td>
+            <td align="center" valign="top"><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp; <br>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;
+      <table align="center" border="0" cellpadding="2" cellspacing="0"
+ width="95%" class="gridTable">
+        <tbody>
+          <tr class="tableHeader">
+            <td class="tableHeader" align="center" width="33%">Diajukan
+Oleh<br>
+Pimpinan Departemen<br>
+            </td>
+            <td align="center" width="33%" class="tableHeader">Verifikasi<br>
+HRD &amp; GA Dept. Head <br>
+            </td>
+            <td align="center" valign="top" width="33%" class="tableHeader">Menyetujui<br>
+Board of Director<br>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" valign="top"><br>
+            <br>
+            <br>
+&nbsp;<br>
+&nbsp;</td>
+            <td align="center" valign="top"><br>
+            <br>
+            <br>
+            <br>
+<br>
+            </td>
+            <td align="center" valign="top"><br>
+            <br>
+            <br>
+            <br>
+<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;Tgl.
+<br>
+            </td>
+            <td valign="top">&nbsp;Tgl.
+</td>
+            <td valign="top">&nbsp;Tgl.
+</td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td align="left"><i>Catatan: Lembar asli dipegang HRD dan lembar
+copy diberikan ke pimpinan departemen yang mengajukan</i><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

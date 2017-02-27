@@ -1,0 +1,302 @@
+<script type="text/javascript" src="../js/invosa.js"></script>
+<script type="text/javascript" src="../js/calendar.js"></script>
+<script type="text/javascript" src="../js/calendar-en.js"></script>
+<script type="text/javascript" src="../js/acEmployee.js"></script>
+<script type="text/javascript" src="../js/ylib.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script src="employee_data.php"></script>
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"[var.strTargetElements] ];
+  AC_kode = "";
+  AC_nama = "";
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = eval("document.formInput." + AC_kode + ".value");
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById(AC_nama);
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+  <!--
+
+  function clearForm() 
+  {
+  }//clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput() 
+  {/*
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+    if (document.formInput.dataNumber.value == "") {
+      alert("Empty Request Number!");
+      document.formInput.dataNumber.focus();
+      return false;
+    }
+
+    if (document.formInput.dataTopic.value == "") {
+      alert("Empty topic!");
+      document.formInput.dataTopic.focus();
+      return false;
+    }
+    if (document.formInput.dataTrainingDate.value == "") {
+      alert("Empty Date From!");
+      document.formInput.dataTrainingDate.focus();
+      return false;
+    }
+	
+    if (document.formInput.dataTrainingDateThru.value == "") {
+      alert("Empty Date Thru!");
+      document.formInput.dataTrainingDateThru.focus();
+      return false;
+    }
+
+    tmp = dateCompare(document.formInput.dataTrainingDate.value, document.formInput.dataTrainingDateThru.value);
+    if (tmp == 1) {
+      alert("Date thru is before date from!");
+      document.formInput.dataTrainingDateThru.focus();
+      return false;
+    }
+
+    // cek apakah user employee
+    // jika employee, gak boleh entry data kemarin
+    if (document.formInput.dataUserRole.value == 2)
+    {
+      tmp = dateCompare(document.formInput.dataDate.value, document.formInput.dataTrainingDate.value);
+      if (tmp == 1) {
+        alert("Cannot entry date BEFORE application date!");
+        document.formInput.dataTrainingDate.focus();
+        return false;
+      }
+    }
+
+    ok = validateForm(document.formInput);
+    return ok;
+    */
+    return true;
+  } //validInput
+
+  //fungsi untuk menampilkan baris baru untuk menambahkan data anak
+  //tipe = 0 :trainer, 1:partisipan
+  function showMoreInput(tipe) 
+  { 
+    if (tipe == 1)
+    {
+      var n = eval("document.formInput.numShow.value;");
+      var max = eval("document.formInput.maxDetail.value;");
+      n++;
+      if (n < max) {
+        strNama = "detailRows" + n;
+        ylib_getObj(strNama).style.display = document.all ? "block" : "table-row";
+        eval("document.formInput.numShow.value++;");
+        eval("document.formInput.detailEmployeeID" + n + ".disabled = false");
+        //eval("document.formInput.detailName" + n + ".disabled = false");
+        eval("document.formInput.detailEmployeeID" + n + ".focus()");
+      } else {
+
+      }
+    }
+    else
+    {
+      var n = eval("document.formInput.numTrainerShow.value;");
+      var max = eval("document.formInput.maxTrainerDetail.value;");
+      n++;
+      if (n < max) {
+        strNama = "detailTrainer" + n;
+        ylib_getObj(strNama).style.display = document.all ? "block" : "table-row";
+        eval("document.formInput.numTrainerShow.value++;");
+        eval("document.formInput.detailTrainerID" + n + ".disabled = false");
+        //eval("document.formInput.detailName" + n + ".disabled = false");
+        eval("document.formInput.detailTrainerID" + n + ".focus()");
+      } else {
+
+      }
+
+    }
+  } //showMoreInput
+
+  //ketika checkbox delete berubah
+  function chkDeleteChanged(index) { //kode = Address, or Phone
+
+    if (index != "") {
+      var chk = eval("document.formInput.chkID" + index + ".checked");
+      if (chk) {
+        str = "true";
+      } else {
+        str = "false";
+      }
+
+      eval("document.formInput.detailEmployeeID" + index + ".disabled = " + str);
+      eval("document.formInput.detailNote" + index + ".disabled = " + str);
+      //eval("document.formInput.detailName" + index + ".disabled = " + str);
+
+    }
+  } //chkDeleteChanged
+
+  // fungsi untuk inisialisasi
+  function initPage_() 
+  {
+    /*
+    document.formInput.dataDepartment.focus();
+    AC_kode = "dataEmployee";
+    AC_nama = "employee_name";
+    onCodeBlur();
+    */
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateTo", button:"btnDateTo" });
+    init();
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td ><table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;<strong>[var.strWordsInputSharingSession] 
+            | <a href="training_request_list.php">[var.strWordsInputSharingSessionFromTraining]</a> 
+            | <a href="training_sharing_session_list.php">[var.strWordsSharingSessionList]</a> 
+          </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td >&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center"  [var.strMsgClass]>[var.strMessages]</td>
+  </tr>
+  <tr [var.strShowTraining]>
+    <td class="inputTop">&nbsp;[var.strWordsTraining]</td>
+  </tr>
+  <tr [var.strShowTraining]>
+    <td valign="top" class="inputBox" style="padding-right:30px;">    
+      <table border="0" align="left" cellpadding="3" cellspacing="1" width="">
+        <tr valign="top">
+          <td width="50%">
+            <table border="0" align="left" cellpadding="2" cellspacing="0">
+              <tr valign="top">
+                <td nowrap> &nbsp;[var.strWordsTrainingTopic]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strTrainingTopic]</td>
+              </tr>
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsPurpose]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strTrainingPurpose]</td>
+              </tr>
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsInstitution]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strTrainingInstitution]</td>
+              </tr>
+            </table>
+          </td>
+          <td width="50%">
+            <table border="0" align="left" cellpadding="2" cellspacing="0">
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsTrainingDate]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strTrainingDateFrom]
+                  [var.strWordsUntil] [var.strTrainingDateTo]
+                </td>
+              </tr>
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsLocation]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strTrainingPlace]</td>
+              </tr>
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsExpectedResult]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strTrainingResult]</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr [var.strShowTraining]>
+    <td >&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputTop">&nbsp;[var.strWordsInputSharingSession]</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox" style="padding-right:30px;">
+      <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+      <table border="0" align="left" cellpadding="3" cellspacing="1" width="">
+        <tr valign="top">
+          <td>
+            <table border="0" align="left" cellpadding="2" cellspacing="0">
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsSharingDate]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strInputDateFrom]
+                   [var.strWordsUntil] [var.strInputDateTo]
+                  </td>
+              </tr>
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsLocation]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strInputPlace]</td>
+              </tr>
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsTopic]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strInputTopic]</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <fieldset><legend><strong>[var.strWordsTrainer]</strong></legend>[var.strInputTrainer]</fieldset>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <fieldset><legend><strong>[var.strWordsParticipant]</strong></legend>[var.strInputParticipant]</fieldset>
+          </td>
+        </tr>
+        <tr>
+          <td colspan=2>&nbsp;          
+            <input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]">
+            <input name="btnNew" type="button" id="btnNew" value="[var.strWordsNew]" onClick="location.href = 'training_sharing_session_edit.php'">
+            <input name="btnNew1" type="button" id="btnNew1" value="[var.strWordsNewFromTraining]" onClick="location.href = 'training_request_list.php'">
+            <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]">
+            <input name="dataTrainingID" type="hidden" id="dataTrainingID" value="[var.strDataTrainingID]">
+            <input type=hidden name="dataUserRole" value="[var.strUserRole]">
+          </td>
+        </tr>
+      </table>
+    </form>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" height="30">
+    </td>
+  </tr>
+</table>

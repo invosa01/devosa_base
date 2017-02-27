@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>TinyButStrong</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="tbs_us_examples_0styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<p align="center" class="title-page">Example of SQLite Data Merge</p>
+<table border="1" align="center" cellpadding="2" cellspacing="0">
+  <tr bgcolor="#CACACA">
+    <td width="50"><strong>Position</strong></td>
+    <td width="150"><strong>Nickname</strong></td>
+    <td width="50"><strong>Score</strong></td>
+    <td width="100"><div align="center"><strong>Date</strong></div></td>
+  </tr>
+  <tr bgcolor="#F0F0F0">
+    <td>[blk1.#]</td>
+    <td>[blk1.res_name;block=tr]</td>
+    <td><div align="right">[blk1.res_score]</div></td>
+    <td><div align="center">[blk1.res_date;frm='mm-dd-yyyy']</div></td>
+  </tr>
+  <tr bgcolor="#E6E6E6">
+    <td>[blk1.#]</td>
+    <td>[blk1.res_name;block=tr]</td>
+    <td><div align="right">[blk1.res_score]</div></td>
+    <td><div align="center">[blk1.res_date;frm='mm-dd-yyyy']</div></td>
+  </tr>
+  <tr bgcolor="#E6E6E6">
+    <td colspan="4" bgcolor="#FFCFB9">[blk1;block=tr;nodata]There is no data. </td>
+  </tr>
+</table>
+<p align="center">There are [blk1.#] displayed lines.</p>
+</body>
+</html>

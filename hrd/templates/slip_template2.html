@@ -1,0 +1,133 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin:0;padding:0;">
+    <tr valign="top" width="100%" height="3%" style="background-color:blue;">
+        <td span="2">&nbsp;</td>
+    </tr>
+</table>
+<table width="100%" border="0" cellspacing="5" cellpadding="1">
+    <tr>
+        <td style="padding-left: 20px;" width="50%">
+            <table width="90%" border="0" cellpadding="0" cellspacing="0">
+                <tr valign="bottom">
+                    <td width="100">
+                        <img src="../images/[var.strCompanyLogo]" width="80%">
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width="50%">
+            <table width="90%" border="0" cellpadding="1" cellspacing="0">
+                <tr valign="bottom">
+                    <td>&nbsp;</td>
+                    <td>BRANCH</td>
+                    <td width="20">:</td>
+                    <td nowrap>&nbsp;[var.strBranch]</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>NIK</h3></td>
+                    <td width="20">:</td>
+                    <td nowrap>&nbsp;[var.strEmployeeID]</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>NAME</td>
+                    <td>:</td>
+                    <td>&nbsp;[var.strEmployeeName]</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>PERIODE</td>
+                    <td>:</td>
+                    <td>&nbsp;[var.strPeriod]</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan=2>&nbsp;</td>
+    </tr>
+    <tr>
+        <td style="padding-left: 20px;" valign="top">
+            <table width="90%" border="0" cellpadding="1" cellspacing="0">
+
+                <tr>
+                    <td colspan=3><strong>INCOME</strong></td>
+                </tr>
+                [var.strIncome]
+                [var.strIncomeBlankSpace]
+            </table>
+        </td>
+        <td valign="top">
+            <table width="90%" border="0" cellpadding="1" cellspacing="0">
+                <tr>
+                    <td colspan=3><strong>DEDUCTION</strong></td>
+                </tr>
+                [var.strDeduction]
+                [var.strDeductionBlankSpace]
+                <tr>
+                    <td colspan=3>&nbsp;</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-left: 20px;" width="50%">
+            <table width="90%" cellpadding="1">
+                <tr>
+                    <td style="border-top-style:solid;border-top-width:1px;border-top-color:black; border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:black;">
+                        TOTAL INCOME
+                    </td>
+                    <td style="border-top-style:solid;border-top-width:1px;border-top-color:black; border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:black;">
+                        &nbsp;</td>
+                    <td align=right
+                        nowrap
+                        style="border-top-style:solid;border-top-width:1px;border-top-color:black; border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:black;">
+                        &nbsp;[var.strTotalIncome]
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table width="90%" cellpadding="1">
+                <tr>
+                    <td style="border-top-style:solid;border-top-width:1px;border-top-color:black; border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:black;">
+                        TOTAL DEDUCTION
+                    </td>
+                    <td style="border-top-style:solid;border-top-width:1px;border-top-color:black; border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:black;">
+                        &nbsp;</td>
+                    <td align=right
+                        nowrap
+                        style="border-top-style:solid;border-top-width:1px;border-top-color:black; border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:black;">
+                        &nbsp;[var.strTotalDeduction]
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-left: 20px;" width="50%">&nbsp;</td>
+        <td>
+            <table width="90%" cellpadding="1">
+                <tr>
+                    <td>TAKE HOME PAY</td>
+                    <td>&nbsp;</td>
+                    <td align=right nowrap><strong>&nbsp;[var.strTotalSalary]</strong></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<br>
+<br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin:0;padding:0;">
+    <tr valign="top" align="center" width="100%" height="15%" style="background-color:#4AA02C; color:white;">
+        <td span="2">
+            <small style="color:white;" style="display:none;">
+                <strong>[var.strCompany]</strong>
+                <br />[var.strCompanyAdress] - [var.strCompanyCity]
+                <br />Tel. [var.strCompanyPhone] Fax. [var.strCompanyFax]
+                <br />E-mail : [var.strCompanyEmail]
+                <small>
+        </td>
+    </tr>
+</table>

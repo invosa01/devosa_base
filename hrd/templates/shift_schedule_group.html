@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+  <!--
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  //fungsi untuk mengisi textbox shift setiap tanggal pada baris index dengan pattern yg di pilih pada baris index
+  function roast(intRow)
+  {
+    a = eval("document.formData.genShift" + intRow);
+    if (document.getElementById("row" + intRow).style.display == "none")
+    {
+      document.getElementById("row" + intRow).style.display = "table-row";
+      a.value = "Close ";
+    }
+    else 
+    {
+      document.getElementById("row" + intRow).style.display = "none";
+      a.value = "Roaster";
+    }
+  }//roast
+
+  //fungsi untuk mengisi textbox shift setiap tanggal pada baris index dengan pattern yg di pilih pada baris index
+  function apply(index)
+  {
+    pattern = eval("document.formData.dataPattern" + index + ".value");
+    start   = parseInt(eval("document.formData.dataStart" + index + ".value"));
+    end     = eval("document.formData.dataEnd" + index + ".value");
+    arrPat  = pattern.split(",");
+    for (i = start; i <= end; i++)
+    {    
+      j = (i - start) % arrPat.length;
+      obj = eval("document.formData.dataShift" + index + "_" + i);
+      obj.value = arrPat[j];
+    }
+  }//apply
+
+  //fungsi untuk mengisi textbox shift setiap tanggal pada setiap baris dengan pattern yg di set pada baris index
+  function applyAll(index)
+  {
+
+    pattern = eval("document.formData.dataPattern" + index + ".value");
+    start   = parseInt(eval("document.formData.dataStart" + index + ".value"));
+    end     = parseInt(eval("document.formData.dataEnd" + index + ".value"));
+    max     = parseInt(document.formData.totalData.value);
+    arrPat  = pattern.split(",");
+    for (i = 1; i < max; i++)
+    {  
+      for (ii = start; ii <= end; ii++)
+      {
+        j = (ii - start) % arrPat.length;
+        obj = eval("document.formData.dataShift" + i + "_" + ii);
+        obj.value = arrPat[j];
+      }
+    }
+  }//applyAll
+
+  // fungsi untuk menuju ke page tertentu
+  function goPage(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnShow.click();
+    }
+  }//goPage
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    init();
+    onCodeBlur();
+  }//initPage
+  -->
+</script>
+
+
+<body leftmargin="10" topmargin="0" marginwidth="10" marginheight="0" onLoad="initPage_();">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>&nbsp;<strong> 
+             <a href="shift_schedule.php">[var.strWordsByEmployee]</a>|
+             <a href="shift_schedule_section.php">[var.strWordsBySection]</a>|
+             [var.strWordsByGroup]</strong></td>
+        </tr>
+      
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> 
+      <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+      <table width="450" border="0" align="left" cellpadding="1" cellspacing="0">
+        <tr>
+    
+          <td>&nbsp;</td>
+          <td width="15" align="center">&nbsp;</td>
+          <td>&nbsp;</td>
+    </tr>
+    
+      
+    
+        <tr>
+          <td nowrap>&nbsp;[var.strWordsMonth]</td>
+          <td align="center">:</td>
+          <td nowrap>[var.strInputMonth]&nbsp;</td>
+      
+    </tr>
+    <tr>
+          <td nowrap>&nbsp;[var.strWordsGroup]</td>
+          <td align="center">:</td>
+          <td>[var.strInputGroup]</td>
+      <td>&nbsp;<input type="hidden" name="dataPage" value=1></td>
+          <td align="center">&nbsp;</td>      
+          <td><input name="btnShow" type="submit" id="btnShow" value="Show Data">          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td>&nbsp;</td>
+  
+        
+    </tr>
+      </table>
+    </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="listTop"><strong>LIST OF EMPLOYEE SHIFT [var.strInfo]</strong></td>
+  </tr>
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr>
+    <td><form action="shift_schedule_group.php" method="post" name="formData" id="formData">
+      [var.strDataDetail]
+    </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  
+</table>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<script type="text/javascript">
+	var myClient = {
+
+
+    editData : function(params)
+    {
+      arrParam  = params.split("|");
+      idx = arrParam[0];
+      if ($('formMessage') != null) $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataID').value = "";
+        $('dataCode').value = "";
+        $('dataNote').value = "";
+        $('dataIsLeave').checked = false;
+        $('dataDeductLeave').checked = false;
+        $('dataLeaveWeight').value = "0";
+        $('dataCancelPartialAbsence').checked = false;
+        for(n = 1;n<arrParam.length;n = n+1)
+          $('data'+ arrParam[n]).checked = false;
+          
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $F("detailID" + idx);
+        $('dataCode').value = $F("detailCode" + idx);
+        $('dataNote').value = $F("detailNote" + idx);
+        //$('dataIsLeave').checked = ($F("detailIsLeave" + idx) == 't');
+
+        if ($F("detailIsLeave" + idx) == 't'){
+          $('dataIsLeave').checked = true;
+          $('dataIsLeave').parentNode.className = 'checked';
+        }else{
+          $('dataIsLeave').checked = false;
+          $('dataIsLeave').parentNode.className = '';
+        }
+        //$('dataDeductLeave').checked = ($F("detailDeductLeave" + idx) == 't');
+        if ($F("detailDeductLeave" + idx) == 't'){
+          $('dataDeductLeave').checked = true;
+          $('dataDeductLeave').parentNode.className = 'checked';
+        }else{
+          $('dataDeductLeave').checked = false;
+          $('dataDeductLeave').parentNode.className = '';
+        }
+        $('dataLeaveWeight').value = $F("detailLeaveWeight" + idx);
+        //$('dataCancelPartialAbsence').checked = ($F("detailCancelPartialAbsence" + idx) == 't');
+         if ($F("detailCancelPartialAbsence" + idx) == 't'){
+          $('dataCancelPartialAbsence').checked = true;
+          $('dataCancelPartialAbsence').parentNode.className = 'checked';
+        }else{
+          $('dataCancelPartialAbsence').checked = false;
+          $('dataCancelPartialAbsence').parentNode.className = '';
+        }
+
+        for(n = 1;n<arrParam.length;n = n+1)
+        {
+          $('data'+ arrParam[n]).checked = ($F("detail" + arrParam[n] + idx) == 't');
+        }
+
+      }
+      $('dataCode').focus();
+      $('dataCode').select();
+    },
+    
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+    
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.formInput;protect=no;htmlconv=no]
+  		</div>
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">ABSENCE TYPE LIST</h3>
+					</div>
+					<div id="list-panel" class="panel-body collapse in">
+						[var.DataGrid;protect=no;htmlconv=no]
+					</div>
+				</div>
+  		</div>
+  	</div>
+  </div>
+

@@ -1,0 +1,62 @@
+<script type="text/javascript">
+  function openWindowDialog(url) 
+  {
+    var winName = "_blank";
+    var width=800;
+    var height=500;
+    var left = (screen.width - width) / 2;
+    var top = (screen.height - height) / 2;
+    var foo = window.open(url,winName,"menubar=no,status=no,resizable=yes,scrollbars=yes,modal=yes,top="+top+",left="+left+",width="+width+",height="+height+"");
+    foo.focus();
+  }
+  
+  function printList()
+  {
+    document.form1.target = '_blank';
+  }
+
+  function doSearch()
+  {
+    document.form1.target = '';
+  }
+
+  function exportExcel()
+  {
+    document.form1.target = '';
+  }
+  
+	var myClient = {
+    
+    confirmDelete : function()
+    {
+      document.form1.target = '';
+      return confirm('[var.strConfirmDelete]');
+    }
+  }
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<form name="form1" id="form1" method="post" class="form-horizontal" role="form">
+	  		<div class="col-md-12">
+	  			[var.formInput;protect=no;htmlconv=no]
+	  		</div>
+	  		<div class="col-md-12">
+	  			<div class="panel">
+						<div class="panel-heading">
+							<div class="panel-actions">
+								<div class="pull-right" id="collapse-filter">
+							  	<a href="#" data-toggle="collapse" data-target="#entry-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+							  </div>
+							</div>
+							<h3 class="panel-title">FKR LIST</h3>
+						</div>
+						<div id="entry-panel" class="panel-body collapse in">
+							[var.DataGrid;protect=no;htmlconv=no]
+						</div>
+					</div>
+				</div>
+			</form>	
+  	</div>
+  </div>
+

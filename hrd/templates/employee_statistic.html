@@ -1,0 +1,62 @@
+<script src="scripts/ylib.js"></script>
+
+<script>
+  <!--
+  // menuju ke suatu URL
+  function goUrl(url) {
+    if (url != "") {
+        //location.href = url + ".php?dataID=" + document.formInput.dataID.value;
+		document.getElementById('formGoUrl').action = url+'.php';
+		//document.formGoUrl.dataID.value = document.formInput.dataID.value;
+		document.formGoUrl.submit();
+    }
+  }//goUrl
+
+
+	// menampilkan print view
+	function printData() {
+
+		if (document.formInput.dataID.value != "") {
+			url = "employee_resume.php?btnPrint=Print&dataID=" + document.formInput.dataID.value;
+			window.open(url);
+		}
+	}//printData
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+
+  }//initPage
+  -->
+                                                                                                                                       
+</script>
+
+  [var.strChartNewJs]
+
+[var.pageHeader]
+  <div class="main-content">
+    <div class="row">
+      <div class="col-md-12">
+        [var.pageSubMenu]
+        <p></p>
+      </div>
+      <div class="col-md-12">
+        <div class="panel">
+          <div class="panel-heading">
+            <div class="panel-actions">
+              <div class="pull-right" id="collapse-filter">
+                <a href="#" data-toggle="collapse" data-target="#input-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+              </div>
+            </div>
+            <h3 class="panel-title">Salary Statistic</h3>
+          </div>
+          <div id="input-panel" class="panel-body collapse in">
+            [var.strChartNew]
+
+            <form method="post" name="formGoUrl" id="formGoUrl">                                                                       
+              <input type="hidden" name="dataID" value="[var.strDataID]">                                                                                                                                    
+            </form> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

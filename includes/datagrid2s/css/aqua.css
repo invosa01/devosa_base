@@ -1,0 +1,522 @@
+div.divDataGrid,
+div.divDataGrid table,
+div.divDataGrid div,
+div.divDataGrid select,
+div.divDataGrid input,
+div.divDataGrid span,
+div.divDataGrid td,
+div.divDataGrid a
+{
+  font-family         : Arial,verdana, helvetica;
+  font-size           : 10px;
+  font-weight         : normal;
+}
+
+table.contentGrid
+{
+}
+
+/* datagrid message */
+table.contentGrid td.dataGridErrorMessage
+{
+  /*height              : 20px;*/
+  font-weight         : bold;
+  border              : 1px solid #993300;
+  background-color    : #FF0000;
+  color               : #FFFFFF;
+  vertical-align      : middle;
+  text-align          : left;
+  padding             : 2px;
+}
+
+table.contentGrid td.dataGridOKMessage
+{
+  /*height              : 20px;*/
+  font-weight         : bold;
+  background-color    : #00CC00;
+  color               : #ffffff;
+  border              : 1px solid #337733;
+  vertical-align      : middle;
+  text-align          : left;
+  padding             : 2px;
+}
+
+table.contentGrid input.textbox 
+{
+  height              : 18px;
+  border              : 1px solid #a5acb2;
+  padding             : 0px 3px 0px 3px;
+  margin              : 0px 0px 0px 0px;
+}
+
+table.contentGrid  a
+{
+  text-decoration     : none;
+}
+
+table.contentGrid  a:hover
+{
+  text-decoration     : underline;
+}
+
+table.pageLimitGrid
+{
+  padding             : 0px 0px 0px 0px;
+  background-color    : #eee;
+  border              : 1px dotted #333;
+}
+
+table.pageLimitGrid td.dataGridTitle
+{
+  font-weight         : bold;
+  color               : #000000;
+  vertical-align      : middle;
+  text-align          : center;
+  letter-spacing      : 1px;
+  text-transform      : UPPERCASE;
+}
+
+table.pageLimitGrid input.buttonSearch
+{
+  height              : 21px;
+	width               : 21px;
+	background-color    : #eee;
+	background-image    : url(./aqua/buttonSearch.gif);
+	background-repeat   : no-repeat;
+	background-position : center;
+	border              : 0px solid #ffffff;
+	padding             : 0px 0px 0px 0px;
+	cursor              : pointer;
+}
+
+table.pageLimitGrid select
+{
+  height              : 18px;
+  border              : 1px solid #a5acb2;
+  margin              : 0px 0px 0px 0px;
+  padding             : 0px 0px 0px 0px;
+}
+
+table.pageLimitGrid div.caption
+{
+  font-weight         : bold;
+  color               : #333333;
+  float               : left;
+}
+
+table.pagingGrid
+{
+  border-bottom       : 1px solid #777777;
+  border-right        : 1px solid #777777;
+  border-left         : 1px solid #777777;
+  background-color    : #CCCCCC;
+  cursor              : default;
+  padding             : 2px 0px 2px 0px;
+  vertical-align      : middle;
+  color               : #ffffff;
+}
+
+/* untuk class nomornya page aktif*/
+table.pagingGrid td.currentPage
+{
+  color               : #aaaaaa;
+  text-align          : center;
+  font-weight         : bold;
+}
+
+table.pagingGrid td
+{
+  background-color    : #cccccc;
+  color               : black;
+}
+
+table.pagingGrid td.disabledNavigation
+{
+  background-color    : #cccccc;
+  color               : #555555;
+}
+
+table.pagingGrid a
+{
+  background-color    : #cccccc;
+  font-weight         : bold;
+  text-decoration     : none;
+  text-align          : center;
+  color               : #000000;
+}
+
+/* table datagrid */
+table.dataGrid 
+{
+  font-family         : Arial,verdana, helvetica;
+  font-size           : 10px;
+  border-left         : 1px solid #777777;
+  border-right        : 1px solid #777777;
+  border-top          : 1px solid #777777;
+  border-collapse     : collapse;
+  empty-cells         : show;
+  background-color    : #fff;
+}
+
+/*normal row*/
+table.dataGrid tbody tr
+{
+  background-color    : transparent;
+  vertical-align      : middle;
+}
+
+/*alternate row*/
+table.dataGrid tbody tr.a
+{
+  background-color    : #f7f7f7;
+  vertical-align      : middle;
+}
+
+/*row for sub total*/
+table.dataGrid tbody tr.gs
+{
+  background-color    : #bebebe;
+  vertical-align      : middle;
+}
+
+/*row for grand total*/
+table.dataGrid tbody tr.gt
+{
+  background-color    : #bbbbbb;
+  vertical-align      : middle;
+}
+
+table.dataGrid tbody tr.bgDenied 
+{
+  background-color: #FFCCCC;
+  vertical-align      : middle;
+}
+table.dataGrid tbody tr.bgDeniedHover
+{
+  background-color: #DD9999;
+  vertical-align      : middle;
+}
+
+table.dataGrid tbody tr.bgNewRevised 
+{
+  background-color: #FFFFCC;
+  vertical-align      : middle;
+}
+table.dataGrid tbody tr.bgNewRevisedHover
+{
+  background-color: #DDDD77;
+  vertical-align      : middle;
+}
+
+/* -- untuk membedakan data yang diupdate, udah diapprove atau belum */
+table.dataGrid tbody tr.bgNewData 
+{
+  background-color: #66FFFF;
+  vertical-align      : middle;
+}
+table.dataGrid tbody tr.bgNewDataHover 
+{
+  background-color: #22DDDD;
+  vertical-align      : middle;
+}
+
+/*row for checked data*/
+table.dataGrid tbody tr.bgCheckedData
+{
+  background-color: #CCFF66;
+  vertical-align      : middle;
+}
+table.dataGrid tbody tr.bgCheckedDataHover
+{
+  background-color: #99DD33;
+  vertical-align      : middle;
+}
+
+table.dataGrid tbody tr.bgVerifiedData 
+{
+  background-color: #FFFF00;
+  vertical-align      : middle;
+}
+
+table.dataGrid tbody tr.bgVerifiedDataHover
+{
+  background-color: #EEEE00;
+  vertical-align      : middle;
+}
+
+/*hovering row in tbody*/
+table.dataGrid tbody tr.Hover
+{
+  background-color    : #dedede;
+  vertical-align      : middle;
+}
+
+/*hovering alternate row in tbody*/
+table.dataGrid tbody tr.aHover
+{
+  background-color    : #dedede;
+  vertical-align      : middle;
+}
+/*hovering selected row in tbody*/
+table.dataGrid tbody tr.Selected, table.dataGrid tbody tr.SelectedHover, table.dataGrid tbody tr.HoverSelected,
+table.dataGrid tbody tr.aSelected, table.dataGrid tbody tr.aSelectedHover, table.dataGrid tbody tr.aHoverSelected,
+table.dataGrid tbody tr.bgDeniedSelected, table.dataGrid tbody tr.bgDeniedHoverSelected, table.dataGrid tbody tr.bgDeniedSelectedHover, 
+table.dataGrid tbody tr.bgNewRevisedSelected, table.dataGrid tbody tr.bgNewRevisedHoverSelected, table.dataGrid tbody tr.bgNewRevisedSelectedHover, 
+table.dataGrid tbody tr.bgNewDataSelected, table.dataGrid tbody tr.bgNewDataHoverSelected, table.dataGrid tbody tr.bgNewDataSelectedHover, 
+table.dataGrid tbody tr.bgCheckedDataSelected, table.dataGrid tbody tr.bgCheckedDataHoverSelected, table.dataGrid tbody tr.bgCheckedDataSelectedHover, 
+table.dataGrid tbody tr.bgVerifiedDataSelected, table.dataGrid tbody tr.bgVerifiedDataHoverSelected, table.dataGrid tbody tr.bgVerifiedDataSelectedHover
+{
+  vertical-align      : middle;
+  background-color    : #6f94fd;
+}
+
+/*all input inside cell row or cell header-row*/
+table.dataGrid  td input, table.dataGrid  th input
+{
+  margin              : 1px 0px 1px 0px;
+  padding             : 0px 0px 0px 0px;
+  height              : 17px;
+}
+
+/*all input checkbox inside grid-system */
+table.dataGrid  td input.c, table.dataGrid  th input.c, div.contextMenu input.c
+{
+  margin              : 1px 0px 1px 0px;
+  padding             : 0px 0px 0px 0px;
+  border-style        : none;
+  height              : 17px;
+}
+
+/*all cell inside tbody */
+table.dataGrid  tbody td
+{
+  border-right        : 1px dotted #777777;
+  border-bottom       : 1px dotted #777777;
+  padding             : 1px 3px 1px 3px;
+}
+
+/*all cell inside tfoot*/
+table.dataGrid  tfoot td
+{
+  border-right        : 1px dotted #777777;
+  border-top          : 1px solid #777777;
+  border-bottom       : 1px solid #777777;
+  padding             : 1px 3px 1px 3px;
+  background-color    : #e4e4e4;
+}
+
+/*all header-cell inside datagrid*/
+table.dataGrid  th
+{
+  border-right        : 1px solid #777777;
+  border-bottom       : 1px solid #777777;
+  text-decoration     : none;
+  color               : black;
+  padding             : 0px 3px 0px 3px;
+  font-weight         : bold;
+  background-color    : #e6e6e6;
+  background-image    : url("./aqua/header_bg.gif");
+  background-repeat   : repeat-x;
+  height              : 20px;
+}
+
+/*hovering all header-cell inside datagrid*/
+table.dataGrid  th.Hover
+{
+  background-color    : #cdf7ff;
+  background-image    : url("./aqua/header_bg_hover.gif");
+  background-repeat   : repeat-x;
+  cursor              : pointer;
+}
+
+/*all spanned header-cell inside datagrid*/
+table.dataGrid  th.spannedCol
+{
+  background-color    : #CCCCCC;
+  border-right        : 1px solid #777777;
+  text-decoration     : none;
+  color               : black;
+  padding             : 0px 3px 0px 3px;
+  font-weight         : bold;
+  background          : url("./aqua/header_bg.gif") repeat-x;
+  height              : 20px;
+}
+
+/*a href link on header-cell inside datagrid*/
+table.dataGrid  th a
+{
+  font-weight         : bold;
+  text-decoration     : none;
+  color               : #000000;
+}
+
+/*all button inside datagrid*/
+table.dataGrid input.button
+{
+  padding             : 0px 3px 0px 3px;
+  height              : 20px;
+  cursor              : pointer;
+  background          : url("./aqua/button_bg.gif") repeat-x;
+	border-top          : 1px solid #696969;
+	border-bottom       : 1px solid #949494;
+	border-left         : 1px solid #696969;
+	border-right        : 1px solid #949494;
+  -moz-border-radius-topleft : 4px;
+  -webkit-border-radius-topleft : 4px;
+  -moz-border-radius-topright : 4px;
+  -webkit-border-radius-topright : 4px;
+  -moz-border-radius-bottomleft : 4px;
+  -webkit-border-radius-bottomleft : 4px;
+  -moz-border-radius-bottomright : 4px;
+  -webkit-border-radius-bottomright : 4px;  
+}
+  
+table.dataGrid input.buttonHover
+{
+  padding             : 0px 3px 0px 3px;
+  height              : 20px;
+  cursor              : pointer;
+  background          : url("./aqua/button_bg_hover.gif") repeat-x;
+	border-top          : 1px solid #696969;
+	border-bottom       : 1px solid #949494;
+	border-left         : 1px solid #696969;
+	border-right        : 1px solid #949494;
+  -moz-border-radius-topleft : 4px;
+  -webkit-border-radius-topleft : 4px;
+  -moz-border-radius-topright : 4px;
+  -webkit-border-radius-topright : 4px;
+  -moz-border-radius-bottomleft : 4px;
+  -webkit-border-radius-bottomleft : 4px;
+  -moz-border-radius-bottomright : 4px;
+  -webkit-border-radius-bottomright : 4px;  
+}
+
+/*all disabled button inside datagrid*/
+table.dataGrid input.buttonDisabled 
+{
+  padding             : 0px 3px 0px 3px;
+  height              : 20px;
+  color               : #aaaaaa;
+  background          : url("./aqua/button_bg_disabled.gif") repeat-x;
+	border-top          : 1px solid #696969;
+	border-bottom       : 1px solid #949494;
+	border-left         : 1px solid #696969;
+	border-right        : 1px solid #949494;
+  -moz-border-radius-topleft : 4px;
+  -webkit-border-radius-topleft : 4px;
+  -moz-border-radius-topright : 4px;
+  -webkit-border-radius-topright : 4px;
+  -moz-border-radius-bottomleft : 4px;
+  -webkit-border-radius-bottomleft : 4px;
+  -moz-border-radius-bottomright : 4px;
+  -webkit-border-radius-bottomright : 4px;  
+}
+
+/*all special button inside datagrid*/
+table.dataGrid input.buttonSpecial
+{
+  padding             : 0px 3px 0px 3px;
+  height              : 20px;
+  cursor              : pointer;
+  background          : url("./aqua/button_bg.gif") repeat-x;
+  background-position : center;
+	border-top          : 1px solid #696969;
+	border-bottom       : 1px solid #949494;
+	border-left         : 1px solid #696969;
+	border-right        : 1px solid #949494;
+  -moz-border-radius-topleft : 4px;
+  -webkit-border-radius-topleft : 4px;
+  -moz-border-radius-topright : 4px;
+  -webkit-border-radius-topright : 4px;
+  -moz-border-radius-bottomleft : 4px;
+  -webkit-border-radius-bottomleft : 4px;
+  -moz-border-radius-bottomright : 4px;
+  -webkit-border-radius-bottomright : 4px;  
+}
+
+/*hovering all special button inside datagrid*/
+table.dataGrid input.buttonSpecialHover
+{
+  padding             : 0px 3px 0px 3px;
+  height              : 20px;
+  cursor              : pointer;
+  background          : url("./aqua/button_bg_hover.gif") repeat-x;
+  background-position : center;
+	border-top          : 1px solid #696969;
+	border-bottom       : 1px solid #949494;
+	border-left         : 1px solid #696969;
+	border-right        : 1px solid #949494;
+  -moz-border-radius-topleft : 4px;
+  -webkit-border-radius-topleft : 4px;
+  -moz-border-radius-topright : 4px;
+  -webkit-border-radius-topright : 4px;
+  -moz-border-radius-bottomleft : 4px;
+  -webkit-border-radius-bottomleft : 4px;
+  -moz-border-radius-bottomright : 4px;
+  -webkit-border-radius-bottomright : 4px;  
+}
+
+/*all disabled special button inside datagrid*/
+table.dataGrid input.buttonSpecialDisabled
+{
+  padding             : 0px 3px 0px 3px;
+  height              : 20px;
+  color               : #aaaaaa;
+  background          : url("./aqua/button_bg_disabled.gif") repeat-x;
+  background-position : center;
+	border-top          : 1px solid #696969;
+	border-bottom       : 1px solid #949494;
+	border-left         : 1px solid #696969;
+	border-right        : 1px solid #949494;
+  -moz-border-radius-topleft : 4px;
+  -webkit-border-radius-topleft : 4px;
+  -moz-border-radius-topright : 4px;
+  -webkit-border-radius-topright : 4px;
+  -moz-border-radius-bottomleft : 4px;
+  -webkit-border-radius-bottomleft : 4px;
+  -moz-border-radius-bottomright : 4px;
+  -webkit-border-radius-bottomright : 4px;  
+}
+
+div.indicator
+{
+  border              : 1px solid #333333; 
+  Z-INDEX             : 100; 
+  color               : #ffffff;
+  padding             : 10px; 
+  background-color    : #cccccc;
+  width               : 160px;
+  height              : 30px;
+  vertical-align      : middle;
+  position            : absolute;
+}
+
+
+div.contextMenu
+{
+  background          : #eaeaea; 
+  border              : 1px solid #333; 
+  display             : none; 
+  position            : absolute;
+  white-space         : nowrap;
+}
+
+div.contextMenu div.l
+{
+  float               : left;
+  padding             : 2px;
+  white-space         : nowrap;
+}
+
+div.contextMenu div.clr
+{
+  padding             : 2px;
+  clear               : both;
+}
+
+div.contextMenu ul
+{
+  margin              : 0px 0px 0px 0px; 
+  padding             : 2px 8px 2px 8px; 
+  list-style-type     : none;
+}

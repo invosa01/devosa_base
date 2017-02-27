@@ -1,0 +1,108 @@
+
+<script type="text/javascript">
+  
+  function openWindowDialog(url) 
+  {
+    var winName = "_blank";
+    var width=800;
+    var height=500;
+    var left = (screen.width - width) / 2;
+    var top = (screen.height - height) / 2;
+    var foo = window.open(url,winName,"menubar=no,status=no,resizable=yes,scrollbars=yes,modal=yes,top="+top+",left="+left+",width="+width+",height="+height+"");
+    foo.focus();
+  }
+  
+</script>
+<script type="text/javascript">
+  // fungsi untuk minta konfirmasi delete
+  function confirmFinished() {
+    return confirm("Are you sure want to finished this MRF?");
+  } //confirmDelete
+
+  function confirmStatusChanges() {
+    return confirm("Are you sure want to change status of selected data?");
+  } //confirmChange
+
+  function openWindowDialog(url) 
+  {
+    var winName = "_blank";
+    var width=800;
+    var height=500;
+    var left = (screen.width - width) / 2;
+    var top = (screen.height - height) / 2;
+    var foo = window.open(url,winName,"menubar=no,status=no,resizable=yes,scrollbars=yes,modal=yes,top="+top+",left="+left+",width="+width+",height="+height+"");
+    foo.focus();
+  }
+  
+  function printList()
+  {
+    document.form1.target = '_blank';
+  }
+
+  function doSearch()
+  {
+    document.form1.target = '';
+  }
+
+  function exportExcel()
+  {
+    document.form1.target = '';
+  }
+  
+	var myClient = {
+    
+    confirmDelete : function()
+    {
+      document.form1.target = '';
+      return confirm('[var.strConfirmDelete]');
+    }
+  }
+</script>
+[var.pageHeader]
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      [var.pageSubMenu]
+      <p></p>
+    </div>
+    <form name="form1" id="form1" method="post" class="form-horizontal" role="form">
+      <div class="col-md-12">
+        [var.formInput;protect=no;htmlconv=no]
+      </div>
+      <div class="col-md-12">
+        [var.DataGrid;protect=no;htmlconv=no]
+      </div>
+      <div class="col-md-4">
+        <h5 class="header"><strong>Legend</strong></h5>
+        <table border=0 cellpadding=0 cellspacing=2 class="table table-striped">
+          <tr>
+            <td width=20 height=20 class='bgNewData' style="border: 1px solid #777">&nbsp;</td>
+            <td width=10>&nbsp;</td>
+            <td nowrap>[var.strWordsNew]</td>
+            <td width="100">&nbsp;</td>
+            <td width=20 height=20 class='bgCheckedData' style="border: 1px solid #777">&nbsp;</td>
+            <td width=10>&nbsp;</td>
+            <td nowrap>[var.strWordsChecked]</td>
+            <td width="100">&nbsp;</td>
+            <td width=20 height=20 class='bgDenied' style="border: 1px solid #777">&nbsp;</td>
+            <td width=10>&nbsp;</td>
+            <td nowrap>[var.strWordsDenied]</td>
+          </tr>
+          <tr>
+            <td width=20 height=20 class='bgVerifiedData' style="border: 1px solid #777">&nbsp;</td>
+            <td width=10>&nbsp;</td>
+            <td nowrap>[var.strWordsVerified]</td>
+            <td width="100">&nbsp;</td>
+            <td width=20 height=20 style="border: 1px solid #777">&nbsp;</td>
+            <td width=10>&nbsp;</td>
+            <td nowrap>[var.strWordsApproved] / [var.strWordsFinished]</td>
+            <td width="100">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td width=10>&nbsp;</td>
+            <td nowrap>&nbsp;</td>
+          </tr>
+        </table>
+      </div>
+    </form>
+  </div>
+</div>

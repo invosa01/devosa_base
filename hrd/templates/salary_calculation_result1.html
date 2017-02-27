@@ -1,0 +1,227 @@
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  <!--
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    //var obj = document.getElementById("employee_name");
+    //obj.innerHTML = nama;
+    return 1;
+  }
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    init();
+    //onCodeBlur();
+  }//initPage
+
+  // fungsi untuk menuju ke page tertentu
+  function goPage(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnShow.click();
+    }
+  }//goPage
+
+  function goReport() {
+
+    var tipe = document.formInput.dataReport.value;
+  
+    if (tipe == 1) {
+      // perintah untuk membuka window baru file print
+      var id = document.formData.dataID.value;
+      url = "salary_calculation_result_excel.php?dataID=" + id;
+      url += "&dataType=" + document.formInput.dataBankCode.value;
+      location.href = url;
+    } else if (tipe == 2) {
+      // perintah untuk membuka window baru file print
+      var id = document.formData.dataID.value;
+      url = "salary_calculation_bank.php?dataID=" + id;
+      url += "&dataType=" + document.formInput.dataBankCode.value;
+      location.href = url;
+    }else if (tipe == 3) {
+      // perintah untuk membuka window baru file print
+      var id = document.formData.dataID.value;
+      url = "salary_calculation_loan.php?dataID=" + id;
+      url += "&dataType=" + document.formInput.dataBankCode.value;
+      location.href = url;
+    }
+  }// goReport
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+
+  function confirmFinish() {
+    return confirm("Are you sure want to finish salary calculation?");
+  }//confirmFinish
+
+  function goCalculate() {
+    document.formData.action = "salary_calculation_result.php";
+    document.formData.target = "";
+  } //goCalculate
+
+  function goFinish() {
+    document.formData.action = "salary_calculation_result.php";
+    document.formData.target = "";
+  }//goFinish
+
+  function goApprove() {
+    bolOK = confirm("Are you sure want to approve salary calculation?");
+    if (bolOK) {
+      document.formData.action = "salary_calculation_result.php";
+      document.formData.target = "";
+    }
+  }//goFinish
+
+  function goSlip() {
+    document.formData.action = "salary_slip.php";
+    document.formData.target = "_blank";
+  }//goSlip
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">Salary Calculation</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap>[var.strCalculationMenu]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td style="text-transform:uppercase"><strong>[var.strWordsSalarySumary] [[var.strDataDateFrom] - [var.strDataDateThru]]</strong></td>
+  </tr>
+  <tr style="display:[var.strDisplay]">
+  <td valign="top" class="inputBox">
+    <form action="" method="post" name="formInput" id="formInput">
+      <table>
+      <tr>
+        <td > 
+          <table border="0" align="left" cellpadding="1" cellspacing="0" >
+            <tr valign="top">
+              <td colspan="10">&nbsp;</td>
+            </tr>
+            <tr valign="top">
+              <td nowrap>&nbsp;Currency</td>
+              <td align="center">:</td>
+              <td nowrap>[var.strInputDataCurrency]</td>
+            </tr>              
+            <tr valign="top">
+              <td nowrap>&nbsp;Outlet</td>
+              <td align="center">:</td>
+              <td nowrap>[var.strInputBranch]</td>
+            </tr>           
+            <tr valign="top">
+              <td nowrap>&nbsp;Division</td>
+              <td align="center">:</td>
+              <td nowrap>[var.strInputDivision]</td>
+            </tr>
+            <tr valign="top">
+              <td>&nbsp;Department</td>
+              <td width="15" align="center">:</td>
+              <td nowrap>[var.strInputDepartment]</td>
+            </tr>
+            <tr valign="top">
+              <td nowrap>&nbsp;Section</td>
+              <td align="center">:</td>
+              <td nowrap>[var.strInputSection]</td>
+            </tr>
+            <tr valign="top">
+              <td nowrap>&nbsp;Sub Section</td>
+              <td align="center">:</td>
+              <td nowrap>[var.strInputSubSection]</td>
+            </tr>
+            <tr valign="top">
+              <td nowrap>&nbsp;Employee ID</td>
+              <td align="center">:</td>
+              <td nowrap>[var.strInputEmployee]</td>
+            </tr>
+            <tr valign="top">
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td nowrap>
+                <input name="btnShow" type="submit" id="btnShow2" value="Filter">
+                &nbsp; 
+                <input type=hidden name=dataPage value=1> <input name=dataID type=hidden id="dataID" value=[var.strDataID]>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td width=50>&nbsp;</td>
+        <td valign="top">
+          <table >
+            <tr valign="top">
+              <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr valign="top">
+              <td>&nbsp;<strong>REPORT</strong></td>
+              <td align="center">&nbsp;</td>
+              <td nowrap>
+                <select name="dataReport" id="dataReport" style="width:250px">
+                  <option value="2">Bank Transfer - Salary</option>
+                  <option value="3">Bank Transfer - Loan</option>
+                </select></td>
+            </tr>
+            <tr valign="top">
+              <td>&nbsp;</td>
+              <td align="center">&nbsp;</td>
+              <td > [var.strReportType]</td>
+            </tr>
+            <tr valign="top">
+              <td>&nbsp;</td>
+              <td align="center">&nbsp;</td>
+              <td nowrap><input name="btnGo" type="button" value="GO" onClick="goReport()"></td>
+            </tr>
+            <tr valign="top">
+              <td colspan="10">&nbsp;</td>
+            </tr>   
+          </table>
+        </td>
+      </tr>
+      </table>
+    </form>
+  </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>[var.strPaging]</td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData">
+      [var.strDataDetail][var.strHidden]
+        <p>&nbsp;</p>
+      </form></td>
+  </tr>
+</table>

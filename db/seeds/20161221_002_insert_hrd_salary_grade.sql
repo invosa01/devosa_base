@@ -1,0 +1,14 @@
+﻿INSERT INTO hrd_salary_grade(grade_code,grade_allowance1,grade_allowance2,grade_allowance3,note) VALUES ('I-ICW' ,11000, 0, 10500, 'GRADE I-ICW');
+INSERT INTO hrd_salary_grade(grade_code,grade_allowance1,grade_allowance2,grade_allowance3,note) VALUES ('IIA-ICW' ,11000, 0, 10500, 'GRADE IIA-ICW');
+INSERT INTO hrd_salary_grade(grade_code,grade_allowance1,grade_allowance2,grade_allowance3,note) VALUES ('IIB-ICW' ,31000, 0, 21000, 'GRADE IIB-ICW');
+INSERT INTO hrd_salary_grade(grade_code,grade_allowance1,grade_allowance2,grade_allowance3,note) VALUES ('III-ICW' ,13500, 27500, 10500, 'GRADE III-ICW');
+INSERT INTO hrd_salary_grade(grade_code,grade_allowance1,grade_allowance2,grade_allowance3,note) VALUES ('III-SLS-ICW' ,13500, 26500, 0, 'GRADE III-SLS-ICW');
+INSERT INTO hrd_salary_grade(grade_code,grade_allowance1,grade_allowance2,grade_allowance3,note) VALUES ('IVA-ICW' ,16500, 32500, 10500, 'GRADE IVA-ICW');
+INSERT INTO hrd_salary_grade(grade_code,grade_allowance1,grade_allowance2,grade_allowance3,note) VALUES ('IVA-SLS-ICW' ,16500, 30500, 0, 'GRADE IVA-SLS-ICW');
+INSERT INTO hrd_salary_grade(grade_code,grade_allowance1,grade_allowance2,grade_allowance3,note) VALUES ('IVB-ICW' ,20500, 33000, 10500, 'GRADE IVB-ICW');
+INSERT INTO hrd_salary_grade(grade_code,grade_allowance1,grade_allowance2,grade_allowance3,note) VALUES ('VA-ICW' ,22000, 44000, 10500, 'GRADE VA-ICW');
+INSERT INTO hrd_salary_grade(grade_code,grade_allowance1,grade_allowance2,grade_allowance3,note) VALUES ('VB-ICW' ,22000, 44000, 0, 'GRADE VB-ICW');
+INSERT INTO hrd_salary_grade(grade_code,grade_allowance1,grade_allowance2,grade_allowance3,note) VALUES ('VI-ICW' ,25000, 44000, 0, 'GRADE VI-ICW');
+INSERT INTO hrd_salary_grade(grade_code,grade_allowance1,grade_allowance2,grade_allowance3,note) VALUES ('KONTRAK1-ICW' ,55000, 0, 10500, 'GRADE KONTRAK1-ICW');
+INSERT INTO hrd_salary_grade(grade_code,grade_allowance1,grade_allowance2,grade_allowance3,note) VALUES ('KONTRAK2-ICW' ,70000, 0, 10500, 'GRADE KONTRAK2-ICW');
+INSERT INTO hrd_salary_grade(grade_code,grade_allowance1,grade_allowance2,grade_allowance3,note) VALUES ('KONTRAK3-ICW' ,78000, 0, 10500, 'GRADE KONTRAK3-ICW');

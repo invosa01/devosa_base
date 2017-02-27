@@ -1,0 +1,43 @@
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.pageSubMenu]
+	    	<p></p>
+  		</div>
+  		<div class="col-md-12">
+  			[var.formFilter;protect=no;htmlconv=no]
+  		</div>
+  		<div class="col-md-12">
+  			[var.DataGrid;protect=no;htmlconv=no]
+  		</div>
+  		<div class="col-md-12">
+  			[var.DataGrid2;protect=no;htmlconv=no
+  		</div>
+  		<div class="col-md-12">
+  			[var.DataGrid3;protect=no;htmlconv=no]
+  		</div>
+  		<div class="col-md-12">
+  			[var.DataGrid4;protect=no;htmlconv=no]
+  		</div>
+  	</div>
+  </div>
+
+<script>
+  function initPage_()
+  {
+  var dataDateFrom = document.formFilter.hidden_dataDateFrom.value;
+  document.formFilter.dataDetailDateFrom.value = dataDateFrom;
+  var dataDateThru = document.formFilter.hidden_dataDateThru.value;
+  document.formFilter.dataDetailDateThru.value = dataDateThru;
+    document.formFilter.dataEmployee.focus();
+	
+  }
+
+
+</script>

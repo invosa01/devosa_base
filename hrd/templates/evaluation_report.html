@@ -1,0 +1,96 @@
+<script type="text/javascript" src="../js/calendar.js"></script>
+<script type="text/javascript" src="../js/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/acEmployee.js"></script>
+<script type="text/javascript" src="../js/ylib.js"></script>
+<script type="text/javascript" src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script type="text/javascript">
+  <!--
+
+
+  function goPage(page) {
+    document.formFilter.dataPage = page;
+    document.formFilter.submit();
+  }// goPage
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formFilter.filterYear.focus();
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">Evaluation Data</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td align="left"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="20">&nbsp;</td>
+          <td nowrap>&nbsp;<strong>
+          <a href="evaluation_list.php"> Evaluation Data for Fix Employee</a>| 
+          Evaluation Report </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td nowrap class="inputBox">
+      <form name="formFilter" method="post" action="">
+        &nbsp;Year : [var.strFilterYear] Semester : [var.strFilterSemester] Department
+        : [var.strFilterDepartment]
+        <input type="hidden" name="dataPage" value="1">
+        <input name="btnShow" type="submit" id="btnShow" value="Show Data" onclick="document.formFilter.target = ''">
+        <input name="btnPrint" type="submit" id="btnPrint" value="Print Data" onclick="document.formFilter.target = '_blank'">
+        <input name="btnExcel" id="btnExcel" value="Excel" type="submit" onClick="document.formInput.target = ''">
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="listTop"><strong>LIST OF EMPLOYEE EVALUATION[var.strInfo]</strong></td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+          <tr align="center" class="tableHeader">
+            <td nowrap class="tableHeader">NO</td>
+            <td nowrap class="tableHeader"> EMPL. ID</td>
+            <td nowrap class="tableHeader">NAME</td>
+            <td nowrap class="tableHeader">TARGET</td>
+            <td nowrap class="tableHeader">COMPETENCY</td>
+            <td nowrap class="tableHeader">BEHAVIOR</td>
+            <td nowrap class="tableHeader">RESULT</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td align="center" colspan="7">[var.strPaging]</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

@@ -1,0 +1,135 @@
+  <script>
+  <!--
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+  }//checkAll
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.filterCandidateID.focus();
+  }//initPage
+
+
+  // fungsi untuk menuju ke print page tertentu
+  function printData(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnPrint.click();
+    }
+  }//printData
+
+  // fungsi untuk menuju ke page tertentu
+  function goPage(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnSearch.click();
+    }
+  }//goPage
+
+  // fungsi untuk refresh halaman, dengan sorting tertentu
+  function goSort(kolom) {
+    if (kolom != "") {
+      document.formInput.dataSort.value = kolom;
+      document.formInput.btnSearch.click();
+    }
+  }//goSort
+  -->
+  </script>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td class="pageHeaderTitle" align="left"> <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30">&nbsp;</td>
+            <td class="pageHeaderTitleText" nowrap="nowrap">&nbsp;[var.strWordsSearchCandidateData]</td>
+          </tr>
+        </tbody>
+      </table></td>
+  </tr>
+  <tr>
+    <td> <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30">&nbsp;</td>
+            <td class="pageHeaderTitleText" nowrap="nowrap"><strong><a href="candidate_search.php">[var.strWordsSearchCandidate]</a> | [var.strWordsInvitedCandidate] | <a href="candidate_search_process.php">[var.strWordsOnProcess]</a></strong></td>
+          </tr>
+        </tbody>
+      </table></td>
+  </tr>
+  <tr>
+    <td></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="listTop"><strong>[var.strWordsLISTOFINVITEDCANDIDATE]</strong></td>
+  </tr>
+  <tr>
+    <td> <form action="" method="post" name="formData" id="formData">
+        <table class="gridTable" border="0" cellpadding="1" cellspacing="0">
+          <tbody>
+            <tr>
+              <td width="5" class="tableHeader">&nbsp;</td>
+              <td class="tableHeader" nowrap="nowrap"><a href="javascript:goSort('candidateID')">[var.strWordsCANDIDATEID]</a></td>
+              <td class="tableHeader" nowrap="nowrap"><a href="javascript:goSort('candidate_name')">[var.strWordsNAME]</a></td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsNICK]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsALIAS]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsGENDER]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsAGE]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsMARITAL]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsADDRESS]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsPHONE]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsEMAIL]</td>
+              <td class="tableHeader" nowrap="nowrap">[var.strWordsPOSITION]</td>
+              <td class="tableHeader">[var.strWordsSKILL]</td>
+              <td class="tableHeader">[var.strWordsSTATUS]</td>
+              <td width="19" class="tableHeader">[var.strWordsCANCEL]</td>
+              <td width="19" class="tableHeader">[var.strWordsPROCESS]</td>
+              <td width="19" class="tableHeader">&nbsp;</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td nowrap="nowrap">xxx</td>
+              <td nowrap="nowrap">xxx</td>
+              <td nowrap="nowrap">xx</td>
+              <td nowrap="nowrap">xxx</td>
+              <td nowrap="nowrap">F</td>
+              <td nowrap="nowrap">21</td>
+              <td nowrap="nowrap">&nbsp;</td>
+              <td nowrap="nowrap">&nbsp;</td>
+              <td nowrap="nowrap">&nbsp;</td>
+              <td nowrap="nowrap">&nbsp;</td>
+              <td nowrap="nowrap">xxx</td>
+              <td>sddsd</td>
+              <td>INVITED</td>
+              <td align="center">
+<input type="submit" name="Submit" value="[var.strWordsCancel]"></td>
+              <td align="center"><input type="submit" name="Submit2" value="[var.strWordsProcess] &gt;&gt;"></td>
+              <td><a href="employee_search.php">EDIT</a></td>
+            </tr>
+          [var.strDataDetail]
+          <tr>
+            <td><input name="chkAll" id="chkAll" value="checkbox" onclick="checkAll();" type="checkbox"></td>
+            <td colspan="6" nowrap > <input name="btnDelete" id="btnDelete" value="Delete" onclick="return confirmDelete();" type="submit">
+              <input name="totalData" id="totalData" value="[var.intTotalData]" type="hidden">
+              [var.strBtnPrint] [var.strHidden] </td>
+            <td colspan="10" align="center"><strong>[var.strPaging]</strong></td>
+          </tr>
+        </table>
+      </form></td>
+  </tr></tbody>
+</table>

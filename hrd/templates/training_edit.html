@@ -1,0 +1,207 @@
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../js/calendar.js"></script>
+<script type="text/javascript" src="../js/calendar-en.js"></script>
+<script type="text/javascript" src="../js/acEmployee.js"></script>
+<script type="text/javascript" src="../js/ylib.js"></script>
+<script src="employee_data.php"></script>
+<script type="text/javascript">
+	// script-script tambahan, khusus untu loockup employee
+
+	AC_targetElements = ["dataEmployee"];
+  AC_kode = "";
+  AC_nama = "";
+
+	// fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+	// kehilangan fokus.
+	function onCodeBlur() {
+    var kode = eval("document.formInput." + AC_kode + ".value");
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById(AC_nama);
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+  <!--
+
+  // jika ada perubahan dari status keikutsertaan
+  function onStatusChange() {
+    status = document.formInput.dataStatus.value;
+    bolDisabled = (status != 1);
+
+    document.formInput.dataDateFrom.disabled = bolDisabled;
+    document.formInput.dataDateThru.disabled = bolDisabled;
+    document.formInput.dataTopic.disabled = bolDisabled;
+    document.formInput.dataInstitution.disabled = bolDisabled;
+    document.formInput.dataLocation.disabled = bolDisabled;
+    document.formInput.dataTrainer.disabled = bolDisabled;
+    document.formInput.dataCost.disabled = bolDisabled;
+
+  }// onStatusChange
+
+  // membatalkan input
+  function cancelForm() {
+    bolOK = confirm("Do you want to cancel report?");
+    if (bolOK) {
+      location.href = "training_request_list.php";
+    }
+  }//clearForm
+
+  // menghapus laporan input
+  function deleteForm() {
+    bolOK = confirm("Do you want to delete training report?");
+    return bolOK;
+  }//clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDateFrom.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateFrom.focus();
+      return false;
+    }
+    if (document.formInput.dataTopic.value == "") {
+      alert("Empty Training Topic!");
+      document.formInput.dataTopic.focus();
+      return false;
+    }
+    return true;
+  } //validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataTopic.focus();
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+    AC_kode = "dataEmployee";
+    AC_nama = "employee_name";
+    //init();
+    //onCodeBlur();
+    onStatusChange();
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;<strong><a href="training_request_edit.php">Data Entry</a>
+            | <a href="training_request_list.php">Training Request List</a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="training_edit.php" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td><input name="dataRequestID" type="hidden" id="dataRequestID" value="[var.strRequestID]"></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Employee</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputEmployee] <strong id="employee_name"></strong></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Training Status</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputStatus]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td nowrap>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td colspan="3" nowrap>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td colspan="3" nowrap>&nbsp;<strong>TRAINING DATA</strong></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;Training Topic</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputTopic]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Training Date From</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDateFrom] </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Training Date Thru</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDateThru] </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Institution</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputInstitution]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Location</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputLocation]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Trainer/Instructor</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputTrainer]</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;Note</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputNote]</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td> <input name="btnSave" type="submit" id="btnSave" value="Save">
+                    <input name="btnCandel" type="button" id="btnCandel" value="Cancel" onClick="cancelForm();">
+                    <input name="btnDelete" type="submit" value="Delete Report" onClick="deleteForm();">
+                    <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]"></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

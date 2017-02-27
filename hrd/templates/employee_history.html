@@ -1,0 +1,150 @@
+<script src="scripts/ylib.js"></script>
+
+<script>
+  <!--
+  // menuju ke suatu URL
+  function goUrl(url) {
+    if (url != "") {
+
+      if (document.formInput.dataID.value == "") {
+        alert("Please save data first");
+      } else {
+        location.href = url + ".php?dataID=" + document.formInput.dataID.value;
+      }
+    }
+  }//goUrl
+
+	// menampilkan print view
+	function printData() {
+
+		if (document.formInput.dataID.value != "") {
+			url = "employee_history.php?btnPrint=Print&dataID=" + document.formInput.dataID.value;
+			window.open(url);
+		}
+	}//printData
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">Employee Data</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>&nbsp;<a href="javascript:goUrl('employee_edit')"><strong>Primary
+            Information</strong></a><strong> | <a href="javascript:goUrl('employee_edit_facilities')">Facilities</a>
+            | <a href="javascript:goUrl('employee_edit_family')">Family Data</a>
+            | <a href="javascript:goUrl('employee_edit_education')">Education Data</a>
+            | <a href="javascript:goUrl('employee_edit_training')">Training Data</a>
+            | <a href="javascript:goUrl('employee_edit_work')">Work Experiences</a>
+            | <a href="javascript:goUrl('employee_resume')">Resume</a> | Career
+            History</strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputTop">CAREER HISTORY</td>
+  </tr>
+  <tr>
+    <td class="inputBox"><strong>&nbsp;&nbsp;&nbsp;[var.strEmployeeID] - [var.strEmployeeName]</strong></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr align="left"> <td valign="top">
+    <form action="" method="post" enctype="multipart/form-data" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table width="100%" border="0" cellspacing="0" cellpadding="1">
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td><table width="400" border="0" cellpadding="2" cellspacing="0" class="gridTable">
+                <tr class="tableHeader">
+                  <td>Employee Status</td>
+                  <td>Date From</td>
+                  <td>Date Thru</td>
+                  <td>Duration</td>
+                  <td>Letter Code</td>
+                </tr>
+                [var.strDataStatus]
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td><table width="400" border="0" cellpadding="2" cellspacing="0" class="gridTable">
+                <tr class="tableHeader">
+                  <td>Position</td>
+                  <td>Grade</td>
+                  <td>Date Start</td>
+                  <td>Letter Code</td>
+                </tr>
+                [var.strDataPosition]
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td><table width="400" border="0" cellpadding="2" cellspacing="0" class="gridTable">
+                <tr class="tableHeader">
+                  <td>Department</td>
+                  <td>Date From</td>
+                  <td>Letter Code</td>
+                </tr>
+								[var.strDataDepartment]
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td><table width="400" border="0" cellpadding="2" cellspacing="0" class="gridTable">
+                <tr class="tableHeader">
+                  <td align="center">Date From</td>
+                  <td align="right">Basic Salary</td>
+                  <td align="right">Increase (%)</td>
+                  <td>Letter Code</td>
+                </tr>
+                [var.strDataSalary]
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td><input name="btnPrint" type="button" id="btnPrint" value="Print" onClick="printData();">
+              <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]">
+            </td>
+          </tr>
+        </table>
+      </form>
+		</td>
+  </tr>
+</table>

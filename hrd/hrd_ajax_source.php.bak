@@ -1,0 +1,30 @@
+<?php
+include_once('../global/session.php');
+include_once('global.php');
+include_once('../includes/model/model.php');
+$return_data = null;
+if (isset($_GET['action']) && isset($_GET['term'])){
+	$db = new CdbClass;
+
+	$action = $_GET['action'];
+	if ($action == 'getemployee'){
+		$strSearch = $_GET['term'];
+		$return_data = getEmployeeData($db, $strSearch);
+	}
+}
+print json_encode($return_data);
+exit();
+
+function getEmployeeData($db, $strSearch){
+	$employeeList = null;
+	if ($db->connect()){
+		$strSQL  = "SELECT id, employee_id, employee_name FROM hrd_employee WHERE (lower(employee_id) LIKE '%".strtolower($strSearch)."%' OR lower(employee_name) LIKE '%".strtolower($strSearch)."%') AND active = 1";
+    $resDb = $db->execute($strSQL);
+    $employeeList = array();
+    while ($rowDb = $db->fetchrow($resDb)){
+    	$employeeList[] = array('id' => $rowDb['id'],'label' => $rowDb['employee_name'],'value' => $rowDb['employee_id']);
+    }
+	}
+	return $employeeList;
+}
+?>

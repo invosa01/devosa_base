@@ -1,0 +1,75 @@
+[var.pageHeader]
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">[var.formInput;protect=no;htmlconv=no]</div>
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div class="panel-actions">
+                            <div class="pull-right" id="collapse-filter">
+                                <a href="#"
+                                   data-toggle="collapse"
+                                   data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="panel-title">COMPANY LIST</h3>
+                    </div>
+                    <div id="list-panel" class="panel-body collapse in">
+                        [var.DataGrid;protect=no;htmlconv=no]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var myClient = {
+        editData: function (idx) {
+            $('formMessage').style.visibility = 'hidden';
+            if (idx == 0) {
+                //reset data
+                $('dataID').value = "";
+                $('dataCompanyCode').value = "";
+                $('dataCompanyName').value = "";
+                //$('dataAttendanceFilePath').value = "";
+                //$('dataAttendanceFileType').value = "";
+                $('dataNote').value = "";
+                $('npwp').value = "";
+                $('siup').value = "";
+                $('email').value = "";
+                $('phone_number').value = "";
+                $('fax_number').value = "";
+                $('logo').value = "";
+                $('work_days').value = "";
+                $('address').value = "";
+            }
+            else if (idx != '') {
+                $('dataID').value = $F("detailID" + idx);
+                $('dataCompanyCode').value = $F("detailCompanyCode" + idx);
+                $('dataCompanyName').value = $F("detailCompanyName" + idx);
+                //$('dataAttendanceFilePath').value = $F("detailAttendanceFilePath" + idx);
+                //$('dataAttendanceFileType').value = $F("detailAttendanceFileType" + idx);
+                $('dataNote').value = $F("detailNote" + idx);
+                $('npwp').value = $F("detailNpwp" + idx);
+                $('siup').value = $F("detailSiup" + idx);
+                $('email').value = $F("detailEmail" + idx);
+                $('phone_number').value = $F("detailPhone" + idx);
+                $('fax_number').value = $F("detailFax" + idx);
+                $('logo').value = $F("detailLogo" + idx);
+                $('work_days').value = $F("detailWorkingDays" + idx);
+                $('address').value = $F("detailAddress" + idx);
+            }
+            $('dataCompanyName').focus();
+            $('dataCompanyName').select();
+        },
+
+        confirmDelete: function () {
+            return confirm('[var.strConfirmDelete]');
+        },
+
+        confirmSave: function () {
+            return confirm('[var.strConfirmSave]');
+        }
+    }
+</script>

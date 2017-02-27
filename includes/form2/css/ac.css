@@ -1,0 +1,36 @@
+
+div.alertbox{ 
+  background-color:#fff; 
+}
+.ac_menu{
+  border:1px solid #3899c3;
+  background-color:#F6F6F6;
+  cursor:default;
+  overflow:hidden;
+  -moz-box-sizing:border-box;
+}
+.ac_menuitem { 
+ position:relative;
+ width:150%;
+ color:#141414;
+ padding:2px;
+ cursor:pointer;
+ -moz-box-sizing:border-box;
+ -moz-user-select:none;
+ }
+.ac_menuitem_over{
+  background-color:#E6E6E6;
+}
+.ac_menuitem_selected{
+  background-color:#c2e0ec;
+}
+
+#tofield { 
+  height: 1.6em; 
+}
+#ccfield { 
+  height: 1.6em; 
+}
+#bccfield { 
+  height: 1.6em; 
+}

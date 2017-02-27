@@ -1,0 +1,113 @@
+<script type="text/javascript" src="../js/acEmployee.js"></script>
+<script type="text/javascript" src="../js/ylib.js"></script>
+
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="employee_data.php"></script>
+<script  type="text/javascript">
+
+
+  function initPage_()
+  {
+    init();
+  }//initPage
+  function fixLinkCode()
+  {
+    if ($('dataTableName').value == "Employee")
+    {
+       $('dataLinkCode').value    = $('dataEmployee').value;
+    }
+  }
+  var myClient = {
+
+    confirmSave : function()
+    {
+         return confirm('[var.strConfirmSave]');
+    },
+    setTableName : function(strTableName, strLinkCode)
+    {
+      if (strTableName != "Division")
+      {
+        $('dataDivision').value        = "";
+        $('dataDivision').selectedIndex = -1;
+      }
+
+      if (strTableName != "Department")
+      {
+        $('dataDepartment').value      = "";
+        $('dataDepartment').selectedIndex = -1;
+      }
+      if (strTableName != "Section")
+      {
+        $('dataSection').value          = "";
+        $('dataSection').selectedIndex = -1;
+      }
+      if (strTableName != "SubSection")
+      {
+        $('dataSubSection').value       = "";
+        $('dataSubSection').selectedIndex = -1;
+      }
+      if (strTableName != "Employee")
+      {
+        $('dataEmployee').value         = "";
+      }
+      $('dataTableName').value          = strTableName;
+      $('dataLinkCode').value           = strLinkCode;
+    },
+    setDayOff: function(bolChecked)
+    {
+      $('dataStartTime').disabled       = bolChecked;
+      $('dataFinishTime').disabled      = bolChecked;
+      if (bolChecked)
+      {
+        $('dataStartTime').value        = "";
+        $('dataFinishTime').value       = "";
+      }
+      else
+      {
+        $('dataStartTime').value        = "08:00";
+        $('dataFinishTime').value       = "17:00";
+      }
+    }
+  }
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+            [var.strWordsEntrySchedule] |  
+            <a href="work_schedule_list.php">[var.strWordsScheduleList]</a> </strong>
+          </td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+
+  <tr> 
+    <td valign="top">
+       [var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+
+  <tr> 
+    <td height="35"></td>
+  </tr>
+</table>
+<script type="text/javascript" src="../js/html-form-input-mask.js"></script>
+<script type="text/javascript">
+  Xaprb.InputMask.setupElementMasks();
+</script>

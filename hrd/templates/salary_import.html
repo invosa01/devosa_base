@@ -1,0 +1,98 @@
+<script src="ylib.js"></script>
+<script>
+
+  function insertDate(tgl) {
+    if (tgl != "" && tgl != 'undefined') {
+      document.formInput.dataDate.value = tgl;
+    }
+  } //insertDate
+
+  //fungsi nampilin pesan saat submit
+  function onImport(){
+    var obj = document.getElementById("pesan");
+    if (typeof obj != "undefined")
+      obj.innerHTML = "Import in progresss ...please wait ...";
+  }
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+  }//initPage
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+				<form action = "" method = "post" name="formData" id="formData">
+					<div class="col-md-4">
+						<span id="strProcess"></span>
+					</div>
+					[var.strMessage]
+				</form>
+			</div>
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#filter-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">[var.strWordsImportData]</h3>
+					</div>
+					<div id="filter-panel" class="panel-body collapse in">
+						<form action="" method="post" name="formInput" id="formInput" enctype="multipart/form-data" onSubmit="onImport()" class="form-horizontal" role="form">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-5 control-label" for="salarySet">[var.strWordsSalarySet]</label>
+									<div class="col-sm-7">
+										[var.strInputTypeSalarySet]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-12 control-label left" style="text-transform: uppercase;">[var.strRemark]</label>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-5 control-label" for="salaryTypeAllowance">[var.strWordsSalaryTypeAllowance]</label>
+									<div class="col-sm-7">
+										[var.strInputTypeAllowance]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-5 control-label" for="salaryTypeDeduction">[var.strWordsSalaryTypeDeduction]</label>
+									<div class="col-sm-7">
+										[var.strInputTypeDeduction]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-5 control-label" for="[var.strParameterName]">[var.strWordsSalaryFile]</label>
+                  <div class="col-sm-7 no-margin fileinput fileinput-new" data-provides="fileinput">
+                  	<span class="btn btn-info btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span>[var.strInputFile]</span>
+                    <span class="fileinput-filename"></span>
+                    <i class="fa fa-times fileinput-exists" data-dismiss="fileinput"></i>
+                  </div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-5 control-label" for="[var.strParameterName]">[var.strWordsDownloadTemplate]</label>
+									<div class="col-sm-7" style="padding-top: 7px;">
+										[var.strDownloadFiles]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 form-actions">
+								<div class="col-md-4">
+									<input class="btn btn-primary btn-sm" name="btnImport" id="btnImport" value="[var.strWordsImport]" type="submit">
+								</div>
+								<div class="col-md-4">
+             			<strong id='pesan'></strong>
+             		</div>
+							</div>
+						</form>
+					</div>
+				</div>
+  		</div>
+  	</div>
+  </div>
+<script type="text/javascript">
+initPage_();
+</script>

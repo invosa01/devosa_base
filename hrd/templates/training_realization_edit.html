@@ -1,0 +1,385 @@
+<script type="text/javascript" src="../js/invosa.js"></script>
+<script type="text/javascript" src="../js/calendar.js"></script>
+<script type="text/javascript" src="../js/calendar-en.js"></script>
+<script type="text/javascript" src="../js/acEmployee.js"></script>
+<script type="text/javascript" src="../js/ylib.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../js/prototype.js"></script>
+<script type="text/javascript" src="../js/numberformat.js"></script>
+<script type="text/javascript" src="../js/html-form-input-mask.js"></script>
+
+<script>
+  <!--
+
+  // menampilkan pop-up window
+  function openWindowDialog(url)
+  {
+    var winName = "_blank";
+    var width=800;
+    var height=500;
+    var left = (screen.width - width) / 2;
+    var top = (screen.height - height) / 2;
+    var foo = window.open(url,winName,"menubar=no,status=no,resizable=yes,scrollbars=yes,modal=yes,top="+top+",left="+left+",width="+width+",height="+height+"");
+    foo.focus();
+  }
+
+  // fungsi untuk menampilkan informasi tentang biaya perjalanan dinas berdasar band tertentu
+  function showTopicInfo()
+  {
+    topic_id = document.getElementById("dataTopicID").value;
+    if (topic_id != "")
+    {
+      openWindowDialog("data_training_topic_print.php?btnShowInfo=Topic&dataID=" + topic_id);
+    }
+  }
+
+  function clearForm() {
+    document.formInput.dataDepartment.value = "";
+    document.formInput.dataEmployee.value = "";
+    document.formInput.dataNumber.value = "";
+    document.formInput.dataTopic.value = "";
+    document.formInput.dataPurpose.value = "";
+    document.formInput.dataTrainer.value = "";
+    document.formInput.dataInstitution.value = "";
+    document.formInput.dataResult.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataDepartment.focus();
+  }//clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput()
+  {
+    /*
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+    */
+
+    if (!isDuplicateTrainingTime() )
+    {
+      alert("Error: Duplicate training time! ");
+      return false;
+    }
+
+    ok = validateForm(document.formInput);
+    return ok;
+  } //validInput
+
+  // fungsi untuk memeriksa apakah ada duplikasi waktu training
+  function isDuplicateTrainingTime()
+  {
+    bolOK = true;
+    arrPart = new Array();
+    maks = document.getElementById("numShow1").value;
+    for (j = 1; j <= maks; j++)
+    {
+      // simpan dulu di array
+      chkDel = document.getElementById("chkIDA" + j);
+      strNIK = document.getElementById("dataDateTraining" + j).value;
+      if (!chkDel.checked && strNIK != "")
+      {
+        if (typeof arrPart[strNIK] != "undefined") // sudah ada
+        {
+          bolOK = false;
+          break;
+        }
+        else
+          arrPart[strNIK] = "true";
+      }
+    }
+    return bolOK;
+  }
+
+  //fungsi untuk menampilkan baris baru untuk menambahkan data partisipan
+  function showMoreInput()
+  {
+
+    var n = eval("document.formInput.numShow.value;");
+    var max = eval("document.formInput.maxDetail.value;");
+    n++;
+    if (n < max) {
+      strNama = "detailRows" + n;
+      ylib_getObj(strNama).style.display = document.all ? "block" : "table-row";
+      eval("document.formInput.numShow.value++;");
+      eval("document.formInput.detailNote" + n + ".disabled = false");
+      //eval("document.formInput.detailName" + n + ".disabled = false");
+      eval("document.formInput.detailNote" + n + ".focus()");
+    } else {
+
+    }
+  } //showMoreInput
+
+  // tampilkan waktu training tambahan
+  function showMoreInputTime()
+  {
+    var n = eval("document.formInput.numShow1.value;");
+    var max = eval("document.formInput.maxDetail1.value;");
+    n++;
+    strStart = "dataStart" + n;
+    strStart1 = "dataStart" + (n - 1);
+    document.getElementById(strStart).value = document.getElementById(strStart1).value;
+    strFinish = "dataFinish" + n;
+    strFinish1 = "dataFinish" + (n - 1);
+    document.getElementById(strFinish).value = document.getElementById(strFinish1).value;
+    if (n < max)
+    {
+      strNama = "detailRowsA" + n;
+      ylib_getObj(strNama).style.display = document.all ? "block" : "table-row";
+      eval("document.formInput.numShow1.value++;");
+      getDuration(n);
+    }
+
+  } //showMoreInput
+
+  // hitung durasi jam
+  function getDuration(n)
+  {
+    var start = eval("document.formInput.dataStart" + n + ".value");
+    var finish = eval("document.formInput.dataFinish" + n + ".value");
+    var intDur;
+    // belum ada error checking
+    var objDur = document.getElementById("dataDuration" + n );
+    objDur.innerHTML = 0;
+    if (start.length == 0 || finish.length == 0)
+    {
+      //alert("Error time!");
+      objDur.innerHTML = "";
+      return false;
+    }
+
+    strDur = 0;
+    arrTmp = start.split(":");
+    intStart = (60 * parseFloat(arrTmp[0])) + parseFloat(arrTmp[1]);
+    arrTmp = finish.split(":");
+    intFinish = (60 * parseFloat(arrTmp[0])) + parseFloat(arrTmp[1]);
+    if (intStart < intFinish)
+    {
+      intDur = intFinish - intStart;
+      intHour = Math.floor(intDur / 60);
+      intMin = intDur % 60;
+      strDur = intHour + " : " + intMin;
+    }
+    objDur.innerHTML = strDur;
+    return true;
+  }// getDuration
+
+  //ketika checkbox delete berubah
+  function chkDeleteChanged(index)
+  { 
+
+    if (index != "")
+    {
+      var chk = eval("document.formInput.chkID" + index + ".checked");
+      if (chk) {
+        str = "true";
+      } else {
+        str = "false";
+      }
+
+      eval("document.formInput.detailNote" + index + ".disabled = " + str);
+      eval("document.formInput.detailDesc" + index + ".disabled = " + str);
+      eval("document.formInput.detailAmount" + index + ".disabled = " + str);
+
+    }
+  } //chkDeleteChanged
+
+  //ketika checkbox delete (trainer) berubah
+  function chkTrainerDeleteChanged(index)
+  { 
+
+    if (index != "")
+    {
+      var chk = eval("document.formInput.chkTrainerID" + index + ".checked");
+      if (chk) {
+        str = "true";
+      } else {
+        str = "false";
+      }
+
+      eval("document.formInput.detailTrainerEmployeeID" + index + ".disabled = " + str);
+      //eval("document.formInput.detailName" + index + ".disabled = " + str);
+
+    }
+  } //chkDeleteChanged
+
+  // perintah saat cek box delete time dipilih
+  function chkDeleteChangedtime(index)
+  {
+    if (index != "")
+    {
+      var chk = eval("document.formInput.chkIDA" + index + ".checked");
+      if (chk)
+      {
+        str = "true";
+      } else {
+        str = "false";
+      }
+      eval("document.formInput.dataDateTraining" + index + ".disabled = " + str);
+
+      //eval("document.formInput.detailName" + index + ".disabled = " + str);
+
+    }
+  } //chkDeleteChanged
+  
+  // fungsi ketika kategori training berubah
+  function onCategoryChanged()
+  {
+    intCat = document.getElementById("dataCategory").value;
+    bolShow = (intCat == 2 || intCat == 3); // internal dan sharing session
+    // tampilkan isian trainer karyawan
+    if (bolShow)
+      document.getElementById("rowTrainer").style.display = (document.all) ? "block" : "table-row";
+    else
+      document.getElementById("rowTrainer").style.display = "none";
+  }
+
+  // fungsi untuk inisialisasi
+  function initPage_()
+  {
+//    maskEdit(document.getElementById("dataCost"), editKeyBoardNumeric);
+    Xaprb.InputMask.setupElementMasks();
+    [var.strInitActions]
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr><!-- 
+  <tr>
+    <td ><table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;<strong>[var.strWordsInputTrainingRequest]
+            | <a href="training_request_list.php">[var.strWordsTrainingRequestList]</a>
+          </strong></td>
+        </tr>
+      </table></td>
+  </tr> -->
+  <tr>
+    <td >&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center"  [var.strMsgClass]>[var.strMessages]</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox" style="padding-right:30px;">
+      <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+      <table border="0" align="left" cellpadding="3" cellspacing="1" width="">
+        <tr valign="top">
+          <td width="50%">
+            <table border="0" align="left" cellpadding="2" cellspacing="0">
+              <tr valign="top">
+                <td nowrap> &nbsp;<strong>[var.strWordsTrainingTopic]</strong></td>
+                <td align="center"><strong>:</strong></td>
+                <td nowrap><strong>[var.strInputTopic]</strong></td>
+              </tr>
+              <tr valign="top">
+                <td nowrap> &nbsp;<strong>[var.strWordsParticipant]</strong></td>
+                <td align="center"><strong>:</strong></td>
+                <td nowrap><strong>[var.strInputParticipant]</strong></td>
+              </tr>
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsTrainingType]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strInputType]</td>
+              </tr>
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsTrainingCategory]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strInputCategory]</td>
+              </tr>
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsExpectedResult]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strInputResult]</td>
+              </tr>
+            </table>
+          </td>
+          <td width="50%">
+            <table border="0" align="left" cellpadding="2" cellspacing="0">
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsInstitution]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strInputInstitution]</td>
+              </tr>
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsTrainer] / [var.strWordsInstructor]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strInputTrainer]</td>
+              </tr>
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsLocation]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strInputPlace]</td>
+              </tr>
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsAddress]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strInputAddress] <strong></strong></td>
+              </tr>
+              <!--
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsCost]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strInputCost]</td>
+              </tr>
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsOtherCost]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strInputOtherCost]</td>
+              </tr>
+              <tr valign="top">
+                <td nowrap>&nbsp;[var.strWordsPaidBy]</td>
+                <td align="center">:</td>
+                <td nowrap>[var.strInputPaidBy]</td>
+              </tr>
+              -->
+            </table>
+          </td>
+        </tr>
+        <tr id="rowTrainer" [var.strShowTrainer]>
+          <td colspan=2>
+            <fieldset><legend><strong>[var.strWordsTrainer]</strong></legend>[var.strInputTrainerMore]</fieldset>
+          </td>
+        </tr>
+        <tr>
+          <td colspan=2>
+            <fieldset><legend><strong>[var.strWordsTimeDetail]</strong></legend>[var.strInputTimeDetail]</fieldset>
+          </td>
+        </tr>
+        <tr>
+          <td colspan=2>
+            <fieldset><legend><strong>[var.strWordsExpense]</strong></legend>[var.strInputExpense]</fieldset>
+          </td>
+        </tr>
+        <tr>
+          <td colspan=2>&nbsp;
+            <input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]" [var.strDisabledSave]>
+            <input name="btnBack" type="button" id="btnBack" value="[var.strWordsBack]" onClick="location.href = 'training_realization_list.php'">
+            <input name="dataRequestID" type="hidden" id="dataRequestID" value="[var.strDataRequestID]">
+            <input name="dataEmployeeID" type="hidden" id="dataEmployeeID" value="[var.strDataEmployeeID]">
+            <input type=hidden name="dataUserRole" value="[var.strUserRole]">
+          </td>
+        </tr>
+      </table>
+    </form>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" height="30">
+    </td>
+  </tr>
+</table>

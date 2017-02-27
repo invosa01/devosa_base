@@ -1,0 +1,72 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+            <a href="trip_cost_platform.php">[var.strWordsTripAllowanceQuota]</a> | 
+            [var.strWordsDataEntry] | 
+            <a href="trip_list.php">[var.strWordsBusinessTripList]</a> | 
+            <a href="trip_report.php">[var.strWordsBusinessTripReport]</a> |
+            <a href="trip_slip.php">[var.strWordsDispositionForm]</a> </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+      [var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+
+</table>
+<script type="text/javascript">
+	var myClient = {
+    editData : function(idx)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataID').value = "";
+        $('dataCode').value = "";
+        $('dataName').value = "";
+        $('dataDailyAllowance').checked = false;
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $F("detailID" + idx);
+        $('dataCode').value = $F("detailCode" + idx);
+        $('dataName').value = $F("detailName" + idx);
+        $('dataDailyAllowance').checked = ($F("detailDailyAllowance" + idx) == 't');
+      }
+      $('dataCode').focus();
+    },
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+    confirmSave : function()
+    {
+	var dateFrom = document.getElementById('dataDateFrom').value;
+	var dateTo = document.getElementById('dataDateThru').value;
+	return confirm("Are you sure to absence at this "+dateFrom+" until "+dateTo+"?");
+
+     // return confirm('[var.strConfirmSave]');
+    }
+  }
+</script>

@@ -1,0 +1,367 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="../js/maskedit.js"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="employee_data.php"></script>
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+  function startMaskEdit()
+  {
+    total = document.formData.totalData.value;
+    for (i=1; i<=total; i++) 
+    {
+       maskEdit(eval("document.formData.detailAttendanceStart" + i), editKeyBoardTime);
+       maskEdit(eval("document.formData.detailAttendanceFinish" + i), editKeyBoardTime);
+       maskEdit(eval("document.formData.detailNormalStart" + i), editKeyBoardTime);
+       maskEdit(eval("document.formData.detailNormalFinish" + i), editKeyBoardTime);
+    }
+  }
+</script>
+<script>
+  <!--
+  strLateColor = "#FFCC99";
+
+  // memproses perubahan status data kehadiran
+  function changeStatus(baris, kode) {
+    if (isNaN(baris) || isNaN(kode)) {
+      return 1;
+    }
+
+    if (kode == 0) {
+      eval("document.formData.detailStatus0_" + baris + ".checked = true");
+
+    } else if (kode == 1) {
+      cek = eval("document.formData.detailStatus1_" + baris + ".checked");
+      if (cek) {
+        eval("document.formData.detailStatus3_" + baris + ".checked = false");
+      } else {
+        eval("document.formData.detailStatus2_" + baris + ".checked = false");
+      }
+    } else if (kode == 2) {
+      cek = eval("document.formData.detailStatus2_" + baris + ".checked");
+      if (cek) {
+        eval("document.formData.detailStatus1_" + baris + ".checked = true");
+        eval("document.formData.detailStatus3_" + baris + ".checked = false");
+      }
+    } else if (kode == 3) { // cancel
+      cek = eval("document.formData.detailStatus1_" + baris + ".checked");
+      if (cek) {
+        eval("document.formData.detailStatus1_" + baris + ".checked = false");
+        eval("document.formData.detailStatus2_" + baris + ".checked = false");
+      }
+    }
+  }//changeStatus
+
+  // fungsi untuk memeriksa apakah ada data terlambat atau tidak
+  // bolstart, apakah dipanggil onload atau gak
+  function checkLate(index) {
+    if (index != "") {
+
+      bolstart = (arguments.length > 1) ? arguments[1] : false;
+      var obj = eval("document.formData.detailAttendanceStart" + index + "");//document.getElementById("detailAttendanceStart" + index);
+      data1 = eval("document.formData.detailAttendanceStart" + index + ".value");
+      data2 = eval("document.formData.detailNormalStart" + index + ".value");
+      if (data1 != "" && data2 != "") {
+        if (data1 > data2) {
+          // anggap terlambat
+          obj.style.backgroundColor = strLateColor;
+          obj.title = "LATE";
+          if (!bolstart)
+            eval("document.formData.detailNotLate" + index + ".checked = false");
+        } else {
+          obj.style.backgroundColor = "";
+          obj.title = "";
+          if (!bolstart)
+            eval("document.formData.detailNotLate" + index + ".checked = true");
+        }
+      }
+    }
+  } //checkLate
+
+  // fungsi untuk mengecek data terlambat, semua data
+  function checkLateAll() {
+    var total = document.formData.totalData.value;
+    stt = (arguments.length > 0) ? arguments[0] : false;
+    for (i = 1; i <= total; i++) {
+      checkLate(i, stt);
+    }
+  }//checkLateAll
+
+   // fungsi untuk mengecek checkbox di depan (untuk approval)
+  function checkAll() {
+    var total = document.formData.totalData.value;
+    cek = (document.formData.chkAll.checked) ? "true" : "false";
+    for (i = 1; i <= total; i++) {
+      eval("document.formData.chkID" + i + ".checked = " + cek + ";");
+    }
+  }//checkAll
+
+  // fungsi untuk mengisi semua data dengan data default
+  // mengisi data jam awal dan akhir dengan data default
+  function setDefault() {
+    if (confirm("All input will be replaced with default value. Are you sure?")) {
+      total = document.formData.totalData.value;
+      var startTime = prompt("Enter start time!",document.formData.defaultStart.value.substring(0,5));
+      var finishTime = prompt("Enter finish time!",document.formData.defaultFinish.value.substring(0,5));
+
+      for (i=1;i<=total;i++) {
+        tmpStart = eval("document.formData.detailAttendanceStart" + i + ".value");
+        tmpFinish = eval("document.formData.detailAttendanceFinish" + i + ".value");
+        // hanya yang datanya kosong sama sekali
+
+        //if (tmpStart == "" && tmpFinish == "") {
+          eval("document.formData.detailAttendanceStart" + i + ".value = '" + startTime + "' ");
+          eval("document.formData.detailAttendanceFinish" + i + ".value = '" + finishTime + "' ");
+          //eval("document.formData.detailNormalStart" + i + ".value = '" + startTime + "' ");
+          //eval("document.formData.detailNormalFinish" + i + ".value = '" + finishTime + "' ");
+        //}
+      }
+    }
+    return 1;
+  } // set default
+
+
+  // fungsi untuk mengisi semua data dengan data sesuai data normal time masing-masing
+  // mengisi data jam awal dan akhir dengan data normal time masing-masing
+  function setNormal()
+  {
+    total = document.formData.totalData.value;
+    for (i=1;i<=total;i++) 
+    {
+      tmpStart = eval("document.formData.detailNormalStart" + i + ".value");
+      tmpFinish = eval("document.formData.detailNormalFinish" + i + ".value");
+      eval("document.formData.detailAttendanceStart" + i + ".value = '" + tmpStart + "' ");
+      eval("document.formData.detailAttendanceFinish" + i + ".value = '" + tmpFinish + "' ");
+    }
+    return 1;
+  } // set normal
+
+  // fungsi untuk mengosongkan semua data dengan data
+  // bermanfaat jika ingin menghapus semua data
+  function setClear() {
+    if (confirm("Are you sure want to clear all data?")) {
+      total = document.formData.totalData.value;
+      for (i=1;i<=total;i++) {
+        eval("document.formData.detailAttendanceStart" + i + ".value = '' ");
+        eval("document.formData.detailAttendanceFinish" + i + ".value = '' ");
+      }
+    }
+    return 1;
+  } // set normal
+
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDateFrom.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateFrom.focus();
+      return false;
+    }
+    if (document.formInput.dataDateThru.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+    if (document.formInput.dataEmployee.value == "") {
+      alert("Empty Employee!");
+      document.formInput.dataEmployee.focus();
+      return false;
+    }
+    return true;
+  } //validInput
+
+  function exportAll() {
+    document.formInput.dataEmployee.value = "all";
+    document.formInput.action = "attendance_edit_by_employee_excel.php";
+    document.formInput.target = "_blank";
+  }//exportAll
+  
+  function exportOne() {
+    document.formInput.action = "attendance_edit_by_employee_excel.php";
+    document.formInput.target = "_blank";
+  }//exportOne
+
+  // fungsi untuk menuju ke page tertentu
+  function goPage(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnShow.click();
+    }
+  }//goPage
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+    checkLateAll(true);
+    init();
+    onCodeBlur();
+    startMaskEdit()
+
+  }//initPage
+  -->
+  
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+          <a href="attendance_import.php">[var.strWordsImportAttendance]</a> |
+          [var.strWordsEntryAttendance] |
+          <a href="attendance_list.php">[var.strWordsAttendanceList]</a> | <a href="attendance_report.php">[var.strWordsAttendanceReport]</a> </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputTop">[var.strWordsINPUTDATA]</td>
+  </tr>
+  <tr> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+    <td valign="top" class="inputBox">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td nowrap>&nbsp;[var.strWordsDateFrom]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDateFrom]&nbsp; <input name="btnDateFrom" type="button" id="btnDateFrom" value=".."></td>
+                </tr>
+                <tr>
+                  <td nowrap>&nbsp;[var.strWordsDateThru]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDateThru]&nbsp; <input name="btnDateThru" type="button" id="btnDateThru" value=".."></td>
+                </tr>
+                <tr>
+                  <td nowrap>&nbsp;[var.strWordsEmployeeID]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputEmployee]</td>
+                </tr>
+                <tr>
+                  <td nowrap>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;<strong id="employee_name"></strong></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;<input type="hidden" name="dataPage" value=1></td>
+                  <td align="center">&nbsp;</td>
+                  <td><input name="btnShow" type="submit" id="btnShow" value="[var.strWordsShowData]">
+				  &nbsp;<input name="btnExport" type="submit" id="btnExport" value="[var.strWordsExport]" onclick="exportOne()">
+				  &nbsp;<input name="btnExportAll" type="submit" id="btnExportAll" value="[var.strWordsExportAll]" onclick="exportAll()">
+                  </td>
+                </tr>
+              </table></td>
+            <td width="20" valign="top">&nbsp;</td>
+          </tr>
+        </table>
+   </td>   </form>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="listTop"><strong>[var.strWordsLISTOFEMPLOYEEATTENDANCE] [var.strInfo]</strong></td>
+  </tr>
+  <tr>
+     <td style="padding-bottom:3px">
+     <table border="0" cellpadding="0" cellspacing="0" class="gridTable">
+        <tr align="center">
+           <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+        </tr>
+      </table>
+      </td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData">
+        <table border="0" cellpadding="0" cellspacing="0" class="gridTable">
+          <tr align="center" class="tableHeader">
+            <td rowspan="2" nowrap class="tableHeader">&nbsp;</td>
+            <td rowspan="2" nowrap class="tableHeader">[var.strWordsEmployeeName]</td>
+            <td rowspan="2" nowrap class="tableHeader">[var.strWordsDate]</td>
+            <td colspan="2" nowrap class="tableHeader">[var.strWordsNormal]</td>
+            <td colspan="2" nowrap class="tableHeader">[var.strWordsAttendance]</td>
+            <td rowspan="2" class="tableHeader">[var.strWordsOff]</td>
+            <td rowspan="2" class="tableHeader">AUTO<BR>OT</td>
+            <td colspan="4" nowrap class="tableHeader">[var.strWordsOvertimePlan]</td>
+            <td colspan="4" nowrap class="tableHeader">[var.strWordsOvertime]</td>
+            <td rowspan="2" nowrap class="tableHeader">[var.strWordsTotalOvertime]</td>
+            <td rowspan="2" nowrap class="tableHeader">[var.strWordsNote]</td>
+
+          </tr>
+          <tr align="center" class="tableHeader">
+            <td nowrap class="tableHeader">[var.strWordsStart]</td>
+            <td nowrap class="tableHeader">[var.strWordsFinish]</td>
+            <td nowrap class="tableHeader">[var.strWordsStart]</td>
+            <td nowrap class="tableHeader">[var.strWordsFinish]</td>
+            <td nowrap class="tableHeader">[var.strWordsEarly]<br>[var.strWordsStart]</td>
+            <td nowrap class="tableHeader">[var.strWordsEarly]<br>[var.strWordsFinish]</td>
+            <td nowrap class="tableHeader">[var.strWordsStart]</td>
+            <td nowrap class="tableHeader">[var.strWordsFinish]</td>
+            <td nowrap class="tableHeader">[var.strWordsEarly]<br>[var.strWordsStart]</td>
+            <td nowrap class="tableHeader">[var.strWordsEarly]<br>[var.strWordsFinish]</td>
+            <td nowrap class="tableHeader">[var.strWordsStart]</td>
+            <td nowrap class="tableHeader">[var.strWordsFinish]</td>
+           </tr>
+          [var.strDataDetail]
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td height="30px" colspan="17" nowrap>&nbsp;&nbsp; [var.strButtons]&nbsp; &nbsp; <input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSaveData]">
+              <input name="totalData" type="hidden" id="totalData" value="[var.intTotalData]">
+              [var.strHidden]
+              <input name="defaultStart" type="hidden" id="defaultStart" value="[var.strDefaultStart]" disabled>
+              <input name="defaultFinish" type="hidden" id="defaultFinish" value="[var.strDefaultFinish]" disabled>
+              &nbsp; <input name="btnDefault" type="button" id="btnDefault" value="[var.strWordsUseDefault]" onClick="setDefault();">
+              &nbsp; <input name="btnNormal" type="button" id="btnNormal" value="[var.strWordsUseNormal]" onClick="setNormal();">
+              &nbsp; <input name="btnClear" type="button" id="btnClear" value="[var.strWordsClearData]" onClick="setClear();">
+              &nbsp; <input name="btnReset" type="reset" id="btnReset" value="[var.strWordsUndoChanges]">
+              &nbsp; </td>
+            <td colspan="3" align="center">&nbsp;<strong>[var.strPaging]</strong></td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>
+<script type="text/javascript">
+initPage_();
+</script>

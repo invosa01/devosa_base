@@ -1,0 +1,86 @@
+<table width="90%" border="1" cellspacing="0" cellpadding="0">
+   <tr id="[blkdata.id;block=table]">
+   <td>
+     <table width="100%" border="0" cellspacing="5" cellpadding="1">
+        <tr> 
+          <td align="center"  colspan=2>
+            <table width="50%" border="0" cellpadding="1" cellspacing="0">
+              <tr> 
+                <td align="center"><strong>ATTENDANCE DETAIL</strong></td>
+              </tr>
+              <tr> 
+                <td align="center">[var.strName]</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr> 
+          <td>
+             <table width=100%>
+                    <tr> 
+                      <td width="30%">Period</td>
+                      <td width="10%">:</td>
+                      <td nowrap><strong>[var.strFrom] to [var.strThru]</strong></td>
+                    </tr>
+                    <tr> 
+                      <td>Employee No </td>
+                      <td>:</td>
+                      <td nowrap><strong>[var.strEmpID]</strong></td>
+                    </tr>
+                    <tr> 
+                      <td>Name</td>
+                      <td>:</td>
+                      <td nowrap><strong>[var.strName]</strong></td>
+                    </tr>
+                    <tr> 
+                      <td>Department</td>
+                      <td>:</td>
+                      <td nowrap><strong>[var.strDepartment]</strong></td>
+                    </tr>
+             </table>
+          </td>
+		  <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td valign="top" align="right">
+             <table border="0" cellpadding="2" cellspacing="0" style="border-right: 1px solid;border-bottom: 1px solid">
+                <tr> 
+                  <td nowrap rowspan="2" [var.strStyleTh]>Date</td>
+                  <td nowrap rowspan="2" [var.strStyleTh]>Remark</td>
+                  <td nowrap rowspan="2" [var.strStyleTh]>Shift</td>
+                  <td nowrap colspan="2" [var.strStyleTh]>Time</td>
+                  <td nowrap colspan="3" align="center" [var.strStyleTh]>Overtime</td>
+                </tr>
+                <tr> 
+                  <td nowrap [var.strStyleTh]>In</td>
+                  <td nowrap [var.strStyleTh]>Out</td>
+                  <td nowrap [var.strStyleTh]>Early</td>
+                  <td nowrap [var.strStyleTh]>Aft</td>
+                  <td nowrap [var.strStyleTh]>Total</td> 
+                </tr>
+                [var.strDetail]
+             </table>
+         </td>
+         <td valign="top">
+             <table border="0" cellpadding="2" cellspacing="0"  style="border-right: 1px solid;border-bottom: 1px solid">
+                <tr> 
+                  <td nowrap rowspan="2" [var.strStyleTh]>Date</td>
+                  <td nowrap rowspan="2" [var.strStyleTh]>Remark</td>
+                  <td nowrap rowspan="2" [var.strStyleTh]>Shift</td>
+                  <td nowrap colspan="2" [var.strStyleTh]>Time</td>
+                  <td nowrap colspan="3" align="center" [var.strStyleTh]>Overtime</td>
+                </tr>
+                <tr> 
+                  <td nowrap [var.strStyleTh]>In</td>
+                  <td nowrap [var.strStyleTh]>Out</td>
+                  <td nowrap [var.strStyleTh]>Early</td>
+                  <td nowrap [var.strStyleTh]>Aft</td>
+                  <td nowrap [var.strStyleTh]>Total</td> 
+                </tr>
+                [var.strDetail2]
+             </table>
+         </td>
+    </tr>
+</table> </td>
+    </tr>
+</table>

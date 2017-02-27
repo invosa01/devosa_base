@@ -1,0 +1,125 @@
+<script type="text/javascript" src="../js/calendar.js"></script>
+<script type="text/javascript" src="../js/calendar-en.js"></script>
+<script type="text/javascript" src="../js/invosa.js"></script>
+<link href="../includes/datagrid/css/aqua.css" rel="stylesheet" type="text/css">
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+  <!--
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDateFrom.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateFrom.focus();
+      return false;
+    }
+    if (document.formInput.dataDateThru.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+    
+    if (dateCompare(document.formInput.dataDateFrom.value, document.formInput.dataDateThru.value) > 0)
+    {
+      alert("Error : date from bigger than date thru");
+      return false;
+    }
+
+
+    return true;
+  } //validInput
+
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDateFrom.focus();
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table>
+	</td>
+  </tr>
+  <tr>
+    <td align="left"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;<strong><br><a href="recruitment_process_list.php">[var.strWordsRecruitmentProcessList]</a> | [var.strWordsRecruitmentProcessReport]
+          </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox">
+      <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td valign="top">
+              <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsDateFrom]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDateFrom]&nbsp; <input name="btnDateFrom" type="button" id="btnDateFrom" value=".."></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;[var.strWordsDateTo]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDateThru]&nbsp; <input name="btnDateThru" type="button" id="btnDateThru" value=".."></td>
+                </tr><!-- 
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsMRF]</td>
+                  <td align="center" nowrap>&nbsp;</td>
+                  <td nowrap>[var.strInputMRF]</td>
+                </tr> -->
+                <tr valign="top">
+                  <td nowrap>&nbsp;</td>
+                  <td align="center" nowrap>&nbsp;</td>
+                  <td nowrap>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td nowrap> <input name="btnShow" type="submit" id="btnShow" value="[var.strWordsShowData]" onClick="document.formInput.target='';">&nbsp;
+                       <input name="btnPrint" type="submit" id="btnPrint" value="[var.strWordsPrint]" onClick="document.formInput.target='_blank';">
+                       <input name="btnExcel" id="btnExcel" value="Excel" type="submit" onClick="document.formInput.target = ''">
+                  </td>
+                </tr>
+              </table></td>
+            <td width="20" valign="top">&nbsp;</td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;</td>
+            <td valign="top">&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>[var.strWordsRECRUITMENTREPORT] [var.strInfo]</strong></td>
+  </tr>
+  <tr>
+    <td>[var.strDataDetail]&nbsp;</td>
+  </tr>
+</table>

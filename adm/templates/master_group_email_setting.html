@@ -1,0 +1,171 @@
+<!--jquery dependencies-->
+<link rel="stylesheet" href="../js/jquery-ui/jquery-ui.css" />
+<script src="../js/jquery-ui/jquery.min.js"></script>
+<script src="../js/jquery-ui/jquery-ui.js"></script>
+
+<!--pqSelect dependencies-->
+<link rel="stylesheet" href="../css/pqselect.dev.css" />
+<script src = "../js/pqselect.dev.js"></script>
+
+
+<script type="text/javascript">
+    $(function() {
+
+        //initialize the pqSelect widget.
+        $("#dataManagement").pqSelect({
+            multiplePlaceholder: 'Select Management',
+            checkbox: true //adds checkbox to options
+        });
+
+        //initialize the pqSelect widget.
+        $("#dataDivision").pqSelect({
+            multiplePlaceholder: 'Select Division',
+            checkbox: true //adds checkbox to options
+        });
+
+        //initialize the pqSelect widget.
+        $("#dataDepartment").pqSelect({
+            multiplePlaceholder: 'Select Department',
+            checkbox: true //adds checkbox to options
+        });
+
+        //initialize the pqSelect widget.
+        $("#dataSection").pqSelect({
+            multiplePlaceholder: 'Select Section',
+            checkbox: true //adds checkbox to options
+        });
+
+        //initialize the pqSelect widget.
+        $("#dataSubSection").pqSelect({
+            multiplePlaceholder: 'Select Sub Section',
+            checkbox: true //adds checkbox to options
+        });
+
+        //initialize the pqSelect widget.
+        $("#dataBranch").pqSelect({
+            multiplePlaceholder: 'Select Branch',
+            checkbox: true //adds checkbox to options
+        });
+    });
+</script>
+
+ <table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td height="5"></td>
+  </tr>
+  <tr>
+    <td class="inputTop">Email Setting For [var.strWordsGroup]</td>
+  </tr>
+  <tr>
+    <td class="inputBox" valign="top">
+      <form action="" method="post" name="formInput" id="formInput">
+        <table width=100%  border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td width=5>&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="21" nowrap> &nbsp;Management</td>
+            <td>:</td>
+            <td>[var.strInputManagement]</td>
+          </tr>
+          <tr>
+            <td height="21" nowrap> &nbsp;Division</td>
+            <td>:</td>
+            <td>[var.strInputDivision]</td>
+          </tr>
+          <tr>
+            <td height="21" nowrap> &nbsp;Department</td>
+            <td>:</td>
+            <td>[var.strInputDepartment]</td>
+          </tr>
+          <tr>
+            <td height="21" nowrap> &nbsp;Section</td>
+            <td>:</td>
+            <td>[var.strInputSection]</td>
+          </tr>
+          <tr>
+            <td height="21" nowrap> &nbsp;SubSection</td>
+            <td>:</td>
+            <td>[var.strInputSubSection]</td>
+          </tr>
+          <tr>
+            <td height="21" nowrap> &nbsp;Branch</td>
+            <td>:</td>
+            <td>[var.strInputBranch]</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="21" nowrap> &nbsp;<strong>Email Setting</strong></td>
+            <td>&nbsp;:</td>
+            <td>
+              <table>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;New</td>
+                  <td align="center">&nbsp;Check</td>
+                  <td align="center">&nbsp;Approve</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;Overtime</td>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;[var.strInputNewOT]</td>
+                  <td align="center">&nbsp;[var.strInputCheckOT]</td>
+                  <td align="center">&nbsp;[var.strInputApproveOT]</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;Absence</td>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;[var.strInputNewAbsence]</td>
+                  <td align="center">&nbsp;[var.strInputCheckAbsence]</td>
+                  <td align="center">&nbsp;[var.strInputApproveAbsence]</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;Employee</td>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;[var.strInputNewEmployee]</td>
+                  <td align="center">&nbsp;[var.strInputCheckEmployee]</td>
+                  <td align="center">&nbsp;[var.strInputApproveEmployee]</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;Recruitment</td>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;[var.strInputNewRecruitment]</td>
+                  <td align="center">&nbsp;[var.strInputCheckRecruitment]</td>
+                  <td align="center">&nbsp;[var.strInputApproveRecruitment]</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><input name="btnSave" type="submit" id="btnSave" value="Save"><a href = "data_cost_center.php">&nbsp;&nbsp;&nbsp;<input name="btnBack" type="button" id="btnBack" value="Back"></a></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>

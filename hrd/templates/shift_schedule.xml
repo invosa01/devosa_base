@@ -1,0 +1,580 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>engineer04</Author>
+  <LastAuthor>engineer04</LastAuthor>
+  <LastPrinted>2008-03-28T06:32:03Z</LastPrinted>
+  <Created>2008-03-28T03:58:07Z</Created>
+  <LastSaved>2008-03-28T05:53:43Z</LastSaved>
+  <Company>Microsoft Corporation</Company>
+  <Version>11.6568</Version>
+ </DocumentProperties>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>9210</WindowHeight>
+  <WindowWidth>11355</WindowWidth>
+  <WindowTopX>480</WindowTopX>
+  <WindowTopY>90</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="m50283786">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:Size="8" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="m50283796">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:Size="8"/>
+  </Style>
+  <Style ss:ID="s21">
+   <Font ss:Size="8"/>
+  </Style>
+  <Style ss:ID="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Font ss:Size="8"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Font ss:Size="12" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s24">
+   <Font ss:Size="8" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s25">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Font ss:Size="8"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s26">
+   <Alignment ss:Vertical="Center"/>
+   <Font ss:Size="8"/>
+  </Style>
+  <Style ss:ID="s27">
+   <Alignment ss:Vertical="Center"/>
+  </Style>
+  <Style ss:ID="s29">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:Size="8"/>
+  </Style>
+  <Style ss:ID="s31">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+  </Style>
+  <Style ss:ID="s32">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:Size="8" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s33">
+   <Font ss:Size="9"/>
+  </Style>
+  <Style ss:ID="s34">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Font ss:Size="9"/>
+  </Style>
+  <Style ss:ID="s35">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:Size="8"/>
+  </Style>
+  <Style ss:ID="s36">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:Size="8"/>
+  </Style>
+  <Style ss:ID="s37">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:Size="8"/>
+  </Style>
+  <Style ss:ID="s38">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:Size="8"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s39">
+   <Font ss:Size="8"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s40">
+   <Interior/>
+  </Style>
+  <Style ss:ID="s41">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:Size="8"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s42">
+   <Font x:Family="Swiss" ss:Size="8" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s43">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Font x:Family="Swiss" ss:Size="8" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s52">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:Size="8"/>
+  </Style>
+  <Style ss:ID="s55">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:Size="8"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="37" ss:ExpandedRowCount="10" x:FullColumns="1"
+   x:FullRows="1">
+   <Column ss:StyleID="s21" ss:AutoFitWidth="0" ss:Width="20.25"/>
+   <Column ss:StyleID="s21" ss:AutoFitWidth="0" ss:Width="42"/>
+   <Column ss:StyleID="s21" ss:AutoFitWidth="0" ss:Width="45.75"/>
+   <Column ss:StyleID="s21" ss:AutoFitWidth="0" ss:Width="107.25"/>
+   <Column ss:StyleID="s21" ss:AutoFitWidth="0" ss:Width="21"/>
+   <Column ss:StyleID="s22" ss:AutoFitWidth="0" ss:Width="19.5"/>
+   <Column ss:StyleID="s22" ss:AutoFitWidth="0" ss:Width="16.5" ss:Span="30"/>
+   <Row ss:AutoFitHeight="0" ss:Height="15.75">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Schedule</Data></Cell>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">( [var.strDataDepartment] )</Data></Cell>
+    <Cell ss:StyleID="s23"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15.75">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">[var.strInfo]</Data></Cell>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:Index="8" ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="21.75" ss:StyleID="s27">
+    <Cell ss:MergeAcross="1" ss:StyleID="s29"><Data ss:Type="String">Total Days : </Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">[var.intTotalDays;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15" ss:StyleID="s31">
+    <Cell ss:StyleID="s32"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="String">Dept</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="String">ID</Data></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m50283786"><Data ss:Type="String">Employee Name</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">2</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">3</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">4</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">5</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">6</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">7</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">8</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">9</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">10</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">11</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">12</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">13</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">14</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">15</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">16</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">17</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">18</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">19</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">20</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">21</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">22</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">23</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">24</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">25</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">26</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">27</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="Number">28</Data></Cell>
+    <Cell ss:StyleID="s32" ss:Formula="=IF(R[-1]C[-31]&lt;29,&quot;&quot;,29)"><Data
+      ss:Type="Number">29</Data></Cell>
+    <Cell ss:StyleID="s32" ss:Formula="=IF(R[-1]C[-32]&lt;30,&quot;&quot;,30)"><Data
+      ss:Type="Number">30</Data></Cell>
+    <Cell ss:StyleID="s32" ss:Formula="=IF(R[-1]C[-33]&lt;31,&quot;&quot;,31)"><Data
+      ss:Type="Number">31</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15" ss:StyleID="s33">
+    <Cell ss:StyleID="s35" ss:Formula="=IF(ISNUMBER(R[-1]C),R[-1]C+1,1)"><Data
+      ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s35"><Data ss:Type="String">[emp.deptcode;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s35"><Data ss:Type="String">[emp.id]</Data></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m50283796"><Data ss:Type="String">[emp.name]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.1]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.2]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.3]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.4]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.5]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.6]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.7]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.8]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.9]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.10]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.11]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.12]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.13]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.14]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.15]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.16]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.17]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.18]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.19]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.20]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.21]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.22]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.23]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.24]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.25]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.26]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.27]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.28]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.29;noerr]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.30;noerr]</Data></Cell>
+    <Cell ss:StyleID="s36"><Data ss:Type="String">[emp.31;noerr]</Data></Cell>
+    <Cell ss:StyleID="s34"/>
+   </Row>
+   <Row>
+    <Cell ss:Index="4" ss:MergeAcross="1" ss:StyleID="s52"/>
+   </Row>
+   <Row>
+    <Cell ss:Index="4" ss:StyleID="s55"><Data ss:Type="String">[shift.name;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s37"><Data ss:Type="String">[shift.code]</Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s36"
+     ss:Formula="=IF(COUNTIF(R5C:R[-2]C,RC5)=0,&quot;&quot;,COUNTIF(R5C:R[-2]C,RC5))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="Default"/>
+   </Row>
+   <Row>
+    <Cell ss:Index="4" ss:StyleID="s38"><Data ss:Type="String">Total</Data></Cell>
+    <Cell ss:StyleID="s38"/>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s38" ss:Formula="=IF(SUM(R7C:R[-1]C)=0,&quot;&quot;,SUM(R7C:R[-1]C))"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="Default"/>
+   </Row>
+   <Row ss:StyleID="s40">
+    <Cell ss:StyleID="s39"/>
+    <Cell ss:StyleID="s39"/>
+    <Cell ss:StyleID="s39"/>
+    <Cell ss:StyleID="s39"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="s41"/>
+    <Cell ss:StyleID="Default"/>
+   </Row>
+   <Row>
+    <Cell ss:Index="2" ss:StyleID="s42"><Data ss:Type="String">Prepared By</Data></Cell>
+    <Cell ss:Index="34" ss:StyleID="s43"><Data ss:Type="String">Approved By</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Layout x:Orientation="Landscape"/>
+    <Header x:Margin="0"/>
+    <Footer x:Margin="0"/>
+    <PageMargins x:Bottom="0.25" x:Left="0.25" x:Right="0.25" x:Top="0.25"/>
+   </PageSetup>
+   <Print>
+    <ValidPrinterInfo/>
+    <PaperSizeIndex>9</PaperSizeIndex>
+    <HorizontalResolution>203</HorizontalResolution>
+    <VerticalResolution>203</VerticalResolution>
+   </Print>
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>8</ActiveRow>
+     <ActiveCol>3</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+  <ConditionalFormatting xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R8C38:R64C51,R6C7:R6C51,R8C6,R7C6:R7C50,R5C6:R5C50,R8C7:R473C37</Range>
+   <Condition>
+    <Qualifier>Equal</Qualifier>
+    <Value1>&quot;EO&quot;</Value1>
+    <Format Style='background:#FF8080'/>
+   </Condition>
+   <Condition>
+    <Qualifier>Equal</Qualifier>
+    <Value1>&quot;PH&quot;</Value1>
+    <Format Style='background:#CCCCFF'/>
+   </Condition>
+   <Condition>
+    <Qualifier>Equal</Qualifier>
+    <Value1>&quot;T&quot;</Value1>
+    <Format Style='background:#CCFFCC'/>
+   </Condition>
+  </ConditionalFormatting>
+ </Worksheet>
+</Workbook>

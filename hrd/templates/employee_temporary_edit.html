@@ -1,0 +1,52 @@
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+				[var.pageSubMenu]
+	    	<p></p>
+			</div>
+  		<div class="col-md-12">
+  			[var.formInput;protect=no;htmlconv=no]
+  		</div>
+  	</div>
+  </div>
+<script type="text/javascript">
+	var myClient = {
+    editData : function(idx)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataID').value = "";
+        $('dataCode').value = "";
+        $('dataName').value = "";
+        $('dataDailyAllowance').checked = false;
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $F("detailID" + idx);
+        $('dataCode').value = $F("detailCode" + idx);
+        $('dataName').value = $F("detailName" + idx);
+        $('dataDailyAllowance').checked = ($F("detailDailyAllowance" + idx) == 't');
+      }
+      $('dataCode').focus();
+    },
+    editDataTripCost : function(idx, bolChecked)
+    {
+      $('dataTripCost_' + idx).checked = bolChecked;
+    },
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+  function addNew()
+  {
+     location.href = "employee_temporary_edit.php";
+  }   
+</script>

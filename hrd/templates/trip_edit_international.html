@@ -1,0 +1,281 @@
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="scripts/calendar.js"></script>
+<script type="text/javascript" src="scripts/calendar-en.js"></script>
+<script type="text/javascript" src="scripts/ylib.js"></script>
+<script type="text/javascript" src="scripts/acEmployee.js"></script>
+<script src="employee_data.php"></script>
+<script src="employee_grade_data.php"></script>
+<script type="text/javascript" src="scripts/ajax.js"></script>
+
+<script type="text/javascript">
+  // script-script tambahan, khusus untu loockup employee
+  <!--
+  [var.strJSTripPlatform]
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur()
+  {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employeeName");
+    obj.innerHTML = nama;
+
+    if (arguments.length == 0)
+      getAllowance();
+    return 1;
+  }
+  
+
+
+  function setLumpsum(bolLumpsum) {
+  if (bolLumpsum)
+  {  
+    document.formInput.dataAccomodationFee.value = document.formInput.dataLumpsum.value;
+  }
+  else
+  {
+      document.formInput.dataAccomodationFee.value = 0;
+  }
+  sumFee();
+
+  }//sumFee
+
+
+  function sumFee() {
+    document.formInput.dataTotalAllowance.value = parseFloat(document.formInput.dataTripFee.value) + parseFloat(document.formInput.dataMealFee.value) + parseFloat(document.formInput.dataTransportFee.value) + parseFloat(document.formInput.dataAccomodationFee.value) + parseFloat(document.formInput.dataDetaseringFee.value); 
+  }//sumFee
+
+  function clearForm() {
+    document.formInput.dataEmployee.value = "";
+    document.formInput.dataPurpose.value = "";
+    document.formInput.dataTask.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataDate.focus();
+  }//clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDate.value == "") {
+      alert("Tanggal belum diisi!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+    if (document.formInput.dataDateFrom.value == "") {
+      alert("Tanggal awal belum diisi!");
+      document.formInput.dataDateFrom.focus();
+      return false;
+    }
+    if (document.formInput.dataDateThru.value == "") {
+      alert("Tanggal akhir belum diisi!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+    if (document.formInput.dataEmployee.value == "") {
+      alert("NIK belum diisi!");
+      document.formInput.dataEmployee.focus();
+      return false;
+    }
+    if (document.formInput.dataAllowance.value == "" || isNaN(document.formInput.dataAllowance.value)) {
+      alert("Nilai tunjangan salah!");
+      document.formInput.dataAllowance.focus();
+      return false;
+    }
+
+    tmp = dateCompare(document.formInput.dataDateFrom.value, document.formInput.dataDateThru.value);
+    if (tmp == 1) {
+      alert("Tanggal akhir lebih kecil dari tanggal awal!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+
+    // cek apakah user employee
+    // jika employee, gak boleh entry data kemarin
+    if (document.formInput.dataUserRole.value == 2)
+    {
+      tmp = dateCompare(document.formInput.dataDate.value, document.formInput.dataDateFrom.value);
+      if (tmp == 1) {
+        alert("Tidak boleh mengisi data sebelum tanggal pengajuan !");
+        document.formInput.dataDateFrom.focus();
+        return false;
+      }
+    }
+
+    ok = validateForm(document.formInput);
+    return ok;
+  } //validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDate.focus();
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+    init();
+    onCodeBlur(true);
+
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>&nbsp;<strong>[var.strWordsDataEntry] | <a href="trip_list.php">[var.strWordsBusinessTripList]</a>
+            | <a href="trip_report.php">[var.strWordsBusinessTripReport]</a> </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsFormDate]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDate]&nbsp;</td>
+                </tr>
+                <tr valign="top"style="visibility:hidden">
+                  <td nowrap>&nbsp;[var.strWordsFormNo]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputNo]&nbsp; </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;[var.strWordsEmployeeID]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputEmployee]&nbsp;&nbsp;[var.strInputGetInfo]<br>
+                    <strong id="employeeName"></strong>&nbsp;</td>
+                <tr valign="top">
+                  <td nowrap>&nbsp; </td>
+                  <td align="center">&nbsp; </td>
+                  <td nowrap>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsDateFrom]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDateFrom]&nbsp; <input name="btnDateFrom" type="button" id="btnDateFrom" value=".."></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsDateThru]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDateThru]&nbsp; <input name="btnDateThru" type="button" id="btnDateThru" value=".."></td>
+                </tr>
+                <tr valign="top" [var.strHideAllowance]>
+                  <td nowrap>&nbsp;[var.strWordsDuration]</td>
+                  <td align="center">:</td>
+                  <td nowrap><strong>[var.strInputDuration] days</strong>&nbsp; </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;[var.strWordsTripType]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputTripType]</td>
+                </tr>                
+                <tr valign="top" style="visibility:hidden">
+                  <td nowrap> &nbsp;[var.strWordsLocationType]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputLocationType]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;[var.strWordsDestination]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputLocation]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;[var.strWordsPurpose]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputPurpose]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsTaskDetail]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputTask]</td>
+                </tr>
+                <tr valign="top">
+                  <td colspan="3" nowrap>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsTripFee]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputTripFee]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsTransportFee]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputTransportFee]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsMealFee]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputMealFee]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsAccomodationFee][var.strInputLumpsum]</td>
+                  <td align="center">:</td>
+                  <td align="left">[var.strInputAccomodationFee] [var.strInputIsLumpsum] [var.strWordsLumpsum]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsDetaseringFee]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputDetaseringFee]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsTotalAllowance]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputTotalAllowance]</td>
+                </tr>
+	              <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsStatus]</td>
+                  <td align="center">:</td>
+                  <td><strong>[var.strInputStatus] </strong></td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td> <input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]"> <!--[var.strButtons]-->
+                    <input name="btnNew" type="button" id="btnNew" value="[var.strWordsClear]" onClick="location.href='trip_edit.php';">
+                    <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]">
+                    <input type=hidden name="dataUserRole" value="[var.strUserRole]"></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+            <td width="20" valign="top">&nbsp;</td>
+            <td valign="top">&nbsp; </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+
+</table>

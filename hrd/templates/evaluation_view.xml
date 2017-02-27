@@ -1,0 +1,749 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>sa</Author>
+  <LastAuthor>sa</LastAuthor>
+  <Revision>61</Revision>
+  <Created>2009-10-28T22:20:28Z</Created>
+  <LastSaved>2014-11-07T10:02:40Z</LastSaved>
+  <Version>15.00</Version>
+ </DocumentProperties>
+ <CustomDocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Info_x0020_1 dt:dt="string"></Info_x0020_1>
+  <Info_x0020_2 dt:dt="string"></Info_x0020_2>
+  <Info_x0020_3 dt:dt="string"></Info_x0020_3>
+  <Info_x0020_4 dt:dt="string"></Info_x0020_4>
+  <KSOProductBuildVer dt:dt="string">1033-9.1.0.4674</KSOProductBuildVer>
+ </CustomDocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <AllowPNG/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>6900</WindowHeight>
+  <WindowWidth>15180</WindowWidth>
+  <WindowTopX>0</WindowTopX>
+  <WindowTopY>0</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Arial" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="m606938278468">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="m606938278488">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="m606938278508">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="m606938278528">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="m606938278568">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="m606939777512">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="m606939777532">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="m606939777552">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="m606939777572">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="m606939777592">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="m606939777612">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="m606939775908">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="m606939775928">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="m606939775948">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s67">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s80">
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s87">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="9"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s88">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="9"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s146">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s147">
+   <Alignment ss:Horizontal="Justify" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s149">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s150">
+   <Alignment ss:Horizontal="Justify" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s156">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s159">
+   <Alignment ss:Vertical="Top"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s160">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s174">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s205">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s206">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s207">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s334">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top"/>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="12"
+    ss:Color="#000000" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s335">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="12"
+    ss:Color="#000000" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s336">
+   <Alignment ss:Vertical="Bottom"/>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="12"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s337">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="12"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s340">
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="12"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s341">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s347">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#333333"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s353">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s357">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s358">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s359">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s360">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" x:CharSet="134" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Names>
+   <NamedRange ss:Name="Print_Area" ss:RefersTo="=Sheet1!C1:C[7]"/>
+  </Names>
+  <Table ss:ExpandedColumnCount="16380" ss:ExpandedRowCount="19" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultColumnWidth="54" ss:DefaultRowHeight="14.25">
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="46.5"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="39"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="89.25"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="303.75"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="170.25"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="64.5" ss:Span="1"/>
+   <Column ss:Index="8" ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="86.25"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Span="16371"/>
+   <Row ss:AutoFitHeight="0" ss:Height="15.9375"/>
+   <Row ss:Height="17.25">
+    <Cell ss:Index="2" ss:StyleID="s334"><Data ss:Type="String">Employee&#160;:</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s334"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s335"><Data ss:Type="String">[onshow.infoEmployee]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s357"><Data ss:Type="String">Parameter:</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s358"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s359"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s360"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:Height="17.25">
+    <Cell ss:Index="2" ss:StyleID="s336"><Data ss:Type="String">Evaluator&#160; : </Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s336"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s336"><Data ss:Type="String">[onshow.infoEvaluator]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:MergeAcross="3" ss:StyleID="m606938278568"><ss:Data ss:Type="String"
+      xmlns="http://www.w3.org/TR/REC-html40"><Font html:Color="#000000">1 : Belum memahami, </Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">まだ</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">分</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">かりません</Font></ss:Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="16.5">
+    <Cell ss:Index="2" ss:StyleID="s336"><Data ss:Type="String">Period&#160;: </Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s337"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s337"><Data ss:Type="String">[onshow.infoTglA] to [onshow.infoTglB]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:MergeAcross="3" ss:StyleID="m606938278468"><ss:Data ss:Type="String"
+      xmlns="http://www.w3.org/TR/REC-html40"><Font html:Color="#000000">2 : Sudah memahami tetapi masih perlu bimbingan</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">、</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">すでに</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">理解</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">しているが</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">、</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">それでも</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">指導</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">を</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">必要</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">とする</Font></ss:Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:Height="16.5">
+    <Cell ss:Index="2" ss:StyleID="s80"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:Index="5" ss:MergeAcross="3" ss:StyleID="m606938278488"><ss:Data
+      ss:Type="String" xmlns="http://www.w3.org/TR/REC-html40"><Font
+       html:Color="#000000">3: Sudah memahami dan dapat melaksanakannya</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">、既</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">に</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">理解</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">し</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">、実装</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">すること</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#FFFFFF">__</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">ができます</Font></ss:Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="54.75">
+    <Cell ss:Index="5" ss:MergeAcross="3" ss:StyleID="m606938278508"><ss:Data
+      ss:Type="String" xmlns="http://www.w3.org/TR/REC-html40"><Font
+       html:Color="#000000">4: Sudah memahami dan dapat melaksanakannya serta dapat </Font><Font
+       html:Color="#FFFFFF">__</Font><Font html:Color="#000000">mengembangkannya</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">、既</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">に</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">理解</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">し</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">、</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">それらを</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">実装</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">することができますし</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">、開&#10;  発</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">することができます</Font></ss:Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="55.5">
+    <Cell ss:Index="2" ss:StyleID="s340"><ss:Data ss:Type="String"
+      xmlns="http://www.w3.org/TR/REC-html40"><Font html:Color="#000000">Recommendation :   </Font><Font
+       html:Size="20" html:Color="#000000"> □</Font><Font html:Color="#000000">  Contract    </Font><Font
+       html:Size="20" html:Color="#000000">□  </Font><Font html:Color="#000000">Permanent </Font></ss:Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s87"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s87"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:MergeAcross="3" ss:StyleID="m606938278528"><ss:Data ss:Type="String"
+      xmlns="http://www.w3.org/TR/REC-html40"><Font html:Color="#000000">5: Dapat mengembangkan dan dapat memberi </Font><Font
+       html:Color="#FFFFFF">__</Font><Font html:Color="#000000">pelatihan</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">、開発</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">することができ</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#FFFFFF">__</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">ますし</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">、</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">トレーニングを</Font><Font
+       html:Face="SimSun" x:CharSet="134" x:Family="Swiss" html:Color="#000000">提供</Font><Font
+       html:Face="MS Gothic" x:CharSet="134" x:Family="Swiss" html:Color="#000000">することができ&#10;  ます</Font></ss:Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="26.0625">
+    <Cell ss:Index="2" ss:StyleID="s88"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s88"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s88"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15">
+    <Cell ss:Index="2" ss:StyleID="s80"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="24">
+    <Cell ss:Index="2" ss:StyleID="s341"><Data ss:Type="String">No</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s341"><Data ss:Type="String">Category</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m606939775948"><Data ss:Type="String">Key Result Area</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s341"><Data ss:Type="String">Weight (%)</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s341"><Data ss:Type="String">Score</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s341"><Data ss:Type="String">Note</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="48.9375">
+    <Cell ss:Index="2" ss:StyleID="s146"><Data ss:Type="String">[a.#;block=Row]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s147"><Data ss:Type="String">[a.category_new]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m606939775928"><Data ss:Type="String">[a.criteria]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s149"><Data ss:Type="String">[a.weight]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s149"><Data ss:Type="String">[a.var_score]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s150"><Data ss:Type="String">[a.achieved]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15">
+    <Cell ss:Index="2" ss:StyleID="s80"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15">
+    <Cell ss:Index="2" ss:MergeAcross="6" ss:StyleID="m606939775908"><Data
+      ss:Type="String">FINAL RESULT</Data><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="2" ss:StyleID="s347"><Data ss:Type="String">No</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:MergeAcross="2" ss:StyleID="m606939777612"><Data ss:Type="String">Category</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s347"><Data ss:Type="String">Weight (%)</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s347"><Data ss:Type="String">Score</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s347"><Data ss:Type="String">Note</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="27">
+    <Cell ss:Index="2" ss:StyleID="s205"><Data ss:Type="String">[b.#;block=Row]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:MergeAcross="2" ss:StyleID="s207"><Data ss:Type="String">[b.category]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s206"><Data ss:Type="String">[b.weight]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s159"><Data ss:Type="String">[b.score]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s160"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15">
+    <Cell ss:Index="2" ss:StyleID="s80"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15">
+    <Cell ss:Index="2" ss:MergeAcross="6" ss:StyleID="m606939777512"><Data
+      ss:Type="String">FEED BACK BY EVALUATOR</Data><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15">
+    <Cell ss:Index="2" ss:StyleID="s347"><Data ss:Type="String">No</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m606939777532"><Data ss:Type="String">Question</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s353"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:MergeAcross="2" ss:StyleID="m606939777552"><Data ss:Type="String">Answer</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="39.9375">
+    <Cell ss:Index="2" ss:StyleID="s156"><Data ss:Type="String">[d.#;block=Row]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m606939777572"><Data ss:Type="String">[d.question]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s174"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:MergeAcross="2" ss:StyleID="m606939777592"><Data ss:Type="String">[d.answer]</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0" x:Data="&amp;C&amp;A"/>
+    <Footer x:Margin="0" x:Data="&amp;CPage &amp;P"/>
+    <PageMargins x:Bottom="0.39305555555555599" x:Left="0" x:Right="0"
+     x:Top="0.39305555555555599"/>
+   </PageSetup>
+   <Unsynced/>
+   <FitToPage/>
+   <Print>
+    <ValidPrinterInfo/>
+    <PaperSizeIndex>9</PaperSizeIndex>
+    <Scale>66</Scale>
+    <HorizontalResolution>600</HorizontalResolution>
+    <VerticalResolution>600</VerticalResolution>
+   </Print>
+   <Zoom>85</Zoom>
+   <Selected/>
+   <DoNotDisplayGridlines/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>8</ActiveRow>
+     <ActiveCol>3</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

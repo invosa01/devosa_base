@@ -1,0 +1,86 @@
+<script src="scripts/ylib.js"></script>
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script>
+  //fungsi untuk menampilkan baris baru untuk menambahkan data anak
+  function showMoreInput() { //kode = Address, or Phone
+    //document.form1.numShow.value++;
+    var n = eval("document.formInput.numShow.value;");
+    var max = eval("document.formInput.maxDetail.value;");
+    n++;
+    if (n < max) {
+      strNama = "detailRows" + n;
+      ylib_getObj(strNama).style.display = document.all ? "block" : "table-row";
+      eval("document.formInput.numShow.value++;");
+      eval("document.formInput.detailPosition" + n + ".disabled = false");
+      eval("document.formInput.detailNote" + n + ".disabled = false");
+      eval("document.formInput.detailPosition" + n + ".focus()");
+    } else {
+      //alert(document.form1.numShow.value + " -- " + document.form1.maxDetail.value);
+    }
+  } //showMoreInput
+
+</script>
+<script>
+  <!--
+
+
+  // mengolah waktu load
+  function initPage_() {
+
+  }//initPage
+
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <!--
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap><strong><a href="data_position.php">Input
+            Data Position</a> | Structural</strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  -->
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong><a href="data_position.php">INPUT DATA POSITION</a> | STRUCTURAL</strong></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>STRUCTURAL POSITION</strong></td>
+  </tr>
+  <tr align="left">
+    <form action="" method="post" name="formInput" id="formInput">
+      <td valign="top"><table width="100" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+          <tr class="tableHeader">
+            <td nowrap>NO</td>
+            <td nowrap>Position</td>
+            <td nowrap>Note</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td colspan="3"><a href="javascript:showMoreInput();">More</a></td>
+          </tr>
+          <tr>
+            <td colspan="3"><input name="btnSave" type="submit" id="btnSave" value="Save"] /></td>
+          </tr>
+        </table></td>
+    </form>
+  </tr>
+</table>

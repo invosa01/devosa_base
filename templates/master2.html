@@ -1,0 +1,79 @@
+<html>
+<head>
+  <title>[var.strPageTitle]</title>
+  <link href="[var.globalRelativeFolder]css/invosa.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="[var.globalRelativeFolder]js/scrolltop.js"></script>
+</head>
+<body>
+<a name="top"></a>
+  <table class="master" border=0 cellpadding=0 cellspacing=0>
+    <tr>
+      <td style="height:85px" valign="top">
+        [onload;script='[var.globalRelativeFolder]topmenu.php';subtpl;htmlconv=no;protect=no]
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" style="padding-left: 10px; padding-right: 10px"><a name="content"></a>[onload;file='[var.strTemplateFile]';htmlconv=no;protect=no]</td>
+    </tr>
+    <tr>
+      <td style="height:14px" valign="bottom">
+        [onload;script='[var.globalRelativeFolder]footer.php';subtpl;htmlconv=no;protect=no]
+      </td>
+    </tr>
+  </table>
+  <script type="text/javascript" src="[var.globalRelativeFolder]includes/menu/js/PieNG.js"></script>
+  <script type="text/javascript">
+    DynarchMenu.preloadImages();
+    var mainmenu = DynarchMenu.setup('page-menu', { shadows: [-1, 0, 5, 5], scrolling: true, electric: false});
+    if (typeof initPage_ == 'function')
+      initPage_();
+  </script>
+</body>
+</html>
+
+
+
+
+
+<script type="text/javascript" src="[var.globalRelativeFolder]includes/window/javascripts/prototype.js"> </script> 
+<script type="text/javascript" src="[var.globalRelativeFolder]includes/window/javascripts/window.js"> </script> 
+<script type="text/javascript" src="[var.globalRelativeFolder]includes/window/javascripts/window_ext.js"> </script> 
+<script type="text/javascript" src="[var.globalRelativeFolder]includes/window/javascripts/effects.js"> </script> 
+<link href="[var.globalRelativeFolder]includes/window/themes/default.css" rel="stylesheet" type="text/css"> 
+<!-- Add this to have a specific theme--> 
+<link href="[var.globalRelativeFolder]includes/window/themes/alphacube.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript">
+  var viewWindow = new Window({
+                        className: "alphacube", 
+                        width:750, height:475, 
+                        recenterAuto:false
+                      });
+  WindowCloseKey.init();
+  
+  var lastURL = '';
+  function openViewWindow(strTitle, url, width, height)
+  {
+    if (lastURL != url)
+    {
+      viewWindow.setTitle(strTitle);
+      if (typeof width == 'undefined') width = 750;
+      if (typeof height == 'undefined') height = 475;
+      viewWindow.setSize(width, height);
+      lastURL = url;
+      viewWindow.setURL(url);
+    }
+    viewWindow.showCenter();
+  }
+  
+  function openViewWindowByContentId(strTitle, contentID, width, height)
+  {
+    viewWindow.setTitle(strTitle);
+    if (typeof width == 'undefined') width = 750;
+    if (typeof height == 'undefined') height = 475;
+    viewWindow.setSize(width, height);
+    //viewWindow.setContent(contentID);
+    viewWindow.setHTMLContent($(contentID).innerHTML);
+    viewWindow.showCenter();
+  }
+  
+</script>

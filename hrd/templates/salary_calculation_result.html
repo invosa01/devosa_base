@@ -1,0 +1,235 @@
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  <!--
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    //var obj = document.getElementById("employee_name");
+    //obj.innerHTML = nama;
+    return 1;
+  }
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    init();
+    //onCodeBlur();
+  }//initPage
+
+  // fungsi untuk menuju ke page tertentu
+  function goPage(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnShow.click();
+    }
+  }//goPage
+
+  function goReport() {
+
+    var tipe = document.formInput.dataReport.value;
+  
+    if (tipe == 1) {
+      // perintah untuk membuka window baru file print
+      var id = document.formData.dataID.value;
+      url = "salary_calculation_result_excel.php?dataID=" + id;
+      url += "&dataType=" + document.formInput.dataBankCode.value;
+      location.href = url;
+    } else if (tipe == 2) {
+      // perintah untuk membuka window baru file print
+      var id = document.formData.dataID.value;
+      url = "salary_calculation_bank.php?dataID=" + id;
+      url += "&dataType=" + document.formInput.dataBankCode.value;
+      location.href = url;
+    }else if (tipe == 3) {
+      // perintah untuk membuka window baru file print
+      var id = document.formData.dataID.value;
+      url = "salary_calculation_loan.php?dataID=" + id;
+      url += "&dataType=" + document.formInput.dataBankCode.value;
+      location.href = url;
+    }
+  }// goReport
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+
+  function confirmFinish() {
+    return confirm("Are you sure want to finish salary calculation?");
+  }//confirmFinish
+
+  function goCalculate() {
+    document.formData.action = "salary_calculation_result.php";
+    document.formData.target = "";
+  } //goCalculate
+
+  function goFinish() {
+    document.formData.action = "salary_calculation_result.php";
+    document.formData.target = "";
+  }//goFinish
+
+  function goApprove() {
+    bolOK = confirm("Are you sure want to approve salary calculation?");
+    if (bolOK) {
+      document.formData.action = "salary_calculation_result.php";
+      document.formData.target = "";
+    }
+  }//goFinish
+
+  function goSlip() {
+    document.formData.action = "salary_slip.php";
+    document.formData.target = "_blank";
+  }//goSlip
+  -->
+  jQuery(function($) {
+  	$('#dataEmployee').autocomplete({
+			source: "hrd_ajax_source.php?action=getemployee",
+			minLength: 2,
+			select: function( event, ui ) {
+				console.log(ui);
+				$('#employee_name').html(ui.item.label);
+			}
+		});
+	});	
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.strCalculationMenu]
+  			<p></p>
+  		</div>
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#filter-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title" style="text-transform:uppercase"><strong>[var.strWordsSalarySumary] [[var.strDataDateFrom] - [var.strDataDateThru]]</strong></h3>
+					</div>
+					<div id="filter-panel" class="panel-body collapse in">
+						<form action="" method="post" name="formInput" id="formInput" class="form-horizontal" role="form">
+							<div class="col-md-8" style="display:[var.strDisplay]">
+								<div class="col-md-6">
+		      				<div class="form-group">
+										<label class="col-sm-4 control-label" for="dataSalaryCurrency">[var.strWordsCurrency]</label>
+										<div class="col-sm-8">
+											[var.strInputDataCurrency]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 control-label" for="dataBranch">[var.strWordsOutlet]</label>
+										<div class="col-sm-8">
+											[var.strInputBranch]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 control-label" for="dataDivision">[var.strWordsDivision]</label>
+										<div class="col-sm-8">
+											[var.strInputDivision]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 control-label" for="dataDepartment">[var.strWordsDepartment]</label>
+										<div class="col-sm-8">
+											[var.strInputDepartment]
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="col-sm-4 control-label" for="dataSection">[var.strWordsSection]</label>
+										<div class="col-sm-8">
+											[var.strInputSection]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 control-label" for="dataSubSection">[var.strWordsSubSection]</label>
+										<div class="col-sm-8">
+											[var.strInputSubSection]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 control-label" for="dataEmployeeType">Employee Type</label>
+										<div class="col-sm-8">
+											[var.strInputEmployeeType]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 control-label" for="dataEmployeeType">[var.strWordsEmployeeID]</label>
+										<div class="col-sm-8">
+											[var.strInputEmployee]
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12 form-actions" align="right">
+									<input class="btn btn-primary btn-small" name="btnShow" type="submit" id="btnShow2" value="Filter">
+	                <input type=hidden name=dataPage value=1> <input name=dataID type=hidden id="dataID" value=[var.strDataID]>
+	              </div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataSalaryCurrency"><strong>[var.strWordsReport]</strong></label>
+									<div class="col-sm-8">
+										<select name="dataReport" id="dataReport" class="form-control select2">
+		                  <option value="2">[var.strWordsBankTransferS]</option>
+		                  <option value="3">[var.strWordsBankTransferL]</option>
+		                </select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataSalaryCurrency">&nbsp;</label>
+									<div class="col-sm-8">
+										[var.strReportType]
+									</div>
+								</div>
+								<div class="form-actions" align="right">
+									<input class="btn btn-success btn-small" name="btnGo" type="button" value="GO" onClick="goReport()">
+								</div>
+							</div>
+						</form>
+					</div>	
+				</div>
+  		</div>
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#salary-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title" style="text-transform:uppercase">SALARY CALCULATION RESULT LIST</h3>
+					</div>
+					<div id="salary-panel" class="panel-body collapse in">
+						<div class="col-md-12">
+							[var.strPaging]
+						</div>
+						<div class="col-md-12">
+							<form action="" method="post" name="formData" id="formData">
+      					[var.strDataDetail][var.strHidden]
+      				</form>
+						</div>
+					</div>
+				</div>
+			</div>
+  	</div>
+  </div>

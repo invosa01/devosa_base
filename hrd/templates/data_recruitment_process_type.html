@@ -1,0 +1,75 @@
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.formInput;protect=no;htmlconv=no]
+  		</div>
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#entry-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">RECRUITMENT TYPE LIST</h3>
+					</div>
+					<div id="entry-panel" class="panel-body collapse in">
+						[var.DataGrid;protect=no;htmlconv=no]
+					</div>
+				</div>
+			</div>
+  	</div>
+  </div>
+<script type="text/javascript">
+	var myClient = {
+    editData : function(idx)
+    {
+      if ($('formMessage')) $('formMessage').style.visibility = 'hidden';
+      if ($('datagridMessage')) $('datagridMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataID').value = "";
+        $('name').value = "";
+        $('step').selectedIndex = -1;
+        $('letter_type').selectedIndex = 0;
+        $('note').value = "";
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $F("detailID" + idx);
+        $('name').value = $F("name" + idx);
+        $('step').selectedIndex = -1;
+        $('step').value = $F("step" + idx);
+        $('letter_type').value = $F("letter_type" + idx);
+        $('note').value = $F("note" + idx);
+      }
+      $('name').focus();
+      $('name').select();
+    },
+    
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+    
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+  jQuery(function($) {
+    $('.edit-data').on('click', function(){
+        var strID = $(this).attr('id');
+        var splitID = strID.split('-');
+        $('#step').val($('#step'+ splitID[1]).val());
+        $('#step').select2('destroy');
+        $('#step').select2();
+        $('#letter_type').val($('#letter_type'+ splitID[1]).val());
+        $('#letter_type').select2('destroy');
+        $('#letter_type').select2();
+    });
+  })
+
+</script>

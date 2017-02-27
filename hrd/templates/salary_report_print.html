@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title></title>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+  <link type="text/css" rel="stylesheet" href="[var.strPrintCss]">
+
+  <script>
+  <!--
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    [var.strPrintInit]
+  }//initPage
+
+  -->
+  </script>
+
+</head>
+
+
+<body leftmargin="10" topmargin="0" onload="initPage_();" marginheight="0" marginwidth="10">
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td class="pageHeaderTitle" align="left"> <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30">&nbsp;</td>
+            <td class="pageHeaderTitleText" nowrap="nowrap">&nbsp;Salary Data</td>
+          </tr>
+        </tbody>
+      </table></td>
+  </tr>
+  <tr>
+    <td class="listTop"><strong>LIST OF EMPLOYEE SALARY [var.strYear]<br></strong></td>
+  </tr>
+  <tr>
+    <td> <form action="" method="post" name="formData" id="formData">
+        <table class="gridTable" border="0" cellpadding="1" cellspacing="0" width="100%">
+          <tbody>
+            <tr class="tableHeader">
+              <td rowspan="2" nowrap="nowrap" class="tableHeader"> EMPL. ID</td>
+              <td rowspan="2" nowrap="nowrap" class="tableHeader">EMPL. NAME</td>
+              <td rowspan="2" nowrap="nowrap" class="tableHeader">SEX</td>
+              <td colspan="13" align="center" nowrap="nowrap" class="tableHeader">SALARY [var.strYear]</td>
+            </tr>
+            <tr class="tableHeader">
+              <td align="center" nowrap="nowrap" class="tableHeader">JANUARY</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">FEBRUARY</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">MARCH</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">APRIL</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">MAY</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">JUNE</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">JULY</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">AUGUST</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">SEPTEMBER</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">OCTOBER</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">NOVEMBER</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">DECEMBER</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">TOTAL</td>
+            </tr>
+          [var.strDataDetail]
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center">[var.strCopyright]</td>
+  </tr></tbody>
+</table>
+
+</body>
+</html>

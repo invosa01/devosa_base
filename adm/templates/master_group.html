@@ -1,0 +1,116 @@
+<script type="text/javascript">
+    var myClient = {
+        submitCount: 0,
+        editData: function (idx) {
+            $('formMessage').style.visibility = 'hidden';
+            if (idx == 0) {
+                //reset data
+                $('dataCode').value = "";
+                $('dataName').value = "";
+                $('dataGroupRole').selectedIndex = -1;
+                $('dataGroupRole').value = "";
+                $('dataActive').checked = false;
+                $('dataID').value = "";
+                $('dataCode').focus();
+            }
+            else if (idx != '') {
+                $('dataCode').value = $F("detailCode" + idx);
+                $('dataName').value = $F("detailName" + idx);
+                $('dataGroupRole').value = $("detailGroupLevel" + idx).value;
+                $('dataID').value = $("detailID" + idx).value;
+                var aktif = $F("detailActive" + idx);
+                document.formInput.dataActive.checked = aktif == 't';
+                if (aktif){
+                    $('dataActive').parentNode.className = 'checked';
+                }else{
+                    $('dataActive').parentNode.className = '';
+                }
+            }
+            $('dataCode').focus();
+            $('dataCode').select();
+        },
+
+        confirmDelete: function () {
+            return confirm('Are you sure to delete this selected data?');
+        },
+
+        confirmSave: function () {
+            return confirm('Do you want to save this entry?');
+        },
+
+        showDetail: function (id, index, isShow) {
+            if (index == "" || index == "undefined") return;
+            if (this.submitCount != 0) return;
+            if (isShow) {
+                this.submitCount++;
+                //id = $("DataGrid1_chkID" + index).value;
+                if ($("detailData" + index).innerHTML == "") {
+                    queryString = "dataID=" + id;
+
+                    new Ajax.Request("master_group_viewmember.php",
+                            {
+                                method: 'get',
+                                parameters: queryString,
+                                onComplete: function (transport, json) {
+                                    if ((transport.responseText || '') == '') return false;
+                                    $('detailData' + index).innerHTML = transport.responseText;
+                                },
+                                onLoading: function () {
+                                    $('detailData' + index).innerHTML = "Loading data...";
+                                },
+                                onFailure: function () {
+                                    $('detailData' + index).innerHTML = "Failed to load data (please refresh browser)";
+                                }
+                            });
+                }
+                (document.all) ? $("detail" + index).style.display = 'block' : $("detail" + index).style.display = 'table-row';
+                $("hrefViewMember" + index).href = "javascript:myClient.showDetail(" + id + ", " + index + ", false)";
+                $("spanViewMember" + index).innerHTML = "[var.strWordsHideMembers]";
+            }
+            else {
+                this.submitCount++;
+                $("hrefViewMember" + index).href = "javascript:myClient.showDetail(" + id + ", " + index + ", true)";
+                $("spanViewMember" + index).innerHTML = "[var.strWordsViewMembers]";
+                $("detail" + index).style.display = 'none';
+            }
+            this.submitCount = 0;
+        }
+
+    }
+    jQuery(function($) {
+        $('.edit-data').on('click', function(){
+            //$('#id_company').select2('destroy');
+            var strID = $(this).attr('id');
+            var splitID = strID.split('-');
+            $('#dataGroupRole').val($('#detailGroupLevel'+ splitID[1]).val());
+            $('#dataGroupRole').select2('destroy');
+            $('#dataGroupRole').select2();
+        });
+    })
+</script>
+[var.pageHeader]
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            [var.formInput;protect=no;htmlconv=no]
+        </div>
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-actions">
+                        <div class="pull-right" id="collapse-filter">
+                            <a href="#"
+                               data-toggle="collapse"
+                               data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="panel-title">MASTER GROUP LIST</h3>
+                </div>
+                <div id="list-panel" class="panel-body collapse in">
+                    [var.DataGrid;protect=no;htmlconv=no]
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  

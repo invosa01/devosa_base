@@ -1,0 +1,384 @@
+<html class="no-js" lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>gridster.js</title>
+
+	<meta name="description" content="gridster.js, a drag-and-drop multi-column jQuery grid plugin">
+	<meta name="author" content="duscksboard">
+
+    <link rel="stylesheet" type="text/css" href="dist/jquery.gridster.min.css">
+
+	<link rel="stylesheet" href="assets/css/style.css">
+    <link href='http://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
+</head>
+<script type="text/javascript" src="libs/jquery/jquery.js"></script>
+<script type="text/javascript" src="dist/jquery.gridster.js"></script>
+<script>
+
+  function goCalendar(MonthDiff, objName)
+  {
+    var intMonth = document.formCalendar.dataMonth.value;
+    var intYear = document.formCalendar.dataWYear.value;
+    intMonth = parseInt(intMonth) + MonthDiff;
+    if (intMonth > 12)
+    {
+      intMonth = 1;
+      intYear++;
+    }
+    else if (intMonth < 1)
+    {
+      intMonth = 12;
+      intYear--;
+    }
+    queryString = "ajax=1&month="+intMonth+"&year="+intYear;
+    new Ajax.Request("view_calendar.php",
+    { method:'get',
+      parameters: queryString,
+      onComplete: function(transport, json)
+      {
+        //alert(transport.responseText );
+        var arrData = transport.responseText.split("|||");
+        if (arrData.length >= 2)
+        {
+
+          $('calTitle').update (arrData[0]);
+          $(objName).update (arrData[1]);
+          document.formCalendar.dataMonth.value = intMonth;
+          document.formCalendar.dataWYear.value = intYear;
+        }
+      },
+      onLoading: function()
+      {
+      },
+      onFailure: function()
+      {
+      }
+    });
+  }
+
+  // fungsi untuk melihat alert
+  function goAlert(url) {
+    if (url != "") {
+      document.formAlert.action = url;
+      if (arguments.length > 1) {
+        // yang kedua dianggap sebagai status
+        document.formAlert.btnShowAlert.value = 1;
+        document.formAlert.dataStatus.value = arguments[1];
+        document.formAlert.dataRequestStatus.value = arguments[1];
+      }
+
+      document.formAlert.submit();
+    }
+  }
+
+  function openWindowCalendar()
+  {
+    var w = 640;
+    var h = 480;
+    kiri = (screen.width / 2) - w;
+    atas = (screen.height / 2) - h;
+    var intMonth = document.formCalendar.dataMonth.value;
+    var intYear = document.formCalendar.dataWYear.value;
+    url = "view_calendar.php?month="+intMonth+"&year="+intYear ;
+    properti = "width="+w+", height="+h+", resizable=yes, statusbar=no,menubar=yes, titlebar=no, top=" + atas + ", left=" + kiri;
+    window.open(url, "_blank", properti);
+  }  
+</script>
+<div class="gridster" name="gridster" id="gridster">
+    <ul>
+    <li data-row="1" data-col="1" data-sizex="2" data-sizey="2">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayShortcut]">
+        <tr>
+          <td width="5%">&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="pageHeaderTitle">
+          <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/direction.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsShortcut]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp; </td>
+          <td><strong><a href="attendance_ess.php">TIME IN / OUT</a></strong><br>
+            &nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp; </td>
+          <td><strong><a href="employee_search.php">Employee Info</a></strong><br>
+            View and edit employee information</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp;</td>
+          <td><strong><a href="attendance_list.php">Attendance</a><br>
+            </strong>View attendance information<strong> </strong></td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp;</td>
+          <td height="19"><strong><a href="absence_edit.php">Absence</a></strong><br>
+            View and input absence proposal.</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp;</td>
+          <td height="19"><strong><a href="leave_annual.php">Leave</a></strong><br>
+            View and input leave proposal.</td>
+        </tr>
+        <!-- <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp;</td>
+          <td height="19"><strong><a href="medical_edit.php">Medical</a></strong><br>
+            View and input medical claim proposal.</td>
+        </tr> -->
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp;</td>
+          <td height="19"><strong><a href="overtime_application_list_employee.php">Overtime</a></strong><br>
+            View and entry overtime proposal and actual.</td>
+        </tr>
+      </table>
+      </li>
+      <li data-row="2" data-col="1" data-sizex="1" data-sizey="1"> 
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayBirthday]">
+        <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/face-grin.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsBirthday]</td>
+              </tr>
+            </table></td>
+        </tr>
+
+        <tr>
+          <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+              <tr class="tableHeader">
+                <td nowrap>No.</td>
+                <td nowrap>Name</td>
+                <td align="center" nowrap>F/M</td>
+                <td align="center" nowrap>Birthday</td>
+               <!-- <td align="center">Age</td>-->
+              </tr>
+              [var.strDetailBirthday]
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <!-- <td>&nbsp;</td> -->
+              </tr>
+          </table>
+          </td>
+          </tr>
+          </table>
+        </li>
+        <li data-row="3" data-col="1" data-sizex="1" data-sizey="1"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayTripcuti]">
+        <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/about.png" border="0" width="30"/></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsTripcuti]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+              <tr class="tableHeader">
+                <td nowrap>No.</td>
+                <td nowrap>Name</td>
+                <td align="center" nowrap>Start Date</td>
+                <td align="center" nowrap>End Date</td>
+		  <td align="center">Description</td>
+              </tr>
+              [var.strDetailTripcuti]
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+		  <td>&nbsp;</td>
+              </tr>
+            </table>
+	</tr>
+        <tr>
+          <td height="19">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center" >&nbsp;</td>
+        </tr>
+      </table></li>
+
+        <li data-row="1" data-col="2" data-sizex="2" data-sizey="1">  <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayAlert]">
+        <tr>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/faq.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsAlert]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td valign="top">[var.strDetailAlert]</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;
+            <input type=hidden name="btnShowAlert" value=0>
+            <input type=hidden name="dataStatus">
+            <input type=hidden name="dataRequestStatus">
+          </td>
+        </tr>
+        </table></li>
+        <li data-row="2" data-col="2" data-sizex="2" data-sizey="2"><table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+              <tr class="tableHeader">
+                <td nowrap>Empl. ID</td>
+                <td nowrap>Name</td>
+                <td nowrap>Start Date</td>
+                <td nowrap>Finish Date</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              [var.strDetailContract]
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+            </table></li>
+
+        <li data-row="1" data-col="4" data-sizex="1" data-sizey="1"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan=2 >
+      <form name="formNews" id="formNews" method="POST">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td  align="left" class="pageHeaderTitle">
+              <table border="0" cellspacing="0" cellpadding="2">
+                <tr>
+                  <td width="30"><img src="../images/icons/about.png" border="0" width="30"/></td>
+                  <td nowrap class="pageHeaderTitleText">[var.strWordsNews]</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+            <td><div id="news">[var.strDetailNews]</div></td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table></li>
+        <li data-row="2" data-col="4" data-sizex="2" data-sizey="1"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan=2 >
+      <form name="formKRA" id="formKRA" method="POST">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td  align="left" class="pageHeaderTitle">
+              <table border="0" cellspacing="0" cellpadding="2">
+                <tr>
+                  <td width="30"><img src="../images/icons/businessman_preferences.png" border="0" width="30"/></td>
+                  <td nowrap class="pageHeaderTitleText">[var.strWordsEmployeeKRA]</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+            <td><div id="kra">[var.strEmployeeKRA]</div></td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>
+<br></li>
+        <li data-row="3" data-col="4" data-sizex="1" data-sizey="1"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan=2 >
+      <form name="formCalendar" id="formCalendar" method="POST">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td  align="left" class="pageHeaderTitle">
+              <table border="0" cellspacing="0" cellpadding="2">
+                <tr>
+                  <td width="30"><img src="../images/icons/calendar1.png" border="0" width="30"/></td>
+                  <td nowrap class="pageHeaderTitleText">[var.strWordsTimeTable]</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+            <td>
+              <table  width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td align="left" width = "25%"><input type="button" name="btnPrev" value="<" onClick="javascript:goCalendar(-1, 'cal')"></td>
+                  <td align="center" width = "50%"><div style='text-align: center; font-size: 14pt' id="calTitle">[var.strMonthYear]</div></td>
+                  <td align="right" width = "50%"><input type="button" name="btnNext" value=">" onClick="javascript:goCalendar(+1, 'cal')"></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          [var.strHidden]
+          <tr>
+            <td><div id="cal">[var.strCalendar]</div></td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table></li>
+
+        <li data-row="1" data-col="5" data-sizex="1" data-sizey="1"></li>
+        <li data-row="3" data-col="5" data-sizex="1" data-sizey="1"></li>
+
+        <li data-row="1" data-col="6" data-sizex="1" data-sizey="1"></li>
+        <li data-row="2" data-col="6" data-sizex="1" data-sizey="2"></li>
+    </ul>
+</div>
+<script type="text/javascript">
+  var gridster;
+
+  $(function(){
+
+    gridster = $(".gridster > ul").gridster({
+        widget_margins: [10, 10],
+        widget_base_dimensions: [140, 140],
+        min_cols: 6
+    }).data('gridster');
+
+  });
+</script>
+
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33489625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>

@@ -1,0 +1,121 @@
+div.mainmenu
+{
+  display: block;
+  padding-left : 5px;
+  padding-right : 5px;
+  padding-top : 2px;
+  padding-bottom : 2px;
+  vertical-align : middle;
+  height : 20px;
+  height : 16px!important;
+  background-color: #f3f5f4; 
+  color: #000; 
+}
+
+div.mainmenu div.icon
+{
+  padding-top  : 2px;
+  width : 16px;
+  height : 14px!important;
+  float : left;
+}
+
+div.mainmenu div.subarrow
+{
+  background : url('images/downarrow.gif') no-repeat;
+  background-position : 100% 50% ;
+}
+
+div.mainmenu:hover 
+{
+  color : #fff;
+  background-color : #619af5;
+}
+
+div.mainmenu:hover div.subarrow
+{
+  background : url('images/uparrow.gif') no-repeat;
+  background-position : 100% 50% ;
+}
+
+div.mainmenu div.text
+{
+  padding-left : 3px;
+  padding-right : 10px;
+  vertical-align : middle;
+  font-family : Arial;
+  font-size : 8pt;
+  float : left;
+}
+
+div.submenu
+{
+  background : url('images/xp-extended/popup-icon-bg.png') no-repeat;
+  vertical-align : middle;
+  height : 20px;
+  color : #000;
+}
+
+div.submenu div.text
+{
+  padding-top : 2px;
+  padding-bottom : 2px;
+  text-indent : 5px;
+  padding-right : 10px;
+  vertical-align : middle;
+  white-space : nowrap;
+  font-family : Arial;
+  font-size : 8pt;
+  height : 16px!important;
+}
+
+
+div.submenu div.text2
+{
+  padding-top : 2px;
+  padding-bottom : 2px;
+  text-indent : 5px;
+  padding-right : 30px;
+  vertical-align : middle;
+  white-space : nowrap;
+  background : url('images/rarrow.gif') no-repeat;
+  background-position : 100% 50%;
+  font-family : Arial;
+  font-size : 8pt;
+  height : 16px!important;
+}
+
+div.submenu div.icon
+{
+  padding-top  : 2px;
+  padding-bottom : 2px;
+  padding-left : 3px;
+  width : 22px;
+  height : 16px!important;
+  float : left;
+}
+
+
+div.submenu:hover  div.icon
+{
+  background : url('images/xp-extended/popup-icon-bg.png') no-repeat;
+  -moz-opacity: 0.6; 
+  filter: alpha(opacity=60); 
+  cursor : pointer;
+}
+
+
+div.submenu:hover div.text
+{
+  background-color : #619af5;
+  cursor : pointer;
+  color : #fff;
+}
+
+div.submenu:hover div.text2
+{
+  background-color : #619af5;
+  cursor : pointer;
+  color : #fff;
+}
+

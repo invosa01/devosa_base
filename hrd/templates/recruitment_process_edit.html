@@ -1,0 +1,305 @@
+<script type="text/javascript" src="../js/calendar.js"></script>
+<script type="text/javascript" src="../js/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/acEmployee.js"></script>
+<script type="text/javascript" src="../js/ylib.js"></script>
+<script type="text/javascript" src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+    // script-script tambahan, khusus untu loockup employee
+
+    AC_targetElements = ["dataEmployee"];
+
+    // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+    // kehilangan fokus.
+    function onCodeBlur() {
+        var kode = document.formInput.dataEmployee.value;
+        var nama = AC_getNameByCode(kode);
+        var obj = document.getElementById("employee_name");
+        obj.innerHTML = nama;
+        return 1;
+    }
+</script>
+<script type="text/javascript">
+    <!--
+
+    // fungsi untuk hide/unhide tombol print penolakan
+    // saat ditolak
+    function onResultChange() {
+        var x = document.formInput.dataResult.value;
+        gaya = "none"; //(x == 3) ? "" : "none"; // jangan tampilkan dulu
+        ylib_getObj("btnPrintLetter").style.display = gaya;
+    }
+
+    // fungsi untuk manggil print penolakana
+    function goPrintDenied() {
+        id = document.formInput.dataCandidateID.value;
+        if (id != "") {
+            url = "candidate_denied_letter.php?dataID=" + id;
+            window.open(url);
+        }
+    }
+
+    // fungsi untuk membuat surat, entah surat apa aja
+    // parameter: id proses, jika mengacu ke proses tertentu,
+    // jika tidak ada, maka dianggap akan proses biasa
+    function goCreateLetter() {
+        id = document.formInput.dataID.value;
+        candidate = document.formInput.dataCandidateID.value;
+        if (id != "" && candidate != "") {
+            url = "recruitment_process_letter.php?btnCreate=Create&dataProcessID=" + id;
+            url += "&dataCandidateID=" + candidate;
+            if (arguments.length > 0)
+                url += "&dataDetailID=" + arguments[0];
+            window.open(url, "letter", "statusbar=0");
+        } else {
+            alert("Please save data first!");
+        }
+    }
+    // fungsi untuk membuat surat, entah surat apa aja
+    // parameter: id proses, jika mengacu ke proses tertentu,
+    // jika tidak ada, maka dianggap akan proses biasa
+    function printInterview(id, type) {
+        if (id != "") {
+            url = "recruitment_process_letter.php?btnInterview=Print&dataID=" + id + "&dataTypeID=" + type;
+            var width = 800;
+            var height = 500;
+            var left = (screen.width - width) / 2;
+            var top = (screen.height - height) / 2;
+            var foo = window.open(url, 'form', "menubar=no,status=no,resizable=yes,scrollbars=yes,modal=yes,top=" + top + ",left=" + left + ",width=" + width + ",height=" + height + "");
+        } else {
+            alert("Please save data first!");
+        }
+    }
+
+    function entryinterview(id, strID, strType) {
+        window.location = "recruitment_process_interview_edit.php?dataID=" + id + "&dataProcessID=" + strID + "&dataTypeID=" + strType;
+    }
+
+    // fugnsi untuk menampilkan surat yang pernah dibuat
+    function goOpenLetter(id) {
+        candidate = document.formInput.dataCandidateID.value;
+        if (id != "" && candidate != "") {
+            url = "recruitment_process_letter.php?btnShow=Show&dataID=" + id;
+            url += "&dataCandidateID=" + candidate;
+            window.open(url, "letter", "statusbar=0");
+        } else {
+            alert("Please save data first!");
+        }
+    }
+
+    // fungsi untuk minta konfirmasi hapus data
+    function confirmDelete() {
+        return confirm("[var.strWordConfirmDelete]");
+    }
+
+    // fungsi memeriksa validasi input
+    function validInput() {
+
+
+        return true;
+    } //validInput
+
+    // fungsi untuk inisialisasi
+    function initPage_() {
+        document.formInput.dataInvitationDate.focus();
+        Calendar.setup({inputField: "dataInvitationDate", button: "btnInvitationDate"});
+        //Calendar.setup({ inputField:"dataStartDate", button:"btnStartDate" });
+        [
+        var .
+        strCalendarSetup
+    ]
+        onResultChange();
+    }//initPage
+    -->
+</script>
+<script type="text/javascript">
+    // fungsi untuk nampilkan tambahan proses
+    function showMore() {
+        intTotal = parseFloat(document.getElementById("dataTotalProcess").value);
+        console.log(intTotal);
+        intShow = parseFloat(document.getElementById("dataShowProcess").value);
+        console.log(intShow);
+        if (intShow < intTotal) {
+            intShow++;
+            document.getElementById("detailProcess" + intShow).style.display = (document.all) ? "block" : "table-row";
+            // beberapa inisialisasi
+            document.getElementById("detailSubject" + intShow).value = document.getElementById("detailProcessName" + intShow).value;
+            document.getElementById("detailSubject" + intShow).focus();
+            document.getElementById("dataShowProcess").value = intShow;
+        }
+    }
+</script>
+[var.pageHeader]
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            [var.pageSubMenu]
+            <p></p>
+        </div>
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-actions">
+                        <div class="pull-right" id="collapse-filter">
+                            <a href="#"
+                               data-toggle="collapse"
+                               data-target="#entry-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="panel-title">RECRUITMENT PROCESS EDIT</h3>
+                </div>
+                <div id="entry-panel" class="panel-body collapse in">
+                    <form action="recruitment_process_edit.php"
+                          method="post"
+                          name="formInput"
+                          id="formInput"
+                          onSubmit="return validInput();"
+                          class="form-horizontal"
+                          role="form">
+                        <input name="dataCandidateID"
+                               type="hidden"
+                               id="dataCandidateID3"
+                               value="[var.strDataCandidateID]">
+                        <input name="dataID" type="hidden" id="dataID3" value="[var.strDataID]">
+                        <fieldset>
+                            <legend><b>CANDIDATE DATA</b></legend>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataType">Candidate Name</label>
+
+                                    <div class="col-sm-8 label-field">
+                                        [var.strDataCandidateName]
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataType">Application Date</label>
+
+                                    <div class="col-sm-8 label-field">
+                                        [var.strDataApplicationDate]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataType">Candidate Name</label>
+
+                                    <div class="col-sm-8 label-field">
+                                        [var.strDataCandidateName]
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataType">MRF Number</label>
+
+                                    <div class="col-sm-8 label-field">
+                                        <strong>[var.strMRFNumber;protect=no;htmlconv=no]</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataType">Position</label>
+
+                                    <div class="col-sm-8 label-field">
+                                        <strong>[var.strDataPosition]</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend><b>INVITATION DATA</b></legend>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataType">Invitation Date</label>
+
+                                    <div class="col-sm-8 label-field">
+                                        [var.strDataCandidateName]
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataType">Application Date</label>
+
+                                    <div class="col-sm-8 label-field">
+                                        <div class="input-group">
+                                            [var.strInputInvitationDate]
+	                      <span class="input-group-addon">
+	                      	<i class="fa fa-calendar"></i>
+	                      </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataType">Invitation Method</label>
+
+                                    <div class="col-sm-8 label-field">
+                                        [var.strInputInvitationMethod]
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="col-md-12">
+                            [var.strDataDetail]
+                        </div>
+                        <div class="col-md-12">
+                            <fieldset>
+                                <legend><b>FINAL RESULT</b></legend>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="dataType">Result</label>
+
+                                        <div class="col-sm-8 label-field">
+                                            [var.strInputResult]
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="dataType">Note</label>
+
+                                        <div class="col-sm-8 label-field">
+                                            [var.strInputNote]
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-12 form-actions">
+                            <input class="btn btn-primary btn-sm"
+                                   name="btnSave"
+                                   type="submit"
+                                   id="btnSave"
+                                   value="Save">&nbsp;
+                            <input class="btn btn-info btn-sm"
+                                   name="btnPrintLetter"
+                                   type="button"
+                                   id="btnPrintLetter"
+                                   value="Print Letter"
+                                   onClick="goPrintDenied()">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td [var.strMsgClass] align="center">[var.strMessages]</td>
+    </tr>
+    <tr>
+        <td valign="top" class="inputBox">
+
+            <table width="98%" border="0" align="center" cellpadding="1" cellspacing="0">
+                <tr>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" height=30 valign=bottom>
+
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

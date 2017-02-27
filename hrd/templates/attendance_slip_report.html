@@ -1,0 +1,53 @@
+<script type="text/javascript">
+    // fungsi memeriksa validasi input
+    function goPage(no) {
+        if (no != "") {
+            document.formInput.dataPage.value = no;
+            document.formInput.btnShow.click();
+        }
+    }//goPage
+
+    function validInput() {
+        if (document.form1.dataCompany.value == "") {
+            alert("Please Choose Company!");
+            return false;
+        }
+        else {
+            return true;
+        }
+    } //validInput
+
+    [
+    var .
+    strInitAction
+    ]
+</script>
+[var.pageHeader]
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form name="form1" id="form1" method="post" class="form-horizontal" role="form">
+                <div class="col-md-12">
+                    [var.formInput; protect=no; htmlconv=no]
+                </div>
+                <div class="col-md-12">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="panel-actions">
+                                <div class="pull-right" id="collapse-filter">
+                                    <a href="#"
+                                       data-toggle="collapse"
+                                       data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="panel-title"><strong>ATTENDANCE SLIP LIST</strong></h3>
+                        </div>
+                        <div id="list-panel" class="panel-body collapse in">
+                            [var.dataGrid; protect=no; htmlconv=no]
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+  <script src="scripts/calendar.js"></script>
+  <script src="scripts/calendar-en.js"></script>
+  <link href="../css/calendar.css" rel="stylesheet" type="text/css">
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+            [var.strWordsEntryPR] |  
+            <a href="com_asset_purchase_request_list.php">[var.strWordsPRList]</a> </strong>
+          </td>
+        </tr>
+      </table></td>
+  </tr>
+  
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td valign="top">
+ 
+[var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  
+</table>
+<script type="text/javascript">
+
+
+	var myClient = {
+    editData : function(idx)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataID').value = "";
+        $('dataPurchaseNo').value="";
+        //$('dataEmployee').value="";
+        $('dataRequestDate').value = "";
+        $('dataIdCategory').selectedIndex = -1;
+        $('dataRemark').value = "";
+        $('dataAttachmentFile').value = "";
+        $('dataStatus').value = "";
+        $('dataApproval').value = "";
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $F("detailID" + idx);
+        $('dataPurchaseNo').value = $F("detailPurchaseNo" + idx);
+       // $('dataEmployee').value = $F("detailEmployee" + idx);
+        $('dataRequestDate').value = $F("detailRequestDate" + idx);
+        $('dataIdCategory').value = $F("detailIdCategory" + idx);
+        $('dataRemark').value = $F("detailRemark" + idx);
+        $('dataAttachmentFile').value = $F("detailAttachmentFile" + idx);
+        $('dataStatus').value = $F("detailStatus" + idx);
+        $('dataApproval').value = $F("detailApproval" + idx);
+      }
+      $('dataEmployee').focus();
+    },
+    
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+    
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+</script>

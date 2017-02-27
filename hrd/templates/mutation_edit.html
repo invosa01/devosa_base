@@ -1,0 +1,339 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<script src="department_data.php"></script>
+<link   href="../css/calendar.css" rel="stylesheet" type="text/css">
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+  <!--
+
+  // memeriksa apakah opsi employee status dipilih atau gak
+  function checkStatus() {
+    var pilih = document.formInput.dataIsStatus.checked;
+    var obj = document.getElementById("inputStatus");
+
+    document.formInput.dataStatusNew.disabled = !pilih;
+    document.formInput.dataStatusDateFrom.disabled = !pilih;
+    document.formInput.dataStatusDateThru.disabled = !pilih;
+
+    if (pilih) obj.style.display = (document.all) ? "block" : "table-row";
+    else obj.style.display = "none";
+  } // checkStatus
+
+  // memeriksa apakah opsi position dipilih atau gak
+  function checkPosition() {
+    var pilih = document.formInput.dataIsPosition.checked;
+    var obj = document.getElementById("inputPosition");
+
+    if (pilih) obj.style.display = (document.all) ? "block" : "table-row";
+    else obj.style.display = "none";
+  } // checkPosition
+
+  // memeriksa apakah opsi department dipilih atau gak
+  function checkOrganization() {
+    var pilih = document.formInput.dataIsDepartment.checked;
+    var obj = document.getElementById("inputDepartment");
+
+    document.formInput.dataManagementOld.disabled = !pilih;
+    document.formInput.dataManagementNew.disabled = !pilih;
+    document.formInput.dataDivisionOld.disabled = !pilih;
+    document.formInput.dataDivisionNew.disabled = !pilih;
+    document.formInput.dataDepartmentOld.disabled = !pilih;
+    document.formInput.dataDepartmentNew.disabled = !pilih;
+    document.formInput.dataSectionOld.disabled = !pilih;
+    document.formInput.dataSectionNew.disabled = !pilih;
+    document.formInput.dataSubSectionOld.disabled = !pilih;
+    document.formInput.dataSubSectionNew.disabled = !pilih;
+    document.formInput.dataDepartmentNewDate.disabled = !pilih;
+    if (pilih) obj.style.display = (document.all) ? "block" : "table-row";
+    else obj.style.display = "none";
+  } // checkOrganization
+  
+  // fungsi memeriksa saat division dipilih, untuk menentukan managementnya
+  function checkDivision() {
+    var div = document.formInput.dataDivisionNew.value;
+
+    if (div != "") {
+
+      if (arrDivision[div] != "undefined") {
+        document.formInput.dataManagementNew.value = arrDivision[div];
+        document.formInput.dataDepartmentNew.value = "";
+        document.formInput.dataSectionNew.value = "";
+        document.formInput.dataSubSectionNew.value = "";
+      }
+    }
+  }// checkDivision
+
+
+  // fungsi memeriksa saat department dipilih, untuk menentukan divisinya
+  function checkDepartment() {
+    var dept = document.formInput.dataDepartmentNew.value;
+    if (dept != "") {
+      if (arrDepartment[dept][0] != "undefined") document.formInput.dataManagementNew.value = arrDepartment[dept][0];
+      if (arrDepartment[dept][1] != "undefined") document.formInput.dataDivisionNew.value = arrDepartment[dept][1];
+      document.formInput.dataSectionNew.value = "";
+      document.formInput.dataSubSectionNew.value = "";
+    }
+  }// checkDepartment
+  
+  // fungsi memeriksa saat section dipilih, untuk menentukan divisinya
+  function checkSection() {
+    var sect = document.formInput.dataSectionNew.value;
+
+    if (sect != "") {
+
+      if (arrSection[sect][0] != "undefined") document.formInput.dataManagementNew.value = arrSection[sect][0];
+      if (arrSection[sect][1] != "undefined") document.formInput.dataDivisionNew.value = arrSection[sect][1];
+      if (arrSection[sect][2] != "undefined") document.formInput.dataDepartmentNew.value = arrSection[sect][2];
+      document.formInput.dataSubSectionNew.value = "";
+    }
+  }// checkSection
+
+  function checkSubSection() {
+    var sect = document.formInput.dataSubSectionNew.value;
+    if (sect != "") {
+      if (arrSubSection[sect][0] != "undefined") document.formInput.dataManagementNew.value = arrSubSection[sect][0];
+      if (arrSubSection[sect][1] != "undefined") document.formInput.dataDivisionNew.value = arrSubSection[sect][1];
+      if (arrSubSection[sect][2] != "undefined") document.formInput.dataDepartmentNew.value = arrSubSection[sect][2];
+      if (arrSubSection[sect][3] != "undefined") document.formInput.dataSectionNew.value = arrSubSection[sect][3];
+
+    }
+  }// checkSubSection
+
+
+  function clearForm() {
+    document.formInput.dataEmployee.value = "";
+    document.formInput.dataLetterCode.value = "";
+    document.formInput.dataNote.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataDateFrom.focus();
+  }//clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+
+    if (document.formInput.dataEmployee.value == "") {
+      alert("Empty Employee ID!");
+      document.formInput.dataEmployee.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDate.focus();
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+    Calendar.setup({ inputField:"dataStatusDateFrom", button:"btnStatusDateFrom" });
+    Calendar.setup({ inputField:"dataStatusDateThru", button:"btnStatusDateThru" });
+    Calendar.setup({ inputField:"dataDepartmentNewDate", button:"btnDepartmentNewDate" });
+    init();
+    onCodeBlur();
+
+    checkStatus();
+    checkOrganization();
+
+  }//initPage
+  -->
+  jQuery(function($) {
+		$('#dataEmployee').autocomplete({
+			source: "hrd_ajax_source.php?action=getemployee",
+			minLength: 2,
+			select: function( event, ui ) {
+				console.log(ui);
+				$('#employee_name').html(ui.item.label);
+			}
+		});
+	});
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+				[var.pageSubMenu]
+	    	<p></p>
+			</div>
+			<div class="col-md-12">
+				<form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();" class="form-horizontal" role="form">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="dataType">[var.strWordsProposalDate]</label>
+							<div class="col-sm-9">
+								<div class="input-group">
+                    [var.strInputDate]
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+              	</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="dataType">[var.strWordsLetterCode]</label>
+							<div class="col-sm-9">
+								[var.strInputLetterCode]
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="dataType">[var.strWordsEmployeeID]</label>
+							<div class="col-sm-9">
+								<div class="input-group">
+                    [var.strInputEmployee]
+                    <span class="input-group-addon" style="padding: 2px 8px !important;">
+                        <i class="fa fa-info-circle"></i>
+                        <input name="btnGet" type="submit" id="btnGet" value="[var.strWordsGetInfo]">
+                    </span>
+              	</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="dataType">&nbsp;</label>
+							<div class="col-sm-9">
+								<strong id="employee_name">[var.strEmpName]</strong>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="dataType">[var.strWordsNote]</label>
+							<div class="col-sm-9">
+								[var.strInputNote]
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="dataType">[var.strWordsStatus]</label>
+							<div class="col-sm-9">
+								[var.strInputStatus]
+							</div>
+						</div>
+						<div class="panel">
+							<div class="panel-heading">
+								<div class="panel-actions">
+									<div class="pull-right" id="collapse-filter">
+								  	<a href="#" data-toggle="collapse" data-target="#input-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+								  </div>
+								</div>
+								<h3 class="panel-title">[var.strInputIsStatus]</h3>
+							</div>
+							<div id="input-panel" class="panel-body collapse in">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="dataType">[var.strWordsEmployeeStatus]</label>
+										<div class="col-sm-9">
+											[var.strInputStatusNew]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="dataType">[var.strWordsDateFrom]</label>
+										<div class="col-sm-4">
+											<div class="input-group">
+			                    [var.strInputStatusDateFrom]
+			                    <span class="input-group-addon">
+			                        <i class="fa fa-calendar"></i>
+			                    </span>
+			              	</div>
+										</div>
+										<label class="col-sm-1 control-label" for="dataType">[var.strWordsUntil]</label>
+										<div class="col-sm-4">
+											<div class="input-group">
+			                    [var.strInputStatusDateThru]
+			                    <span class="input-group-addon">
+			                        <i class="fa fa-calendar"></i>
+			                    </span>
+			              	</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	
+					<div class="col-md-8">
+						<div class="panel">
+							<div class="panel-heading">
+								<div class="panel-actions">
+									<div class="pull-right" id="collapse-filter">
+								  	<a href="#" data-toggle="collapse" data-target="#dept-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+								  </div>
+								</div>
+								<h3 class="panel-title">[var.strInputIsDepartment]</h3>
+							</div>
+							<div id="dept-panel" class="panel-body collapse in">
+								<div class="col-sm-12">
+									<table border="0" align="left" cellpadding="1" cellspacing="0" class="table table-striped table-hover" style="margin-bottom: 0;">
+										<thead>
+			                <tr valign="top">
+			                  <th nowrap>&nbsp;</th>
+			                  <th style="width: 17%;text-align: center;" >[var.strWordsManagement]</th>
+			                  <th style="width: 17%;text-align: center;">[var.strWordsDivision]</th>
+			                  <th style="width: 17%;text-align: center;">[var.strWordsDepartment]</th>
+			                  <th style="width: 17%;text-align: center;">[var.strWordsSection]</th>
+			                  <th style="width: 17%;text-align: center;">[var.strWordsSubSection]</th>
+			                </tr>
+		                </thead>
+		                <tbody>
+		                	<tr valign="top">
+			                  <td nowrap>[var.strWordsRecent]&nbsp;</td>
+			                  <td nowrap>[var.strInputManagementOld]</td>
+			                  <td nowrap>[var.strInputDivisionOld]</td>
+			                  <td nowrap>[var.strInputDepartmentOld]</td>
+			                  <td nowrap>[var.strInputSectionOld]</td>
+			                  <td nowrap>[var.strInputSubSectionOld]</td>
+			                </tr>
+			                <tr valign="top">
+			                  <td nowrap>[var.strWordsNew]</td>
+			                  <td nowrap>[var.strInputManagementNew]</td>
+			                  <td nowrap>[var.strInputDivisionNew]</td>
+			                  <td nowrap>[var.strInputDepartmentNew]</td>
+			                  <td nowrap>[var.strInputSectionNew]</td>
+			                  <td nowrap>[var.strInputSubSectionNew]</td>
+			                </tr>
+			                <tr>
+			                  <td nowrap>[var.strWordsStartDate]</td>
+			                  <td nowrap>
+			                  	<div class="input-group">
+			                    	[var.strInputDepartmentNewDate]
+			                    	<span class="input-group-addon">
+			                        <i class="fa fa-calendar"></i>
+			                    	</span>
+			              			</div>
+			              		</td>
+			                  <td>&nbsp;</td>
+			                  <td>&nbsp;</td>
+			                  <td>&nbsp;</td>
+			                  <td>&nbsp;</td>
+			                </tr>
+		                </tbody>
+		              </table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<input class="btn btn-primary" name="btnSave" type="submit" id="btnSave2" value="[var.strWordsSave]">
+						<input class="btn btn-danger" name="btnNew" type="button" id="btnNew" value="[var.strWordsClearForm]" onClick="location.href = 'mutation_edit.php';">
+						<input name="dataID" type="hidden" id="dataID2" value="[var.strDataID]">
+					</div>	
+				</form>
+			</div>
+		</div>
+	</div>

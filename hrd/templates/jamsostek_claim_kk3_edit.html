@@ -1,0 +1,400 @@
+<!DOCTYPE HTML>
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script language="Javascript">
+  // script-script tambahan, khusus untu loockup employee
+ 
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+
+  // fungsi untuk nentuin apakah leave duratin disable/not
+  function editLeaveDuration() {
+    editable = document.formInput.chkEditLeave.checked;
+
+    document.formInput.dataLeaveDuration.disabled = !editable;
+  }
+function ConfirmSave()
+{
+	var dateFrom = document.getElementById('dataDateFrom').value;
+	var dateTo = document.getElementById('dataDateThru').value;
+	return confirm("Are you sure to absence at this "+dateFrom+" until "+dateTo+"?");
+	
+	
+		
+	
+}
+  function clearForm() {
+    document.formInput.dataEmployee.value = "";
+    document.formInput.dataNote.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataDateFrom.focus();
+  }//clearForm
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.btnDateAccident.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+    if (document.formInput.dataEmployee.value == "") {
+      alert("Empty Employee ID!");
+      document.formInput.dataEmployee.focus();
+      return false;
+    }
+
+    // gak boleh entry di tanggal yang sama (HARI INI)
+    /*
+    tmp1 = dateCompare(document.formInput.dataDate.value, document.formInput.dataDateFrom.value);
+    tmp2 = dateCompare(document.formInput.dataDate.value, document.formInput.dataDateThru.value);
+    if (document.formInput.dataType.value != "K") // jika bukan ijin khussu
+    {
+      if (tmp1 == -1 || tmp2 == -1) {
+        alert("Cannot entry absen for MORE than TODAY!");
+        document.formInput.dataDateFrom.focus();
+        return false;
+      }
+    } else {
+      // kalau K boleh aja isi hari ini atau besok (IJIN KHUSUS)
+    }
+    */
+    if(ConfirmSave())
+	return true;
+    else
+      return false;
+  } //validInput
+  // fungsi untuk inisialisasi
+
+  function initPage_() {
+    document.formInput.btnDateAccident.focus();
+    Calendar.setup({ inputField:"dataDateAccident", button:"btnDateAccident" });
+    Calendar.setup({ inputField:"inputDateKK2Submit", button:"btnDateKK2Submit" });
+    Calendar.setup({ inputField:"inputDatePatientStatusDetermined", button:"btnDatePatientStatusDetermined" });
+    
+    init();
+    onCodeBlur();
+    calc_total();
+  }//initPage
+
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+            [var.strWordsJamsostekClaimEntry] |  
+            <a href="jamsostek_claim_kk3_list.php">[var.strWordsJamsostekClaimList]</a></strong>
+          </td>
+        </tr>
+      </table></td>
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+   <tr>
+    <td class="inputTop">[var.strWordsINPUTDATA]</td>
+  </tr>
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form enctype="multipart/form-data" action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsRequestDate]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDate]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;[var.strWordsEmployeeID]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputEmployee]&nbsp;[var.strBtnInputGetInfo]<!--<br><strong id="employee_name"></strong>&nbsp;--></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsEmployeeName]</td>
+                  <td align="center">:</td>
+                  <td nowrap><!--[var.strInputEmployeeName]&nbsp;--><strong id="employee_name"></strong>&nbsp;</td>
+                  <td nowrap>&nbsp;[var.strWordsJamsostekCardID]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputJamsostekCardID]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap rowspan=2>&nbsp;[var.strWordsEmployeeAddress]</td>
+                  <td align="center" rowspan=2>:</td>
+                  <td nowrap rowspan=2>[var.strInputEmployeeAddress]&nbsp;</td>
+                  <td nowrap> &nbsp;[var.strWordsZipCode]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputZipCode]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;[var.strWordsPhone]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputPhone]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;[var.strWordsBirthdate]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputBirthdate]</td>
+                  <td nowrap rowspan=2> &nbsp;[var.strWordsGender]</td>
+                  <td align="center" rowspan=2>:</td>
+                  <td nowrap rowspan=2>[var.strInputGender]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsBirthplace]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputBirthplace]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsPosition]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputPosition]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsDepartment]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputDepartment]</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsAccidentPlace]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputAccidentPlace]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsAccidentDate]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputAccidentDate]&nbsp; <input name="btnDateAccident" type="button" id="btnDateAccident" value=".."></td>
+                  <td nowrap>&nbsp;[var.strWordsAccidentTime]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputAccidentTime]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsKK2SubmitDate]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputKK2SubmitDate]&nbsp; <input name="btnDateKK2Submit" type="button" id="btnDateKK2Submit" value=".."></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsCostTransport]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputCostTransport]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsCostTreatment]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputCostTreatment]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsCostProthese]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputCostProthese]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsCostFuneral]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputCostFuneral]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsCostTotal]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputCostTotal]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap rowspan=3>&nbsp;[var.strWordsSTMB]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputSTMB_a]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputSTMB_b]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputSTMB_c]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsRecvName]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputRecvName]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsRecvAddress]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputRecvAddress]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsPatientStatus]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputPatientStatus]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsDatePatientStatusDetermined]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDatePatientStatusDetermined]&nbsp; <input name="btnDatePatientStatusDetermined" type="button" id="btnDatePatientStatusDetermined" value=".."></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsDoc]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDoc]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td nowrap>[var.strDataDoc]</td>
+                  
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsPaid]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputPaid]</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsNote]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputNote]</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td> <input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]" > 
+                  [var.strButtons]
+                    <input name="btnNew" type="button" id="btnNew" value="[var.strWordsAddNew]" onClick="location.href='absence_edit.php';">
+                    <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]"></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+[var.strSyncScript]

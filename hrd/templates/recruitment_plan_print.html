@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title></title>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+  <link type="text/css" rel="stylesheet" href="[var.strPrintCss]">
+  <script>
+  <!--
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    [var.strPrintInit]
+  }//initPage
+
+  -->
+</script>
+
+</head>
+
+<body leftmargin="10" topmargin="0" onload="initPage_();" marginheight="0" marginwidth="10">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">Recruitment Plan List</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td> <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30">&nbsp;</td>
+            <td class="pageHeaderTitleText" nowrap="nowrap">&nbsp;</td>
+          </tr>
+        </tbody>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData">
+        <table border="0" cellpadding="0" cellspacing="0" class="gridTable">
+          <tr align="center" class="tableHeader">
+            <td width="5" rowspan="2" nowrap class="tableHeader">&nbsp;</td>
+            <td rowspan="2" nowrap class="tableHeader">DATE</td>
+            <td rowspan="2" nowrap class="tableHeader">DEPT.</td>
+            <td colspan="5" nowrap class="tableHeader">POSITION PROFILE</td>
+            <td colspan="8" nowrap class="tableHeader">QUALIFICATION</td>
+            <td rowspan="2" nowrap class="tableHeader">STATUS</td>
+            <td rowspan="2" nowrap class="tableHeader">CANDIDATE</td>
+            <td rowspan="2" nowrap class="tableHeader">&nbsp;</td>
+            <td rowspan="2" nowrap class="tableHeader">&nbsp;</td>
+          </tr>
+          <tr align="center" class="tableHeader">
+            <td nowrap class="tableHeader">POSITION</td>
+            <td nowrap class="tableHeader">EMPLOYEE <br>
+              STATUS</td>
+            <td nowrap class="tableHeader">NUMBER</td>
+            <td nowrap class="tableHeader">EXPECTED DATE</td>
+            <td nowrap class="tableHeader">JOB DESCRIPTION</td>
+            <td nowrap class="tableHeader">MIN <br>
+              AGE</td>
+            <td nowrap class="tableHeader">MAX <br>
+              AGE</td>
+            <td nowrap class="tableHeader">GENDER</td>
+            <td nowrap class="tableHeader">MARITAL<br>
+              STATUS </td>
+            <td nowrap class="tableHeader">EDUCATION<br>
+              LEVEL</td>
+            <td nowrap class="tableHeader">MAJOR STUDY</td>
+            <td nowrap class="tableHeader">WORK <br>
+              EXPERIENCE</td>
+            <td nowrap class="tableHeader">OTHER</td>
+          </tr>
+          [var.strDataDetail]
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="31" align="center">[var.strCopyright]</td>
+  </tr>
+</table>
+</body>
+</html>

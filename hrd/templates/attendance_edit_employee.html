@@ -1,0 +1,204 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+  <!--
+  strLateColor = "#FFCC99";
+
+  // fungsi untuk memeriksa apakah ada data terlambat atau tidak
+  function checkLate(index) {
+    if (index != "") {
+      var obj = document.getElementById("detailData" + index);
+      data1 = eval("document.formData.detailAttendanceStart" + index + ".value");
+      data2 = eval("document.formData.detailNormalStart" + index + ".value");
+      if (data1 != "" && data2 != "") {
+        if (data1 > data2) {
+          // anggap terlambat
+          obj.style.backgroundColor = strLateColor;
+          obj.title = "LATE";
+          eval("document.formData.detailNotLate" + index + ".checked = false");
+        } else {
+          obj.style.backgroundColor = "";
+          obj.title = "";
+          eval("document.formData.detailNotLate" + index + ".checked = true");
+        }
+      }
+    }
+  } //checkLate
+
+  // fungsi untuk mengisi semua data dengan data default
+  // mengisi data jam awal dan akhir dengan data default
+  function setDefault() {
+
+    document.formInput.dataChangeStart.value = document.formInput.dataNormalStart.value;
+    document.formInput.dataChangeFinish.value = document.formInput.dataNormalFinish.value;
+
+    return 1;
+  } // set default
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+    if (document.formInput.dataEmployee.value == "") {
+      alert("Empty Employee ID!");
+      document.formInput.dataEmployee.focus();
+      return false;
+    }
+
+    tmp = dateCompare(document.formInput.dataDateToday.value, document.formInput.dataDate.value);
+    if (tmp == -1) {
+      alert("Cannot entry date MORE than today!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+
+    ok = validateForm(document.formInput);
+    return ok;
+  } //validInput
+
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDate.focus();
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+    init();
+    onCodeBlur();
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strWordsATTENDANCEDATA]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>&nbsp;<strong>[var.strWordsManualDataEntry] | <a href="attendance_edit.php">[var.strWordsMultipleDataEntry]</a> | <a href="attendance_import.php">[var.strWordsImportAttendanceData]</a>
+            |
+            <!-- <a href="attendance_overtime.php">Overtime Attendance</a> | -->
+            <a href="attendance_list.php">[var.strWordsAttendanceList]</a> | <a href="attendance_report.php">[var.strWordsAttendanceReport]</a> </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputTop">[var.strWordsINPUTDATA]</td>
+  </tr>
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onsubmit="return validInput();">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsAttendanceDate]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDate]&nbsp;
+                    <input name="btnDate" type="button" id="btnDate" value="..">
+                    <input name="dataDateToday" value="[var.strNow]" type="hidden">
+                    </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsEmployeeID]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputEmployee]
+                    <input name="btnGet" type="submit" id="btnGet" value="[var.strWordsGetInfo]">
+                  </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;</td>
+                  <td align="center">:</td>
+                  <td>&nbsp;<strong id="employee_name"></strong></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsNormalTime] </td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputNormalStart] until [var.strInputNormalFinish]
+                    <input name="getUse" type="button" id="getUse" value="[var.strWordsUseNormal]" onClick="setDefault()"></td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;[var.strWordsActualTime]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputActualStart] until [var.strInputActualFinish]</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;[var.strWordsRevisionTime]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputChangeStart] until [var.strInputChangeFinish]</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;[var.strWordsNote]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputNote]</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp; </td>
+                  <td align="center">&nbsp;</td>
+                  <td><input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]" onClick="">
+                  </td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+            <td width="20" valign="top">&nbsp;</td>
+            <td valign="top">&nbsp; </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>
+<script type="text/javascript">
+initPage_();
+</script>

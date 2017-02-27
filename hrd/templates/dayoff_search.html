@@ -1,0 +1,238 @@
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../js/prototype.js"></script>
+<script type="text/javascript" src="../js/calendar.js"></script>
+<script type="text/javascript" src="../js/calendar-en.js"></script>
+<script type="text/javascript" src="../js/invosa.js"></script>
+<script type="text/javascript" src="../js/acEmployee.js"></script>
+<script type="text/javascript" src="../js/ylib.js"></script>
+<script type="text/javascript" src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDateFrom.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateFrom.focus();
+      return false;
+    }
+    
+    if (document.formInput.dataDateThru.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+    
+    if (dateCompare(document.formInput.dataDateFrom.value, document.formInput.dataDateThru.value) > 0)
+    {
+      alert("Error : date from bigger than date thru");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("Are you sure want to delete selected data?");
+  } //confirmDelete
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmApprove() {
+    return confirm("Are you sure want to approve selected data?");
+  } //confirmDelete
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+  
+  function getElementsByName_iefix(tag, name) 
+  {
+    var elem = document.getElementsByTagName(tag);
+    var arr = new Array();
+    for(i = 0,iarr = 0; i < elem.length; i++) {
+        att = elem[i].getAttribute("name");
+        if(att == name) 
+        {
+             arr[iarr] = elem[i];
+             iarr++;
+        }
+    }
+    return arr;
+  }
+
+
+  function togleTree(i,j)
+  {
+  //alert(i);
+	for (x=1;x<=j;x++)
+	{
+	    var detailRow = $("detail" + i + x);
+	    if (document.all) 
+	    {
+	      if (detailRow.style.display == "none") 
+	        detailRow.style.display = "block"; 
+	      else 
+	        detailRow.style.display = "none";
+	    }
+	    else
+	    {
+	      if (detailRow.style.display == "none") 
+	        detailRow.style.display = "table-row"; 
+	      else 
+	        detailRow.style.display = "none";
+	    }
+	}
+    if (detailRow.style.display == "none")
+      $('expand' + i).value = '+';
+    else
+      $('expand' + i).value = '-';
+  }
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDateFrom.focus();
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+    init();
+    onCodeBlur();
+  }//initPage
+</script>
+<script type="text/javascript">
+  //menampilkan detail karyawan yang ikut lembur
+  function showDetail(index) {
+    if (index == "" || index == "undefined") {
+      return 0;
+    }
+
+    kiri = (screen.width / 2) - 150;
+    atas = (screen.height / 2) - 10;
+
+    id = eval("document.formData.chkID" + index + ".value");
+    status = eval("document.formData.dataStatus" + index + ".value");
+    if (status < 2) {
+      url = "overtimeApplicationShowDetail.php?dataID=" + id + "&objectName=detailData" + index;
+      url += "&objectView=detail" + index;
+    } else {
+      url = "overtimeApplicationShowDetailFull.php?dataID=" + id + "&objectName=detailData" + index;
+      url += "&objectView=detail" + index;
+    }
+    properti = "width=300, height=20, resizable=no, statusbar=no,menubar=no, titlebar=no, top=" + atas + ", left=" + kiri;
+
+    var obj = window.open("","popup",properti);
+    obj.document.write("Please wait ...");
+    obj.document.title = "Please wait ..";
+    window.open(url,"popup",properti);
+  }
+</script>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;<strong>
+             [var.strWordsDayOffList] | 
+            <a href="dayoff_list.php">[var.strWordsEmployeeDayOff]</a>
+          </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="inputBox">
+      <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr> 
+            <td valign="top">
+              <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr valign="top"> 
+                  <td nowrap>&nbsp;[var.strWordsDateFrom]</td>
+                  <td width="10">:</td>
+                  <td nowrap>[var.strInputDateFrom]&nbsp; <input name="btnDateFrom" type="button" id="btnDateFrom" value=".."></td>
+                </tr>
+                <tr valign="top"> 
+                  <td nowrap> &nbsp;[var.strWordsDateTo]</td>
+                  <td>:</td>
+                  <td nowrap>[var.strInputDateThru]&nbsp; <input name="btnDateThru" type="button" id="btnDateThru" value=".."></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsEmployeeID]</td>
+                  <td>:</td>
+                  <td nowrap>[var.strInputEmployee]</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td nowrap><strong id="employee_name"></strong></td>
+                </tr>
+                <tr valign="bottom" height="25"> 
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td nowrap> <input name="btnShow" type="submit" id="btnShow" value="[var.strWordsShow]"> 
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td width="20">&nbsp;</td>
+            
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td><strong>[var.strWordsApplicationList] [var.strInfo]</strong></td>
+  </tr>
+  <tr> 
+    <td>
+      <form action="" method="post" name="formData" id="formData">
+        [var.strDataDetail]
+      </form>
+    </td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+</table>

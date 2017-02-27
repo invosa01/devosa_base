@@ -1,0 +1,119 @@
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../js/calendar.js"></script>
+<script type="text/javascript" src="../js/calendar-en.js"></script>
+<script type="text/javascript" src="../js/ylib.js"></script>
+<script type="text/javascript">
+  <!--
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+
+    return true;
+  } //validInput
+
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan="2" align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="2"><table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;<strong>
+          <a href="training_evaluation_edit.php?dataRequestID=[var.strRequestID]">[var.strWordFromParticipant]</a> |
+          <a href="training_evaluation_employee.php?dataRequestID=[var.strRequestID]">[var.strWordFromEmployee]</a> |
+          [var.strWordFromManager]
+          </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"  [var.strMsgClass]>[var.strMessages]</td>
+  </tr>
+  <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+  <tr>
+    <td width="90%" valign="top" class="inputBox">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;<strong>[var.strWordTopic]</strong></td>
+                  <td nowrap>: [var.strInputTopic]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;<strong>[var.strWordTrainingDate]</strong></td>
+                  <td nowrap>: [var.strInputDate]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;<strong>[var.strWordTrainer]</strong></td>
+                  <td nowrap>: [var.strInputTrainer]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;<strong>[var.strWordManager]</strong></td>
+                  <td nowrap>: [var.strInputManager]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;<strong>[var.strWordEmployee]</strong></td>
+                  <td nowrap>: [var.strInputEmployee]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;</td>
+                  <td nowrap>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td colspan="2" nowrap>
+                    <fieldset><legend><strong>[var.strWordTrainingEvaluation]</strong></legend>
+                      [var.strDataQuestion]
+                    </fieldset>
+                  </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;</td>
+                  <td align="center">&nbsp;<input type=hidden name="totalQuestion" value="[var.strDataTotalQuestion]"></td>
+                </tr>
+                <tr valign="top">
+                  <td colspan="2" nowrap></td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td nowrap>
+                    [var.strButtons]
+                    <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]">
+                    <input name="dataRequestID" type="hidden" id="dataRequestID" value="[var.strRequestID]">
+                  </td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+        </table>
+      </td>
+    <td width="10%" align="center" valign="top">
+    &nbsp;
+      </td>
+  </tr>
+  </form>
+</table>

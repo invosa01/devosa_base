@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+  <title>Letter</title>
+  <link type="text/css" rel="stylesheet" href="artajasa.css">
+</head>
+<body>
+<form name="formInput" action="[var.strAction]" method="post">
+  <table style="text-align: left; width: 100%;" class="inputBox"
+ border="0" cellpadding="2" cellspacing="0">
+    <tbody>
+      <tr>
+        <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+            <tr>
+              <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+              <td nowrap class="pageHeaderTitleText">LETTER</td>
+            </tr>
+          </table></td>
+      </tr>
+      <tr>
+        <td>&nbsp; <br>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap><strong>No : [var.strDataNo]</strong> &nbsp; [var.strButtons]</td>
+      </tr>
+      <tr>
+        <td><textarea name="dataContent" id="dataContent" rows="30" cols="100" onChange="document.formInput.isChanged.value = 1">[var.strDataContent]</textarea><br>[onload_1;block=tr;when [var.strContentType]=1]
+        </td>
+      </tr>
+      <tr>
+        <td><textarea name="dataContent" id="dataContent" rows="30" cols="100" onChange="document.formInput.isChanged.value = 1">[onload;file=[var.strDataContentFile]]</textarea><br>[onload_1;block=tr;when [var.strContentType]=0]
+        </td>
+      </tr>
+      <tr>
+        <td align="center" valign="top"><br>
+        <input type="hidden" name="dataID" value="[var.strDataID]">
+        <input type="hidden" name="dataProcessID" value="[var.strDataProcessID]">
+        <input type="hidden" name="dataCandidateID" value="[var.strDataCandidateID]">
+        <input type="hidden" name="dataDetailID" value="[var.strDataDetailID]">
+        <input type="hidden" name="isChanged" value="0">
+        <input type="hidden" name="isUpdated" value="[var.strIsUpdated]">
+        </td>
+      </tr>
+      <tr>
+        <td valign="top"><br>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,204 @@
+
+  <script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployeeID"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployeeID.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+
+  <script>
+  <!--
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+  }//checkAll
+
+  // fungsi untuk minta konfirmasi save
+  function confirmSave() {
+    return confirm("Save data for current year should only be done at the end of periode. Are you sure?");
+  } //confirmSave
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    //document.formInput.dataMonthFrom.focus();
+    init();
+    onCodeBlur();
+  }//initPage
+
+
+  // fungsi untuk menuju ke print page tertentu
+  function printData(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnPrint.click();
+    }
+  }//printData
+
+  // fungsi untuk menuju ke page tertentu
+  function goPage(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnShow.click();
+    }
+  }//goPage
+  -->
+  </script>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td class="pageHeaderTitle" align="left"> <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30">&nbsp;</td>
+            <td class="pageHeaderTitleText" nowrap="nowrap">&nbsp;Report - Employee
+              COst </td>
+          </tr>
+        </tbody>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp; </td>
+  </tr>
+  <tr>
+    <td align="left" class="inputBox"> <form action="" method="post" name="formInput" id="formInput">
+        <table width="700" border="0" cellpadding="2" cellspacing="0">
+          <tr>
+            <td valign="top"> <table border="0" cellspacing="0" cellpadding="2">
+                <tr>
+                  <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                      <tr valign="top">
+                        <td>&nbsp;</td>
+                        <td width="15" align="center">&nbsp;</td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr valign="top">
+                        <td nowrap>&nbsp;Month From</td>
+                        <td align="center">:</td>
+                        <td nowrap>[var.strInputFrom]&nbsp; </td>
+                      </tr>
+                      <tr valign="top">
+                        <td nowrap> &nbsp;Month Thru</td>
+                        <td align="center">:</td>
+                        <td nowrap>[var.strInputThru]&nbsp; </td>
+                      </tr>
+                      <tr valign="top">
+                        <td nowrap>&nbsp;Employee ID</td>
+                        <td align="center">:</td>
+                        <td nowrap>[var.strInputEmployee]</td>
+                      </tr>
+                      <tr valign="top">
+                        <td>&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td><strong id="employee_name"> </strong></td>
+                      </tr>
+                      <tr valign="top">
+                        <td>&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td> <input name="btnShow" type="submit" id="btnShow2" value="Show Data">  <input name="btnExcel" type="submit" id="btnExcel" value="Export Excel">
+                          <strong>
+                          <input type=hidden name="dataPage" value=1>
+                          </strong> </td>
+                      </tr>
+                    </table></td>
+                  <td width="20" valign="top">&nbsp;</td>
+                  <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td width="15" align="center">&nbsp;</td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr valign="top">
+                        <td nowrap> &nbsp;Department</td>
+                        <td align="center">:</td>
+                        <td nowrap>[var.strInputDepartment]</td>
+                      </tr>
+                      <tr valign="top">
+                        <td>&nbsp;Section</td>
+                        <td align="center">:</td>
+                        <td nowrap>[var.strInputSection]</td>
+                      </tr>
+                      <tr valign="top">
+                        <td>&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td>&nbsp; </td>
+                      </tr>
+                    </table></td>
+                </tr>
+                <tr>
+                  <td valign="top">&nbsp;</td>
+                  <td valign="top">&nbsp;</td>
+                  <td valign="top">&nbsp;</td>
+                </tr>
+              </table></td>
+            <td valign="top"> <table align="left" border="0" cellpadding="1" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td width="15%">&nbsp;</td>
+                    <td width="5%">&nbsp;</td>
+                    <td width="80%">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table></td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="listTop"><strong>LIST OF EMPLOYEE COST<br>
+      [var.strInfo]</strong></td>
+  </tr>
+  <tr>
+    <td> <form action="" method="post" name="formData" id="formData">
+        <table class="gridTable" border="0" cellpadding="1" cellspacing="0">
+          <tbody>
+            <tr class="tableHeader">
+              <td nowrap="nowrap" class="tableHeader">&nbsp;</td>
+              <td nowrap="nowrap" class="tableHeader"> EMPL. ID</td>
+              <td nowrap="nowrap" class="tableHeader">EMPL. NAME</td>
+              <td nowrap="nowrap" class="tableHeader">DEPT.</td>
+              <td nowrap="nowrap" class="tableHeader">SECT.</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">FUNCTIONAL</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">SALARY </td>
+              <td align="center" nowrap="nowrap" class="tableHeader">CONJUCTURE</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">TIRAS</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">MEDICAL<br>
+              </td>
+              <td align="center" nowrap="nowrap" class="tableHeader">OT CLAIM</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">BUSINESS<br>
+                TRIP</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">TRAINING</td>
+              <td align="center" nowrap="nowrap" class="tableHeader">TOTAL</td>
+            </tr>
+          [var.strDataDetail]
+          <tr align="center">
+            <td colspan="14" nowrap > <input name="totalData" id="totalData" value="[var.intTotalData]" type="hidden">
+              &nbsp; &nbsp; [var.strBtnPrint] [var.strHidden] <strong>[var.strPaging]</strong></td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,81 @@
+<script src="scripts/ylib.js"></script>
+<script>
+	<!--
+  // menuju ke suatu URL
+  function goUrl(url) {
+    if (url != "") {
+
+      if (document.formInput.dataID.value == "") {
+        alert("Please save data first");
+      } else {
+        location.href = url + ".php?dataID=" + document.formInput.dataID.value;
+      }
+    }
+  }//goUrl
+
+  // mengolah waktu load
+  function initPage_() {
+
+  }//initPage
+
+	-->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>&nbsp;<strong><a href="javascript:goUrl('employee_edit')">Primary
+            Information</a> | Facilities | <a href="javascript:goUrl('employee_edit_family')">Family
+            Data</a> | <a href="javascript:goUrl('employee_edit_education')">Education
+            Data</a> | <a href="javascript:goUrl('employee_edit_training')">Training
+            Data</a> | <a href="javascript:goUrl('employee_edit_work')">Work Experiences</a>
+            | <a href="javascript:goUrl('employee_resume')">Resume</a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputTop">INPUT DATA FACILITIES</td>
+  </tr>
+  <tr align="left" class="inputBox">
+    <td class="inputBox"><strong>&nbsp;&nbsp;&nbsp;[var.strEmployeeID] - [var.strEmployeeName]</strong></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr align="left">
+    <form action="" method="post" name="formInput" id="formInput">
+      <td valign="top"><table width="100" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+          <tr class="tableHeader">
+            <td nowrap>No</td>
+            <td width="20" nowrap>&nbsp;</td>
+            <td nowrap>Facility</td>
+            <td nowrap>Note</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td colspan="4">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="4"><input name="btnSave" type="submit" id="btnSave" value="Save">
+              <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]">
+            </td>
+          </tr>
+        </table></td>
+    </form>
+  </tr>
+</table>

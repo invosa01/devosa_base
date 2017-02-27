@@ -1,0 +1,317 @@
+<!--<script src="scripts/invosa.js"></script> -->
+<!--<script type="text/javascript" src="../js/prototype.js"></script> -->
+<!--<script type="text/javascript" src="../dropmenu.js"></script> -->
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+
+<script>
+  <!--
+
+  function goCalendar(MonthDiff, objName)
+  {
+    var intMonth = document.formCalendar.dataMonth.value;
+    var intYear = document.formCalendar.dataWYear.value;
+    intMonth = parseInt(intMonth) + MonthDiff;
+    if (intMonth > 12)
+    {
+      intMonth = 1;
+      intYear++;
+    }
+    else if (intMonth < 1)
+    {
+      intMonth = 12;
+      intYear--;
+    }
+    queryString = "ajax=1&month="+intMonth+"&year="+intYear;
+    new Ajax.Request("view_calendar.php",
+    { method:'get',
+      parameters: queryString,
+      onComplete: function(transport, json)
+      {
+        //alert(transport.responseText );
+        var arrData = transport.responseText.split("|||");
+        if (arrData.length >= 2)
+        {
+
+          $('calTitle').update (arrData[0]);
+          $(objName).update (arrData[1]);
+          document.formCalendar.dataMonth.value = intMonth;
+          document.formCalendar.dataWYear.value = intYear;
+        }
+      },
+      onLoading: function()
+      {
+      },
+      onFailure: function()
+      {
+      }
+    });
+  }
+
+  // fungsi untuk melihat alert
+  function goAlert(url) {
+    if (url != "") {
+      document.formAlert.action = url;
+      if (arguments.length > 1) {
+        // yang kedua dianggap sebagai status
+        document.formAlert.btnShowAlert.value = 1;
+        document.formAlert.dataStatus.value = arguments[1];
+        document.formAlert.dataRequestStatus.value = arguments[1];
+      }
+
+      document.formAlert.submit();
+    }
+  }
+
+  function openWindowCalendar()
+  {
+    var w = 640;
+    var h = 480;
+    kiri = (screen.width / 2) - w;
+    atas = (screen.height / 2) - h;
+    var intMonth = document.formCalendar.dataMonth.value;
+    var intYear = document.formCalendar.dataWYear.value;
+    url = "view_calendar.php?month="+intMonth+"&year="+intYear ;
+    properti = "width="+w+", height="+h+", resizable=yes, statusbar=no,menubar=yes, titlebar=no, top=" + atas + ", left=" + kiri;
+    window.open(url, "_blank", properti);
+  }
+  -->
+  //var calendarEvent = '[{"title" : "All Day Event","start" : "2015-03-01"},{"title" : "All Day Event 2 ","start" : "2015-03-04"},{"title" : "All Day Event 3","start" : "2015-03-07"}]';
+  var calendarEvent = '[var.strCalendar]';
+</script>
+<div class="header">
+  <div class="col-md-12">
+    <h3 class="header-title">Dashboard</h3>
+    <p class="header-info">Emplopyee Overview and latest statistics</p>
+  </div>
+</div>
+<!-- CONTENT -->
+<div class="main-content">
+<div class="row">
+<div class="col-md-6">
+  <div class="col-md-12 draggablePanelList">
+    <div class="panel ">
+      <div class="panel-heading">
+        <div class="panel-actions">
+        </div>
+        <h3 class="panel-title"><img src="../images/icons/faq.png" border="0" width="30" />[var.strWordsAlert]</h3>
+      </div>
+      <div class="panel-body">
+        [var.strDetailAlert]
+
+        <form name="formAlert" id="formAlert" method="POST">
+          <input type=hidden name="btnShowAlert" value=0>
+          <input type=hidden name="dataStatus">
+          <input type=hidden name="dataRequestStatus">
+        </form>
+      </div>
+    </div>
+  </div>
+<div class="col-md-12 draggablePanelList">
+  <div class="panel ">
+    <div class="panel-heading">
+      <div class="panel-actions">
+      </div>
+      <h3 class="panel-title"><img src="../images/icons/direction.png" border="0" width="30" />[var.strWordsShortcut]</h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-md-12">
+        <!-- <div class="col-md-3 col-sm-3 col-xs-6 text-center stat">
+          <span><a href="attendance_ess.php" class="pie-title">[var.strWordsTimeInOut]</a></span><br/>
+          <em>-</em>
+        </div> -->
+        <div class="col-md-3 col-sm-3 col-xs-6 text-center stat">
+          <span><a href="employee_search.php" class="pie-title">[var.strWordsEmployeeInfo]</a></span><br/>
+          <em>[var.strWordsSubEmployeeInfo]</em>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6 text-center stat">
+          <span><a href="absence_edit.php" class="pie-title">[var.strWordsAbsence]</a></span><br/>
+          <em>[var.strWordsSubAbsence]</em>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6 text-center stat">
+          <span><a href="attendance_list.php" class="pie-title">[var.strWordsAttendance]</a></span><br/>
+          <em>[var.strWordsSubAttendance]</em>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6 text-center stat">
+          <span><a href="leave_annual.php" class="pie-title">[var.strWordsLeave]</a></span><br/>
+          <em>[var.strWordsSubLeave]</em>
+        </div>
+      </div>
+      <div class="col-md-12">
+        [var.strDetailTampilovertime]
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-md-12 draggablePanelList">
+  <div class="panel ">
+    <div class="panel-heading">
+      <div class="panel-actions">
+      </div>
+      <h3 class="panel-title"><img src="../images/icons/face-grin.png" border="0" width="30" />[var.strWordsBirthday]</h3>
+    </div>
+    <div class="panel-body">
+      <table class="table table-hover">
+        <tr class="tableHeader">
+          <td nowrap>[var.strWordsNo]</td>
+          <td nowrap>[var.strWordsName]</td>
+          <td align="center" nowrap>[var.strWordsFm]</td>
+          <td align="center" nowrap>[var.strWordsBirthday]</td>
+          <!-- <td align="center">Age</td>-->
+        </tr>
+        [var.strDetailBirthday]
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12 draggablePanelList">
+  <div class="panel ">
+    <div class="panel-heading">
+      <div class="panel-actions">
+      </div>
+      <h3 class="panel-title"><img src="../images/icons/about.png" border="0" width="30" />[var.strWordsNews]</h3>
+    </div>
+    <div class="panel-body">
+      [var.strDetailNews]
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12 draggablePanelList">
+  <div class="panel ">
+    <div class="panel-heading">
+      <div class="panel-actions">
+      </div>
+      <h3 class="panel-title"><img src="../images/icons/about.png" border="0" width="30" />[var.strWordsTripcuti]</h3>
+    </div>
+    <div class="panel-body">
+      <table class="table table-hover">
+        <tr class="tableHeader">
+          <td nowrap>[var.strWordsNo]</td>
+          <td nowrap>[var.strWordsName]</td>
+          <td align="center" nowrap>[var.strWordsStartDate]</td>
+          <td align="center" nowrap>[var.strWordsStartDate]</td>
+          <td align="center">[var.strWordsDescription]</td>
+        </tr>
+        [var.strDetailTripcuti]
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+<div class="col-md-6">
+
+  <div class="col-md-12 draggablePanelList">
+    <div class="panel ">
+      <div class="panel-body">
+        <div id="calendar"></div>
+
+      </div>
+    </div>
+  </div>
+<div class="col-md-12 draggablePanelList">
+  <div class="panel ">
+    <div class="panel-heading">
+      <div class="panel-actions">
+      </div>
+      <h3 class="panel-title"><img src="../images/icons/faq.png" border="0" width="30" />[var.strWordsEmployeeContract]</h3>
+    </div>
+    <div class="panel-body">
+      <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-hover datatable">
+      <thead>
+        <tr class="tableHeader">
+          <td nowrap>Empl. ID</td>
+          <td nowrap>Name</td>
+          <td nowrap>Start Date</td>
+          <td nowrap>Finish Date</td>
+          <td>Days</td>
+          <td>Action</td>
+        </tr>
+      </thead>
+      <tbody>
+        [var.strDetailContract]
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+<!-- NewsLetter-->
+<!--
+
+-->
+<!--
+<br>
+<table width='100%' border='0' cellpadding='0' cellspacing='0'>
+  <tr>
+    <td colspan=2 >
+      <form name='formNews' id='formNews' method='POST'>
+        <table width='100%' border='0' cellpadding='0' cellspacing='0'>
+          <tr>
+            <td  align='left' class='pageHeaderTitle'>
+              <table border='0' cellspacing='0' cellpadding='2'>
+                <tr>
+                  <td width='30'><img src='../images/icons/about.png' border='0' width='30'/></td>
+                  <td nowrap class='pageHeaderTitleText'>Company Regulation</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+
+               <td><div id="regulation">[var.strRegulation]</div></td>
+
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>
+-->
+<!--
+<br>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan=2 >
+      <form name="formKRA" id="formKRA" method="POST">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td  align="left" class="pageHeaderTitle">
+              <table border="0" cellspacing="0" cellpadding="2">
+                <tr>
+                  <td width="30"><img src="../images/icons/businessman_preferences.png" border="0" width="30"/></td>
+                  <td nowrap class="pageHeaderTitleText">[var.strWordsEmployeeKRA]</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+            <td><div id="kra">[var.strEmployeeKRA]</div></td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>
+-->
+
+
+
+</div>
+</div>

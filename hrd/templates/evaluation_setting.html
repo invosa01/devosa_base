@@ -1,0 +1,140 @@
+<script type="text/javascript" src="../js/ylib.js"></script>
+<script type="text/javascript" src="../js/invosa.js"></script>
+<script type="text/javascript">
+  <!--
+
+  //fungsi untuk memeriksa apakah input valid
+  function validInput() {
+
+    return validateForm(document.formData);
+  }//validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    //document.formInput.dataCode.focus();
+  }//initPage
+  -->
+</script>
+<script type="text/javascript">
+  // menampilkan tampilan yang hilang
+  function moreInput(tipe) {
+    var x = parseFloat(eval("document.formData.numShow"+tipe+".value"));
+    var max = parseFloat(eval("document.formData.maxDetail"+tipe+".value"));
+    if (x < max) {
+      ylib_getObj("detailData"+tipe+"_"+x).style.display = document.all ? "block" : "table-row";
+
+      eval("document.formData.dataBreak"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataDuration"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.dataNote"+tipe+"_"+x+".disabled = false");
+      eval("document.formData.numShow"+tipe+".value++");
+    }
+  }//moreInput
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">Evaluation Setting</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="20">&nbsp;</td>
+          <td nowrap><strong>
+               Evaluation Setting | 
+               <a href="evaluation_criteria1.php"> Criteria for Operational Performance Evaluation </a>| 
+               <a href="evaluation_criteria2.php">Criteria for General Evaluation</a> | 
+
+               </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tableHeader"> <form action="" method="post" name="formData" id="formData">
+        <table border="0" cellpadding="2" cellspacing="0">
+          <tr>
+            <td width="20" nowrap>&nbsp;</td>
+            <td width="20">&nbsp;</td>
+            <td width="20">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td colspan="3"><strong>Evaluation Setting</strong></td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td nowrap>Evaluation Start (Month)</td>
+            <td align="center">:</td>
+            <td nowrap> [var.strStartEvaluation] </td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td nowrap>Weight for Operational Performance (%)</td>
+            <td align="center">:</td>
+            <td nowrap> <input name="strOperational" type="text" class="numeric" id="strOperational" value="[var.strOperational]" size="20" maxlength="10">
+            </td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td nowrap>Weight for General Evaluation (%)</td>
+            <td align="center">:</td>
+            <td nowrap> <input name="strGeneral" type="text" class="numeric" id="strGeneral" value="[var.strGeneral]" size="20" maxlength="10">
+            </td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td nowrap> Weight for Absence Evaluation (%)</td>
+            <td align="center">:</td>
+            <td nowrap> <input name="strAbsence" type="text" class="numeric" id="strAbsence" value="[var.strAbsence]" size="20" maxlength="10">
+            </td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td nowrap>&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td nowrap>&nbsp;</td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td nowrap> Weight for Late Deduction (%)</td>
+            <td align="center">:</td>
+            <td nowrap> <input name="strLate" type="text" class="numeric" id="strLate" value="[var.strLate]" size="20" maxlength="10">
+            </td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td nowrap> Weight for Early Deduction (%)</td>
+            <td align="center">:</td>
+            <td nowrap> <input name="strEarly" type="text" class="numeric" id="strEarly" value="[var.strEarly]" size="20" maxlength="10">
+            </td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td nowrap> Weight for Absent with No Notification Deduction (%)</td>
+            <td align="center">:</td>
+            <td nowrap> <input name="strAlpa" type="text" class="numeric" id="strAlpa" value="[var.strAlpa]" size="20" maxlength="10">
+            </td>
+          </tr>
+          <tr>
+            <td align="center">&nbsp; </td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td> <input name="btnSave" type="submit" id="btnSave" value="Save"></td>
+          </tr>
+          <tr>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

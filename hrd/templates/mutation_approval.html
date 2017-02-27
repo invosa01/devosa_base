@@ -1,0 +1,205 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+  <!--
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDateFrom.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateFrom.focus();
+      return false;
+    }
+    if (document.formInput.dataDateThru.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+
+  // fungsi untuk minta konfirmasi perubahan status
+  function confirmChanges() {
+    return confirm("[var.strConfirmChangeStatus]");
+  } //confirmDelete
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDepartment.focus();
+    //Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    //Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+    //init();
+    onCodeBlur();
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>&nbsp;<strong><a href="mutation_edit.php">Proposal
+            Entry</a> | <a href="mutation_list.php">Proposal List</a>
+            | Approval</strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsCompany]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputCompany]&nbsp; </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsDepartment]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDepartment]&nbsp; </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;[var.strWordsSection]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputSection]&nbsp; </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsEmployeeID]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputEmployee]</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td><strong id="employee_name">
+                    </strong></td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td> <input name="btnShow" type="submit" id="btnShow" value="Show Data" onclick="document.formInput.target=''">
+                  <input name="btnPrint" type="submit" id="btnPrint" value="Print" onclick="document.formInput.target='_blank'">
+                   <input name="btnPrintStatus" type="submit" id="btnPrintStatus" value="Print Status Changes" onclick="document.formInput.target='_blank'">
+                    <input name="btnPrintPosition" type="submit" id="btnPrintPosition" value="Print Position Changes" onclick="document.formInput.target='_blank'">
+                     <input name="btnPrintDepartment" type="submit" id="btnPrintDepartment" value="Print Department Changes" onclick="document.formInput.target='_blank'">
+                  </td>
+                </tr>
+              </table></td>
+            <td width="20" valign="top">&nbsp;</td>
+            <td valign="top">&nbsp; </td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;</td>
+            <td valign="top">&nbsp;</td>
+            <td valign="top">&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="listTop"><strong>[var.strWordsListOf] [var.strPageTitle] [var.strInfo]</strong></td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData">
+        <table border="0" cellpadding="0" cellspacing="0" class="gridTable">
+          <tr align="center" class="tableHeader">
+            <td width="5" rowspan="2" nowrap class="tableHeader">&nbsp;</td>
+            <td rowspan="2" nowrap class="tableHeader">[var.strWordsProposalDate]</td>
+            <td rowspan="2" nowrap class="tableHeader">[var.strWordsLetterCode]</td>
+            <td rowspan="2" nowrap class="tableHeader">[var.strWordsEmployeeID]</td>
+            <td rowspan="2" nowrap class="tableHeader">[var.strWordsName]</td>
+            <td rowspan="2" nowrap class="tableHeader">[var.strWordsGender]</td>
+            <td colspan="3" nowrap class="tableHeader">[var.strWordsStatusConfirmation]</td>
+            <td colspan="6" nowrap class="tableHeader">[var.strWordsPositionChanges]</td>
+            <td colspan="3" nowrap class="tableHeader">[var.strWordsDepartmentChanges]</td>
+            <td rowspan="2" nowrap class="tableHeader">[var.strWordsNote]</td>
+            <td rowspan="2" nowrap class="tableHeader">[var.strWordsStatus]</td>
+          </tr>
+          <tr align="center" class="tableHeader">
+            <td nowrap class="tableHeader">[var.strWordsStatus]</td>
+            <td nowrap class="tableHeader">[var.strWordsDateFrom]</td>
+            <td nowrap class="tableHeader">[var.strWordsDateThru]</td>
+            <td nowrap class="tableHeader">[var.strWordsOldPosition]</td>
+            <td nowrap class="tableHeader">[var.strWordsOldGrade]</td>
+            <td nowrap class="tableHeader">[var.strWordsStartDate]</td>
+            <td nowrap class="tableHeader">[var.strWordsNewPosition]</td>
+            <td nowrap class="tableHeader">[var.strWordsNewGrade]</td>
+            <td nowrap class="tableHeader">[var.strWordsStartDate]</td>
+            <td nowrap class="tableHeader">[var.strWordsOldDepartment]</td>
+            <td nowrap class="tableHeader">[var.strWordsNewDepartment]</td>
+            <td nowrap class="tableHeader">[var.strWordsStartDate]</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td> <input name="chkAll" type="checkbox" id="chkAll" value="All" onChange="checkAll();">
+            </td>
+            <td colspan="27"> &nbsp;
+            [var.strButtons]
+              <input name="totalData" type="hidden" id="totalData" value="[var.intTotalData]">
+              [var.strHidden] &nbsp; </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

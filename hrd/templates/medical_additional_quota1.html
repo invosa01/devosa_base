@@ -1,0 +1,216 @@
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  <!--
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+
+  // fungsi untuk cek validasi
+  function validInput() {
+    return validateForm(document.formData);
+  }// validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    init();
+    onCodeBlur();
+  }//initPage
+
+  // fungsi untuk menuju ke page tertentu
+  function goPage(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnShow.click();
+    }
+  }//goPage
+
+
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+            <a href="data_medical_type.php">[var.strWordsTreatmentTypeSetting]</a> | 
+            <a href="data_medical_platform.php">[var.strWordsQuotaSetting]</a> | 
+            [var.strWordsExtendedQuota]</strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputTop"><strong>[var.strWordsFILTERDATA]</strong></td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="" method="post" name="formInput" id="formInput" enctype="multipart/form-data" >
+    <table border="0">
+    <tr>
+        <td valign="top">
+        <table  align="left" cellpadding="1" cellspacing="0">
+          <tr valign="top">
+            <td>&nbsp;</td>
+            <td width="15" align="center">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap> &nbsp;Year</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputYear]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;</td>
+            <td width="15" align="center">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>          <tr valign="top">
+            <td nowrap>&nbsp;Employee ID</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputEmployee]<br> <strong id="employee_name"> </strong></td>
+          </tr>
+       </table>
+       </td>
+       <td>&nbsp;&nbsp;&nbsp;</td>        
+       <td >
+        <table  align="left" cellpadding="1" cellspacing="0">
+          <tr valign="top">
+            <td>&nbsp;</td>
+            <td width="15" align="center">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap> &nbsp;Company</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputCompany]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;Division</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputDivision]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;Department</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputDepartment]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;Section</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputSection]</td>
+          </tr>          
+          <tr valign="top">
+            <td>&nbsp;SubSection</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputSubSection]</td>
+          </tr>
+       </table>
+       </td>
+       <td>&nbsp;&nbsp;&nbsp;</td>
+       <td>
+        <table border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr valign="top">
+            <td>&nbsp;</td>
+            <td width="15" align="center">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+
+          <tr valign="top">
+            <td nowrap> &nbsp;Position</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputPosition]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap> &nbsp;Grade</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputGrade]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;Family Status</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputFamilyStatus ]</td>
+          </tr		            <tr valign="top">
+            <td>&nbsp;Employee Status</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputEmployeeStatus]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;Active</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputActive]</td>
+          </tr>
+        </table>
+       </td>
+     </tr>
+     <tr valign="top">
+      <td>&nbsp;<input type=hidden name=dataPage value=1><input name="btnShow" type="submit" id="btnShow" value="Show Data"></td>
+      <td> 
+       <!--<input name="btnShowImport" value="Import Data" type="button" onClick="showImport();">-->
+      </td>
+     </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr [var.strMsgClass]>
+    <td align="center">[var.strMessage]</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td class="listTop"><strong>list of [var.strPageTitle]</strong></td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData" onSubmit="return validInput()">
+        <table border="0" cellpadding="0" cellspacing="0" class="gridTable" width="100%">
+          <tr align="center" class="tableHeader">
+            <td nowrap>&nbsp;</td>
+            <td nowrap>ID</td>
+            <td nowrap>EMPLOYEE NAME</td>
+            <td nowrap>GRADE</td>
+            <td nowrap>DIVISION</td> 
+            <td nowrap>FAMILY<BR>STATUS</td> 
+            <td nowrap>SEX</td>
+            <td width="65px" nowrap valign="bottom">MAIN<br>QUOTA</td>
+            <td width="65px" nowrap valign="bottom">ADDITIONAL<br>QUOTA</td>
+            <td width="65px" nowrap valign="bottom">TOTAL<br>QUOTA</td>
+            <td width="200px" nowrap valign="bottom">NOTE</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td colspan="2" nowrap>[var.strHidden]&nbsp;&nbsp; <input type=submit name="btnSave" value="Save">
+            </td>
+            <td colspan="9" align="center" nowrap>&nbsp;[var.strPaging]
+              <input type=hidden name=totalData value="[var.intTotalData]">
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+      </form></td>
+  </tr>
+</table>
+

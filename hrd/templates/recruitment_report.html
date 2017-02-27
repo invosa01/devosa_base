@@ -1,0 +1,158 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+    // script-script tambahan, khusus untu loockup employee
+
+    AC_targetElements = ["dataEmployee"];
+
+    // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+    // kehilangan foku
+    function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+    <!--
+    // fungsi memeriksa validasi input
+    function validInput() {
+        if (document.formInput.dataDateFrom.value == "") {
+            alert("Empty Date!");
+            document.formInput.dataDateFrom.focus();
+            return false;
+        }
+        if (document.formInput.dataDateThru.value == "") {
+            alert("Empty Date!");
+            document.formInput.dataDateThru.focus();
+            return false;
+        }
+
+        return true;
+    } //validInput
+
+    // fungsi untuk inisialisasi
+    function initPage_() {
+        document.formInput.dataDateFrom.focus();
+        Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+        Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+        init();
+        onCodeBlur();
+    }//initPage
+    -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">Attendance Report</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>&nbsp;<strong>
+          <a href="attendance_edit_employee.php">Manual Data Entry</a> | <a href="attendance_edit.php">Manual Data Entry</a>
+            | <a href="attendance_import.php">Import Attendance  Data</a> |
+          <!-- <a href="attendance_overtime.php">Overtime Attendance</a> |  -->
+            <a href="attendance_list.php">Attendance List</a> | Attendance Report</strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td nowrap>&nbsp;Date From</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDateFrom]&nbsp; <input name="btnDateFrom" type="button" id="btnDateFrom" value=".."></td>
+                </tr>
+                <tr>
+                  <td nowrap> &nbsp;Date Thru</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDateThru]&nbsp; <input name="btnDateThru" type="button" id="btnDateThru" value=".."></td>
+                </tr>
+                <tr>
+                  <td nowrap>&nbsp;Employee ID</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputEmployee]</td>
+                </tr>
+                <tr>
+                  <td nowrap>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;<strong id="employee_name"></strong></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td><input name="btnShow" type="submit" id="btnShow" value="Show Data">
+                  </td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+            <td width="20" valign="top">&nbsp;</td>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td nowrap> &nbsp;Department</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDepartment]</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;Section</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputSection]</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp; </td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;</td>
+            <td valign="top">&nbsp;</td>
+            <td valign="top">&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>ATTENDANCE REPORT[var.strInfo]</strong></td>
+  </tr>
+  <tr>
+    <td>[var.strDataDetail]</td>
+  </tr>
+</table>

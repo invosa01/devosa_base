@@ -1,0 +1,280 @@
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="scripts/invosa.js"></script>
+<script type="text/javascript" src="scripts/calendar.js"></script>
+<script type="text/javascript" src="scripts/calendar.js"></script>
+<script type="text/javascript" src="scripts/calendar-en.js"></script>
+<script type="text/javascript" src="scripts/acEmployee.js"></script>
+<script type="text/javascript" src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+
+<script type="text/javascript">
+  // script-script tambahan, khusus untu loockup employee
+  <!--
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employeeName");
+    obj.innerHTML = nama;
+    return 1;
+  }
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDateFrom.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateFrom.focus();
+      return false;
+    }
+    if (document.formInput.dataDateThru.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+
+  // fungsi untuk minta konfirmasi pengubahan status
+  function confirmStatusChanges(bolDenied) {
+    bolOK  = confirm("[var.strConfirmChangeStatus]");
+    if (bolDenied && bolOK) {
+      document.formData.action = "medical_denied.php";
+    }
+    return bolOK;
+  } //confirmStatusChanges
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+
+  function goSlip() {
+    spvFin = window.prompt("Nama Supervisor Finance","");
+    spvHrd = window.prompt("Nama Supervisor HRD","");
+    document.formData.action = "medical_list.php?spvFin=" + spvFin + "&spvHrd=" + spvHrd;
+    document.formData.target = "_blank";
+  }//goSlip
+  // fungsi untuk inisialisasi
+  function initPage() {
+    document.formInput.dataDateFrom.focus();
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+    init();
+    onCodeBlur();
+  }//initPage
+
+  -->
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.pageSubMenu]
+	    	<p></p>
+			</div>
+  		<div class="col-md-12">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#filter-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">[var.strWordsFILTERDATA]</h3>
+					</div>
+					<div id="filter-panel" class="panel-body collapse in">
+						<form action="" method="post" name="formInput" id="formInput" class="form-horizontal" role="form">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataDateFrom">[var.strWordsDateFrom]</label>
+									<div class="col-sm-8">
+										<div class="input-group">
+	                    [var.strInputDateFrom]
+	                    <span class="input-group-addon">
+	                        <i class="fa fa-calendar"></i>
+	                    </span>
+		              	</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataDateThru">[var.strWordsDateThru]</label>
+									<div class="col-sm-8">
+										<div class="input-group">
+	                    [var.strInputDateThru]
+	                    <span class="input-group-addon">
+	                      <i class="fa fa-calendar"></i>
+	                    </span>
+		              	</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployee">[var.strWordsEmployeeID]</label>
+									<div class="col-sm-8">
+										[var.strInputEmployee]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">&nbsp;</label>
+									<div class="col-sm-8">
+										<strong id="employeeName"> </strong>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataRequestStatus">[var.strWordsRequestStatus]</label>
+									<div class="col-sm-8">
+										[var.strInputRequestStatus]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsEmployeeStatus]</label>
+									<div class="col-sm-8">
+										[var.strInputEmployeeStatus]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataBranch">[var.strWordsBranch]</label>
+									<div class="col-sm-8">
+										[var.strInputBranch]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataBank">[var.strWordsBank]</label>
+									<div class="col-sm-8">
+										[var.strInputBank]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataTreatmentType">[var.strWordsTreatmentType]</label>
+									<div class="col-sm-8">
+										[var.strInputTreatmentType]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataActive">[var.strWordsTreatmentCode]</label>
+									<div class="col-sm-8">
+										[var.strInputTreatmentCode]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataCompany">[var.strWordsCompany]</label>
+									<div class="col-sm-8">
+										[var.strInputCompany]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataDivision">[var.strWordsDivision]</label>
+									<div class="col-sm-8">
+										[var.strInputDivision]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataDepartment">[var.strWordsDepartment]</label>
+									<div class="col-sm-8">
+										[var.strInputDepartment]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataSection">[var.strWordsSection]</label>
+									<div class="col-sm-8">
+										[var.strInputSection]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataSubSection">[var.strWordsSubSection]</label>
+									<div class="col-sm-8">
+										[var.strInputSubSection]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 form-actions">
+								<input class="btn btn-primary btn-sm" name="btnShow" type="submit" id="btnShow" value="[var.strWordsShowData]" onClick="document.formInput.target = ''"> 
+	              <input class="btn btn-info btn-sm" name="btnPrint" type="submit" value="[var.strWordsPrintAll]" onClick="document.formInput.target = '_blank'">
+	              <input class="btn btn-warning btn-sm" name="btnPrintApproved" type="submit" value="[var.strWordsPrintApproved]" onClick="document.formInput.target = '_blank'">
+	              <input class="btn btn-info btn-sm" name="btnExcel" id="btnExcel" value="Excel" type="submit" onClick="document.formInput.target = ''">
+							</div>
+						</form>
+					</div>
+				</div>
+  		</div>
+  		<div class="col-md-12">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#data-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">[var.strWordsLISTOFEMPLOYEEMEDICALCLAIM] [var.strInfo]</h3>
+					</div>
+					<div id="data-panel" class="panel-body collapse in">	
+						<form action="" method="post" name="formData" id="formData">
+			        <table border="0" cellpadding="0" cellspacing="0" class="table table-striped table-hover table-bordered gridTable">
+			        	<thead>
+				          <tr align="center" class="tableHeader">
+				          	<th width=5 nowrap class=tableHeader>&nbsp;</th>
+				           	<th nowrap class="tableHeader">[var.strWordsEMPLID]</th>
+				            <th nowrap class="tableHeader">[var.strWordsNAME]</th>
+				            <th nowrap class="tableHeader">[var.strWordsGENDER]</th>
+				            <th nowrap class="tableHeader">[var.strWordsDEPT]</th>
+				            <th nowrap class="tableHeader">[var.strWordsBranch]</th>
+				            <th nowrap class="tableHeader">[var.strWordsNAME]</th>
+				            <th nowrap class="tableHeader">[var.strWordsRELATION]</th>
+				            <th nowrap class="tableHeader">[var.strWordsTYPE]</th>
+				            <th nowrap class="tableHeader">[var.strWordsCODE]</th>
+				            <th nowrap class="tableHeader">[var.strWordsTREATMENTDISEASE]</th>
+				            <th nowrap class="tableHeader">[var.strWordsMedicine]</th>
+				            <th nowrap class="tableHeader">[var.strWordsMEDDATE]</th>
+				            <th nowrap class="tableHeader">[var.strWordsMEDDATETHRU]</th>
+				            <th nowrap class="tableHeader">[var.strWordsCLAIMDATE]</th>
+				            <th nowrap class="tableHeader">[var.strWordsCOST]</th>
+				            <th nowrap class="tableHeader">[var.strWordsAPVCOST]</th>
+				            <th nowrap class="tableHeader">[var.strWordsSTATUS]</th>
+				            <th nowrap class="tableHeader">&nbsp;</th>
+				            <th nowrap class="tableHeader">&nbsp;</th>
+				          </tr>
+				        </thead> 
+				        <tbody>
+				          [var.strDataDetail]
+				          <tr>
+				          <td class="center"><div class="checkbox no-margin"><label><input class="checkbox-inline" name="chkAll" type="checkbox" id="chkAll" value="[var.strWordsAll]" onClick="checkAll();"></label></div></td>
+				            <td colspan="20">
+				            <!-- <input name="btnDelete" type="submit" id="btnDelete" value="Delete" onClick="return confirmDelete();"> -->
+				              [var.strButtonList]
+				              <input name="totalData" type="hidden" id="totalData" value="[var.intTotalData]">
+				              [var.strHidden] &nbsp; </td>
+				          </tr>
+				        </tbody>
+			        </table>
+			      </form>
+					</div>
+				</div>
+			</div>
+  	</div>
+  </div>
+<script type="text/javascript">
+  initPage();
+</script>

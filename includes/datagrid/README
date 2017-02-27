@@ -1,0 +1,16 @@
+#==============================================================================#
++-----------------------------------+
+| PHP Datagrid Class                |
++-----------------------------------+
+
+Author	: Dedy Sukandar
+Email   : dedy@sukandar.com
+Website	: http://www.sukandar.com/
+Licence	: Free
+Version	: 1.2
+
+cDataGrid is a class for generating datagrid form.
+
+For using this class:
+  see demo.php
+#==============================================================================#

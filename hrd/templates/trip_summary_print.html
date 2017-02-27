@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Business Trip</title>
+
+
+  <link type="text/css" rel="stylesheet" href="[var.strPrintCss]">
+
+</head>
+
+
+<body onload="[var.strPrintInit]">
+<div style="text-align:center">
+<strong>REKAPITULASI PERJALANAN DINAS PEGAWAI<br>
+PERIODE : [var.strDateFrom] s/d [var.strDateThru] </strong>
+</div>
+<p>&nbsp;</p>
+<table style="text-align: left; width: 100%;" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+  <thead>
+    <tr align=center>
+      <td rowspan=2><strong>NO.</strong></td>
+      <td rowspan=2><strong>NAMA</strong></td>
+      <td rowspan=2><strong>NIK</strong></td>
+      <td rowspan=2><strong>DEPT.</strong></td>
+      <td rowspan=2><strong>TUJUAN</strong></td>
+      <td colspan=2><strong>TGL. DINAS</strong></td>
+      <td rowspan=2><strong>HARI</strong></td>
+      <td colspan=2><strong>UANG SAKU</strong></td>
+      <td rowspan=2><strong>KETERANGAN</strong></td>
+    </tr>
+    <tr align=center>
+      <td><strong>PERGI</strong></td>
+      <td><strong>PULANG</strong></td>
+      <td><strong>PER HARI</strong></td>
+      <td><strong>TOTAL</strong></td>
+    </tr>
+  </thead>
+  <tbody>
+    [var.strDataDetail]
+  </tbody>
+</table>
+<br>
+<table style="text-align: left;" border="0" cellpadding="0" cellspacing="0" width=50%>
+    <tr>
+      <td width=10>&nbsp;</td>
+      <td colspan=5>Terbilang: [var.strTerbilang]&nbsp;</td>
+    </tr>
+    <tr><td colspan=6>&nbsp;</td></tr>
+    <tr><td colspan=6>&nbsp;</td></tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td width=40 align=center>Diajukan HRD&nbsp;</td>
+      <td width=40 align=center>Disetujui Oleh HRD Dept.Head&nbsp;</td>
+      <td width=40 align=center>Verifikasi Bag. Accounting&nbsp;</td>
+      <td width=40 align=center>Setuju Bayar&nbsp;</td>
+      <td width=40 align=center>Diterima Oleh&nbsp;</td>
+    </tr>
+    <tr><td colspan=6 height=40>&nbsp;</td></tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>......................</td>
+      <td>......................</td>
+      <td>......................</td>
+      <td>......................</td>
+      <td>......................</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>Tgl: &nbsp;</td>
+      <td>Tgl: &nbsp;</td>
+      <td>Tgl: &nbsp;</td>
+      <td>Tgl: &nbsp;</td>
+      <td>Tgl: &nbsp;</td>
+    </tr>
+    <tr><td colspan=6>&nbsp;</td></tr>
+</table>
+</body>
+</html>

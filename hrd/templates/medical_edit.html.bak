@@ -1,0 +1,387 @@
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="scripts/calendar.js"></script>
+<script type="text/javascript" src="scripts/calendar-en.js"></script>
+<script type="text/javascript" src="scripts/acEmployee.js"></script>
+<script type="text/javascript" src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+
+<script type="text/javascript">
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employeeName");
+    obj.innerHTML = nama;
+    setInputView();
+    return 1;
+  }
+</script>
+<script>
+  [var.strMedicalTypeArray]
+
+  // fungsi untuk handle saat jenis medis diubah
+  function changeMedicalType(idx) {
+    if (idx != "" && typeof idx != "undefined") {
+      tipe = eval("document.formInput.detailType" + idx + ".value");
+
+      /*if (tipe == 2)
+      {
+         chkRoom = eval("document.formInput.detailRoom"  + idx);
+         chkRoom.disabled = false;
+      }
+      else
+      {
+         chkRoom = eval("document.formInput.detailRoom"  + idx);
+         chkRoom.checked = false;
+         chkRoom.disabled = true;
+      }*/
+      if (typeof arrType[tipe] != "undefined" || idx != "") {
+        obj = eval("document.formInput.detailMedicalCode" + idx);
+        total = arrType[tipe].length;
+		// alert (idx);
+        //if (document.all && total > 0) total--; // khusus IE, entah, ngaco
+        obj.options.length = (total);
+        for (i = 1; i <= total;i++) {
+          code = arrType[tipe][i-1][0];
+          note = arrType[tipe][i-1][1];
+          if( note != "") note = code + " - " + note;
+          else note = code;
+          obj.options[i-1] = new Option(note,code);
+        }
+
+        obj.disabled = (total <=1);
+      }
+    }
+  } //refreshMedicalType
+
+  //fungsi untuk menampilkan baris baru untuk menambahkan data anak
+  function showMoreInput() { //kode = Address, or Phone
+    //document.form1.numShow.value++;
+    var n = eval("document.formInput.numShow.value;");
+    var max = eval("document.formInput.maxDetail.value;");
+    n++;
+    if (n < max) {
+      strNama = "detailRows" + n;
+      ylib_getObj(strNama).style.display = document.all ? "block" : "table-row";
+      eval("document.formInput.numShow.value++;");
+      eval("document.formInput.detailName" + n + ".disabled = false");
+      //eval("document.formInput.detailRelation" + n + ".disabled = false");
+      eval("document.formInput.detailType" + n + ".disabled = false");
+      //eval("document.formInput.detailRoom" + n + ".disabled = false");
+      eval("document.formInput.detailMedicalCode" + n + ".disabled = false");
+      eval("document.formInput.detailDisease" + n + ".disabled = false");
+      eval("document.formInput.detailMedicine" + n + ".disabled = false");
+      eval("document.formInput.detailMedicalDate" + n + ".disabled = false");
+      eval("document.formInput.detailMedicalDateThru" + n + ".disabled = false");
+      eval("document.formInput.detailClaimDate" + n + ".disabled = false");
+      eval("document.formInput.detailCost" + n + ".disabled = false");
+      eval("document.formInput.detailCostApproved" + n + ".disabled = false");
+      eval("document.formInput.detailName" + n + ".focus()");
+    } else {
+      //alert(n + " -- " + max);
+      
+    }
+  } //showMoreInput
+
+  //ketika checkbox delete berubah
+  function chkDeleteChanged(index) { //kode = Address, or Phone
+
+    if (index != "") {
+      var chk = eval("document.formInput.chkID" + index + ".checked");
+      if (chk) {
+        str = "true";
+      } else {
+        str = "false";
+      }
+
+      eval("document.formInput.detailName" + index + ".disabled = " + str);
+      eval("document.formInput.detailRelation" + index + ".disabled = " + str);
+      eval("document.formInput.detailDisease" + index + ".disabled = " + str);
+      eval("document.formInput.detailType" + index + ".disabled = " + str);
+      //eval("document.formInput.detailRoom" + index + ".disabled = " + str);
+      eval("document.formInput.detailMedicalCode" + index + ".disabled = " + str);
+      eval("document.formInput.detailMedicalDate" + index + ".disabled = " + str);
+      eval("document.formInput.detailMedicalDateThru" + index + ".disabled = " + str);
+      eval("document.formInput.detailClaimDate" + index + ".disabled = " + str);
+      eval("document.formInput.detailCost" + index + ".disabled = " + str);
+      eval("document.formInput.detailCostApproved" + index + ".disabled = " + str);
+
+    }
+  } //showMoreInput
+
+  // fungsi menghitung total cost
+  function getTotalCost() {
+    var max = eval("document.formInput.maxDetail.value;");
+    var total = 0;
+    for (i = 1; i <= max; i++) {
+      x = eval("document.formInput.detailCost" + i + ".value");
+      if (!isNaN(x) && x != "") {
+        total += parseFloat(x);
+      }
+    }
+    document.formInput.totalCost.value = total;
+  } //getTotalCost
+
+
+  // fungsi menghitung total cost approved
+  function getTotalCostApproved() {
+    var max = eval("document.formInput.maxDetail.value;");
+    var total = 0;
+    for (i = 1; i <= max; i++) {
+      x = eval("document.formInput.detailCostApproved" + i + ".value");
+      if (!isNaN(x) && x != "") {
+        total += parseFloat(x);
+      }
+    }
+    document.formInput.totalCostApproved.value = total;
+    document.formCash.dataAmount.value = total;
+  } //getTotalCostApproved
+
+  // saat cost berubah
+  function onCostChanged(index) {
+    if (index != "") {
+      eval("document.formInput.detailCostApproved" + index + ".value = document.formInput.detailCost" + index + ".value");
+      getTotalCost();
+      getTotalCostApproved();
+    }
+  }//onCostChanged
+	
+</script>
+<script>
+  <!--
+
+  function confirmCancel() {
+    return confirm("Apakah anda yakin akan membatalkan permohonan?");
+  }
+
+  // tampilkan windows daftar keluarga sesuai employeeID
+  function showFamily() {
+    var id = document.formInput.dataEmployee.value;
+    if (id == "") {
+      alert("NIK belum diisi");
+      document.formInput.dataEmployee.focus();
+    }
+    else
+    {
+       document.formInput.dataID.value = "";
+       document.formInput.submit();
+    }
+  } //
+
+  function validInput() {
+    return validateForm(document.formInput);
+  }//validInput
+
+  // fungsi untuk menampilkan tabel data cash (permohonan kas)
+  function showCashData() {
+    var obj = document.getElementById("dataCash");
+    obj.style.display = document.all ? "block" : "table-row";
+    document.formCash.dataCashDate.focus();
+  }
+  
+  // fungsi untuk menentukan tampilan tabel input list keluarga
+  function setInputView()
+  {
+    var obj = document.getElementById("details");
+    obj.style.display = "none";
+    if (document.getElementById("employeeName").innerHTML != "")
+    {
+       if (document.formInput.dataEmployee.value != "")
+          obj.style.display = "block";
+       else
+          obj.style.display = "none";
+    }
+  }
+
+
+  // mengolah waktu load
+  function initPage_() {
+    document.formInput.dataEmployee.focus();
+    //Calendar.setup({ inputField:"dataPaymentDate", button:"btnPayment" });
+    Calendar.setup({ inputField:"dataCashDate", button:"btnCashDate" });
+    [var.strInitCalendar]
+    init();
+    onCodeBlur();
+    getTotalCost();
+    getTotalCostApproved();
+   }//initPage
+	 
+	jQuery(function($) {
+		setInputView();
+		$('#dataEmployee').autocomplete({
+			source: "hrd_ajax_source.php?action=getemployee",
+			minLength: 2,
+			select: function( event, ui ) {
+				console.log(ui);
+				$('#employeeName').html(ui.item.label);
+			}
+		});
+	});
+  -->
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.pageSubMenu]
+	    	<p></p>
+  		</div>
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">[var.strWordsINPUTDATA]</h3>
+					</div>
+					<div id="list-panel" class="panel-body collapse in">
+						[var.strMessages]
+						<form action="medical_edit.php" method="post" name="formInput" id="formInput" onSubmit="return validInput()" class="form-horizontal" role="form">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataEmployee">[var.strWordsEmployeeID]</label>
+									<div class="col-sm-4">
+										[var.strInputEmployee]
+									</div>
+									<div class="col-sm-5">
+										<strong id="employeeName">[var.employeeName]</strong>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-12 form-actions">
+								<input class="btn btn-primary btn-sm" type=button name="btnShow" value="[var.strWordsFamilyList]" onClick="showFamily();">
+							</div>
+							<div class="col-md-12">
+								<p></p>
+								<table id="details" border="0" cellpadding="0" cellspacing="0" class="table table-striped table-hover table-bordered gridTable" style="display: none;">
+									<thead>
+					          <tr class="tableHeader">
+					            <th class="center" nowrap>[var.strWordsNo]</th>
+					            <th class="center" nowrap>[var.strWordsName] - [var.strWordsRelation]</th>
+					            <th class="center" nowrap>[var.strWordsType]</th>
+					            <th class="center" nowrap>[var.strWordsCode]</th>
+					            <th class="center" nowrap>[var.strWordsTreatmentDisease]</th>
+					            <th class="center" nowrap>[var.strWordsMedicine]</th>
+					            <th class="center" nowrap>[var.strWordsTreatmentDateFrom]</th>
+					            <th class="center" nowrap>[var.strWordsTreatmentDateThru]</th>
+					            <th class="center" nowrap>[var.strWordsClaimDate]</th>
+					            <th class="center" nowrap>[var.strWordsCost]</th>
+					            <th class="center" nowrap>[var.strWordsApproved]</th>
+					            <th class="center" nowrap>[var.strWordsDelete]</th>
+					          </tr>
+				          </thead>
+				          <tbody>
+					          [var.strDataDetail]
+					          <tr>
+					            <td>&nbsp;</td>
+					            <td colspan="8"><a class="btn btn-xs btn-primary" href="javascript:showMoreInput();">[var.strWordsMore]</a></td>
+					            <td class="right"><input class="form-control numeric" name="totalCost" type="text" id="totalCost" value="0" size="10" maxlength="20" readonly></td>
+					            <td class="right"><input class="form-control numeric" name="totalCostApproved" type="text" id="totalCostApproved" value="0" size="10" maxlength="20" readonly></td>
+					            <td class="center">&nbsp;</td>
+					          </tr>
+					          <tr>
+					            <td colspan="12" align="center">&nbsp;</td>
+					          </tr>
+					          <tr>
+					            <td colspan="12">Status : <span class="label label-info" style="padding:2px 4px !important;">[var.strInputStatus]</span></td>
+					          </tr>
+					          <tr>
+					            <td colspan="12" align="center">
+					              <input type=hidden name=dataID value="[var.strDataID]">
+					              <input class="btn btn-sm btn-primary" name="btnSave" type="submit" id="btnSave3" value="Save">
+					              &nbsp;
+					              <input class="btn btn-sm btn-danger" name="btnClear" type="button" id="btnClear" value="[var.strWordsClearForm]" onClick="location.href = 'medical_edit.php';"> [var.strButtons]
+					              &nbsp;
+					            </td>
+					          </tr>
+				          </tbody>
+				        </table>	
+							</div>
+						</form>
+					</div>
+				</div>
+  		</div>
+  	</div>
+  </div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td  [var.strMsgClass] align="center"></td>
+  </tr>
+  <tr align="left">
+    
+      <td valign="top" class="inputBox"> 
+        </td>
+  
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr id="dataCash" style="[var.strCashStyle]">
+    <td class="inputBox"> <form action="" method="post" name="formCash" id="formCash">
+        <table width="100" border="0" cellpadding="1" cellspacing="0">
+          <tr>
+            <td colspan="3" nowrap><strong>[var.strWordsCASHREQUESTFORM]</strong></td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td nowrap>&nbsp;</td>
+            <td nowrap>&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsFormNo]</td>
+            <td nowrap>:</td>
+            <td nowrap>[var.strCashNo]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsRequestDate]</td>
+            <td nowrap>:</td>
+            <td nowrap>[var.strCashDate]&nbsp; <input name="btnCashDate" id="btnCashDate" type="button" value=".."></td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsAccountNo]</td>
+            <td nowrap>:</td>
+            <td nowrap>[var.strCashAccount]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsBudgetCode]</td>
+            <td nowrap>:</td>
+            <td nowrap>[var.strCashBudget]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>&nbsp;</td>
+            <td nowrap>&nbsp;</td>
+            <td nowrap>&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsAmount]</td>
+            <td nowrap>:</td>
+            <td nowrap>[var.strCashAmount]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>[var.strWordsNote]</td>
+            <td nowrap>:</td>
+            <td nowrap>[var.strCashNote]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>&nbsp;</td>
+            <td nowrap>&nbsp;</td>
+            <td nowrap> <input name="btnSaveCash" type="submit" id="btnSaveCash" value="[var.strWordsSaveRequest]">
+              <input name=dataID type=hidden id="dataID" value="[var.strDataID]">
+              <input name="btnCancelCash" type="submit" id="btnCancelCash" value="[var.strWordsCancelRequest]" onClick="return confirmCancel();">
+            </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>

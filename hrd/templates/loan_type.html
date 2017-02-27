@@ -1,0 +1,69 @@
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+				[var.pageSubMenu]
+	    	<p></p>
+			</div>
+  		<div class="col-md-12">
+  			[var.formInput;protect=no;htmlconv=no]
+  		</div>
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">LOAN TYPE LIST</h3>
+					</div>
+					<div id="list-panel" class="panel-body collapse in">
+						[var.DataGrid;protect=no;htmlconv=no]
+					</div>
+				</div>
+  		</div>
+  	</div>
+  </div>
+<script type="text/javascript">
+	var myClient = {
+    editData : function(idx)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataID').value = "";
+        $('dataType').value = 1;
+        $('dataExternalTransfer').checked = false;
+        $('dataExternalAccount').value = "";
+        $('dataExternalAccountName').value = "";
+        $('dataExternalBankCode').value = "";
+        $('dataNote').value = "";
+        $('weight').value = "0";
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $F("detailID" + idx);
+        $('dataType').value = $F("detailType" + idx);
+        $('dataExternalTransfer').checked = ($F('detailExternalTransfer' + idx) == "t")
+        $('dataExternalAccount').value = $F("detailExternalAccount" + idx);
+        $('dataExternalAccountName').value = $F("detailExternalAccountName" + idx);
+        $('dataExternalBankCode').value = $F("detailExternalBankCode" + idx);
+        $('dataNote').value = $F("detailNote" + idx);
+        $('weight').value = $F("detailWeight" + idx);
+      }
+      $('dataType').focus();
+    },
+    
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+    
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+</script>

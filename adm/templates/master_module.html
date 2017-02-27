@@ -1,0 +1,60 @@
+<script type="text/javascript">
+  //this function javascript below use prototype.js (if you use datagrid class you don't have to include this script//
+  var myClient = {
+    editData : function(idx)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataID').value = "";
+        $('dataFolder').value = "";
+        $('dataName').value = "";
+        $('dataVisible').checked = false;
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $('detailID' + idx).value;
+        $('dataName').value = $F('detailName' + idx);
+        $('dataFolder').value = $F('detailFolder' + idx);
+        var visible = $F('detailVisible' + idx);
+        $('dataVisible').checked = (visible == 't') ;
+      }
+      $('dataName').focus();
+      $('dataName').select();
+    },
+    
+    confirmDelete : function()
+    {
+      return confirm('Are you sure to delete this selected data?');
+    },
+    
+    confirmSave : function()
+    {
+      return confirm('Do you want to save this entry?');
+    }
+  }
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.formInput;protect=no;htmlconv=no]
+  		</div>
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">[var.strWordModuleList]</h3>
+					</div>
+					<div id="list-panel" class="panel-body collapse in">
+						[var.DataGrid;protect=no;htmlconv=no]
+					</div>
+				</div>
+  		</div>
+  	</div>
+  </div>

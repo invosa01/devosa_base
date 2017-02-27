@@ -1,0 +1,121 @@
+
+<script type="text/javascript" src="../js/acEmployee.js"></script>
+<script type="text/javascript" src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script src="division_js.php"></script>
+<script language="Javascript">
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["employee_id"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.getElementById("employee_id").value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script type="text/javascript">
+
+  // konfirmasi jika ada perintah mengubah status
+  function confirmStatusChanges() {
+    return confirm("Are you sure want to change status of selected data?");
+  } //confirmChange
+
+  // membuka window untuk status approval
+  function openWindowDialog(url) 
+  {
+    var winName = "_blank";
+    var width=800;
+    var height=500;
+    var left = (screen.width - width) / 2;
+    var top = (screen.height - height) / 2;
+    var foo = window.open(url,winName,"menubar=no,status=no,resizable=yes,scrollbars=yes,modal=yes,top="+top+",left="+left+",width="+width+",height="+height+"");
+    foo.focus();
+  }
+  // fungsi untuk menampilkan informasi tentang biaya perjalanan dinas berdasar band tertentu
+  function showTopicInfo(topic_id)
+  {
+    if (topic_id != "")
+    {
+      openWindowDialog("data_training_topic_print.php?btnShowInfo=Topic&dataID=" + topic_id);
+    }
+  }
+  
+  // perintah tampilkan dalam format cetak
+  function printList()
+  {
+    document.form1.target = '_blank';
+  }
+
+  // perintah submit pencarian
+  function doSearch()
+  {
+    document.form1.target = '';
+  }
+
+  // perintah import ke excel
+  function exportExcel()
+  {
+    document.form1.target = '';
+  }
+  
+  var myClient = {
+    
+    confirmDelete : function()
+    {
+      document.form1.target = '';
+      return confirm('[var.strConfirmDelete]');
+    }
+  }
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    init();
+    onCodeBlur();
+    initDiv("division_code", "department_code", "", "", "");
+  }//initPage
+</script>
+<form name="form1" id="form1" method="post">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td >&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr><!-- 
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;<strong><a href="training_request_edit.php">[var.strWordsInputTrainingRequest]</a> 
+            | [var.strWordsTrainingRequestList]</strong>
+          </td>
+        </tr>
+      </table></td>
+  </tr> -->
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td valign="top">
+[var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top">
+[var.DataGrid;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+</table>
+</form>

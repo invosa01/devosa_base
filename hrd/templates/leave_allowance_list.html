@@ -1,0 +1,69 @@
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<script src="department_data.php"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+	var myClient = {
+    editData : function(idx)
+    {
+    
+    },
+    editDataTripCost : function(idx, bolChecked)
+    {
+      $('dataTripCost_' + idx).checked = bolChecked;
+    },
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+  function initPage_() 
+  {
+  }
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30">
+          <td nowrap><strong>
+            <a href="leave_allowance_base.php">[var.strWordsCutOff]</a>  | 
+            [var.strWordsLeaveAllowanceList]</strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+      [var.formFilter;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top">
+      [var.DataGrid;protect=no;htmlconv=no]
+    </td>
+  </tr>
+
+</table>

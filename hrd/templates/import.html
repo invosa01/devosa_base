@@ -1,0 +1,115 @@
+  <script>
+    <!--
+
+    // fungsi untuk memeriksa input
+    function validInput() {
+      if (document.formInput.fileData.value == "") {
+        alert("Empty file!");
+        return false;
+      }
+
+      obj = document.getElementById("pesan");
+      obj.innerHTML = "Processing ... please wait ... ";
+
+      document.getElementById("btnImport").style.cursor = "wait";
+      return true;
+    }//validInput
+
+    // fungsi untuk inisialisasi
+    function initPage_() {
+      //document.formInput.filterEmployeeID.focus();
+    }//initPage
+
+    -->
+  </script>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td align="left">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="pageHeaderTitle" align="left">
+      <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30">&nbsp;</td>
+            <td class="pageHeaderTitleText" nowrap="nowrap">&nbsp;Import
+Medical Data</td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="inputBox">
+      <form action="" method="post" name="formInput" id="formInput" enctype="multipart/form-data" onSubmit="return validInput();">
+          <table align="left" border="0" cellpadding="1" cellspacing="0" width="500">
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr valign="top">
+              <td width="15%" nowrap="nowrap"><strong>&nbsp;Data File</strong></td>
+              <td width="5%">:</td>
+              <td width="80%"> <input size="50" name="fileData" type="file"> </td>
+            <tr valign="top">
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td nowrap=""> <input name="btnImport" id="btnImport" value="Import" type="submit">
+              <strong id="pesan"></strong> </td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>FORMAT DATA INPUT</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>
+                [var.strFormatFile]
+              </td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+          </table>
+      </form>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr id='detailResult' [var.strResultStyle]>
+      <td>
+        <table class="gridTable" border="0" cellpadding="1" cellspacing="0">
+
+            <tr class="tableHeader">
+              <td class="tableHeader" nowrap="nowrap" align="center">RESULT #FORM</td>
+              <td class="tableHeader" nowrap="nowrap" align="center">RESULT #DETAIL</td>
+              <td class="tableHeader" nowrap="nowrap" align="center">UNKNOWN ID</td>
+            </tr>
+            <tr>
+              <td align="center">[var.strTotalResultForm]&nbsp;</td>
+              <td align="center">[var.strTotalResultDetail]&nbsp;</td>
+              <td align="center">[var.strErrorID]&nbsp;</td>
+            </tr>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>

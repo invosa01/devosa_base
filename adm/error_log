@@ -1,0 +1,24 @@
+[26-Mar-2012 20:19:32] PHP Fatal error:  Cannot redeclare getdatagroupbygrouprole() (previously declared in /home1/invosaco/public_html/demo/devosa2/global/common_data.php:1007) in /home1/invosaco/public_html/demo/devosa2/global/common_data.php on line 1542
+[26-Mar-2012 20:32:59] PHP Fatal error:  Cannot redeclare getdatagroupbygrouprole() (previously declared in /home1/invosaco/public_html/demo/devosa2/global/common_data.php:1007) in /home1/invosaco/public_html/demo/devosa2/global/common_data.php on line 1542
+[26-Mar-2012 20:33:05] PHP Fatal error:  Cannot redeclare getdatagroupbygrouprole() (previously declared in /home1/invosaco/public_html/demo/devosa2/global/common_data.php:1007) in /home1/invosaco/public_html/demo/devosa2/global/common_data.php on line 1542
+[26-Mar-2012 20:33:07] PHP Fatal error:  Cannot redeclare getdatagroupbygrouprole() (previously declared in /home1/invosaco/public_html/demo/devosa2/global/common_data.php:1007) in /home1/invosaco/public_html/demo/devosa2/global/common_data.php on line 1542
+[26-Mar-2012 20:35:32] PHP Fatal error:  Cannot redeclare getdatagroupbygrouprole() (previously declared in /home1/invosaco/public_html/demo/devosa2/global/common_data.php:1007) in /home1/invosaco/public_html/demo/devosa2/global/common_data.php on line 1542
+[11-Sep-2015 09:31:11 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/ibis_cikini/includes/form2/form2.php on line 438
+[11-Sep-2015 09:32:28 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/ibis_cikini/includes/form2/form2.php on line 438
+[11-Sep-2015 10:15:33 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/ibis_cikini/includes/form2/form2.php on line 438
+[11-Sep-2015 10:22:23 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/ibis_cikini/includes/form2/form2.php on line 438
+[11-Sep-2015 11:00:36 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/ibis_cikini/includes/form2/form2.php on line 438
+[14-Sep-2015 12:46:21 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/ibis_cikini/includes/form2/form2.php on line 438
+[14-Sep-2015 12:47:10 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/ibis_cikini/includes/form2/form2.php on line 438
+[14-Sep-2015 12:47:36 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/ibis_cikini/includes/form2/form2.php on line 438
+[06-Oct-2015 14:13:45 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/ibis_cikini/includes/form2/form2.php on line 438
+[06-Oct-2015 14:13:55 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/ibis_cikini/includes/form2/form2.php on line 438
+[06-Oct-2015 14:15:16 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/ibis_cikini/includes/form2/form2.php on line 438
+[07-Oct-2015 08:10:23 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/ibis_cikini/includes/form2/form2.php on line 438
+[07-Oct-2015 08:10:37 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/ibis_cikini/includes/form2/form2.php on line 438
+[07-Oct-2015 10:04:11 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/ibis_cikini/includes/form2/form2.php on line 438
+[19-Oct-2015 10:56:55 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/wal/includes/form2/form2.php on line 438
+[20-Oct-2015 17:31:48 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/wal/includes/form2/form2.php on line 438
+[20-Oct-2015 17:38:45 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/wal/includes/form2/form2.php on line 438
+[20-Oct-2015 17:39:21 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/wal/includes/form2/form2.php on line 438
+[20-Oct-2015 17:45:10 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/lega3w/public_html/wal/includes/form2/form2.php on line 438

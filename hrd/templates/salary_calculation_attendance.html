@@ -1,0 +1,134 @@
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  <!--
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    //var obj = document.getElementById("employee_name");
+    //obj.innerHTML = nama;
+    return 1;
+  }
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    init();
+    //onCodeBlur();
+  }//initPage
+
+  // fungsi untuk menuju ke page tertentu
+  function goPage(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnShow.click();
+    }
+  }//goPage
+
+
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">Salary Calculation</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap> &nbsp;[var.strCalculationMenu]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputTop">[var.strPageTitle] [[var.strDataDateFrom] - [var.strDataDateThru]]</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="" method="post" name="formInput" id="formInput">
+        <table border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr valign="top">
+            <td colspan="9">&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;Department</td>
+            <td width="15" align="center">:</td>
+            <td nowrap>[var.strInputDepartment]</td>
+            <td width="20" nowrap>&nbsp;</td>
+            <td>Company</td>
+            <td align="center">:</td>
+            <td nowrap>&nbsp;[var.strInputCompany]</td>
+            <td width="20" nowrap>&nbsp;</td>
+            <td nowrap><input name="btnShow" type="submit" id="btnShow2" value="Filter">
+              &nbsp; <input type=hidden name=dataPage value=1> <input name=dataID2 type=hidden id="dataID2" value=[var.strDataID]></td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>&nbsp;Section</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputSection]</td>
+            <td>&nbsp;</td>
+            <td nowrap>Employee ID</td>
+            <td nowrap>:</td>
+            <td nowrap>&nbsp;[var.strInputEmployee]</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>[var.strPaging]</td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+          <tr align="center" class="tableHeader">
+            <td rowspan="2" nowrap>EMPL. ID</td>
+            <td rowspan="2" nowrap>NAME</td>
+            <td rowspan="2" nowrap>GRADE</td>
+            <td rowspan="2" nowrap>POSITION</td>
+            <td rowspan="2" nowrap>DEPT.</td>
+            <td rowspan="2" nowrap>SECTION</td>
+            <td rowspan="2" nowrap>ATT</td>
+            <td colspan="4" nowrap>ABSENCE</td>
+            <td rowspan="2" nowrap>BASIC<BR>SALARY</td>
+            <td colspan="4" nowrap>ALLOWANCE</td>
+            <td rowspan="2" nowrap width="80px">ABSENCE<br>DEDUCTION</td>
+          </tr>
+          <tr align="center" class="tableHeader">
+            <td nowrap>PAID<br>ABS</td>
+            <td nowrap>UNPAID<br>ABS</td>
+            <td nowrap>LV</td>
+            <td nowrap>N/RE</td>
+            <td nowrap width="80px">SHIFT</td>
+            <td nowrap width="80px">MEAL</td>
+            <td nowrap width="80px">TRANSPORT</td>
+            <td nowrap width="80px">ATTENDANCE</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td colspan="2" nowrap>[var.strHidden]&nbsp; &nbsp; <!--<input type=submit name="btnCalculate" value="Re-calculate">-->[var.strButtons]
+              &nbsp;  </td>
+            <td colspan="19" align="center" nowrap>&nbsp;
+              <input type=hidden name=totalData value="[var.intTotalData]"> <input name=dataID type=hidden id="dataID" value="[var.strDataID]"></td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+      </form></td>
+  </tr>
+</table>

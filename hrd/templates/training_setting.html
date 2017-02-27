@@ -1,0 +1,97 @@
+<script type="text/javascript" src="../js/ylib.js"></script>
+<script type="text/javascript" src="../js/invosa.js"></script>
+<script type="text/javascript">
+  <!--
+
+  //fungsi untuk memeriksa apakah input valid
+  function validInput() {
+
+    return validateForm(document.formData);
+  }//validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    //document.formInput.dataCode.focus();
+  }//initPage
+
+  // menampilkan tampilan yang hilang
+  function moreInput(tipe) {
+
+    var x = parseFloat(eval("document.formData.total"+tipe+".value"));
+    var max = parseFloat(eval("document.formData.max"+tipe+".value"));
+    x++;
+    if (x < max) {
+      ylib_getObj("detailData"+tipe+x).style.display = document.all ? "block" : "table-row";
+
+      eval("document.formData.total"+tipe+".value++");
+    }
+  }//moreInput
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>
+      <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;<strong>
+            <a href="training_evaluation_setting.php">[var.strWordsTrainingEvaluationQuestion]</a> |
+            [var.strWordsTrainingEvaluationPoint]</strong>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tableHeader"> 
+      <form action="" method="post" name="formData" id="formData">
+        <table border="0" cellpadding="1" cellspacing="0">
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td >&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td colspan="2"><strong>[var.strWordsPointForEvaluationAnswer]</strong></td>
+          </tr>
+          [var.strDataPoint]
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td nowrap><a href="javascript:moreInput('Point');">[var.strWordsMore]</a></td>
+            <td align="center">&nbsp;<input type=hidden name="totalPoint" value="[var.intTotalPoint]">
+            <input type=hidden name="maxPoint" value="[var.intMaxPoint]">&nbsp;</td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;</td>
+            <td >&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="center">&nbsp; </td>
+            <td> <input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]"></td>
+            <td align="center">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

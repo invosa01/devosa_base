@@ -1,0 +1,227 @@
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  <!--
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+
+  // fungsi untuk cek validasi
+  function validInput() {
+    return validateForm(document.formData);
+  }// validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    init();
+    onCodeBlur();
+  }//initPage
+
+  // fungsi untuk menuju ke page tertentu
+  function goPage(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnShow.click();
+    }
+  }//goPage
+
+
+  -->
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.pageSubMenu]
+	    	<p></p>
+  		</div>
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#entry-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">[var.strWordsFILTERDATA]</h3>
+					</div>
+					<div id="entry-panel" class="panel-body collapse in">
+						<form action="" method="post" name="formInput" id="formInput" enctype="multipart/form-data" class="form-horizontal" role="form">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataIDSalarySet">[var.strWordSalarySet]</label>
+									<div class="col-sm-8">
+										[var.strInputStartDate]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Note</label>
+									<div class="col-sm-8">
+										<textarea class="form-control" rows=1 cols=43 disabled>[var.strDataNote]</textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployee">[var.strWordEmployeeID]</label>
+									<div class="col-sm-8">
+										[var.strInputEmployee]
+									</div>
+								</div>
+								<div class="form-group" style="margin-bottom: 0 !important;">
+									<label class="col-sm-4 control-label">&nbsp;</label>
+									<div class="col-sm-8">
+										<strong id="employee_name"> </strong>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataActive">[var.strWordActive]</label>
+									<div class="col-sm-8">
+										[var.strInputActive]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataFamilyStatus">[var.strWordFamilyStatus]</label>
+									<div class="col-sm-8">
+										[var.strInputFamilyStatus]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataPosition">[var.strWordPosition]</label>
+									<div class="col-sm-8">
+										[var.strInputPosition]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataCurrency">[var.strWordCurrency]</label>
+									<div class="col-sm-8">
+										[var.strInputCurrency]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataGrade">Grade</label>
+									<div class="col-sm-8">
+										[var.strInputGrade]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataStatus">[var.strWordEmployeeStatus]</label>
+									<div class="col-sm-8">
+										[var.strInputEmployeeStatus]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataBranch">[var.strWordBranch]</label>
+									<div class="col-sm-8">
+										[var.strInputBranch]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataCompany">[var.strWordCompany]</label>
+									<div class="col-sm-8">
+										[var.strInputCompany]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataDivision">[var.strWordDivision]</label>
+									<div class="col-sm-8">
+										[var.strInputDivision]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataDepartment">[var.strWordDepartment]</label>
+									<div class="col-sm-8">
+										[var.strInputDepartment]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataSubDepartment">[var.strWordSubDepartment]</label>
+									<div class="col-sm-8">
+										[var.strInputSubDepartment]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataSection">[var.strWordSection]</label>
+									<div class="col-sm-8">
+										[var.strInputSection]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataSubSection">[var.strWordSubSection]</label>
+									<div class="col-sm-8">
+										[var.strInputSubSection]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<input class="btn btn-primary btn-small" name="btnShow" type="submit" id="btnShow" value="Show Data">
+								<input type=hidden name=dataPage value=1>
+							</div>
+						</form>
+					</div>
+				</div>
+  		</div>
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title"><strong>EMPLOYEE SALARY ALLOWANCE</strong></h3>
+					</div>
+					<div id="list-panel" class="panel-body collapse in">
+						[var.strMessage]
+						<form action="" method="post" name="formData" id="formData" onSubmit="return validInput()">
+							<table border="0" cellpadding="0" cellspacing="0" class="table table-striped table-hover table-bordered gridTable">
+			        	<thead>
+				          <tr align="center" class="tableHeader">
+				            <th rowspan="2" class="number-col">&nbsp;</th>
+				            <th rowspan="2" class="center code-col">[var.strWordID]</th>
+				            <th rowspan="2" class="center">[var.strWordEmployeeName]</th>
+				            <th rowspan="2" class="code-col center">[var.strWordJobGrade]</th>
+				            [var.strHeader]
+				            [var.strDataColumn]
+				          </tr>
+				          <tr align="center" class="tableHeader">
+				          	[var.defaultButton]
+				          </tr>
+			          </thead>
+			          <tbody>
+				          [var.strDataDetail]
+				          <tr>
+				            <td colspan="2" nowrap>&nbsp;[var.strBtnSave]&nbsp;[var.strHidden]&nbsp;&nbsp; 
+				            </td>
+				            <td colspan="[var.strSpan2]" align="center" nowrap>&nbsp;[var.strPaging]
+				              <input type=hidden name=totalData value="[var.intTotalData]">
+				              <input type=hidden name="dataDefault" value="">
+				              <input type=hidden name="dataDefault2" value="">
+				              <input type=hidden name="dataDefault3" value="">
+				              <input name=totalColumn type=hidden id="totalColumn" value="[var.strSpan1]"> </td>
+				          </tr>
+			          </tbody>
+			        </table>
+						</form>
+					</div>
+				</div>
+			</div>
+  	</div>
+  </div>
+<script>initPage_();</script>

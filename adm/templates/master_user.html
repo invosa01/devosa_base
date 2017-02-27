@@ -1,0 +1,95 @@
+<script type="text/javascript">
+    var myClient = {
+        editData: function (idx) {
+            $('formMessage').style.visibility = 'hidden';
+            if (idx == 0) {
+                //reset data
+                $('dataLogin').value = "";
+                $('dataPwd').value = "";
+                $('dataName').value = "";
+                $('dataEmployee').value = "";
+                $('dataGroup').selectedIndex = -1;
+                $('dataPermissionGroup').selectedIndex = -1;
+                $('dataCompany').selectedIndex = -1;
+                $('dataIdAdmModule').selectedIndex = -1;
+                $('dataID').value = "";
+                $('dataActive').checked = false;
+            }
+            else if (idx != '') {
+                $('dataLogin').value = $F("detailLogin" + idx);
+                $('dataPwd').value = "";
+                $('dataName').value = $F("detailName" + idx);
+                $('dataEmployee').value = $F("detailEmployee" + idx);
+                $('dataGroup').value = $F("detailGroup" + idx);
+                $('dataPermissionGroup').value = $F("detailPermissionGroup" + idx);
+                $('dataCompany').value = $F("detailCompany" + idx);
+                $('dataIdAdmModule').selectedIndex = -1;
+                $('dataIdAdmModule').value = $F("detailIdAdmModule" + idx);
+                $('dataID').value = $("detailID" + idx).value;
+                var aktif = false;
+                if ($F("detailActive" + idx) == 't') {
+                    aktif = true;
+                }
+                if (aktif) {
+                    $('dataActive').parentNode.className = 'checked';
+                } else {
+                    $('dataActive').parentNode.className = '';
+                }
+                $('dataActive').checked = aktif;
+            }
+            $('dataLogin').focus();
+            $('dataLogin').select();
+        },
+
+        confirmDelete: function () {
+            return confirm('Are you sure to delete this selected data?');
+        },
+
+        confirmSave: function () {
+            return confirm('Do you want to save this entry?');
+        }
+    }
+    jQuery(function ($) {
+        $('.edit-data').on('click', function () {
+            var strID = $(this).attr('id');
+            var splitID = strID.split('-');
+            $('#dataCompany').val($('#detailCompany' + splitID[1]).val());
+            $('#dataCompany').select2('destroy');
+            $('#dataCompany').select2();
+            $('#dataGroup').val($('#detailGroup' + splitID[1]).val());
+            $('#dataGroup').select2('destroy');
+            $('#dataGroup').select2();
+            $('#dataPermissionGroup').val($('#detailPermissionGroup' + splitID[1]).val());
+            $('#dataPermissionGroup').select2('destroy');
+            $('#dataPermissionGroup').select2();
+            $('#dataIdAdmModule').val($('#detailIdAdmModule' + splitID[1]).val());
+            $('#dataIdAdmModule').select2('destroy');
+            $('#dataIdAdmModule').select2();
+        });
+    })
+</script>
+[var.pageHeader]
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            [var.formInput;protect=no;htmlconv=no]
+        </div>
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-actions">
+                        <div class="pull-right" id="collapse-filter">
+                            <a href="#"
+                               data-toggle="collapse"
+                               data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="panel-title">[var.strWordListofUser]</h3>
+                </div>
+                <div id="list-panel" class="panel-body collapse in">
+                    [var.DataGrid;protect=no;htmlconv=no]
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

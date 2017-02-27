@@ -1,0 +1,224 @@
+<script src="scripts/ylib.js"></script>
+<script>
+
+  var arrCategory = new Array("[var.strTargetA]", "[var.strTargetB]", "[var.strTargetC]", "[var.strTargetD]", "[var.strTargetE]");
+
+  //fungsi untuk menampilkan total weight
+  function getTotal() { //
+    var max = eval("document.formInput.maxDetail.value;");
+    totalWeight = 0;
+    totalPoint = 0;
+    total = 0;
+
+    for (i = 1; i <= max; i++) {
+      totalWeight = totalWeight + parseFloat(eval("document.formInput.detailWeight" + i + ".value"));
+      totalPoint = totalPoint + parseFloat(eval("document.formInput.detailPoint" + i + ".value"));
+      total = total + parseFloat(eval("document.formInput.detailTotal" + i + ".value"));
+    }
+
+    document.formInput.dataTotalWeight.value = totalWeight;
+    document.formInput.dataTotalPoint.value = totalPoint;
+    document.formInput.dataTotal.value = total;
+
+    var category = document.getElementById("dataKriteria");
+    if (total > 90) {
+      category.innerHTML = arrCategory[0];
+    } else if (total > 80) {
+      category.innerHTML = arrCategory[1];
+    } else if (total > 70) {
+      category.innerHTML = arrCategory[2];
+    } else if (total > 59) {
+      category.innerHTML = arrCategory[3];
+    } else {
+      category.innerHTML = arrCategory[4];
+    }
+
+  } //getTotal
+
+  // fungsi menghitung total point untuk per baris
+  function getTotalPoint(idx) {
+    if (idx != "") {
+      var weight = eval("document.formInput.detailWeight" + idx + ".value");
+      var point = eval("document.formInput.detailPoint" + idx + ".value");
+      total = (weight * point) / 100;
+      eval("document.formInput.detailTotal" + idx + ".value = " + total);
+      getTotal();
+    }
+  }//getTotalPoint
+
+  function viewObj(nama) {
+    ylib_getObj(nama).style.display = document.all ? "block" : "table-row";
+  }// showObj
+
+  //fungsi untuk menampilkan baris baru untuk menambahkan data anak
+  function showMoreInput() { //kode = Address, or Phone
+    //document.form1.numShow.value++;
+    var n = eval("document.formInput.numShow.value;");
+    var max = eval("document.formInput.maxDetail.value;");
+    n++;
+    if (n < max) {
+      strNama = "detailRows" + n;
+      ylib_getObj(strNama).style.display = document.all ? "block" : "table-row";
+      eval("document.formInput.numShow.value++;");
+      eval("document.formInput.detailGoal" + n + ".disabled = false");
+      eval("document.formInput.detailTarget" + n + ".disabled = false");
+      eval("document.formInput.detailWeight" + n + ".disabled = false");
+      eval("document.formInput.detailAchievement" + n + ".disabled = false");
+      eval("document.formInput.detailPoint" + n + ".disabled = false");
+      eval("document.formInput.detailNote" + n + ".disabled = false");
+      eval("document.formInput.detailGoal" + n + ".focus()");
+    } else {
+      //alert(document.form1.numShow.value + " -- " + document.form1.maxDetail.value);
+    }
+  } //showMoreInput
+
+  //ketika checkbox delete berubah
+  function chkDeleteChanged(index) { //kode = Address, or Phone
+
+    if (index != "") {
+      var chk = eval("document.formInput.chkID" + index + ".checked");
+      if (chk) {
+        str = "true";
+      } else {
+        str = "false";
+      }
+
+      eval("document.formInput.detailGoal" + index + ".disabled = " + str);
+      eval("document.formInput.detailTarget" + index + ".disabled = " + str);
+      eval("document.formInput.detailWeight" + index + ".disabled = " + str);
+      eval("document.formInput.detailAchievement" + index + ".disabled = " + str);
+      eval("document.formInput.detailPoint" + index + ".disabled = " + str);
+      eval("document.formInput.detailNote" + index + ".disabled = " + str);
+    }
+  } //chkDeleteChanged
+
+</script>
+<script>
+  <!--
+
+  // konfirmasi approve
+  function confirmApproval() {
+    return confirm("Are you sure want to approve this data?");
+  }
+  // konfirmasi cancel approve
+  function confirmCancel() {
+    return confirm("Are you sure want to cancel approval of this data?");
+  }
+
+  // mengolah waktu load
+  function initPage_() {
+    getTotal();
+  }//initPage
+
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">Employee Evaluation</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>[var.strEvaluationMenu]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputBox">
+<form action="" method="get" name="formFilter" id="formFilter">
+        <table border="0" cellpadding="2" cellspacing="0">
+          <tr>
+            <td nowrap><strong>&nbsp;Periode</strong></td>
+            <td nowrap><strong> :</strong></td>
+            <td nowrap><strong>[var.strPeriode]</strong></td>
+          </tr>
+          <tr>
+            <td nowrap><strong>&nbsp;Employee</strong></td>
+            <td nowrap><strong>:</strong></td>
+            <td nowrap><strong>[var.strEmployee]
+              <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]">
+              </strong></td>
+          </tr>
+        </table>
+
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr>
+    <td><strong>EMPLOYEE TARGET AND ACHIEVEMENT EVALUATION</strong></td>
+  </tr>
+  <tr align="left">
+    <form action="" method="post" name="formInput" id="formInput">
+      <td valign="top"><table width="100%" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+          <tr align="center" class="tableHeader">
+            <td nowrap>No.</td>
+            <td nowrap>No.</td>
+            <td nowrap>Description</td>
+            <td nowrap>Target</td>
+            <td nowrap>Weight</td>
+            <td nowrap>Achievement</td>
+            <td nowrap>Point</td>
+            <td nowrap>Total</td>
+            <td nowrap>Note</td>
+            <td nowrap>Delete</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="9"><a href="javascript:showMoreInput();">More Target</a></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td align="right"><input name="dataTotalWeight" type="text" value="0" size="5" maxlength="5" class="numeric" readonly=""></td>
+            <td>&nbsp;</td>
+            <td align="right"><input name="dataTotalPoint" type="text" value="0" size="5" maxlength="5" class="numeric" readonly=""></td>
+            <td align="right"><input name="dataTotal" type="text" value="0" size="5" maxlength="5" class="numeric" readonly=""></td>
+            <td><strong id="dataKriteria"></strong>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="10">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="10"><strong>&nbsp;Status: </strong>              &nbsp;[var.strInputNote]</td>
+          </tr>
+          <tr>
+            <td colspan="10">&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp; </td>
+            <td>&nbsp;</td>
+            <td colspan="8">[var.strButton]&nbsp;
+            </td>
+          </tr>
+        </table></td>
+    </form>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>
+    <table class="gridTable" width="100%">
+      <tr><td nowrap=""><strong>Criteria:</strong> <strong>A.</strong> [var.strTargetA] (91-100) <strong>B.</strong> [var.strTargetB] (81-90) <strong>C.</strong> [var.strTargetC] (71-80) <strong>D.</strong> [var.strTargetD] (60-70) <strong>E.</strong> [var.strTargetE] (0-59)</td></tr>
+    </table>
+    </td>
+  </tr>
+</table>

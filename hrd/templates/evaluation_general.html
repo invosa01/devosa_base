@@ -1,0 +1,120 @@
+<script type="text/javascript" src="../js/ylib.js"></script>
+<script type="text/javascript" src="../js/invosa.js"></script>
+<script type="text/javascript">
+
+
+  //fungsi untuk menampilkan total weight
+  function getTotal() { //
+    var max = eval("document.formInput.maxDetail.value;");
+    totalWeight = 0;
+    totalPoint = 0;
+    total = 0;
+
+    for (i = 1; i <= max; i++) {
+      totalWeight = totalWeight + parseFloat(eval("document.formInput.detailWeight" + i + ".value"));
+      totalPoint = totalPoint + parseFloat(eval("document.formInput.detailPoint" + i + ".value"));
+      total = total + parseFloat(eval("document.formInput.detailTotal" + i + ".value"));
+    }
+
+    document.formInput.dataTotalWeight.value = totalWeight;
+    document.formInput.dataTotalPoint.value = totalPoint;
+    document.formInput.dataTotal.value = total;
+
+  } //getTotal
+
+  // fungsi menghitung total point untuk per baris
+  function getTotalPoint(idx) {
+    if (idx != "") {
+      var weight = eval("document.formInput.detailWeight" + idx + ".value");
+      var point = eval("document.formInput.detailPoint" + idx + ".value");
+      total = (weight * point) / 100;
+      eval("document.formInput.detailTotal" + idx + ".value = " + total);
+      getTotal();
+    }
+  }//getTotalPoint
+
+</script>
+<script type="text/javascript">
+  <!--
+  // validasi
+  function validInput() {
+    bolOK = validateForm(document.formInput)
+    return bolOK;
+  }//validInput
+  // mengolah waktu load
+  function initPage_() {
+    getTotal();
+  }//initPage
+
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">Employee Evaluation</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>[var.strEvaluationMenu]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputBox"> <form action="" method="get" name="formFilter" id="formFilter">
+        <table border="0" cellpadding="2" cellspacing="0">
+          <tr>
+            <td nowrap><strong>&nbsp;Periode</strong></td>
+            <td nowrap><strong> :</strong></td>
+            <td nowrap><strong>[var.strPeriode]</strong></td>
+          </tr>
+          <tr>
+            <td nowrap><strong>&nbsp;Employee</strong></td>
+            <td nowrap><strong>:</strong></td>
+            <td nowrap><strong>[var.strEmployee]</strong> <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]"></td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr>
+    <td><strong>GENERAL EVALUATION</strong></td>
+  </tr>
+  <tr align="left">
+    <form action="" method="post" name="formInput" id="formInput" onsubmit="return validInput()">
+      <td valign="top"><table width="100%" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+
+          [var.strDataDetail]
+
+          <tr>
+            <td>&nbsp;</td>
+            <td align="right"><strong></strong></td>
+            <td colspan="4" align="center"><strong id="dataKriteria"></strong>&nbsp;</td>
+          </tr>
+          <tr>
+            <td><input name="dataID" type="hidden" id="dataID" value="[var.strDataID]">
+              &nbsp; </td>
+            <td  align="right">[var.strButtons]&nbsp;</td>
+            <td colspan="4" align="center">&nbsp;</td>
+          </tr>
+        </table></td>
+    </form>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+
+</table>

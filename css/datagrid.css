@@ -1,0 +1,278 @@
+table.contentGrid
+{
+  font-family         : arial,verdana,helvetica;
+  font-size           : 12px;
+}
+
+/* datagrid message */
+table.contentGrid td.dataGridMessage
+{
+  height              : 20px;
+  font-family         : verdana,Arial,helvetica;
+  font-size           : 12px;
+  font-weight         : bold;
+  border              : 1px solid red;
+  color               : red;
+  vertical-align      : middle;
+}
+
+table.contentGrid input.textbox 
+{
+  height              : 18px;
+  border              : 1px solid #333333;
+  padding-left        : 3px;
+  padding-right       : 3px;
+  margin-top          : 0px;
+  margin-left         : 0px;
+  margin-right        : 0px;
+  margin-bottom       : 0px;
+  font-family         : arial,verdana,helvetica;
+	font-size           : 12px;
+}
+
+table.contentGrid  a
+{
+  text-decoration     : none;
+}
+
+table.contentGrid  a:hover
+{
+  text-decoration     : underline;
+}
+
+table.pageLimitGrid
+{
+  background-color    : #eee;
+  border              : 1px dotted #333;
+}
+
+table.pageLimitGrid td.dataGridTitle
+{
+  height              : 20px;
+  font-family         : verdana,Arial,helvetica;
+  font-size           : 12px;
+  font-weight         : bold;
+  color               : black;
+  vertical-align      : middle;
+  text-align          : center;
+  letter-spacing      : 2px;
+  text-transform      : UPPERCASE;
+}
+
+table.pageLimitGrid input.buttonSearch
+{
+  height              : 21px;
+	width               : 21px;
+	background-image    : url(../images/buttonSearch.gif);
+  font-size           : 12px;
+	border              : 0px solid white;
+	padding             : 0px 0px 0px 0px;
+	cursor              : pointer;
+}
+
+table.pageLimitGrid select
+{
+  font-size           : 12px;
+  height              : 16px;
+  border              : 1px solid #333333;
+  padding             : 0px 0px 0px 0px;
+}
+
+table.pageLimitGrid td
+{
+  font-family         : arial,verdana;
+  font-size           : 12px;
+}
+
+table.pageLimitGrid div.caption
+{
+  font-family         : arial,verdana;
+  font-size           : 12px;
+  font-weight         : bold;
+  color               : #333333;
+  float               : left;
+}
+
+table.pagingGrid
+{
+  font-family         : arial,verdana;
+  font-size           : 12px;
+  border-bottom       : 1px solid #777777;
+  border-right        : 1px solid #777777;
+  border-left         : 1px solid #777777;
+  background-color    : #CCCCCC;
+  cursor              : default;
+  padding-top         : 2px;
+  padding-bottom      : 2px;
+  vertical-align      : middle;
+  color               : white;
+}
+
+/* untuk class nomornya page aktif*/
+table.pagingGrid td.currentPage
+{
+  color               : #aaaaaa;
+  text-align          : center;
+  font-size           : 12px;
+  font-weight         : bold;
+}
+
+table.pagingGrid td
+{
+  background-color    : #cccccc;
+  font-size           : 12px;
+  color               : black;
+}
+
+table.pagingGrid td.disabledNavigation
+{
+  background-color    : #cccccc;
+  font-size           : 12px;
+  color               : #555555;
+}
+
+table.pagingGrid a
+{
+  background-color    : #cccccc;
+  font-weight         : bold;
+  text-decoration     : none;
+  text-align          : center;
+  color               : #000000;
+}
+
+/* table datagrid */
+table.dataGrid 
+{
+  border              : 1px solid #777777;
+  border-collapse     : collapse;
+}
+
+table.dataGrid tr.itemList
+{
+  background-color    : transparent;
+  vertical-align      : middle;
+}
+
+table.dataGrid  td
+{
+  border              : 1px solid #777777;
+  font-family         : arial,verdana;
+  font-weight         : normal;
+  font-size           : 12px;
+  padding-left        : 5px;
+  padding-right       : 5px;
+  padding-top         : 1px;
+  padding-bottom      : 1px;
+}
+
+
+table.dataGrid  td.alternate
+{
+  border              : 1px solid #777777;
+  font-family         : arial,verdana;
+  font-weight         : normal;
+  font-size           : 12px;
+  padding-left        : 5px;
+  padding-right       : 5px;
+  padding-top         : 1px;
+  padding-bottom      : 1px;
+  background-color    : #f7f7f7;
+}
+
+table.dataGrid tr.itemList:hover
+{
+  background-color    : #eeeeee
+}
+
+table.dataGrid tr.itemListSelected 
+{
+  vertical-align      : middle;
+  background-color    : #dddddd
+}
+
+table.dataGrid  th
+{
+  background-color    : #CCCCCC;
+  border              : 1px solid #777777;
+  border-bottom       : 3px double #777777;
+  font-family         : arial,verdana;
+  font-weight         : bold;
+  font-size           : 12px;
+  text-decoration     : none;
+  color               : black;
+  padding-top         : 1px;
+  padding-bottom      : 1px;
+  padding-left        : 5px;
+  padding-right       : 5px;
+}
+
+
+table.dataGrid  th.spannedCol
+{
+  background-color    : #CCCCCC;
+  border              : 1px solid #777777;
+  font-family         : arial,verdana;
+  font-weight         : bold;
+  font-size           : 12px;
+  text-decoration     : none;
+  color               : black;
+  padding-top         : 1px;
+  padding-bottom      : 1px;
+  padding-left        : 5px;
+  padding-right       : 5px;
+}
+
+table.dataGrid  th a
+{
+  text-decoration     : none;
+  color               : black;
+}
+
+table.dataGrid input.button
+{
+  height              : 20px;
+  font-family         : verdana,Arial,helvetica;
+  font-size           : 12px;
+  cursor              : pointer;
+}
+  
+table.dataGrid input.buttonDisabled 
+{
+  height              : 20px;
+  font-family         : verdana,Arial,helvetica;
+  font-size           : 12px;
+  color               : #666666;
+}
+
+table.dataGrid input.buttonSpecial
+{
+  height              : 20px;
+  font-family         : verdana,Arial,helvetica;
+  font-size           : 12px;
+  cursor              : pointer;
+}
+
+table.dataGrid input.buttonSpecialDisabled
+{
+  height              : 20px;
+  font-family         : verdana,Arial,helvetica;
+  font-size           : 12px;
+  color               : #aaaaaa;
+}
+
+
+div.indicator
+{
+  border              : 1px solid #333333; 
+  font-size           : 10px;
+  Z-INDEX             : 100; 
+  color               : white; 
+  padding             : 10px; 
+  font-family         : Arial; 
+  background-color    : #cccccc;
+  width               : 160px;
+  height              : 30px;
+  vertical-align      : middle;
+  position            : absolute;
+}
+

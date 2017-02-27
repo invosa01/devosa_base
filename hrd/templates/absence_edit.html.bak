@@ -1,0 +1,239 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script language="Javascript">
+  // script-script tambahan, khusus untu loockup employee
+ 
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+
+  // fungsi untuk nentuin apakah leave duratin disable/not
+  function editLeaveDuration() {
+    editable = document.formInput.chkEditLeave.checked;
+
+    document.formInput.dataLeaveDuration.disabled = !editable;
+  }
+function ConfirmSave()
+{
+	var dateFrom = document.getElementById('dataDateFrom').value;
+	var dateTo = document.getElementById('dataDateThru').value;
+	return confirm("Are you sure to absence at this "+dateFrom+" until "+dateTo+"?");
+	
+	
+		
+	
+}
+  function clearForm() {
+    document.formInput.dataEmployee.value = "";
+    document.formInput.dataNote.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataDateFrom.focus();
+  }//clearForm
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+    if (document.formInput.dataDateFrom.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateFrom.focus();
+      return false;
+    }
+    if (document.formInput.dataDateThru.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+    if (document.formInput.dataEmployee.value == "") {
+      alert("Empty Employee ID!");
+      document.formInput.dataEmployee.focus();
+      return false;
+    }
+    tmp = dateCompare(document.formInput.dataDateFrom.value, document.formInput.dataDateThru.value);
+    if (tmp == 1) {
+      alert("Date thru is before date from!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+
+    // gak boleh entry di tanggal yang sama (HARI INI)
+    /*
+    tmp1 = dateCompare(document.formInput.dataDate.value, document.formInput.dataDateFrom.value);
+    tmp2 = dateCompare(document.formInput.dataDate.value, document.formInput.dataDateThru.value);
+    if (document.formInput.dataType.value != "K") // jika bukan ijin khussu
+    {
+      if (tmp1 == -1 || tmp2 == -1) {
+        alert("Cannot entry absen for MORE than TODAY!");
+        document.formInput.dataDateFrom.focus();
+        return false;
+      }
+    } else {
+      // kalau K boleh aja isi hari ini atau besok (IJIN KHUSUS)
+    }
+    */
+    if(ConfirmSave())
+	return true;
+    else
+      return false;
+  } //validInput
+  // fungsi untuk inisialisasi
+
+  function initPage_() {
+    document.formInput.dataDateFrom.focus();
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+    init();
+    onCodeBlur();
+  }//initPage
+	
+	jQuery(function($) {
+		$('#dataEmployee').autocomplete({
+			source: "hrd_ajax_source.php?action=getemployee",
+			minLength: 2,
+			select: function( event, ui ) {
+				console.log(ui);
+				$('#employee_name').html(ui.item.label);
+			}
+		});
+	});
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.pageSubMenu]
+	    	<p></p>
+			</div>
+			<div class="col-md-12">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#input1-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">[var.strWordsINPUTDATA]</h3>
+					</div>
+					<div id="input1-panel" class="panel-body collapse in">
+						[var.strMessages]
+						<form action="" method="post" name="formInput" id="formInput" enctype="multipart/form-data" onSubmit="return validInput();" class="form-horizontal" role="form">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataCode">[var.strWordsAbsenceRequestDate]</label>
+									<div class="col-sm-8">
+										[var.strInputDate]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataDateFrom">[var.strWordsAbsenceDateFrom]</label>
+									<div class="col-sm-8">
+										<div class="input-group">
+		                    [var.strInputDateFrom]
+		                    <span class="input-group-addon">
+		                        <i class="fa fa-calendar"></i>
+		                    </span>
+		              	</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataDateThru">[var.strWordsAbsenceDateThru]</label>
+									<div class="col-sm-8">
+										<div class="input-group">
+		                    [var.strInputDateThru]
+		                    <span class="input-group-addon">
+		                        <i class="fa fa-calendar"></i>
+		                    </span>
+		              	</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataType">[var.strWordsAbsenceType]</label>
+									<div class="col-sm-8">
+										[var.strInputType]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployee">[var.strWordsEmployeeID]</label>
+									<div class="col-sm-8">
+										[var.strInputEmployee]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployee">&nbsp;</label>
+									<div class="col-sm-8">
+										<strong id="employee_name"></strong>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataNote">[var.strWordsNote]</label>
+									<div class="col-sm-8">
+										[var.strInputNote]
+									</div>
+								</div>
+								<div class="form-group">
+                  <label class="col-sm-4 control-label" for="detailDoc">[var.strWordsDocument]</label><br/>
+                  <div class="col-sm-8 fileinput fileinput-new" data-provides="fileinput">
+                    <span class="btn btn-success btn-file" style="margin-top: -7px;"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span>[var.strInputDoc]</span>
+                    <span class="fileinput-filename"></span>
+                    <i class="fa fa-times fileinput-exists" data-dismiss="fileinput"></i>
+                  </div>
+                </div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataStatus">[var.strWordsStatus]</label>
+									<div class="col-sm-8" style="padding-top: 7px;">
+										[var.strInputStatus]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<input class="btn btn-small btn-primary" name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]" > 
+                <input class="btn btn-small btn-success" name="btnNew" type="button" id="btnNew" value="[var.strWordsAddNew]" onClick="location.href='absence_edit.php';">
+                [var.strButtons]
+                <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+                  
+	    <div class="col-md-12">
+        <div class="panel">
+          <div id="input2-panel" class="panel-body collapse in">
+          <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td valign="top" class="inputBox"> 
+                <table border="0" cellspacing="0" cellpadding="2">
+                    <tr>
+                      <td valign="top">[var.strLeaveDetail]</td>
+                    </tr>
+                  </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    </div>
+   </div>

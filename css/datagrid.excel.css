@@ -1,0 +1,74 @@
+/* table datagrid */
+table.dataGrid 
+{
+  border-top          : thin solid #777777;
+  border-right        : thin solid #777777;
+}
+
+table.dataGrid tr.itemList
+{
+  background-color    : transparent;
+  vertical-align      : middle;
+}
+
+table.dataGrid  td
+{
+  border-bottom       : thin solid #777777;
+  border-left         : thin solid #777777;
+  font-family         : arial,verdana;
+  font-weight         : normal;
+  font-size           : 12px;
+  padding-left        : 5px;
+  padding-right       : 5px;
+  padding-top         : 1px;
+  padding-bottom      : 1px;
+}
+
+table.dataGrid tr.itemList:hover
+{
+  background-color    : #eeeeee
+}
+
+table.dataGrid tr.itemListSelected 
+{
+  vertical-align      : middle;
+  background-color    : #dddddd
+}
+
+table.dataGrid  th
+{
+  background-color    : #CCCCCC;
+  border-bottom       : 3px double #777777;
+  border-left         : thin solid #777777;
+  font-family         : arial,verdana;
+  font-weight         : bold;
+  font-size           : 12px;
+  text-decoration     : none;
+  color               : black;
+  padding-top         : 1px;
+  padding-bottom      : 1px;
+  padding-left        : 5px;
+  padding-right       : 5px;
+}
+
+table.dataGrid  th.spannedCol
+{
+  background-color    : #CCCCCC;
+  border-bottom       : thin solid #777777;
+  border-left         : thin solid #777777;
+  font-family         : arial,verdana;
+  font-weight         : bold;
+  font-size           : 12px;
+  text-decoration     : none;
+  color               : black;
+  padding-top         : 1px;
+  padding-bottom      : 1px;
+  padding-left        : 5px;
+  padding-right       : 5px;
+}
+
+table.dataGrid  th a
+{
+  text-decoration     : none;
+  color               : black;
+}

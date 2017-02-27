@@ -1,0 +1,90 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+          <a href="evaluation_category.php">[var.strWordsEvaluationCategory] </a> |  
+          [var.strWordsKRA] |
+		  <a href="evaluation_criteria_employee.php">[var.strWordsEmployeeKRA]</a> |
+          <a href="evaluation_feedback_setup.php">[var.strWordsEvaluationFeedbackSetup]</a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td valign="top">
+[var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+[var.formFilter;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" height="100%">
+[var.DataGrid;protect=no;htmlconv=no]
+   </td>
+  </tr>
+</table>
+<script type="text/javascript">
+	var myClient = {
+    editData : function(idx)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        location.href = "evaluation_criteria.php";
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $F("detailID" + idx);
+        $('dataIDCategory').value = $F("detailIDCategory" + idx);
+        $('dataIDLevel').value = $F("detailIDLevel" + idx);
+        $('dataCriteria').value = $F("detailCriteria" + idx);
+        $('dataSubheader').value = $F("detailSubheader" + idx);
+        $('dataWeight').value = $F("detailWeight" + idx);
+        $('dataScore1').value = $F("detailScore1" + idx);
+        $('dataScore2').value = $F("detailScore2" + idx);
+        $('dataScore3').value = $F("detailScore3" + idx);
+        $('dataScore4').value = $F("detailScore4" + idx);
+        $('dataScore5').value = $F("detailScore5" + idx);
+        $('dataScore1Note').value = $F("detailScore1Note" + idx);
+        $('dataScore2Note').value = $F("detailScore2Note" + idx);
+        $('dataScore3Note').value = $F("detailScore3Note" + idx);
+        $('dataScore4Note').value = $F("detailScore4Note" + idx);
+        $('dataScore5Note').value = $F("detailScore5Note" + idx);
+      }
+      $('dataCriteria').focus();
+      $('dataCriteria').select();
+    },
+    
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+    
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+
+</script>

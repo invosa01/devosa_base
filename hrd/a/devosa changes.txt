@@ -1,0 +1,26 @@
+#1	Medical Treatment Type \ Treatment Type Setting : data_medical_type.php 
+		*FIXED* <error ga bisa save data, ada bintang error, export excel lumayan tpi fieldnya agak kacau>
+#2	Extended Quota : medical_additional_quota.php
+		*FIXED* <error jika difilter branch, level, grade, status, section, subsection>
+#3	Medical Quota Detail : medical_quota.php
+		*NOT FIXED YET \ BaseDevosa still have error \ FujiDevosa OK* <jika difilter status, grade akan menunjukan query error dan jika di calculate akan menunjukan query error serta export excel datanya ga keluar dengan baik>
+#4	Medical Claim : medical_edit.php
+		*NOT FIXED YET \ BaseDevosa still have error \ FujiDevosa OK* <menunjukan warning argument dan jika di save dengan data yg asal tidak ada handling error nya lgsg di save tapi ada query error dan ga masuk ke database datanya>
+#5	Medical Claim Report : medical_report.php
+		*FIXED, already same with FujiDevosa, but I got one bug which applies to BaseDevosa and FujiDevosa => when the user input maximum cost filter or minimum cost filter, there will be query error(s)* <jika di filter branch, date(jika inputnya asal) akan menunjukan query error, jika kita search any part of field, total claim akan menunjukan query error, jika filter Minimum Cost Filter,Maximum Cost Filter, Request status di isi datanya ga muncul/tidak terjadi apa" >
+#6	Business Trip Type : trip_type.php
+		*FIXED* <Excel export>
+#7	Trip Allowance Type : trip_cost_type.php
+        *FIXED* <Excel export>
+#8	Trip Destination : trip_destination.php
+        *FIXED* <Excel export>
+#9	Business Trip List : trip_list.php
+        *FIXED* <jika difilter level, grade, status, active, company, division, department, section, subsection datanya ga keluar, field tampilannya ga bener pada list hasilnya acak"an dengan headernya>
+#10	Business Trip Report : trip_report.php
+        *FIXED* <diexport excel hasilnya hanya sampai branch code, jika di filter level, grade, active, bank, subsection akan menunjukan querry error, jika filter Maximum Cost Filter, Request status, status, section di isi datanya ga muncul/tidak terjadi apa" >
+#11	Business Trip Disposition Form : trip_slip.php
+        *FIXED* <result datagrid acak"an header sama isi nya, jika filter employee id, company, branch, level, grade, status, active, company, division, department, section, subsection di isi datanya ga muncul/tidak terjadi apa" >
+#12	Employee Trip Approval : trip_approval_staff.php
+        *FIXED* <jika difilter level, grade, status, active, company, division, department, section, subsection, destination, employee id, branch jika kita search any part of field, di isi datanya ga muncul/tidak terjadi apa", jika di view allnya selain 15 data ga muncul dan export excelnya ga bener>
+#13	Managerial Trip Approval : trip_approval_managerial.php
+		*FIXED* <ga ada data dan belum di check o dengan cara pada http://localhost/FujiDevosa/documentation/FujiDevosaNew/program/hrd/data_position.php di data managerial tambahkan approver id 01P2051, export excel datanya masih kacau>

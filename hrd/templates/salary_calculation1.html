@@ -1,0 +1,171 @@
+  <script src="scripts/calendar.js"></script>
+  <script src="scripts/calendar-en.js"></script>
+  <link href="../css/calendar.css" rel="stylesheet" type="text/css">
+
+  <script src="scripts/acEmployee.js"></script>
+  <script src="scripts/ylib.js"></script>
+  <script src="../js/ajax.js"></script>
+  [var.variableApprovedSalaryMaster]
+  <script>
+  <!--
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDateFrom.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateFrom.focus();
+      return false;
+    }
+    if (document.formInput.dataDateThru.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+  // var dataDateThru=document.formInput.dataDateThru.value;
+	//f = dataDateThru.split("-");
+	
+	//if (f[1] != 01) {
+	//  v = parseInt(f[1])-1 ;
+	//  if(v<10){
+	//	dateParse =f[0]+"-0"+v;
+	//	}else{
+	//	dateParse =f[0]+"-"+v;
+	//	}
+	//	if(!arrayApprovedSalaryMaster[dateParse]){
+	//	alert("Please approved salary calculation previous month.");
+	//	return false;
+	//	}
+   // }
+	return true;
+  } //validInput
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+  function confirmApprove() {
+    return confirm("Are you sure want to approve selected salary data?");
+  } //confirmApprove
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+  }//checkAll
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDateFrom.focus();
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+    Calendar.setup({ inputField:"dataTHRDateFrom", button:"btnTHRDateFrom" });
+    Calendar.setup({ inputField:"dataTHRDateThru", button:"btnTHRDateThru" });
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+  }//initPage
+  -->
+  </script>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+      <td class="pageHeaderTitle" align="left">
+      <table border="0" cellpadding="1" cellspacing="0">
+          <tr>
+            <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+            <td class="pageHeaderTitleText" nowrap="nowrap">[var.strPageTitle]</td>
+          </tr>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td >&nbsp;</td>
+
+    </tr>
+    <tr style="display:[var.strDisplay]">
+      <td class="inputTop" width="100%" >[var.strWordsFilterData]</td>
+    </tr>
+    <tr  style="display:[var.strDisplay]">
+      <td align="left" class="inputBox" valign="top">
+      <form name="formReferer1" action="salary_calculation_result.php" method="post"/>
+        <input name="dataID" value="" type="hidden" />
+      </form>
+      <form action="" method="post" name="formInput" id="formInput" onsubmit="return validInput();">
+        <table width="100%" align="left" border="0" cellpadding="1" cellspacing="0">
+            <tr valign="top">
+              <td>&nbsp;</td>
+              <td align="center" width="15">&nbsp;</td>
+              <td width="350px">&nbsp;</td>
+              <td></td>
+            </tr> 
+            <tr valign="top">
+              <td width="150px"> &nbsp;[var.strWordsCompany]</td>
+              <td align="center">:</td>
+              <td nowrap="nowrap">[var.strInputCompany]&nbsp;<font color="red">*</font>
+              <td nowrap="nowrap">[var.strInputIrregular]&nbsp;[var.strWordsIrregular]</td>
+            </tr>
+            <tr valign="top">
+              <td width="150px"> &nbsp;[var.strWordsSalarySet]</td>
+              <td align="center">:</td>
+              <td nowrap="nowrap">[var.strInputSalarySet]&nbsp;<font color="red">*</font>
+              <td nowrap="nowrap">[var.strInputHideBlank]&nbsp;[var.strWordsHideIfBlank]</td>
+            </tr>
+
+            <tr valign="top">
+              <td nowrap="nowrap"> &nbsp;[var.strWordsSalaryDate]</td>
+              <td align="center">:</td>
+              <td nowrap="nowrap">[var.strInputDate]&nbsp;
+              <input name="btnDate" id="btnDate" value=".." type="button">&nbsp;<font color="red">*</font></td>
+              <td nowrap="nowrap" rowspan=2 valign="bottom">[var.strInputNote]</td>
+            </tr>
+            <tr valign="top">
+              <td nowrap="nowrap">&nbsp;[var.strWordsAttendanceDate]</td>
+              <td align="center">:</td>
+              <td nowrap="nowrap">[var.strInputDateFrom]&nbsp;
+                <input name="btnDateFrom" id="btnDateFrom" value=".." type="button">&nbsp;
+                [var.strInputDateThru]&nbsp;
+                <input name="btnDateThru" id="btnDateThru" value=".." type="button">&nbsp;<font color="red">*</font>
+              </td>
+            </tr>     
+            <tr valign="top">
+              <td nowrap="nowrap">&nbsp;[var.strWordsPeriodForTHR]</td>
+              <td align="center">:</td>
+              <td nowrap="nowrap">[var.strInputTHRDateFrom]&nbsp;
+                <input name="btnTHRDateFrom" id="btnTHRDateFrom" value=".." type="button">&nbsp;
+                [var.strInputTHRDateThru]&nbsp;
+                <input name="btnTHRDateThru" id="btnTHRDateThru" value=".." type="button">
+              </td>
+            </tr>
+            <tr valign="top">
+              <td>&nbsp;</td>
+              <td align="center">&nbsp;</td>
+              <td><br><input name="btnStart" id="btnStart" value="[var.strWordsStartCalculation]" type="submit"> </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>&nbsp; </td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+        </table>
+      </form>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>
+        <form action="" method="post" name="formData" id="formData">
+          [var.strDataDetail]
+        </form>
+      </td>
+    </tr>
+  </tbody>
+</table>

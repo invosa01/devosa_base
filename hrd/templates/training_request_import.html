@@ -1,0 +1,141 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="ylib.js"></script>
+<script>
+
+  function insertDate(tgl) {
+    if (tgl != "" && tgl != 'undefined') {
+      document.formInput.dataDate.value = tgl;
+    }
+  } //insertDate
+
+  //fungsi nampilin pesan saat submit
+  function onImport(){
+    var obj = document.getElementById("pesan");
+    if (typeof obj != "undefined")
+      obj.innerHTML = "Import in progresss ...please wait ...";
+  }
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+  }//initPage
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+          [var.strWordsImportAttendance]
+          </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputTop">IMPORT DATA</td>
+  </tr>
+  <tr>
+    <td class="inputBox">
+    <form action="" method="post" name="formInput" id="formInput" enctype="multipart/form-data" onSubmit="onImport()">
+        <table align="left" border="0" cellpadding="1" cellspacing="0" width="500">
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+<!--
+          <tr valign="top">
+            <td width="25%" nowrap="nowrap">&nbsp;[var.strWordsAttendanceFile]</td>
+            <td width="5%">:</td>
+            <td width="70%"> <input size="50" name="fileData0" type="file"> <br>
+             <input size="50" name="fileData1" type="file"> <br>
+             <input size="50" name="fileData2" type="file"> <br>
+            </td>
+          </tr>
+-->
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsCompany]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputCompany]&nbsp;</td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsAttendanceDate]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputDate]&nbsp;</td>
+          </tr>
+          <tr>
+            <td nowrap>&nbsp;[var.strWordsAttendanceFile]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputFile]&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td nowrap> <input name="btnImport" id="btnImport" value="[var.strWordsImport]" type="submit">
+             &nbsp;<strong id='pesan'></strong>
+            </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <form action = "" method = "post" name="formData" id="formData">
+  <tr>
+    <td id="strProcess">&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>[var.strWordsRESULT]<br>[var.strAttendanceDate][var.strResultInfo]</strong></td>
+  </tr>
+  <!--
+  <tr align="left">
+    <form action="" method="post" name="formInput" id="formInput">
+      <td valign="top"><table border="0" cellpadding="0" cellspacing="0" class="gridTable">
+          <tr align="center" class="tableHeader">
+            <td colspan="3" nowrap class="tableHeader">EMPLOYEE</td>
+            <td colspan="2" nowrap class="tableHeader">ATTENDANCE</td>
+            <td colspan="2" nowrap class="tableHeader">NORMAL</td>
+            <td colspan="2" nowrap class="tableHeader">&nbsp;</td>
+          </tr>
+          <tr align="center" class="tableHeader">
+            <td nowrap class="tableHeader">NO.</td>
+            <td nowrap class="tableHeader"> ID</td>
+            <td nowrap class="tableHeader">NAME</td>
+            <td nowrap class="tableHeader">START</td>
+            <td nowrap class="tableHeader">FINISH</td>
+            <td nowrap class="tableHeader">START</td>
+            <td nowrap class="tableHeader">FINISH</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td colspan="9">&nbsp;</td>
+          </tr>
+        </table></td>
+    </form>
+  </tr>
+
+  -->
+  </form>
+</table>
+<script type="text/javascript">
+initPage_();
+</script>

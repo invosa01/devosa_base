@@ -1,0 +1,125 @@
+<script type="text/javascript">
+	var myClient = {
+    editData : function(params)
+    {
+      arrParam  = params.split("|");
+      idx = arrParam[0];
+      strSet = arrParam[1];
+      intMaxSet = arrParam[2];
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataID').value = "";
+        $('dataCode').value = "";
+        $('dataName').value = "";
+        $('dataNote').value = "";
+        $('dataHeadCode').value = "";
+        $('dataCompanyId').value = "";
+				$('is_managerial').checked = false;
+				$('is_managerial').parentNode.className = '';
+        for (i=1; i<= intMaxSet; i=i+1)
+        {
+          $(strSet + i).value = 0;
+        }
+          $('dataLateDeduction').checked = false;
+          $('dataLateDeduction').parentNode.className = '';
+          $('dataLateDeductionAmount').value = 0;
+          $('dataFlatLateDeduction').value = 0;
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $F("detailID" + idx);
+        $('dataCode').value = $F("detailCode" + idx);
+        $('dataName').value = $F("detailName" + idx);
+        $('dataNote').value = $F("detailNote" + idx);
+        $('dataHeadCode').value = $F("detailHeadCode" + idx);
+        $('dataCompanyId').value = $F("detailCompanyId" + idx);
+
+		if ($F("detailIsManagerial" + idx) == 't'){
+          $('is_managerial').checked = true;
+          $('is_managerial').parentNode.className = 'checked';
+        }else{
+          $('is_managerial').checked = false;
+          $('is_managerial').parentNode.className = '';
+        }
+        if ($F("detailIsAdjunct" + idx)){
+            $('adjunct').checked = true;
+            $('adjunct').parentNode.className = 'checked';
+        }else{
+            $('adjunct').checked = false;
+            $('adjunct').parentNode.className = '';
+        }
+        for (i=1; i<= intMaxSet; i=i+1)
+        {
+          if ($F("detailAllowance" + i + "_" + idx) == "")
+            $(strSet + i).value = 0;
+          else
+            $(strSet + i).value = $F("detailAllowance" + i + "_" + idx);
+        }
+          $('dataLateDeductionAmount').value = $F("detailLateDeductionAmount" + idx);
+          $('dataFlatLateDeduction').value = $F("detailFlatLateDeduction" + idx);
+          if ($F("detailLateDeduction" + idx) == 't'){
+              $('dataLateDeduction').checked = true;
+              $('dataLateDeduction').parentNode.className = 'checked';
+          }else{
+              $('dataLateDeduction').checked = false;
+              $('dataLateDeduction').parentNode.className = '';
+          }
+      }
+      $('dataCode').focus();
+      $('dataCode').select();
+    },
+
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+  jQuery(function($) {
+  	$('.edit-data').on('click', function(){
+  		var strID = $(this).attr('id');
+  		var splitID = strID.split('-');
+        $('#dataCompanyId').val($('#detailCompanyId'+ splitID[1]).val());
+        console.log(splitID);
+        console.log($('#detailCompanyId'+ splitID[1]).val());
+        $('#dataCompanyId').select2('destroy');
+        $('#dataCompanyId').select2();
+  		$('#dataHeadCode').val($('#detailHeadCode'+ splitID[1]).val());
+  		$('#dataHeadCode').select2('destroy');
+  		$('#dataHeadCode').select2();
+        //console.log($('#detailPositionCode'+ splitID[1]).val());
+  		$('#dataPositionCode').val($('#detailPositionCode'+ splitID[1]).val());
+  		$('#dataPositionCode').select2('destroy');
+  		$('#dataPositionCode').select2();
+  	});
+  })
+</script>
+[var.pageHeader]
+  <div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+				[var.formInput;protect=no;htmlconv=no]
+  		</div>
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" >
+						  	<a href="#" data-toggle="collapse" data-target="#functional-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">FUNCTIONAL LIST</h3>
+					</div>
+					<div id="functional-panel" class="panel-body collapse in">
+						[var.DataGrid;protect=no;htmlconv=no]
+					</div>
+				</div>
+  		</div>
+  	</div>
+  </div>

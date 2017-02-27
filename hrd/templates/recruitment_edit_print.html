@@ -1,0 +1,329 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <link href="[var.strPrintCss]" rel="stylesheet" type="text/css">
+  <script src="scripts/calendar.js"></script>
+  <script src="scripts/invosa.js"></script>
+  <script src="scripts/calendar-en.js"></script>
+  <link href="../css/calendar.css" rel="stylesheet" type="text/css">
+  <script>
+  <!--
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    [var.strPrintInit]
+  }//initPage
+  -->
+  </script>
+</head>
+<body leftmargin="10" topmargin="0" onload="initPage_();"
+ marginheight="0" marginwidth="10">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td align="left">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="pageHeaderTitle" align="left"><img
+ style="width: 153px; height: 55px;" alt="Logo" src="images/logo.gif"></td>
+    </tr>
+    <tr>
+      <td class="tableHeader" align="center">
+      <h2>FORMULIR PERMINTAAN PEGAWAI BARU<br>
+      </h2>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp; <br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">
+      <table align="center" border="0" cellpadding="2" cellspacing="0"
+ width="95%">
+        <tbody>
+          <tr>
+            <td width="20%">&nbsp;</td>
+            <td align="center" width="15">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td valign="top" width="20%"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;<b>DEPARTMENT</b></td>
+            <td align="center">:</td>
+            <td nowrap="nowrap">[var.strInputDepartment]</td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td colspan="3" nowrap="nowrap"><strong>&nbsp;<u>PROFIL
+JABATAN</u><br>
+            </strong></td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;Posisi/Jabatan</td>
+            <td align="center">:</td>
+            <td nowrap="nowrap">[var.strInputPosition]&nbsp;&nbsp;
+[var.strInputEmployeeStatus]</td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;Jumlah Permintaan<br>
+            </td>
+            <td align="center">:</td>
+            <td nowrap="nowrap">[var.strInputNumber] orang<br>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;Tanggal Kebutuhan<br>
+            </td>
+            <td align="center">:</td>
+            <td nowrap="nowrap">[var.strInputDueDate]&nbsp;&nbsp;</td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;Tugas dan Pekerjaan<br>
+            </td>
+            <td align="center">:</td>
+            <td colspan="2" rowspan="1">[var.strInputDescription]<br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td colspan="3" rowspan="1">&nbsp;<u><b>KUALIFIKASI CALON</b></u><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top"><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;Age</td>
+            <td align="center">:</td>
+            <td nowrap="nowrap">[var.strInputMinAge] to
+[var.strInputMaxAge]</td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap"> &nbsp;Sex</td>
+            <td align="center">:</td>
+            <td nowrap="nowrap">[var.strInputGender]</td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap"> &nbsp;Marital Status</td>
+            <td align="center">:</td>
+            <td nowrap="nowrap">[var.strInputMarital]</td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;Education</td>
+            <td align="center">:</td>
+            <td>[var.strInputEducationLevel]</td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;Major Study</td>
+            <td align="center">:</td>
+            <td>[var.strInputEducation]</td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;Work Experiences</td>
+            <td align="center">:</td>
+            <td nowrap="nowrap"> [var.strInputWork] tahun</td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td nowrap="nowrap">&nbsp;Other Qualification</td>
+            <td align="center">:</td>
+            <td colspan="2" rowspan="1">[var.strInputQualification]<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top"><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" rowspan="1" valign="top">&nbsp;<u><b>RENCANA
+KEBUTUHAN KARYAWAN</b></u><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" rowspan="1" valign="top">&nbsp;Jumlah
+Karyawan di Departemen pada ada saat ini <br>
+            </td>
+            <td valign="top">: <br>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" rowspan="1" valign="top">&nbsp;Jumlah
+Karyawan Sesuai rencana Kerja Anggaran Tahun ini&nbsp; <br>
+            </td>
+            <td valign="top">: <br>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" rowspan="1" valign="top">&nbsp;Jumlah
+Karyawan yang direkrut sampai saat ini <br>
+            </td>
+            <td valign="top">: <br>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" rowspan="1" valign="top">&nbsp;<br>
+            </td>
+            <td valign="top">&nbsp;<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;<br>
+            </td>
+            <td valign="top">&nbsp;<br>
+            </td>
+            <td valign="top">&nbsp;<br>
+            </td>
+            <td valign="top">Jakarta,<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;<br>
+            </td>
+            <td valign="top">&nbsp;<br>
+            </td>
+            <td valign="top">&nbsp;<br>
+            </td>
+            <td valign="top">&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top"><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+            <td align="center" valign="top">[var.strInputEmployee]<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top"><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp; <br>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;
+      <table align="center" border="0" cellpadding="2" cellspacing="0"
+ width="95%">
+        <tbody>
+          <tr>
+            <td class="tableHeader" width="20%">&nbsp;Disposisi<br>
+&nbsp;HRD &amp; GA Dept. Head<br>
+            </td>
+            <td align="center" width="15">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td valign="top" width="20%"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td class="tableHeader" nowrap="nowrap">&nbsp;Tanggal</td>
+            <td align="center"><br>
+            </td>
+            <td nowrap="nowrap">&nbsp;&nbsp;</td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td class="tableHeader" nowrap="nowrap">&nbsp;Disposisi<br>
+&nbsp;Pimpinan Perusahaan<br>
+&nbsp;(BOD)<br>
+            </td>
+            <td align="center"><br>
+            </td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td class="tableHeader" nowrap="nowrap">&nbsp;Tanggal<br>
+            </td>
+            <td align="center"><br>
+            </td>
+            <td nowrap="nowrap">&nbsp;<br>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td align="right"><i>Harap dikirim ke HRD setelah dilengkapi dan
+ditandatangani</i><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

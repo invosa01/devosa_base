@@ -1,0 +1,119 @@
+<script type="text/javascript">
+	var myClient = {
+    editData : function(params)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      arrParam  = params.split("|");
+      idx = arrParam[0];
+      strSet = arrParam[1];
+      intMaxSet = arrParam[2];
+      $('formMessage').style.visibility = 'hidden';
+      console.log(idx);
+      if (idx == 0)      {
+        //reset data
+        $('position_code').removeAttribute('readOnly');
+        $('dataID').value = '';
+        $('position_code').value = '';
+        $('position_name').value = '';
+        $('position_group').selectedIndex = 0;
+        $('note').value = '';
+        $('level_val').value = '';
+        $('get_ot').selectedIndex = 0;
+        $('get_auto_ot').checked = false;
+        $('get_auto_ot').parentNode.className = '';
+        $('approver_id').value = '';
+        $('ot_limit').value = '';
+        $('ot_meal_fee').value = '';
+        $('level').value = '';
+        for (i = 1; i <= intMaxSet; i = i + 1)
+        {
+          $(strSet + i).value = 0;
+        }
+
+      }
+      else if (idx != '')
+      {
+      	$('position_code').readOnly = true;
+        $('dataID').value = $F("detailID" + idx);
+        $('position_code').value = $F("detailCode" + idx);
+        $('position_name').value = $F("detailName" + idx);
+        $('level_val').value = $F("detailLevel" + idx);
+        $('position_group').selectedIndex = 0;
+        $('position_group').value = $F("detailPositionGroup" + idx);
+        $('note').value = $F("detailNote" + idx);
+        $('get_ot').value = $F("detailGetOvertime" + idx);
+        $('get_auto_ot').checked = ($F("detailGetAutoOvertime" + idx) == 't');
+        if ($F("detailGetAutoOvertime" + idx) == 't'){
+          $('get_auto_ot').checked = true;
+          $('get_auto_ot').parentNode.className = 'checked';
+        }else{
+          $('get_auto_ot').checked = false;
+          $('get_auto_ot').parentNode.className = '';
+
+        }
+        $('ot_limit').value = $F("detailOvertimeLimit" + idx);
+        console.log(idx);
+        $('ot_meal_fee').value = $F("detailOvertimeMealFee" + idx);
+        // $('ot_meal_min_duration').value = $F("detailOvertimeMealMinDuration" + idx);
+        console.log(strSet);
+        for (i=1; i<= intMaxSet; i=i+1)
+        {
+          if ($F("detailAllowance" + i + "_" + idx) == "")
+            $(strSet + i).value = 0;
+          else
+            $(strSet + i).value = $F("detailAllowance" + i + "_" + idx);
+          console.log($F("detailAllowance" + i + "_" + idx));
+          console.log("detailAllowance" + i + "_" + idx);
+        }
+      }
+      $('position_code').focus();
+      $('position_code').select();
+    },
+
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+    jQuery(function($) {
+      $('.edit-data').on('click', function(){
+        //$('#id_company').select2('destroy');
+        var strID = $(this).attr('id');
+        var splitID = strID.split('-');
+        $('#position_group').val($('#detailPositionGroup'+ splitID[1]).val());
+        $('#position_group').select2('destroy');
+        $('#position_group').select2();
+        $('#get_ot').val($('#detailGetOvertime'+ splitID[1]).val());
+        $('#get_ot').select2('destroy');
+        $('#get_ot').select2();
+      });
+    })
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.formInput;protect=no;htmlconv=no]
+  		</div>
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">Position List</h3>
+					</div>
+					<div id="list-panel" class="panel-body collapse in">
+						[var.DataGrid;protect=no;htmlconv=no]
+					</div>
+				</div>
+  		</div>
+  	</div>
+  </div>

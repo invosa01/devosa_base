@@ -1,0 +1,147 @@
+<script>
+    <!--
+    
+    // fungsi untuk memeriksa input
+    function validInput() {
+      if (document.formInput.fileData.value == "") {
+        alert("Empty file!");
+        return false;
+      }
+      if (document.formInput.chkDrop.checked) {
+        return confirm("You are about to delete all existing data before importing new data. Are you sure?");
+      }
+      return true;
+    }//validInput
+    
+    // fungsi untuk inisialisasi
+    function initPage() {
+      //document.formInput.filterEmployeeID.focus();
+    }//initPage
+    -->
+  </script>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td align="left">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="pageHeaderTitle" align="left">
+      <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30">&nbsp;</td>
+            <td class="pageHeaderTitleText" nowrap="nowrap">&nbsp;[var.strWordsImportMedicalData]</td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="inputBox">
+      <form action="" method="post" name="formInput" id="formInput" enctype="multipart/form-data" onSubmit="return validInput();">
+          <table align="left" border="0" cellpadding="1" cellspacing="0" width="500">
+            <tr> 
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr valign="top"> 
+              <td width="15%" nowrap="nowrap"><strong>&nbsp;[var.strWordsExcelFile]</strong></td>
+              <td width="5%">:</td>
+              <td width="80%"> <input size="50" name="fileData" type="file"> </td>
+            <tr valign="top"> 
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td> <input name="btnImport" id="btnImport" value="[var.strWordsImport]" type="submit"></td>
+            </tr>
+            <tr> 
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr> 
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>[var.strWordsFORMATDATAINPUT]</td>
+            </tr>
+            <tr> 
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>
+              <table class="gridTable" border="0" cellpadding="1" cellspacing="0">
+
+                <tr class="tableHeader">
+                  <td class="tableHeader" nowrap="nowrap">[var.strWordsEMPL.ID]</td>
+                  <td class="tableHeader" nowrap="nowrap">[var.strWordsEMPL.NAME]</td>
+                  <td class="tableHeader" nowrap="nowrap">[var.strWordsRELATION/STATUS]</td>
+                  <td class="tableHeader" nowrap="nowrap">[var.strWordsKODETINDAKAN]</td>
+                  <td class="tableHeader" nowrap="nowrap">[var.strWordsTREATMENTTYPE]</td>
+                  <td class="tableHeader" nowrap="nowrap">[var.strWordsTREATMENTDATE]</td>
+                  <td class="tableHeader" nowrap="nowrap">[var.strWordsCOST]</td>
+                  <td class="tableHeader" nowrap="nowrap">[var.strWordsAPPROVEDCOST]</td>
+                  <td class="tableHeader" nowrap="nowrap">[var.strWordsFORMNO.]</td>
+                  <td class="tableHeader" nowrap="nowrap">[var.strWordsTYPE]</td>
+                  <td class="tableHeader" nowrap="nowrap">[var.strWordsCLAIMDATE]</td>
+                  <td class="tableHeader" nowrap="nowrap">[var.strWordsID]</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+            </table>
+              
+              </td>
+            </tr>
+            <tr> 
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+          </table>
+      </form>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr id='detailResult' [var.strResultStyle]>
+      <td>
+        <table class="gridTable" border="0" cellpadding="1" cellspacing="0">
+          
+            <tr class="tableHeader">
+              <td class="tableHeader" nowrap="nowrap" align="center">[var.strWordsRESULT#FORM]</td>
+              <td class="tableHeader" nowrap="nowrap" align="center">[var.strWordsRESULT#DETAIL]</td>
+              <td class="tableHeader" nowrap="nowrap" align="center">[var.strWordsUNKNOWNID]</td>
+            </tr>
+            <tr>
+              <td align="center">[var.strTotalResultForm]&nbsp;</td>
+              <td align="center">[var.strTotalResultDetail]&nbsp;</td>
+              <td align="center">[var.strErrorID]&nbsp;</td>
+            </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    
+  </tbody>
+</table>
+

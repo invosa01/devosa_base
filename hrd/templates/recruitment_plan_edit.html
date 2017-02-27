@@ -1,0 +1,226 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<script src="scripts/invosa.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script>
+  <!--
+
+  function clearForm() {
+    document.formInput.dataDepartment.value = "";
+    document.formInput.dataPosition.value = "";
+    document.formInput.dataNumber.value = "";
+    document.formInput.dataMinAge.value = "";
+    document.formInput.dataMaxAge.value = "";
+    document.formInput.dataEducation.value = "";
+    document.formInput.dataDescription.value = "";
+    document.formInput.dataQualification.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataDepartment.focus();
+  }//clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataPosition.value == "") {
+      alert("Empty Position!");
+      document.formInput.dataPosition.focus();
+      return false;
+    }<!--
+    if (document.formInput.dataDueDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDueDate.focus();
+      return false;
+    }-->
+    ok = validateForm(document.formInput);
+    return ok;
+  } //validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDepartment.focus();
+    Calendar.setup({ inputField:"dataDueDate", button:"btnDueDate" });
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">Recruitment Plan </td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>&nbsp;<strong>Data Entry | <a href="recruitment_plan_list.php">Recruitment Plan
+            List</a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox">
+    <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td valign="top" width="50">
+              <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Department</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDepartment]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Year</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputYear]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td nowrap>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td colspan="3" nowrap><strong>&nbsp;POSITION PROFILE</strong></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Position</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputPosition]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;Position Status</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputEmployeeStatus]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Number</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputNumber]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Expected Date</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDueDate]&nbsp; <input name="btnDueDate" type="button" id="btnDueDate" value=".."></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Job Description</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDescription]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td nowrap>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Status</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputStatus]</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td> <input name="btnSave" type="submit" id="btnSave" value="Save">
+                    <input name="btnNew" type="button" id="btnNew" value="Clear Form" onClick="location.href='recruitment_plan_edit.php';">
+                    <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]"></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table>
+              </td>
+            <td width="50%" valign="top">&nbsp;</td>
+            <td valign="top">
+              <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td colspan="3" nowrap>&nbsp;<strong>CANDIDATE QUALIFICATION</strong></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Age</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputMinAge] to [var.strInputMaxAge]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;Gender</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputGender]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;Marital Status</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputMarital]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Education</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputEducationLevel]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Major Study</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputEducation]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Work Experiences</td>
+                  <td align="center">:</td>
+                  <td nowrap> [var.strInputWork] (years)</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Other Qualification</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputQualification]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </form>
+      </td>
+  </tr>
+</table>

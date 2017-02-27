@@ -1,0 +1,88 @@
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<link href="ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+  AC_targetElements = ["employee_id"];
+          // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+    // kehilangan foku
+  function onCodeBlur() {
+  var kode = document.formData.strIdentitasPemotongNIK.value;
+  var nama = AC_getNameByCode(kode);
+//      alert(kode);
+  var obj = document.getElementById("employee_name");
+  obj.innerHTML = nama;
+
+  return 1;
+  }
+</script>
+<script type="text/javascript">
+	var myClient = {
+    editData : function(params)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      arrParam  = params.split("|");
+      idx = arrParam[0];
+      strSet = arrParam[1];
+      intMaxSet = arrParam[2];
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)      {
+        //reset data
+        $('dataID').value = "";
+        $('year').value = "";
+        $('employee_id').value = "";
+        $('taxable_regular_income').value = 0;
+        $('taxable_irregular_income').value = 0;
+        $('tax_regular_paid').value = 0;
+        $('tax_irregular_paid').value = 0;
+        $('note').value = "";
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $F("detailID" + idx);
+        $('year').value = $F("detailYear" + idx);
+        $('employee_id').value = $F("detailIDEmployee" + idx);
+        $('taxable_regular_income').value = $F("detailTaxableRegularIncome" + idx);
+        $('taxable_irregular_income').value = $F("detailTaxableIrregularIncome" + idx);
+        $('tax_regular_paid').value = $F("detailRegularTaxPaid" + idx);
+        $('tax_irregular_paid').value = $F("detailIrregularTaxPaid" + idx);
+        $('note').value = $F("detailNote" + idx);
+      }
+    },
+
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+
+
+  }
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			[var.formInput;protect=no;htmlconv=no]
+  		</div>
+  		<div class="col-md-12">
+  			<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">List of New Employee Tax Reconcile</h3>
+					</div>
+					<div id="list-panel" class="panel-body collapse in">
+						[var.DataGrid;protect=no;htmlconv=no]
+					</div>
+				</div>
+  		</div>
+  	</div>
+  </div>

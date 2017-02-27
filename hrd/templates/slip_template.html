@@ -1,0 +1,250 @@
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tr><td align="center">
+
+    <table border="0" cellspacing="2" cellpadding="0">
+	  <tr height=18>
+        <td colspan=4 align="center" ><h5>[var.strCompanyName]</h5></td>
+      </tr>
+      <tr height=18>
+        <td colspan=4 align="center"><h5>Salary Of  <strong>[var.strMonth] <strong>[var.strYear]</h5></td>
+      </tr>
+	  <tr height=28>
+        <td colspan=4>&nbsp;</td>
+      </tr>
+      <tr height=18>
+        <td valign="top" style="border-bottom:1px solid gray"  width="30%"><p>NIK</p></td>
+        <td valign="top" style="border-bottom:1px solid gray"  width="20%"><p><strong>[var.rowDb.employee_id]</strong></p></td>
+        <td valign="top" style="border-bottom:1px solid gray"  width="25%"><p>Marital Status</p></td>
+        <td valign="top" style="border-bottom:1px solid gray"  width="25%"><p><strong>[var.rowDb.family_status_code]</strong></p></td>
+      </tr>
+      <tr height=18>
+        <td valign="top" style="border-bottom:1px solid gray" ><p>No</p></td>
+        <td valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.intPage]</strong></p></td>
+        <td valign="top" style="border-bottom:1px solid gray" ><p>Join Date</p></td>
+        <td valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.join_date]</strong></p></td>
+      </tr>
+      <tr height=18>
+        <td valign="top" style="border-bottom:1px solid gray" ><p>Nama</p></td>
+        <td valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.employee_name]</strong></p></td>
+        <td valign="top" style="border-bottom:1px solid gray" ><p>Position</p></td>
+        <td valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.position_name]</strong></p></td>
+      </tr>
+      <tr height=18>
+        <td valign="top" style="border-bottom:1px solid gray" ><p>Dept</p></td>
+        <td valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.department_name]</strong></p></td>
+        <td valign="top" style="border-bottom:1px solid gray" ><p>&nbsp;</p></td>
+        <td valign="top" style="border-bottom:1px solid gray" ><p>&nbsp;</p></td>
+      </tr>
+	  <tr height=18>
+        <td colspan=4>&nbsp;</td>
+      </tr>
+      <tr bgcolor="#dddddd" height=18>
+        <td colspan=2><p><h5>Additional</h5></p></td>
+        <td colspan=2><p><h5>Deduction</h5></p></td>
+      </tr>
+      <tr height=18>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Basic</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray"  border="1px"><p><strong>[var.rowDb.basic_salary]</strong></p></td>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Jamsostek Employee</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray"  border="1">
+			<p><strong>[var.rowDb.jamsostek_deduction]</strong></p>
+		</td>
+      </tr>
+      <tr height=18>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Grade</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray"  border="1"><p><strong>[var.rowDb.grade_allowance]</strong></p></td>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Askes</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray"  border="1"><p><strong>[var.rowDb.askes_deduction]</strong></p></td>
+      </tr>
+      <tr height=18>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Seniority</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.seniority_allowance]</strong></p></td>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Loan</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.loan_deduction]</strong></p></td>
+      </tr>
+      <tr height=18>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Meal Allowance</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.meal_allowance]</strong></p></td>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Absent</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.absence_deduction]</strong></p></td>
+      </tr>
+      <tr height=18>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Attendance Allowance</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.attendance_allowance]</strong></p></td>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Opening BII Acc</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.bii_account]</strong></p></td>
+      </tr>
+      <tr height=18>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Transport Allowance</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.transport_allowance]</strong></p></td>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Meal Outside</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.out_meal]</strong></p></td>
+      </tr>
+      <tr height=18>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Family Allowance</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.family_allowance]</strong></p></td>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Meal In Canteen</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.meal_canteen]</strong></p></td>
+      </tr>
+      <tr height=18>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Medical Allowance</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p>0</p></td>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Union Payment</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.union_payment]</strong></p></td>
+      </tr>
+      <tr height=18>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Housing Allowance</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.housing_allowance]</strong></p></td>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>More Payment</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.more_payment]</strong></p></td>
+      </tr>
+      <tr height=18>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Shift Allowance</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.shift_allowance]</strong></p></td>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>&nbsp;</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p>&nbsp;</p></td>
+      </tr>
+      <tr height=18>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Sanding Allowance</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.sanding_allowance]</strong></p></td>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>&nbsp;</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p>&nbsp;</p></td>
+      </tr>
+      <tr height=18>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Overtime</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.overtime]</strong></p></td>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>&nbsp;</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p>&nbsp;</p></td>
+      </tr>
+      <tr height=18>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Less Payment</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.less_payment]</strong></p></td>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>&nbsp;</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p>&nbsp;</p></td>
+      </tr>
+      <tr height=18>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>Jamsostek Company</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p><strong>[var.rowDb.jamsostek_allowance]</strong></p></td>
+        <td width="200" valign="top" style="border-bottom:1px solid gray" ><p>&nbsp;</p></td>
+        <td width="100" valign="top" style="border-bottom:1px solid gray" ><p>&nbsp;</p></td>
+      </tr>
+      <tr height=18>
+        <td colspan=4>&nbsp;</td>
+      </tr>
+      <tr height=18  bgcolor="#dddddd">
+        <td width="200"><p>Total Additional</p></td>
+        <td width="100"><p><strong>[var.fltAdditional]</strong></p></td>
+        <td width="200"><p>Total Deduction</p></td>
+        <td width="100"><p><strong>[var.fltDeduction]</strong></p></td>
+      </tr>
+	  <tr>
+        <td colspan=4><p>&nbsp;</p></td>
+      </tr>
+	  <tr height=18 >
+        <td width="200" bgcolor="#dddddd" valign="top"><p><h5>Total Received Salary</h5></p></td>
+        <td width="100" bgcolor="#dddddd" valign="top"><p><h5>[var.fltReceivedSalary]</h5></p></td>
+        <td width="200" valign="top">&nbsp;</td>
+        <td width="100" valign="top">&nbsp;</td>
+      </tr>
+    </table>
+</td></tr>
+<tr><td>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr  height="20">
+        <td colspan="3">&nbsp;</td>
+      </tr>
+      <tr height="18">
+        <td colspan="3" style="border-top:1px solid gray; border-bottom:1px solid gray">OVERTIME SUMMARY</td>
+      </tr>
+      <tr>
+        <td colspan="3">&nbsp;</td>
+      </tr>
+      <tr>
+          <td valign="top" width="50%">[var.strOTTable]</td>
+          <td valign="top" align="right">
+             <table>
+                <tr>
+                  <td>Regular OT</td>
+                  <td>&nbsp;:</td>
+                  <td>&nbsp;[var.rowDb.ot_min]</td>
+                  <td>&nbsp;=></td>
+                  <td>&nbsp;[var.rowDb.otx_min]</td>
+                </tr>
+                <tr>
+                  <td>Less OT</td>
+                  <td>&nbsp;:</td>
+                  <td>&nbsp;[var.rowDb.ot_outdated_min]</td>
+                  <td>&nbsp;=></td>
+                  <td>&nbsp;[var.rowDb.otx_outdated_min]</td>
+                </tr>
+                <tr>
+                  <td>Auto OT</td>
+                  <td>&nbsp;:</td>
+                  <td>&nbsp;[var.rowDb.ot_auto_min]</td>
+                  <td>&nbsp;=></td><td>&nbsp;[var.rowDb.otx_auto_min]</td>
+                </tr>
+                <tr>
+                  <td nowrap>OT Hour</td>
+                  <td>&nbsp;:</td>
+                  <td colspan="3">&nbsp;[var.fltSubTotalOTMin]</td>
+                </tr>
+				<tr>
+                  <td nowrap>OT Rate</td>
+                  <td>&nbsp;:</td>
+                  <td colspan="3">&nbsp;[var.rowDb.ot_rate]</td>
+                </tr>
+				<tr>
+                  <td nowrap>OT</td>
+                  <td>&nbsp;:</td>
+                  <td colspan="3">&nbsp;[var.fltSubTotalOT]</td>
+                </tr>
+                 <tr>
+                  <td colspan="5">&nbsp;</td>
+                </tr>
+
+                <tr>
+                  <td><strong>Total</strong></td>
+                  <td>&nbsp;:</td>
+                  <td  colspan="3"><strong>&nbsp;[var.rowDb.overtime]</strong></td>
+                </tr>
+              </table>
+          </td>
+		  <td valign="top">
+             <table width="100%">
+                <tr>
+                  <td colspan="3">&nbsp;</td>
+                </tr>
+				<tr>
+                  <td colspan="3">&nbsp;</td>
+                </tr>
+				<tr>
+                  <td colspan="3">&nbsp;</td>
+                </tr>
+				<tr>
+                  <td>SPV Hour</td>
+                  <td>&nbsp;:</td>
+                  <td>&nbsp;[var.rowDb.ot_spv_min]</td>
+                </tr>
+				<tr>
+                  <td>SPV Rate</td>
+                  <td>&nbsp;:</td>
+                  <td>&nbsp;[var.fltHalfOTRate]</td>
+                </tr>
+                <tr>
+                  <td>SPV </td>
+                  <td>&nbsp;:</td>
+                  <td>&nbsp;[var.rowDb.ot_spv]</td>
+                </tr>
+              </table>
+          </td>
+       </tr>
+       <tr>
+          <td colspan="3" style="border-top:1px solid gray; border-bottom:1px solid gray">&nbsp;</td>
+       </tr>
+    </table>
+</td></tr>
+<tr><td>
+<p>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;</p>
+<p>Signature : <u></u></p>
+</td></tr>
+</table>

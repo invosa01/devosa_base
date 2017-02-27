@@ -1,0 +1,659 @@
+<script src="scripts/ylib.js"></script>
+
+<script>
+  <!--
+  // menuju ke suatu URL
+  function goUrl(url) {
+    if (url != "") {
+
+      if (document.formInput.dataEmployeeID.value == "") {
+        alert("Please save data first");
+      } else {
+        //location.href = url + ".php?dataID=" + document.formInput.dataID.value;
+		document.getElementById('formGoUrl').action = url+'.php';
+		document.formGoUrl.dataID.value = document.formInput.dataID.value;
+		document.formGoUrl.submit();
+      }
+    }
+  }//goUrl
+
+	// menampilkan print view
+	function printData() {
+
+		if (document.formInput.dataID.value != "") {
+			url = "employee_resume.php?btnPrint=Print&dataID=" + document.formInput.dataID.value;
+			window.open(url);
+		}
+	}//printData
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+
+  }//initPage
+  -->
+  
+                                                                                                                                       
+</script>
+[var.pageHeader]
+  <div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+				[var.pageSubMenu]
+	    	<p></p>
+			</div>
+			<div class="col-md-12">
+				<form action="" method="post" enctype="multipart/form-data" name="formInput" id="formInput" onSubmit="return validInput();" class="form-horizontal" role="form">
+					<div class="col-md-12">
+						<div class="panel">
+							<div class="panel-heading">
+								<div class="panel-actions">
+									<div class="pull-right" >
+								  	<a href="#" data-toggle="collapse" data-target="#input-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+								  </div>
+								</div>
+								<h3 class="panel-title">PRIMARY DATA</h3>
+							</div>
+							<div id="input-panel" class="panel-body collapse in">
+								<div class="col-md-3">
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataType">[var.strWordsEmployeeID]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputEmployeeID]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataDateFrom">[var.strWordsFingerID]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+		                  [var.strInputFingerID]
+		                </div>	
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataDateThru">[var.strWordsEmployeeName]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+		                  [var.strInputName]
+		                </div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsLetterCode]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputLetterCode]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsNickname]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputNickname]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsBirthday]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputBirthday]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsBirthplace]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputBirthplace]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsGender]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputGender]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsAddress]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputAddress]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsCityZip]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputCity] / [var.strInputZip]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsPhone]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputPhone]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsEmail]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputEmail]
+										</div>
+									</div>									
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsPrivatePhone]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputPrivatePhone]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsPrivateEmail]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputPrivateEmail]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsEmergencyContact]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputEmergencyContact]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsRelation]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputEmergencyRelation]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsEmergencyAddress]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputEmergencyAddress]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsEmergencyPhone]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputEmergencyPhone]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsWeight]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputWeight]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsHeight]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputHeight]
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsBloodType]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputBlood]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsIDCard]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputIDCard]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsDriverLicenseA]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputLicenseA]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsDriverLicenseB]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputLicenseB]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsDriverLicenseC]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputLicenseC]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataType">[var.strWordsNationality]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputNationality]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataDateFrom">[var.strWordsPassport]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+		                  [var.strInputPassport]
+		                </div>	
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataDateThru">[var.strWordsReligion]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+		                  [var.strInputReligion]
+		                </div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsEducationLevel]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputEducation]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsWeddingDate]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputWeddingDate]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsTransport]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputTransport]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsTransportFee]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputTransportFee]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsNote]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputNote]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsFamilyStatus]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputFamilyStatus]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsLivingCostStatus]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputLivingCost]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsMedicalQuotaStatus]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputMedicalQuotaStatus]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsInspouse]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputInspouse]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsCompany]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputCompany]
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsEmployeeStatus]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputEmployeeStatus]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsSubsection]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputSubSection]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsSection]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputSection]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsDepartment]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputDepartment]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsDivision]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputDivision]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsManagement]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputManagement]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsLevel]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputPosition]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsFunctionalPosition]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputFunctionalPosition]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataType">[var.strWordsJobGrade]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputSalaryGrade]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataDateFrom">[var.strWordsActive]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+		                  [var.strInputActive]
+		                </div>	
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsJoinDate]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputJoinDate]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsPermanentDate]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputPermanentDate]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsFinishDate]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputDueDate]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsResignDate]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputResignDate]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsNPWP]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputNPWP]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsJamsostekNo]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputJamsostekNo]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsZakat]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputIsZakat]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsBankCode]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputBankCode]
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsBankBranch]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputBankBranch]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsBankAccountType]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputBankAccountType]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsBankAccount]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputBankAccount]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsBankAccountName]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputBankAccountName]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsBank2Code]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputBank2Code]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsBank2Branch]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputBank2Branch]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsBank2AccountType]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputBank2AccountType]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsBank2Account]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputBank2Account]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsBank2AccountName]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputBank2AccountName]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsLevel]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputPosition]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" for="dataEmployeeStatus">[var.strWordsFunctionalPosition]</label>
+										<div class="col-sm-7" style="padding-top: 7px;">
+											[var.strInputFunctionalPosition]
+										</div>
+									</div>
+									<div class="form-group">
+		                  <label class="col-sm-5 control-label">[var.strWordsPhoto]</label><br/>
+		                  <div class="fileinput fileinput-new" data-provides="fileinput">
+		                    <div class="fileinput-new thumbnail" style="width: 140px; height: 180px;">
+		                      [var.strDataPhoto]
+		                    </div>
+		                  </div>
+		              </div>
+								</div>
+							</div>
+						</div>
+						<div class="panel">
+							<div class="panel-heading">
+								<div class="panel-actions">
+									<div class="pull-right" >
+								  	<a href="#" data-toggle="collapse" data-target="#work-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+								  </div>
+								</div>
+								<h3 class="panel-title">CAREER HISTORY</h3>
+							</div>
+							<div id="status-panel" class="panel-body collapse in">
+								<table border="0" cellpadding="1" cellspacing="0" class="table table-striped table-hover">
+									<thead>
+                                      <tr><th colspan="5">Employee Status Changes</th></tr>
+                                      <tr>
+                                          <th nowrap>No</th>
+                                          <th nowrap>Status From</th>
+                                          <th nowrap>Status To</th>
+                                          <th nowrap>From</th>
+                                          <th nowrap>Due</th>
+                                      </tr>
+					                </thead>
+                                  <tbody>
+                                  [var.strDataMutationStatus]
+                                  </tbody>
+					           </table>
+							</div>
+							<div id="department-panel" class="panel-body collapse in">
+								<table border="0" cellpadding="1" cellspacing="0" class="table table-striped table-hover">
+									<thead>
+                                      <tr><th colspan="12">Employee Department Changes</th></tr>
+                                      <tr>
+                                        <th nowrap>No</th>
+<!--                                        <th nowrap>Company From</th>-->
+                                        <th nowrap>Management From</th>
+                                        <th nowrap>Division From</th>
+                                        <th nowrap>Department From</th>
+                                        <th nowrap>Section From</th>
+                                        <th nowrap>Sub Section From</th>
+<!--                                        <th nowrap>Company To</th>-->
+                                        <th nowrap>Management To</th>
+                                        <th nowrap>Division To</th>
+                                        <th nowrap>Department To</th>
+                                        <th nowrap>Section To</th>
+                                        <th nowrap>Sub Section To</th>
+                                        <th nowrap>Effective To</th>
+                                      </tr>
+					                </thead>
+                                  <tbody>
+                                  [var.strDataMutationDepartment]
+                                  </tbody>
+					           </table>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="panel">
+							<div class="panel-heading">
+								<div class="panel-actions">
+									<div class="pull-right" >
+								  	<a href="#" data-toggle="collapse" data-target="#family-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+								  </div>
+								</div>
+								<h3 class="panel-title">FAMILY DATA</h3>
+							</div>
+							<div id="family-panel" class="panel-body collapse in">
+								<table border="0" cellpadding="1" cellspacing="0" class="table table-striped table-hover">
+									<thead>
+					        <tr class="tableHeader" align="center">
+					          <th style="width: 40px;">No</th>
+					          <th>Name</th>
+					          <th>Sex</th>
+					          <th>Age</th>
+					          <th>Birthday</th>
+					          <th>Relation</th>
+					        </tr>
+					        </thead>
+					        <tbody>
+					        [var.strDataFamily]
+					        </tbody>
+					      </table>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<div class="panel">
+							<div class="panel-heading">
+								<div class="panel-actions">
+									<div class="pull-right" >
+								  	<a href="#" data-toggle="collapse" data-target="#edu-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+								  </div>
+								</div>
+								<h3 class="panel-title">EDUCATION DATA</h3>
+							</div>
+							<div id="edu-panel" class="panel-body collapse in">
+								<table border="0" cellpadding="1" cellspacing="0" class="table table-striped table-hover">
+									<thead>
+					        <tr class="tableHeader" align="center">
+					          <th style="width: 40px;">No</th>
+					          <th nowrap="">Level</th>
+					          <th nowrap="">Institution</th>
+					          <th nowrap="">Faculty</th>
+					          <th nowrap="">Location</th>
+					          <th nowrap="">Registration No.</th>
+					          <th nowrap="">Certificate No.</th>
+					          <th nowrap="">Periode</th>
+					          <th nowrap="">Note</th>
+					        </tr>
+					        </thead>
+					        <tbody>
+					        [var.strDataEducation]
+					        </tbody>
+					      </table>
+							</div>
+						</div>
+						<div class="panel">
+							<div class="panel-heading">
+								<div class="panel-actions">
+									<div class="pull-right" >
+								  	<a href="#" data-toggle="collapse" data-target="#work-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+								  </div>
+								</div>
+								<h3 class="panel-title">WORK EXPERIENCE</h3>
+							</div>
+							<div id="work-panel" class="panel-body collapse in">
+								<table border="0" cellpadding="1" cellspacing="0" class="table table-striped table-hover">
+									<thead>
+					        <tr class="tableHeader" align="center">
+					          <th style="width: 40px;">No</th>
+					          <th nowrap="">Institution</th>
+					          <th nowrap="">Location</th>
+					          <th nowrap="">Position</th>
+					          <th nowrap="">Periode</th>
+					          <th nowrap="">Note</th>
+					        </tr>
+					        </thead>
+					        <tbody>
+					        [var.strDataWork]
+					        </tbody>
+					      </table>
+							</div>
+						</div>
+						<div class="panel">
+							<div class="panel-heading">
+								<div class="panel-actions">
+									<div class="pull-right" >
+								  	<a href="#" data-toggle="collapse" data-target="#training-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+								  </div>
+								</div>
+								<h3 class="panel-title">TRAINING DATA</h3>
+							</div>
+							<div id="training-panel" class="panel-body collapse in">
+								<table border="0" cellpadding="1" cellspacing="0" class="table table-striped table-hover">
+									<thead>
+					        <tr class="tableHeader" align="center">
+					          <th style="width: 40px;">No</th>
+					          <th nowrap="">Subject</th>
+					          <th nowrap="">Institution</th>
+					          <th nowrap="">Location</th>
+					          <th nowrap="">Trainer</th>
+					          <th nowrap="">Periode</th>
+					          <th nowrap="">Cost</th>
+					          <th nowrap="">Note</th>
+					        </tr>
+					        </thead>
+					        <tbody>
+					        [var.strDataTraining]
+					        </tbody>
+					      </table>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<input name="btnPrint" class="btn btn-primary" type="submit" id="btnPrint" value="Save as doc">
+            <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]">
+					</div>
+				</form>
+				<form method="post" name="formGoUrl" id="formGoUrl">                                                                       
+				  <input type="hidden" name="dataID" value="">                                                                                                                                    
+				</form>
+			</div>
+		</div>
+	</div>
+ 

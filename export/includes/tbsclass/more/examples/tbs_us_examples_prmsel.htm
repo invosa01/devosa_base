@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>TinyButStrong</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="tbs_us_examples_0styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<p align="center" class="title-page">Example of item selection</p>
+<table width="500" border="0" align="center" cellpadding="2" cellspacing="0">
+  <tr>
+    <td><p> The plug-in named &quot;HTML&quot; can help to select items in a list, a series of radio buttons or of checkboxes.<br>
+        <br>
+        For list feeding, you just have to use a normal block bounded by the tags <span class="text-example2">&lt;option&gt;</span>.<br>
+      </p></td>
+  </tr>
+</table>
+<form name="form1" method="post" action="">
+  <table width="500" border="0" align="center" cellpadding="2" cellspacing="0" class="back-special2">
+    <tr>
+      <td width="220" align="left" valign="top">&nbsp;</td>
+      <td width="140" class="title-section2"><div align="left">List with values</div></td>
+      <td width="140" class="title-section2"><div align="left">List without values</div></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="left" valign="top" class="title-section2">Feeding a list:</td>
+      <td width="140"><div align="left">
+          <select name="list_1v" size="5" multiple>
+            <option value="[lst1v.id]">[lst1v.name;block=option]</option>
+          </select>
+        </div></td>
+      <td width="140"><div align="left">
+          <select name="list_1" size="5" multiple>
+            <option>[lst1.name;block=option]</option>
+          </select>
+        </div></td>
+    </tr>
+    <tr>
+      <td align="left" valign="top">&nbsp;</td>
+      <td><div align="left"></div></td>
+      <td><div align="left"></div></td>
+    </tr>
+    <tr>
+      <td align="left" valign="top" class="title-section2">Single selection:</td>
+      <td><div align="left">
+          <select name="list_2v" size="5" multiple>
+            <option value="1">Red</option>
+            <option value="2">Green</option>
+            <option value="3">Blue</option>
+            <option value="4">Yellow</option>
+            <option value="5">White</option>
+            <option>[var.sel1_id;ope=html;select]</option>
+          </select>
+        </div></td>
+      <td><div align="left">
+          <select name="list_2" size="5" multiple>
+            <option>Red</option>
+            <option>Green</option>
+            <option>Blue</option>
+            <option>Yellow</option>
+            <option>White</option>
+            <option>[var.sel1_name;ope=html;select]</option>
+          </select>
+        </div></td>
+    </tr>
+    <tr>
+      <td align="left" valign="top">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="left" valign="top" class="title-section2">Multiple selection:</td>
+      <td><div align="left">
+          <select name="list_3v" size="5" multiple id="list_3v">
+            <option value="1">Red</option>
+            <option value="2">Green</option>
+            <option value="3">Blue</option>
+            <option value="4">Yellow</option>
+            <option value="5">White</option>
+            <option>[var.sel2_id;ope=html;select]</option>
+          </select>
+        </div></td>
+      <td><div align="left">
+          <select name="list_3" size="5" multiple id="list_3">
+            <option>Red</option>
+            <option>Green</option>
+            <option>Blue</option>
+            <option>Yellow</option>
+            <option>White</option>
+            <option>[var.sel2_name;ope=html;select]</option>
+          </select>
+        </div></td>
+    </tr>
+    <tr>
+      <td align="left" valign="top">&nbsp;</td>
+      <td><div align="left"></div></td>
+      <td><div align="left"></div></td>
+    </tr>
+    <tr>
+      <td align="left" valign="top" class="title-section2">Feeding and selecting:</td>
+      <td><select name="list_4v" size="5" multiple id="list_4v">
+          <option value="[lst3v.id]">[lst3v.name;block=option]</option>
+          <option>[var.sel1_id;ope=html;select]</option>
+        </select>
+      </td>
+      <td><select name="list_4" size="5" multiple id="list_4">
+          <option>[lst3.name;block=option]</option>
+          <option>[var.sel1_name;ope=html;select]</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="top">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+  <br>
+  <table width="500" border="0" align="center" cellpadding="2" cellspacing="0" class="back-special2">
+    <tr>
+      <td align="left" valign="top" class="title-section2">Radio button and Checkbox selection:</td>
+    </tr>
+    <tr>
+      <td>&nbsp;[var.sel1_name;ope=html;select=radio1]</td>
+    </tr>
+    <tr>
+      <td align="left" valign="top"><input type="radio" name="radio1" value="Red">
+        -&gt;Red
+        <input type="radio" name="radio1" value="Green">
+        -&gt;Green
+        <input type="radio" name="radio1" value="Blue">
+        -&gt;Blue
+        <input type="radio" name="radio1" value="Yellow">
+        -&gt;Yellow
+        <input type="radio" name="radio1" value="White">
+        -&gt;White </td>
+    </tr>
+    <tr>
+      <td>&nbsp;[var.sel2_name;ope=html;select=check1]</td>
+    </tr>
+    <tr>
+      <td><input name="check1" type="checkbox" id="check1" value="Red">
+        -&gt;Red
+        <input  name="check1" type="checkbox" value="Green">
+        -&gt;Green
+        <input name="check1" type="checkbox" id="check1" value="Blue">
+        -&gt;Blue
+        <input name="check1" type="checkbox" id="check1" value="Yellow">
+        -&gt;Yellow
+        <input name="check1" type="checkbox" id="check1" value="White">
+        -&gt;White </td>
+    </tr>
+    <tr>
+      <td align="left" valign="top">&nbsp;</td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

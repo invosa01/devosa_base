@@ -1,0 +1,93 @@
+  <script src="scripts/calendar.js"></script>
+  <script src="scripts/calendar-en.js"></script>
+  <link href="../css/calendar.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="stock_opname_onchange.php"></script>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+            [var.strWordsEntryStockOpname] |  
+            <a href="stock_opname_list.php">[var.strWordsStockOpnameList]</a> </strong>
+          </td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+ 
+[var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  
+</table>
+<script type="text/javascript">
+function onItemChanged() 
+  {
+    // Fungsi ini digunakan untuk mengisi secara otomatis pada inputan lain
+    arrInfo = getInfo($('dataIdItem').value);
+    $('dataItemOldAmount').value = arrInfo[0];
+  }
+
+	var myClient = {
+    editData : function(idx)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataID').value = "";
+        $('dataIdEmployee').value="";
+        $('dataIdItem').value="";
+        $('dataStockOpnameDate').value = "";
+        $('dataItemAmount').value = "";
+        $('dataItemOldAmount').value = "";
+        $('dataRemark').value = "";
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $F("detailID" + idx);
+        $('dataPurchaseNo').value = $F("detailPurchaseNo" + idx);
+        $('dataIdEmployee').value = $F("detailIdEmployee" + idx);
+        $('dataIdItem').value     = $F("detailIdItem" + idx);;
+        $('dataStockOpnameDate').value = $F("detailStockOpnameDate" + idx);;
+        $('dataItemAmount').value = $F("detailItemAmount" + idx);;
+        $('dataItemOldAmount').value = $F("detailItemOldAmount" + idx);;
+        $('dataRemark').value = $F("detailIdEmployee" + idx);;
+      }
+      $('dataIdEmployee').focus();
+    },
+    
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+    
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+</script>

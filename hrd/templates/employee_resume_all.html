@@ -1,0 +1,218 @@
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script language="Javascript">
+  // script-script tambahan, khusus untu loockup employee
+  AC_targetElements = ["filterEmployeeID"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.filterEmployeeID.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+  <!--
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+  }//checkAll
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+
+
+  // fungsi untuk minta konfirmasi chek data
+  function confirmDenied() {
+    ok = confirm("Are you sure want to denied changes of selected data?");
+    if (ok) {
+      // cari dulu, minta alasan
+      var intData = document.formData.totalData.value;
+      for (i = 1; i <= intData; i++) {
+        if (eval("document.formData.chkID" + i + ".checked")) {
+          nama = eval("document.formData.detailName" + i + ".value");
+          str = prompt("Enter note for \n " + nama);
+          eval("document.formData.detailDenied" + i + ".disabled = false");
+          if (str != null)
+            eval("document.formData.detailDenied" + i + ".value = '" + str + "' ");
+        }
+      } //for
+    }
+    return ok;
+  } //confirmDelete
+
+  // fungsi untuk minta konfirmasi chek data
+  function confirmCheck() {
+    return confirm("Are you sure want to check/approve selected data?");
+  } //confirmDelete
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.filterEmployeeID.focus();
+    init();
+    onCodeBlur();
+  }//initPage
+
+
+  // fungsi untuk menuju ke print page tertentu
+  function printData(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnPrint.click();
+    }
+  }//printData
+
+  // fungsi untuk menuju ke page tertentu
+  function goPage(no) {
+    if (no != "") {
+      document.formInput.dataPage.value = no;
+      document.formInput.btnShow.click();
+    }
+  }//goPage
+
+  // fungsi untuk refresh halaman, dengan sorting tertentu
+  function goSort(kolom) {
+    if (kolom != "") {
+      document.formInput.dataSort.value = kolom;
+      document.formInput.btnShow.click();
+    }
+  }//goSort
+  -->
+  jQuery(function($) {
+		$('#filterEmployeeID').autocomplete({
+			source: "hrd_ajax_source.php?action=getemployee",
+			minLength: 2,
+			select: function( event, ui ) {
+				console.log(ui);
+				$('#employee_name').html(ui.item.label);
+			}
+		});
+		console.log('[var.strBtnShow]');
+		$('#formData').append('[var.strBtnShow]');
+	});	
+  </script>
+  [var.pageHeader]
+  <div class="main-content">
+  	<div class="row">
+			<div class="col-md-12">
+				[var.pageSubMenu]
+	    	<p></p>
+			</div>
+			<div class="col-md-12">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#filter-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">[var.strWordsFILTERDATA]</h3>
+					</div>
+					<div id="filter-panel" class="panel-body collapse in">
+						<form action="" method="post" name="formInput" id="formInput" class="form-horizontal" role="form">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployeeID">[var.strWordsEmployeeID]</label>
+									<div class="col-sm-8">
+										[var.strInputFilterEmployeeID]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataName">&nbsp;</label>
+									<div class="col-sm-8">
+										<strong id="employee_name">[var.strEmployeeName]</strong>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsEmployeeStatus]</label>
+									<div class="col-sm-8">
+										[var.strInputFilterStatus]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsLevel]</label>
+									<div class="col-sm-8">
+										[var.strInputFilterPosition]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataDivision">[var.strWordsDivision]</label>
+									<div class="col-sm-9">
+										[var.strInputFilterDivision]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataDepartment">[var.strWordsDepartment]</label>
+									<div class="col-sm-9">
+										[var.strInputFilterDepartment]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataSection">[var.strWordsSection]</label>
+									<div class="col-sm-9">
+										[var.strInputFilterSection]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataSubSection">[var.strWordsSubSection]</label>
+									<div class="col-sm-9">
+										[var.strInputFilterSubSection]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataCompany">[var.strWordsCompany]</label>
+									<div class="col-sm-9">
+										[var.strInputCompany]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataFunctionalPosition">[var.strWordsFunctional]</label>
+									<div class="col-sm-9">
+										[var.strInputFilterFunction]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<input class="btn btn-primary" name="btnShow" id="btnShow" value="[var.strWordsShow]" type="submit" onClick="document.formInput.target = ''">
+		            <input class="btn btn-info" name="btnExcel" type="button" id="btnExcel" value="[var.strWordsExcel]" onClick="document.formInput.target = ''">
+		          </div>
+						</form>
+					</div>
+				</div>
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#karyawanlist-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">Employee List</h3>
+					</div>
+					<div id="karyawanlist-panel" class="panel-body collapse in">
+						<input type=hidden name=totalData value="[var.intTotalData]">
+			      [var.strHidden;protect=no;htmlconv=no]
+			      [var.strDataDetail; protect=no; htmlconv=no]
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>

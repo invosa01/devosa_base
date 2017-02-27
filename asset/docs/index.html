@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <title>ArkAdmin Theme Documentation</title>
+
+        <!-- CSS -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" type="text/css" />
+        <link href="../scripts/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="../scripts/vendor/bootstrap-jasny/dist/extend/css/jasny-bootstrap.min.css" rel="stylesheet" />
+        <!--<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />-->
+        <link href="../scripts/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"  />
+        <link href="../scripts/vendor/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+        <link href="../scripts/vendor/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css" />
+        <link href="../scripts/vendor/select2/select2.css" rel="stylesheet" type="text/css" />
+        <link href="../scripts/vendor/select2/select2-bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="../scripts/vendor/jquery.uniform/themes/default/css/uniform.default.min.css" rel="stylesheet" type="text/css" />
+        <link href="../scripts/css/prettify.css" rel="stylesheet" type="text/css" />
+        <link href="../scripts/vendor/fullcalendar/fullcalendar.css" rel="stylesheet" />
+        <link href="../scripts/vendor/fullcalendar/fullcalendar.print.css" rel="stylesheet" media="print" />
+        <link href="../scripts/css/ark.css" rel="stylesheet" type="text/css" />
+
+        <!-- Remove this line on production-->
+        <link href="../scripts/css/examples.css" rel="stylesheet" type="text/css" />
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    
+    <body class="cover">
+
+        <div class="wrapper">
+
+            <!-- HEAD NAV -->
+            <div class="navbar navbar-default navbar-static-top navbar-main" role="navigation">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html"><i class="fa fa-html5"></i> Ark</a>
+                </div>
+                <div class="navbar-header pull-right">
+                    <a class="navbar-brand" href="../index.html"><i class="fa fa-share"></i> Back to the site</a>
+                </div>
+            </div>
+            <!-- END: HEAD NAV -->
+
+            <!-- BODY -->
+            <div class="body">
+
+                <!-- SIDEBAR -->
+                <aside class="sidebar">
+                    <ul class="nav nav-stacked fixed-nav">
+                        <li><a href="index.html#introduction"><i class="fa fa-home fa-fw"></i>Introduction</a></li>
+                        <li><a href="index.html#folder-structure"><i class="fa fa-folder fa-fw"></i>Folder Structure</a></li>
+                        <li><a href="index.html#layout-options"><i class="fa fa-laptop fa-fw"></i>Layout Options</a></li>
+                        <li><a href="index.html#page-structure"><i class="fa fa-pagelines fa-fw"></i>Page Structure</a></li>
+                        <li><a href="index.html#icons"><i class="fa fa-camera-retro fa-fw"></i>Icons</a></li>
+                        <li><a href="index.html#forms"><i class="fa fa-credit-card fa-fw"></i>Forms</a></li>
+                        <li><a href="index.html#plugins"><i class="fa fa-play-circle-o fa-fw"></i>Plugins</a></li>
+                        <li><a href="index.html#charts"><i class="fa fa-bar-chart-o fa-fw"></i>Charts</a></li>
+                        <li><a href="index.html#ui-elements"><i class="fa fa-cogs fa-fw"></i>UI Elements</a></li>
+                        <li><a href="index.html#tables"><i class="fa fa-table fa-fw"></i>Tables</a></li>
+                        <li><a href="index.html#gallery"><i class="fa fa-picture-o fa-fw"></i>Gallery</a></li>
+                        <li><a href="index.html#error-pages"><i class="fa fa-bell fa-fw"></i>Error Pages</a></li>
+                        <li><a href="index.html#wysiwyg"><i class="fa fa-edit fa-fw"></i>Wysiwyg Editor</a></li>
+                        <li><a href="index.html#maps"><i class="fa fa-map-marker fa-fw"></i>Google Maps</a></li>
+                    </ul>
+                </aside>
+                <!-- END: SIDEBAR -->
+
+                <section class="content">
+                    <ol class="breadcrumb">
+                        <li><a href="../index.html"><i class="fa fa-home fa-fw"></i> Home</a></li>
+                        <li class="active">Documentation</li>
+                    </ol>
+
+                    <!-- SECTION -->
+                    <div class="header">
+                        <div class="col-md-12">
+                            <a name="introduction"></a>
+                            <h3 class="header-title">Introduction</h3>
+                            <p class="header-info">What I need to know?</p>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Welcome to ArkAdmin</h3>
+                                <p>Thanks for purchasing the <b>ArkAdmin</b> theme and helping us support the continuous
+                                    development of the dashboard.</p>
+                                <p>If you have any questions that are not covered in this documentation please feel free to contact us
+                                using the following <a href="https://wrapbootstrap.com/user/around25">form</a>.</p>
+                                <p>Also make sure you contact us if you think that something is missing from the theme
+                                    and you would need it for your project. <br> If it's going to benefit other people as well we
+                                    will try to include it in our future releases.</p><br/>
+                                <h4>Theme Details</h4>
+                                <p>
+                                    <b>Created:</b> 11 March 2014<br/>
+                                    <b>Latest Update:</b> 12 March 2014<br/>
+                                    <b>Update Link:</b> <a href="https://wrapbootstrap.com/support/download-resender">https://wrapbootstrap.com/support/download-resender</a><br/>
+                                    <b>By:</b> <a href="https://twitter.com/Around25Team">Around25</a>
+                                </p>
+                                <p><b>ArkAdmin</b> is an clean, flat and beautiful dashboard admin theme that uses the latest
+                                    version of Bootstrap 3 and jQuery in order to illustrate a simple yet elegant design
+                                    for managing any kind of web application.</p>
+                                <p>It's focus is on simplifying the UI and delivering the best experience for its users.</p>
+                                <p>It introduces an elegant flat and responsive designed crafted to deliver the
+                                    best possible performance on any type of device. It's outstanding simple architecture
+                                    allows any developer to jump right into the code without the need of searching through
+                                    thousands of lines of javascript/html code.</p>
+                                <p>We worked hard to incorporate any design elements directly on top of the
+                                    <a href="http://getbootstrap.com">Bootstrap 3</a> code, in order to allow our users to
+                                    use the same structure and classes they already know.
+                                </p>
+                                <p>In this documentation we assume that you have already read and are familiar with the
+                                    Bootstrap 3 components and widget structure. If that is not the case for you then please
+                                    read the <a href="http://getbootstrap.com">Bootstrap 3 Documentation</a> first.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION -->
+                    <div class="header">
+                        <div class="col-md-12">
+                            <a name="folder-structure"></a>
+                            <h3 class="header-title">Folder Structure</h3>
+                            <p class="header-info">How is the theme organized?</p>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>The theme uses <a href="http://www.nodejs.org">NodeJs</a> to build all the pages, css files, and minimize the scripts.<br/>
+                                    You don't need to use nodejs in order to use the theme. We used it because it makes it easy to update the files and compile the final theme.
+                                </p>
+                                <p>In the public/ folder you will find all the files that you need to create your application design.<br/>
+                                    In the src/ folder you will find the sources for the CSS files in LESS format, the source code for the
+                                    JS script (ark.js) and the source for the html pages.
+                                </p>
+                                <img src="img/folder_struct.jpg" alt="Folder Structure" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION -->
+                    <div class="header">
+                        <div class="col-md-12">
+                            <a name="layout-options"></a>
+                            <h3 class="header-title">Layout Options</h3>
+                            <p class="header-info">Integrated layout preferences</p>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p><b>ArkAdmin</b> contains several options for managing how your web application will look like.</p>
+                                <p>You can have full responsive behaviour, have a floating header and contain your application
+                                    within a container.
+                                </p>
+                                <p>In order use the full responsive behaviour you can just use the code that is contained within the archive.</p>
+                                <p>If you want to have a floating header you can add the <code class="prettyprint">fixed_header</code> class to the body tag.</p>
+                                <pre class="prettyprint linenums">
+&lt;body class="cover fixed_header">
+    &lt;div class="wrapper">
+        ...
+    &lt;/div>
+&lt;/body></pre>
+                                <p>In case you decide to go with the top navigation in your project and you can add the
+                                    <code class="prettyprint">fixed_menu</code> class to the body tag to make the navigation float over the page.</p>
+                                <pre class="prettyprint linenums">
+&lt;body class="cover fixed_menu">
+    &lt;div class="wrapper">
+        ...
+    &lt;/div>
+&lt;/body></pre>
+                                <p>If you want to contain the application within a container just add the
+                                    <code class="prettyprint">container</code> class to the wrapper element.</p>
+                                <pre class="prettyprint linenums">
+&lt;body class="cover">
+    &lt;div class="wrapper container">
+        ...
+    &lt;/div>
+&lt;/body></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SECTION -->
+                    <div class="header">
+                        <div class="col-md-12">
+                            <a name="page-structure"></a>
+                            <h3 class="header-title">Page Structure</h3>
+                            <p class="header-info">How is the page structured?</p>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>Every page in the theme(except the login pages) has the same main structure.<br/>
+                                    You can see the main sections bellow.</p>
+                                <pre class="prettyprint linenums">
+&lt;body class="cover">
+    &lt;div class="wrapper container">
+        &lt;div class="navbar navbar-main">
+            //main navigation
+        &lt;/div>
+        &lt;div class="navbar navbar-top">
+            //top menu
+        &lt;/div>
+        &lt;div class="body">
+            &lt;aside class="sidebar">
+                //sidebar menu
+            &lt;/aside>
+            &lt;section class="content">
+                &lt;ol class="breadcrumb">
+                    //breadcrumbs
+                &lt;/ol>
+                &lt;div class="header">
+                    //content header
+                &lt;/div>
+                &lt;div class="main-content">
+                    //the current page
+                &lt;/div>
+            &lt;/section>
+        &lt;/div>
+    &lt;/div>
+&lt;/body></pre>
+                                <p>The authentication pages do not contain the wrapper element, instead they contain just
+                                the login box with all the elements needed to login or sign up.</p>
+                                <pre class="prettyprint linenums">
+&lt;body class="cover">
+    &lt;span class="brand">
+        //Brand logo and title
+    &lt;/span>
+    &lt;div class="login-wrap">
+        &lt;div class="panel">
+            &lt;div class="panel-heading">
+                &lt;h3 class="panel-title">Sign In&lt;/h3>
+            &lt;/div>
+            &lt;div class="panel-body">
+                //Login box content
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+&lt;/body></pre>
+                                <br/>
+                                <h4>Side menu</h4>
+                                <p><b>ArkAdmin</b> comes with with two types of navigation. The first one is with the
+                                    navigation on the left side and the second one is with the navigation at the top.</p>
+                                <p>To display the sidebar navigation you can simply add the following code to the body div.</p>
+                                <pre class="prettyprint linenums">
+&lt;aside class="sidebar">
+    &lt;ul class="nav nav-stacked">
+        &lt;li  >&lt;a href="index.html">&lt;i class="fa fa-dashboard fa-fw">&lt;/i>Dashboard&lt;/a>&lt;/li>
+        &lt;li class="menu ">
+            &lt;a href="#" class="menu-toggle">&lt;i class="fa fa-sort-alpha-asc fa-fw">&lt;/i>Look &amp; Feel&lt;i class="caret">&lt;/i>&lt;/a>
+            &lt;ul class="submenu">
+                &lt;li  >&lt;a href="typography.html">&lt;i class="fa fa-sort-alpha-asc fa-fw">&lt;/i>&lt;span>Typography&lt;/span>&lt;/a>&lt;/li>
+                &lt;li  >&lt;a href="grid.html">&lt;i class="fa fa-th-large fa-fw">&lt;/i>&lt;span>Grid&lt;/span>&lt;/a>&lt;/li>
+                &lt;li  >&lt;a href="topnav.html">&lt;i class="fa fa-dashboard fa-fw">&lt;/i>Top Navigation&lt;/a>&lt;/li>
+            &lt;/ul>
+        &lt;/li>
+        ...
+    &lt;/ul>
+&lt;/aside></pre>
+                                <br/>
+                                <h4>Top menu</h4>
+                                <p>For the top navigation you will have to add the following code after the header section.</p>
+                                <pre class="prettyprint linenums">
+&lt;div class="navbar navbar-default navbar-static-top navbar-top" role="navigation">
+    &lt;ul class="nav navbar-nav">
+        &lt;li  >&lt;a href="index.html">&lt;i class="fa fa-dashboard fa-fw">&lt;/i>Dashboard&lt;/a>&lt;/li>
+        &lt;li class="dropdown active">
+            &lt;a href="#" class="dropdown-toggle" data-toggle="dropdown">&lt;i class="fa fa-sort-alpha-asc fa-fw">&lt;/i>Look &amp; Feel&lt;i class="caret">&lt;/i>&lt;/a>
+            &lt;ul class="dropdown-menu">
+                &lt;li  >&lt;a href="typography.html">&lt;i class="fa fa-sort-alpha-asc fa-fw">&lt;/i>&lt;span>Typography&lt;/span>&lt;/a>&lt;/li>
+                &lt;li  >&lt;a href="grid.html">&lt;i class="fa fa-th-large fa-fw">&lt;/i>&lt;span>Grid&lt;/span>&lt;/a>&lt;/li>
+                &lt;li class="active" >&lt;a href="topnav.html">&lt;i class="fa fa-dashboard fa-fw">&lt;/i>Top Navigation&lt;/a>&lt;/li>
+            &lt;/ul>
+        &lt;/li>
+    &lt;/ul>
+&lt;/div></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SECTION -->
+                    <div class="header">
+                        <div class="col-md-12">
+                            <a name="icons"></a>
+                            <h3 class="header-title">Icons and Images</h3>
+                            <p class="header-info">How can I display icons or wrap images?</p>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>With <b>ArkAdmin</b> adding icons in your application is as easy as adding a simple element to your page.<br/>
+                                The theme uses <a href="http://fontawesome.io/">FontAwesome</a> to allow you to use icons
+                                    easily and combine them in any way you need to.<br/>
+                                The easiest way to display an icon is to add a few classes to the <code class="prettyprint">&lt;i>&lt;/i></code> tag.</p>
+                                <pre class="prettyprint linenums">
+&lt;i class="fa fa-bell">&lt;/i></pre>
+                                <p>For more details on how you can combine these icons and add additional effects please
+                                    visit <a href="http://fontawesome.io/examples/">FontAwesome Examples</a>.</p>
+                                <p>Apart from the FontAwesome icons you can also use <a href="http://glyphicons.com/">Glyphicons</a> in a similar fashion.</p>
+                                <pre class="prettyprint linenums">
+&lt;span class="glyphicon glyphicon-asterisk">&lt;/span></pre>
+                                <p>In order to modify the way your images look in a gallery or in specific sections of
+                                    your application you can add a few classes to make them stand out.</p>
+                                <pre class="prettyprint linenums">
+//display with rounded corners of 2px
+&lt;img class="img-rounded" alt="" src="img/users/alex.jpg"/>
+//display as a circle
+&lt;img class="img-circle" alt="" src="img/users/alex.jpg"/>
+//display as a thumbnail with border
+&lt;img class="img-thumbnail" alt="" src="img/users/alex.jpg"/></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SECTION -->
+                    <div class="header">
+                        <div class="col-md-12">
+                            <a name="forms"></a>
+                            <h3 class="header-title">Forms</h3>
+                            <p class="header-info">What structure do my forms need to have?</p>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p><b>ArkAdmin</b> does not impose any new structure to your information or forms. Instead
+                                it relies on the structure provided within <a href="http://getbootstrap.com/css/#forms">Bootstrap 3 Forms</a>.
+                                </p>
+                                <p>Here's an example on how to display a simple form.</p>
+                                <pre class="prettyprint linenums">
+&lt;form role="form">
+    &lt;div class="form-group">
+        &lt;label for="exampleInputEmail1">Email address&lt;/label>
+        &lt;input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+    &lt;/div>
+    &lt;div class="form-group">
+        &lt;label for="exampleInputPassword1">Password&lt;/label>
+        &lt;input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    &lt;/div>
+    &lt;button type="submit" class="btn btn-primary">Submit&lt;/button>
+&lt;/form></pre>
+                                <p>There are also a few classes in Bootstrap that allow you to change how the elements
+                                    are displayed within the form.</p>
+                                <pre class="prettyprint linenums">
+//add the .form-horizontal class to display label next to the inputs
+&lt;form class="form-horizontal" role="form">
+//add the .form-inline class to display elements inline
+&lt;form class="form-inline" role="form"></pre>
+                                <p>For checkboxes you can use them as any other input, but when they are rendered they
+                                    will look consistently on any modern browser.</p>
+                                <pre class="prettyprint linenums">
+//normal checkbox in a form
+&lt;div class="checkbox">
+    &lt;label>
+        &lt;input type="checkbox" value="" />
+        Option one is this and that&mdash;be sure to include why it's great
+    &lt;/label>
+&lt;/div>
+//inline checkbox
+&lt;label class="checkbox-inline">
+    &lt;input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+&lt;/label></pre>
+                                <p>Radio boxes are the same as checkboxes, but you have to use a different class in order
+                                    to render them.</p>
+                                <pre class="prettyprint linenums">
+&lt;div class="radiobox">
+    &lt;label>
+        &lt;input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked />
+        Option one is this and that&mdash;be sure to include why it's great
+    &lt;/label>
+&lt;/div></pre>
+                                <p>Select elements are enhanced with the <a href="http://ivaynberg.github.io/select2/">Select2</a> jQuery plugin.<br/>
+                                    This allow you a bit more control over how you load data, or in which element you save the selected option. <br/>
+                                    Please check out the documentation of the plugin for all the options that are available to you.</p>
+                                <p>The plugin in not applied directly to all your select elements. You can configure that as well in the ark.js file,
+                                    but the theme applies it by default only to elements with the <code class="prettyprint">.select2</code> class.</p>
+                                <pre class="prettyprint linenums">
+&lt;select class="form-control select2">
+    &lt;option value=""> &lt;/option>
+    &lt;option value="AK">Alaska&lt;/option>
+    &lt;option value="AL">Alabama&lt;/option>
+    ...
+&lt;/select></pre>
+                                <p>Another cool thing about <b>ArkAdmin</b> is that it integrates a file upload plugin
+                                    that makes all your file inputs look consistent and you can also have a preview before
+                                    uploading any images.</p>
+                                <pre class="prettyprint linenums">
+//default file input type
+&lt;div class="fileinput fileinput-new" data-provides="fileinput">
+    &lt;span class="btn btn-default btn-file">
+        &lt;span class="fileinput-new">Select file&lt;/span>
+        &lt;span class="fileinput-exists">Change&lt;/span>
+        &lt;input type="file" name="..."/>
+    &lt;/span>
+    &lt;span class="fileinput-filename">&lt;/span>
+    &lt;i class="fa fa-times fileinput-exists" data-dismiss="fileinput">&lt;/i>
+&lt;/div>
+
+//with image preview
+&lt;div class="fileinput fileinput-new" data-provides="fileinput">
+    &lt;div class="fileinput-new thumbnail">
+        &lt;img alt="" src="img/no-image-selected.png"/>
+    &lt;/div>
+    &lt;div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">&lt;/div>
+    &lt;div &gt;
+        &lt;span class="btn btn-info btn-file">
+            &lt;span class="fileinput-new">Select image&lt;/span>
+            &lt;span class="fileinput-exists">Change&lt;/span>
+            &lt;input type="file" name="..."/>
+        &lt;/span>
+        &lt;a href="#" class="btn btn-info fileinput-exists" data-dismiss="fileinput">Remove&lt;/a>
+    &lt;/div>
+&lt;/div></pre>
+                                <p>This may look a bit too much, but it allows you to modify the code in any way that
+                                    you need to, by only knowing how the <code class="prettyprint">.fileinput-*</code> classes work.<br/>
+                                    Apply the <code class="">.fileinput-new</code> class to elements that you want displayed
+                                    when the user did not select a file yet, and the <code class="prettyprint">.fileinput-exists</code>
+                                    class for elements that should display when the file was selected.<br />
+                                    The <code class="prettyprint">.fileinput-preview</code> class will load a preview of
+                                    the image loaded by the user, while the <code class="prettyprint">.fileinput-filename</code>
+                                    will load the name of the selected file.
+                                </p>
+                                <p>The plugin used to obtain this functionality is documented online at
+                                    <a href="http://jasny.github.io/bootstrap/javascript/#fileinput">Jasny Bootstrap File Input</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SECTION -->
+                    <div class="header">
+                        <div class="col-md-12">
+                            <a name="plugins"></a>
+                            <h3 class="header-title">Plugins</h3>
+                            <p class="header-info">Integrated plugins and how to use them</p>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p><b>ArkAdmin</b> uses the following plugins or external libraries to obtain all it's functionality.</p>
+                                <ol>
+                                    <li><a href="http://jquery.com/">jQuery</a> - the basis for everything in bootstrap</li>
+                                    <li><a href="http://jqueryui.com/">jQuery UI</a></li>
+                                    <li><a href="http://uniformjs.com/">jQuery Uniform Plugin</a> - for formatting checkboxes and radio buttons</li>
+                                    <li><a href="http://jasny.github.io/bootstrap/">Jasny Bootstrap</a> - for the file inputs and input masks</li>
+                                    <li><a href="http://www.jacklmoore.com/autosize/">jQuery Autosize</a> - for making the textareas expand automatically</li>
+                                    <li><a href="http://momentjs.com/">MomentJs</a> - for working easily with date and time values</li>
+                                    <li><a href="http://www.dangrossman.info/2012/08/20/a-date-range-picker-for-twitter-bootstrap/">Date Range Picker</a> - ease selection of date ranges</li>
+                                    <li><a href="http://www.eyecon.ro/bootstrap-datepicker/">Date Picker</a> - for working with date fields</li>
+                                    <li><a href="http://rendro.github.io/easy-pie-chart/">jQuery EasyPieChart</a> - for the small charts on the homepage</li>
+                                    <li><a href="http://www.flotcharts.org/">jQuery Flot</a> - for all the other charts in the theme</li>
+                                    <li><a href="http://ivaynberg.github.io/select2/">Select2</a> - for improving the default select elements</li>
+                                    <li><a href="http://arshaw.com/fullcalendar/">Full Calendar</a> - for the full page calendar plugin</li>
+                                    <li><a href="http://dbushell.github.io/Nestable/">Nestable</a> - for the nested lists page</li>
+                                    <li><a href="https://code.google.com/p/google-code-prettify/">Prettify</a> - for all the above code previews</li>
+                                    <li><a href="https://ckeditor.com/">CKEditor</a> - for wysiwyg editor</li>
+                                </ol>
+                                <p>In order to ensure consistent design <b>ArkAdmin</b> adds it's own css on top of these plugins.<br/>
+                                    This gives you the beautiful clean design that you see before you, without any elements out of place.
+                                </p>
+                                <p>The src/js/ark.js file contains the setup for all the plugins listed above as well as any initiation code for the theme.<br/>
+                                    It is advised that you use copy this file in the public/scripts/js folder and modify it to your own needs.<br/>
+                                    You can remove any plugins that you don't use for your application and all the examples.
+                                </p>
+                                <p>We will go through all the initiation scripts that are available in the ark.js file and
+                                    list them one by one for you to use in case you want to completely rewrite the provided ark.js file.</p>
+                                <br/>
+                                <h4>ArkAdmin</h4>
+                                <p>The bare minimum code required for the <b>ArkAdmin</b> code to run correctly is available
+                                in the src/js/ark.base.js file. You can use it to add all the other plugins code to it and make all the plugins work.</p>
+                                <p>The src/js/ark.js contains the full source code for the theme, including the current examples.</p>
+                                <br/>
+                                <h4>UniformJs</h4>
+                                <p>UniformJs is applied on all checkboxes and radio buttons directly in the ark.base.js file.</p>
+                                <pre class="prettyprint linenums">
+&lt;script type="javascript">
+$("input:checkbox, input:radio").uniform();
+&lt;/script></pre>
+                                <br/>
+                                <h4>EasyPieChart</h4>
+                                <p>In order to setup the fancy pie charts that you see on the Dashboard you have to have something like this in your code:</p>
+                                <pre class="prettyprint linenums">
+&lt;script type="javascript">
+$('.pie-chart').easyPieChart({
+    barColor: "#428bca",
+    lineWidth: 4,
+    animate: 1000,
+    onStart: function () {
+        if (this.options.isInit) {
+            return;
+        }
+        this.options.isInit = true;
+        var color = $(this.el).data('barColor');
+        if (color) {
+            this.options.barColor = color;
+        }
+    },
+    onStep: function (oldVal, newVal, crtVal) {
+        $(this.el).find('span').text(Math.floor(crtVal) + '%');
+    }
+});
+&lt;/script></pre>
+                                <p>The associated html code to make this work looks like this:</p>
+                                <pre class="prettyprint linenums">
+&lt;div class="pie-chart" data-percent="73">&lt;span>0%&lt;/span>&lt;/div></pre>
+                                <br/>
+                                <h4>Date Range Picker</h4>
+                                <p>The date range picker plugin allows you to specify exactly what options the user
+                                    should have and if they can choose custom values or not.<br/> To set it up use the
+                                    following code and customize it to your own use case.
+                                </p>
+                                <pre class="prettyprint linenums">
+&lt;script type="javascript">
+$('#reportrange').daterangepicker(
+    {
+        ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+            'Last 7 Days': [moment().subtract('days', 6), moment()],
+            'Last 30 Days': [moment().subtract('days', 29), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+        },
+        startDate: moment().startOf('month'),
+        endDate: moment().endOf('month')
+    },
+    function(start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+);
+&lt;/script></pre>
+                                <p>The associated html code looks like this:</p>
+                                <pre class="prettyprint linenums">
+&lt;div id="reportrange" class="pull-right">
+    &lt;i class="fa fa-calendar">&lt;/i>
+    &lt;span>This month&lt;/span> &lt;b class="caret">&lt;/b>
+&lt;/div></pre><br/>
+                                <h4>Full Calendar</h4>
+                                <p>The calendar plugin contains a solid API that lets you interact with the calendar in a lot of ways.<br/>
+                                    The configuration part depends a lot on the application you are trying to build and the
+                                    way you want your users to interact with it.<br/>
+                                    For a complete reference to the API please visit the <a href="http://arshaw.com/fullcalendar/docs/">official documentation</a>.
+                                </p>
+                                <p>In order to setup a simple version of the calendar you can just initialize the plugin
+                                    on your element with the list of events that should be displayed.</p>
+                                <pre class="prettyprint linenums">
+// the HTML tag that will contain the calendar
+&lt;div id="calendar">&lt;/div>
+
+// the code that should be added to your page in order to display the events
+&lt;script type="javascript">
+var date = new Date();
+var d = date.getDate();
+var m = date.getMonth();
+var y = date.getFullYear();
+
+var calendar = $('#calendar').fullCalendar({
+    header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+    },
+    selectable: true,
+    editable: true,
+    events: [
+        {
+            title: 'All Day Event',
+            start: new Date(y, m, 1)
+        },
+        {
+            title: 'Long Event',
+            start: new Date(y, m, d-5),
+            end: new Date(y, m, d-2)
+        },
+        {
+            id: 999,
+            title: 'Repeating Event',
+            start: new Date(y, m, d-3, 16, 0),
+            allDay: false
+        },
+        {
+            title: 'Meeting',
+            start: new Date(y, m, d, 10, 30),
+            allDay: false
+        },
+        {
+            title: 'Click for Google',
+            start: new Date(y, m, 28),
+            end: new Date(y, m, 29),
+            url: 'http://google.com/'
+        }
+    ]
+});
+&lt;/script></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SECTION -->
+                    <div class="header">
+                        <div class="col-md-12">
+                            <a name="charts"></a>
+                            <h3 class="header-title">Charts</h3>
+                            <p class="header-info">How can I display charts in my application?</p>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p><b>ArkAdmin</b> uses the jQuery Flot plugin to display all the charts. It provides
+                                an entire set of complex functionality that allow you to modify the way your charts
+                                look and integrate with your application.</p>
+                                <p>In order to initialize the charts for an element you have to write something like this:</p>
+                                <pre class="prettyprint linenums">
+&lt;script type="javascript">
+    $.plot($('#my_chart'), data, options);
+&lt;/script></pre>
+                                <p>The <code>data</code> variable depends on the type of chart you want to represent. Bellow are a few examples.</p>
+                                <pre class="prettyprint linenums">
+&lt;script type="javascript">
+    //Pie or donut chart data
+    var data = [
+        { label: 'Project 1', data: 13 },
+        { label: 'Project 2', data: 22 },
+        { label: 'Project 3', data: 5 },
+        { label: 'Project 4', data: 31 },
+        { label: 'Project 5', data: 9 },
+        { label: 'Project 6', data: 20 }
+    ];
+    // Line, bar and horizontal chart data
+    var data = [
+        {
+            label: "Signups",
+            data: [[1, 46], [2, 53], [3, 42], [4, 45], [5, 59], [6, 35], [7, 39], [8, 45], [9, 48], [10, 57], [11, 39], [12, 68]]
+        },
+        {
+            label: "Visits",
+            data: [[1, 25], [2, 30], [3, 33], [4, 48], [5, 38], [6, 40], [7, 47], [8, 55], [9, 43], [10, 50], [11, 47], [12, 39]]
+        }
+    ];
+&lt;/script></pre>
+                                <p>Depending on what type of chart you want to display there are different options that you have to add to your script.</p>
+                                <pre class="prettyprint linenums">
+&lt;script type="javascript">
+    //Pie and donut chart options
+    var pieOpts = {
+        series: {
+            pie: {
+                innerRadius: 0.5, //used on donut chart
+                show: true,
+                radius: 1,
+                label: {
+                    show: true,
+                    radius: 3/4,
+                    background: {
+                        opacity: 0.5
+                    }
+                }
+            }
+        }
+    };
+
+    //Line, bar and horizontal chart
+    var chartLines = {
+        series: {
+            //keep this option to display bars
+            bars: {
+                show: true,
+                lineWidth: 1,
+                fill: true,
+                fillColor: { colors: [ { opacity: 0.1 }, { opacity: 0.13 } ] }
+            },
+            //use this option to display lines with points
+            lines: {
+                show: true,
+                lineWidth: 1,
+                fill: true,
+                fillColor: { colors: [ { opacity: 0.1 }, { opacity: 0.13 } ] }
+            },
+            points: {
+                show: true,
+                lineWidth: 2,
+                radius: 3
+            },
+            shadowSize: 0,
+            stack: true
+        },
+        bars: {
+            horizontal: false,
+            barWidth: 0.7
+        },
+        grid: {
+            hoverable: true,
+            clickable: true,
+            tickColor: "#f9f9f9",
+            borderWidth: 0
+        },
+        legend: {
+            show: true,
+            labelBoxBorderColor: "#fff"
+        },
+        colors: ["#a7b5c5", "#30a0eb"],
+        xaxis: {
+            ticks: [[1, "Jan"], [2, "Feb"], [3, "Mar"], [4, "Apr"], [5, "May"], [6, "Jun"],
+                [7, "Jul"], [8, "Aug"], [9, "Sep"], [10, "Oct"], [11, "Nov"], [12, "Dec"]],
+            font: {
+                size: 12,
+                family: "Open Sans, Arial",
+                color: "#697695"
+            }
+        },
+        yaxis: {
+            ticks: 3,
+            tickDecimals: 0,
+            font: {size: 12, color: "#9da3a9"}
+        }
+    };
+
+    //Real Time Chart
+    var realTimeBars = {
+        series: {
+            shadowSize: 0	// Drawing is faster without shadows
+        },
+        colors: ["#30a0eb"],
+        yaxis: {
+            min: 0,
+            max: 100
+        },
+        xaxis: {
+            show: false
+        },
+        grid: {
+            tickColor: "#f9f9f9",
+            borderColor: "#fff"
+        }
+    };
+
+    //Zoom Chart
+    var zoomOpts = {
+        series: {
+            lines: {
+                show: true
+            },
+            shadowSize: 0
+        },
+        colors: ["#30a0eb"],
+        xaxis: {
+            zoomRange: [0.1, 10],
+            panRange: [-10, 10]
+        },
+        yaxis: {
+            zoomRange: [0.1, 10],
+            panRange: [-10, 10]
+        },
+        zoom: {
+            interactive: true
+        },
+        pan: {
+            interactive: true
+        },
+        grid: {
+            tickColor: "#f9f9f9",
+            borderColor: "#fff"
+        }
+    }
+&lt;/script></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SECTION -->
+                    <div class="header">
+                        <div class="col-md-12">
+                            <a name="ui-elements"></a>
+                            <h3 class="header-title">UI Elements</h3>
+                            <p class="header-info">How can I use the components available?</p>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>Apart from the default elements contained in <a href="http://getbootstrap.com/components/">Bootstrap 3</a>
+                                    and the plugins discussed previously there are a few new classes that <b>ArkAdmin</b> comes with
+                                    that allow you to further enhance the user experience.</p>
+
+                                <h4>Arrowed Labels</h4>
+                                <p>There are many places where we could use arrowed labels to attract the user attention
+                                    on a status message or a certain information.<br/>
+                                    Instead of letting you code them by hand <b>ArkAdmin</b> comes to your aid with a set of
+                                    arrows that can be configured to display inner and outer left or right arrows as well as
+                                    a combination of these.
+                                </p>
+                                <p>Here's how the markup for these looks like.</p>
+                                <pre class="prettyprint linenums">
+&lt;span class="label label-default arrowed arrow-left">Arrow Left Out&lt;/span>
+&lt;span class="label label-default arrowed arrow-left-in">Arrow Left In&lt;/span>
+&lt;span class="label label-default arrowed arrow-right">Arrow Right Out&lt;/span>
+&lt;span class="label label-default arrowed arrow-right-in">Arrow Right In&lt;/span>
+//combined look
+&lt;span class="label label-default arrowed arrow-left-in arrow-right-in">Arrows In&lt;/span>
+&lt;span class="label label-default arrowed arrow-left-in arrow-right">Arrow Left Out &amp; Right Out&lt;/span></pre>
+                                <br/>
+                                <h4>Notifications</h4>
+                                <p>The same arrowed labels are currently used in the top section of the theme to display 
+                                    the dropdown list of notifications.</p>
+                                <p>We have create an easy way for you to display notifications within your application. 
+                                    By simply looking at the top of the homepage the user can see how many unread notifications 
+                                    he has pending and if he clicks on them they can see a more detailed list with a summary for each one.</p>
+                                <p>We took care of the look and feel do you don't have to. Just add your logic behind the design.</p>
+                                <pre class="prettyprint linenums">
+&lt;li class="dropdown notification">
+    &lt;a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        &lt;span class="label label-primary arrowed arrow-left-in pull-right">6&lt;/span>
+        &lt;i class="fa fa-inbox">&lt;/i>
+    &lt;/a>
+    &lt;ul class="dropdown-menu pull-right">
+        &lt;li>
+            &lt;a href="#">
+                &lt;img src="img/users/alex.jpg" alt="alex" class="img-avatar pull-left" />
+                &lt;span class="time">now&lt;/span>
+                &lt;p>Stet clita kasd gubergren, no sea takimata Lorem ipsum dolor sit amet.&lt;/p>
+            &lt;/a>
+        &lt;/li>
+        &lt;li>
+            &lt;a href="#">
+                &lt;img src="img/users/fabbian.jpg" alt="fabbian" class="img-avatar pull-left" />
+                &lt;span class="time">13 min. ago&lt;/span>
+                &lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy et dolore.&lt;/p>
+            &lt;/a>
+        &lt;/li>
+        &lt;li class="open-section">
+            &lt;a href="#">View All Messages&lt;/a>
+        &lt;/li>
+    &lt;/ul>
+&lt;/li></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SECTION -->
+                    <div class="header">
+                        <div class="col-md-12">
+                            <a name="tables"></a>
+                            <h3 class="header-title">Tables</h3>
+                            <p class="header-info">How can I display my structured data?</p>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>Tabular data is easy to display. Simple tables follow the same structure and classes
+                                    as in the bootstrap documentation.</p>
+                                <pre class="prettyprint linenums">
+&lt;table class="table table-striped table-hover">
+    &lt;thead>
+        &lt;tr>
+            &lt;th>Order Id&lt;/th>
+            &lt;th>Date&lt;/th>
+            &lt;th>User&lt;/th>
+            &lt;th>Status&lt;/th>
+            &lt;th>Amount&lt;/th>
+            &lt;th>&lt;/th>
+        &lt;/tr>
+    &lt;/thead>
+    &lt;tbody>
+        &lt;tr>
+            &lt;td>&lt;a href="#">#4531&lt;/a>&lt;/td>
+            &lt;td>Jun 14, 2013&lt;/td>
+            &lt;td>&lt;a href="#">Sylvia Stingray&lt;/a>&lt;/td>
+            &lt;td>
+                &lt;span class="label label-success">Delivered&lt;/span>
+            &lt;/td>
+            &lt;td>$2,643.00&lt;/td>
+            &lt;td>
+                &lt;a href="#">Edit&lt;/a>
+                &lt;a href="#">Delete&lt;/a>
+            &lt;/td>
+        &lt;/tr>
+    &lt;/tbody>
+&lt;/table></pre>
+                                <p>If you want to display a list of users you can add the <code>.table-preview</code>
+                                    class to show a preview image of the user.</p>
+                                <pre class="prettyprint linenums">
+&lt;table class="table table-hover table-striped">
+    &lt;thead>
+        &lt;tr>
+            &lt;th>Name&lt;/th>
+            &lt;th>Member Since&lt;/th>
+            &lt;th>Email&lt;/th>
+            &lt;th>Earnings&lt;/th>
+            &lt;th>&lt;/th>
+        &lt;/tr>
+    &lt;/thead>
+    &lt;tbody>
+        &lt;tr>
+            &lt;td class="table-preview">
+                &lt;img alt="" src="img/users/luke.jpg" class="img-circle avatar" />
+                &lt;a href="#" class="name">Sylvia Stingray&lt;/a>
+                &lt;span class="subtext">Web Developer&lt;/span>
+            &lt;/td>
+            &lt;td>Feb 02, 2013&lt;/td>
+            &lt;td>&lt;a href="#">sylvia.stingray@example.com&lt;/a>&lt;/td>
+            &lt;td>$10,532.00&lt;/td>
+            &lt;td class="actions">
+                &lt;a href="#">&lt;i class="fa fa-pencil">&lt;/i>&lt;/a>
+                &lt;a href="#">&lt;i class="fa fa-times">&lt;/i>&lt;/a>
+            &lt;/td>
+        &lt;/tr>
+    &lt;/tbody>
+&lt;/table></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SECTION -->
+                    <div class="header">
+                        <div class="col-md-12">
+                            <a name="gallery"></a>
+                            <h3 class="header-title">Gallery</h3>
+                            <p class="header-info">How do I display my image gallery?</p>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>If you want to display a list of images you can use the following code:</p>
+                                <pre class="prettyprint linenums">
+&lt;ul class="gallery">
+    &lt;li class="item">
+        &lt;img alt="150x150" src="img/gallery/1H.jpg" />
+        &lt;div class="details">
+            &lt;a href="#" class="action">&lt;i class="fa fa-pencil-square-o">&lt;/i>&lt;/a>
+            &lt;a href="#" class="action">&lt;i class="fa fa-trash-o">&lt;/i>&lt;/a>
+        &lt;/div>
+    &lt;/li>
+&lt;/ul></pre>
+                                <p><b>ArkAdmin</b> also contains the markup to upload new images to your gallery.
+                                    Just add the following code to the <code>ul</code> above and add the code to
+                                    handle what happens after the user selects the new image.</p>
+                                <pre class="prettyprint linenums">
+&lt;li class="item fileinput fileinput-new" data-provides="fileinput">
+    &lt;div class="fileinput-preview fileinput-exists">&lt;/div>
+    &lt;div class="details">
+        &lt;div class="action btn-file">
+            &lt;span class="fileinput-new action-file">
+                &lt;i class="fa fa-cloud-upload">&lt;/i>
+            &lt;/span>
+            &lt;p class="fileinput-new">Click here or drag and drop to add images&lt;/p>
+            &lt;i class="fa fa-pencil-square-o fileinput-exists">&lt;/i>
+            &lt;input type="file" name="file"/>
+        &lt;/div>
+        &lt;a href="#" class="action fileinput-exists" data-dismiss="fileinput">&lt;i class="fa fa-trash-o">&lt;/i>&lt;/a>
+    &lt;/div>
+&lt;/li></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SECTION -->
+                    <div class="header">
+                        <div class="col-md-12">
+                            <a name="error-pages"></a>
+                            <h3 class="header-title">Error Pages</h3>
+                            <p class="header-info">What should I display when something goes wrong in my app?</p>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p><b>ArkAdmin</b> comes with two error pages that you can modify to your own needs.</p>
+                                <p>Bellow is the code used to display a 404 error page and a 500 error page.</p>
+                                <pre class="prettyprint linenums">
+// 404 Page Not Found Error
+&lt;div class="panel error-panel">
+    &lt;div class="panel-heading">
+        &lt;h3 class="panel-title">&lt;i class="fa fa-puzzle-piece">&lt;/i> Page Not Found&lt;/h3>
+    &lt;/div>
+    &lt;div class="panel-body">
+        &lt;p>The page you are looking for does not exist.&lt;/p>
+        &lt;p>You may have mistyped the address or the page may have moved.&lt;/p>
+        &lt;p>
+            &lt;a href="javascript: history.back()">Go back to the previous page&lt;/a> /
+            &lt;a href="index.html">Go to the Ark Admin dashboard&lt;/a>
+        &lt;/p>
+    &lt;/div>
+&lt;/div>
+
+// 500 Internal Server Error
+&lt;div class="panel error-panel">
+    &lt;div class="panel-heading">
+        &lt;h3 class="panel-title">&lt;i class="fa fa-cogs">&lt;/i> Something Went Wrong&lt;/h3>
+    &lt;/div>
+    &lt;div class="panel-body">
+        &lt;p>Something went wrong in your process and we are working on fixing it.&lt;/p>
+        &lt;p>Please give us more details about how the problem occurred and &lt;br/>
+            go to the &lt;a href="#">Help Center&lt;/a> for more details about known issues.&lt;/p>
+    &lt;/div>
+&lt;/div></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SECTION -->
+                    <div class="header">
+                        <div class="col-md-12">
+                            <a name="wysiwyg"></a>
+                            <h3 class="header-title">Wysiwyg Editor</h3>
+                            <p class="header-info">How do I edit something and the end view to be the same?</p>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>If you want to view something very similar to the end result while
+                                    the document is being created, you can use the following code:</p>
+                                <pre class="prettyprint linenums">
+&lt;textarea  class="ckeditor" cols="80" rows="10" full-ckeditor="true">
+&lt;/textarea></pre>
+                                <p><b>ArkAdmin</b> also contains inline wysiwyg editor. You can use the following code for it:</p>
+                                <pre class="prettyprint linenums">
+&lt;div class="ckeditor" contenteditable="true" basic-ckeditor="true">
+&lt;/div></pre>
+                                <p><code>full-ckeditor</code> and <code>basic-ckeditor</code> attributes can be used to set CKEditor toolbar options.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SECTION -->
+                    <div class="header">
+                        <div class="col-md-12">
+                            <a name="maps"></a>
+                            <h3 class="header-title">Google Maps</h3>
+                            <p class="header-info">How do I include Google Maps in my application?</p>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>If you want to include Google Maps, you can use the following code:</p>
+                                <pre class="prettyprint linenums">
+&lt;div class="map-canvas" map-zoom="11" map-latitude="40.6862611" map-longitude="-74.0115122">
+&lt;/div></pre>
+                                <p><code>map-zoom</code>, <code>map-latitude</code> and <code>map-longitude</code> attributes can
+                                    be used to set the zoom depth, the latitude and the longitude of map focus point. Setting
+                                    <code>terrain-map</code> or <code>styled-map</code> attributes to true you can change the map appearence.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!-- END: BODY -->
+        </div>
+
+        <!-- JS -->
+        <script src="../scripts/vendor/jquery/dist/jquery.min.js"></script>
+        <script src="../scripts/vendor/jquery-ui/js/jquery-ui.min.js"></script>
+        <script src="../scripts/vendor/jquery.uniform/jquery.uniform.min.js"></script>
+        <script src="../scripts/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../scripts/vendor/bootstrap-jasny/dist/extend/js/jasny-bootstrap.min.js"></script>
+        <script src="../scripts/vendor/jquery-autosize/jquery.autosize.min.js"></script>
+        <script src="../scripts/vendor/moment/min/moment.min.js"></script>
+        <script src="../scripts/vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <script src="../scripts/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+        <script src="../scripts/vendor/dropzone/downloads/dropzone.min.js"></script>
+        <script src="../scripts/vendor/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+        <script src="../scripts/vendor/jquery-flot/jquery.flot.js"></script>
+        <script src="../scripts/vendor/jquery-flot/jquery.flot.pie.js"></script>
+        <script src="../scripts/vendor/jquery-flot/jquery.flot.stack.js"></script>
+        <script src="../scripts/vendor/jquery-flot/jquery.flot.resize.js"></script>
+        <script src="../scripts/vendor/select2/select2.min.js"></script>
+        <script src="../scripts/vendor/fullcalendar/fullcalendar.min.js"></script>
+        <script src="../scripts/vendor/nestable/jquery.nestable.js"></script>
+        <script src="https://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+        <script src="../scripts/js/ark.min.js"></script>
+
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-972204-19', 'around25.com');
+            ga('send', 'pageview');
+
+        </script>
+    </body>
+</html>

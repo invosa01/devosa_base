@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="[var.strPrintCss]" rel="stylesheet" type="text/css">
+<script src="scripts/ylib.js"></script>
+<script>
+  <!--
+
+  // mengolah waktu load
+  function initPage_() {
+    [var.strPrintInit]
+  }//initPage
+
+  -->
+</script>
+</head>
+
+<body leftmargin="10" topmargin="0" marginwidth="10" marginheight="0" onLoad="initPage_()">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">Employee Evaluation</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td >
+<form action="" method="get" name="formFilter" id="formFilter">
+        <table border="0" cellpadding="2" cellspacing="0">
+          <tr>
+            <td nowrap><strong>&nbsp;Periode</strong></td>
+            <td nowrap><strong> :</strong></td>
+            <td nowrap><strong>[var.strPeriode]</strong></td>
+          </tr>
+          <tr>
+            <td nowrap><strong>&nbsp;Employee</strong></td>
+            <td nowrap><strong>:</strong></td>
+            <td nowrap><strong>[var.strEmployee]
+              <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]">
+              </strong></td>
+          </tr>
+        </table>
+
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>EMPLOYEE TARGET AND ACHIEVEMENT EVALUATION</strong></td>
+  </tr>
+  <tr align="left">
+    <form action="" method="post" name="formInput" id="formInput">
+      <td valign="top"><table width="100%" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+          <tr align="center" class="tableHeader">
+            <td nowrap>No.</td>
+            <td nowrap>Description</td>
+            <td nowrap>Target</td>
+            <td nowrap>Weight</td>
+            <td nowrap>Achievement</td>
+            <td nowrap>Point</td>
+            <td nowrap>Total</td>
+            <td nowrap>Note</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td align="right">[var.strTotalWeight]&nbsp;</td>
+            <td>&nbsp;</td>
+            <td align="right">[var.strTotalPoint]&nbsp;</td>
+            <td align="right">[var.strTotal]&nbsp;</td>
+            <td><strong id="dataKriteria">&nbsp;[var.strNoteKriteria]</strong>&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="8">&nbsp;</td>
+          </tr>
+        </table></td>
+    </form>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center">[var.strCopyright]</td>
+  </tr>
+</table>
+</body>
+</html>

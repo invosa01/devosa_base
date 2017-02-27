@@ -1,0 +1,350 @@
+<script src="scripts/invosa.js"></script>
+<script type="text/javascript" src="../js/prototype.js"></script>
+<script type="text/javascript" src="../dropmenu.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+
+<script>
+  <!--
+  // fungsi untuk melihat alert
+  function goAlert(url) {
+    if (url != "") {
+      document.formAlert.action = url;
+      if (arguments.length > 1) {
+        // yang kedua dianggap sebagai status
+        document.formAlert.btnShowAlert.value = 1;
+        document.formAlert.dataStatus.value = arguments[1];
+        document.formAlert.dataRequestStatus.value = arguments[1];
+      }
+
+      document.formAlert.submit();
+    }
+  }
+
+  function openWindowCalendar()
+  {
+    var w = 640;
+    var h = 480;
+    kiri = (screen.width / 2) - w;
+    atas = (screen.height / 2) - h;
+    var intMonth = document.formCalendar.dataMonth.value;
+    var intYear = document.formCalendar.dataWYear.value;
+    url = "view_calendar.php?month="+intMonth+"&year="+intYear ;
+    properti = "width="+w+", height="+h+", resizable=yes, statusbar=no,menubar=yes, titlebar=no, top=" + atas + ", left=" + kiri;
+    window.open(url, "_blank", properti);
+  }  
+  -->
+</script>
+<table width="100%" border="0" cellspacing="0" cellpadding="8">
+  <tr>
+    <td width="40%" valign="top">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayShortcut]">
+        <tr>
+          <td width="5%">&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="pageHeaderTitle">
+          <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/direction.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsShortcut]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp; </td>
+          <td><strong><a href="item_list.php">All Item</a></strong><br>
+            View All list of item to assigment,disposal or maintenance item </td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp; </td>
+          <td><strong><a href="apartment_request_list.php">Apartment request </a></strong><br>
+            View and edit apartment request</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp; </td>
+          <td><strong><a href="apartment_request_user_list.php">Apartment request user </a></strong><br>
+            View and edit apartment request user</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp;</td>
+          <td><strong><a href="consumable_request_list.php">Consumable request</a><br>
+            </strong>View all or edit consumable request<strong> </strong></td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp;</td>
+          <td height="19"><strong><a href="vehicle_request_list.php">Vehicle Request</a></strong><br>
+            View all or edit vehicle request.</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp;</td>
+          <td height="19"><strong><a href="vehicle_realization_list.php">Vehicle Realization</a></strong><br>
+            View and input vehicle realization .</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp;</td>
+          <td height="19"><strong><a href="asset_disposal_list.php">Asset Disposal</a></strong><br>
+            View asset disposal of item.</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp;</td>
+          <td height="19"><strong><a href="asset_moving_list.php">Asset Asignment</a></strong><br>
+            View asset moving of item.</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&raquo; &nbsp;</td>
+          <td height="19"><strong><a href="purchase_request_list.php">Purchase Request</a></strong><br>
+            View all information purchase request.</td>
+        </tr>
+      </table>
+      <br>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="5%">&nbsp;</td>
+          <td width="40%">&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top" nowrap>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+      <br>
+      <!-- BEGIN STOCK IN /OUT ------------------------------------------------------------------------------>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayBirthday]">
+        <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/upgrade.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsOutIn]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+              <tr class="tableHeader">
+                <td nowrap>No.</td>
+                <td nowrap>Item Name</td>
+                <td align="center" nowrap> Stock Now</td>
+                <td align="center" nowrap> Amount IN/OUT</td>
+                <td align="center" nowrap>State</td>
+              </tr>
+              [var.strDetailOutIn]
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td height="19">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center" >&nbsp;</td>
+        </tr>
+      </table>
+      <p>&nbsp;</p>
+      <!-- END STOCK IN OUT -------------------------------------------------------------------------------->
+	</td>
+	  
+    <td valign="top"><br>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayContract]">
+        <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/upgrade.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsDueDateItem]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+              <tr class="tableHeader">
+                <td nowrap>Item Name</td>
+                <td nowrap>Category</td>
+                <td nowrap>Stock</td>
+                <td nowrap>Unit</td>
+                <td nowrap>Due Date</td>
+                <td nowrap>Action</td>
+                <td nowrap>Day</td>
+                <td>&nbsp;</td>
+              </tr>
+              [var.strDetailContract]
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+		 </td>
+        </tr>
+        <tr>
+          <td height="19">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+        </tr>
+      </table>
+      
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayContract]">
+        <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/note.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsOpenConReq]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+              <tr class="tableHeader">
+                <td nowrap>Item Name</td>
+                <td nowrap>Requester</td>
+                <td nowrap>Department</td>
+                <td nowrap>Amount</td>
+                <td nowrap>Req.Date</td>
+                <td nowrap>Status</td>
+                
+              </tr>
+              [var.strDetailNewConsReq]
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>  
+              </tr>
+            </table>
+		 </td>
+        </tr>
+        <tr>
+          <td height="19">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+        </tr>
+      </table>
+      <!-- END OPEN Consumable------------------------------------------------------------------------>
+      
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayContract]">
+        <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/editorial.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsOpenApartReq]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+              <tr class="tableHeader">
+                <td nowrap>Room</td>
+                <td nowrap>Requester</td>
+                <td nowrap>Req.Date</td>
+                <td nowrap>From Date</td>
+                <td nowrap>To Date</td>
+                <td nowrap>Status</td>
+                
+              </tr>
+              [var.strDetailNewApartReq]
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>  
+              </tr>
+            </table>
+		 </td>
+        </tr>
+        <tr>
+          <td height="19">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+        </tr>
+      </table>
+      <!-- END APARTMENT Request   ------------------------------------------------------------------->
+      
+       <table width="100%" border="0" cellpadding="0" cellspacing="0" style="[var.strDisplayContract]">
+        <tr>
+          <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="30"><img src="../images/icons/user.png" border="0" width="30" /></td>
+                <td nowrap class="pageHeaderTitleText">[var.strWordsOpenPurchReq]</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="gridTable">
+              <tr class="tableHeader">
+                <td nowrap>Employee</td>
+                <td nowrap>Category</td>
+                <td nowrap>Req.Date</td>
+                <td nowrap>Status</td>
+                
+              </tr>
+              [var.strDetailNewPurchReq]
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>  
+              </tr>
+            </table>
+		 </td>
+        </tr>
+        <tr>
+          <td height="19">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+        </tr>
+      </table>
+      <!-- END Purchase Request   ------------------------------------------------------------------------------>
+
+    </td>
+  </tr>
+</table>
+<br>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan=2 ></td>
+  </tr>
+</table>

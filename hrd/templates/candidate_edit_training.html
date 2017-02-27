@@ -1,0 +1,120 @@
+<script src="ylib.js"></script>
+<script>
+	//fungsi untuk menampilkan baris baru untuk menambahkan data anak
+	function showMoreInput() { //kode = Address, or Phone
+		//document.form1.numShow.value++;
+    var n = eval("document.formInput.numShow.value;");
+    var max = eval("document.formInput.maxDetail.value;");
+    n++;
+    if (n < max) {
+			strNama = "detailRows" + n;
+      ylib_getObj(strNama).style.display = document.all ? "block" : "table-row";
+      eval("document.formInput.numShow.value++;");
+      eval("document.formInput.detailSubject" + n + ".disabled = false");
+      eval("document.formInput.detailLocation" + n + ".disabled = false");
+      eval("document.formInput.detailInstitution" + n + ".disabled = false");
+      eval("document.formInput.detailTrainer" + n + ".disabled = false");
+      eval("document.formInput.detailDayFrom" + n + ".disabled = false");
+      eval("document.formInput.detailMonthFrom" + n + ".disabled = false");
+			eval("document.formInput.detailYearFrom" + n + ".disabled = false");
+      eval("document.formInput.detailDayThru" + n + ".disabled = false");
+      eval("document.formInput.detailMonthThru" + n + ".disabled = false");
+			eval("document.formInput.detailYearThru" + n + ".disabled = false");
+      eval("document.formInput.detailNote" + n + ".disabled = false");
+			eval("document.formInput.detailCertificate" + n + ".disabled = false");
+			eval("document.formInput.detailSubject" + n + ".focus()");
+    } else {
+      //alert(document.form1.numShow.value + " -- " + document.form1.maxDetail.value);
+    }
+	} //showMoreInput
+
+  //ketika checkbox delete berubah
+  function chkDeleteChanged(index) { //kode = Address, or Phone
+
+    if (index != "") {
+      var chk = eval("document.formInput.chkID" + index + ".checked");
+      if (chk) {
+        str = "true";
+      } else {
+        str = "false";
+      }
+
+      eval("document.formInput.detailSubject" + index + ".disabled = " + str);
+      eval("document.formInput.detailLocation" + index + ".disabled = " + str);
+			eval("document.formInput.detailInstitution" + index + ".disabled = " + str);
+			eval("document.formInput.detailTrainer" + index + ".disabled = " + str);
+      eval("document.formInput.detailDayFrom" + index + ".disabled = " + str);
+      eval("document.formInput.detailMonthFrom" + index + ".disabled = " + str);
+      eval("document.formInput.detailYearFrom" + index + ".disabled = " + str);
+      eval("document.formInput.detailDayThru" + index + ".disabled = " + str);
+      eval("document.formInput.detailMonthThru" + index + ".disabled = " + str);
+      eval("document.formInput.detailYearThru" + index + ".disabled = " + str);
+      eval("document.formInput.detailNote" + index + ".disabled = " + str);
+			eval("document.formInput.detailCertificate" + index + ".disabled = " + str);
+    }
+	} //showMoreInput
+
+</script>
+<script>
+	<!--
+  // menuju ke suatu URL
+  function goUrl(url) {
+    if (url != "") {
+
+      //if (document.formInput.dataID.value == "") {
+      //  alert("Please save data first");
+      //} else {
+        location.href = url + ".php?dataID=" + document.formInput.dataID.value;
+      //}
+    }
+  }//goUrl
+	-->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strWordsCandidateData]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="20" height="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;<strong><a href="javascript:goUrl('candidateEdit')">[var.strWordsPrimaryInformation]</a> | <a href="javascript:goUrl('candidateEditFamily')">
+            [var.strWords</a><a href="javascript:goUrl('candidateEditEducation')">EducationData]</a> | [var.strWordsTrainingData] | <a href="javascript:goUrl('candidateEditWork')">[var.strWordsWorkExperiences]</a> | <a href="javascript:goUrl('candidateResume')">[var.strWordsResume]</a>
+            | <a href="javascript:goUrl('candidateRecruitment')">[var.strWordsRecruitmentData]
+            </a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+   <td class="inputTop">[var.strWordsINPUTDATATRAINING]</td>
+  </tr>
+  <tr align="left" class="inputBox">
+    <td valign="top">&nbsp;<strong>[var.strCandidateID] - [var.strCandidateName]</strong></td>
+  </tr>
+  <tr align="left">
+    <form action="" method="post" name="formInput" id="formInput">
+      <td valign="top"><table width="50%" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+          [var.strDataDetail]
+          <tr>
+            <td colspan="5"><a href="javascript:showMoreInput();">[var.strWordsMore]</a></td>
+          </tr>
+          <tr>
+            <td colspan="5"><input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]">
+              <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]">
+            </td>
+          </tr>
+        </table> </td>
+    </form>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>

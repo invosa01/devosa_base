@@ -1,0 +1,232 @@
+  <link href="../css/ac.css" rel="stylesheet" type="text/css">
+  <script>
+  <!--
+
+  // fungsi menghitung cicilan bulanan
+  function getMonthlyPayment() {
+    var amount = document.formInput.dataAmount.value;
+    var periode = document.formInput.dataPeriode.value;
+    var interest = document.formInput.dataInterest.value;
+    var obj = document.getElementById("monthlyPayment");
+
+    if (isNaN(amount) || isNaN(periode) || isNaN(interest)) {
+      monthly = 0;
+    } else {
+      if (periode == 0) {
+        monthly = 0;
+      } else {
+        bunga = (interest / 100) * amount;
+        total = parseFloat(bunga) + parseFloat(amount);
+        monthly = total / periode;
+      }
+    }
+    obj.innerHTML = monthly;
+    return 1;
+  }// getMonthlyPayment
+
+  // mengambil tanggal terakhir pembayaran
+  function getLastMonth() {
+    var periode = document.formInput.dataPeriode.value;
+    var bulan = document.formInput.dataMonthStart.value;
+    var tahun = document.formInput.dataYearStart.value;
+
+    if (periode == "" || periode == "undefined" || isNaN(periode)) {
+      return false;
+    }
+    if (bulan == "" || bulan == "undefined" || isNaN(bulan)) {
+      return false;
+    }
+    if (tahun == "" || tahun == "undefined" || isNaN(tahun)) {
+      return false;
+    }
+
+    nextBulan = parseFloat(periode) + parseFloat(bulan) - 1;
+    selisihTahun = Math.floor((nextBulan)/12);
+    sisaBulan = (nextBulan % 12);
+    if (sisaBulan == 0) {
+      sisaBulan = 12;
+      selisihTahun--;
+    }
+
+    nextTahun = parseFloat(tahun) + selisihTahun;
+
+    document.formInput.dataMonthFinish.value = sisaBulan;
+    document.formInput.dataYearFinish.value = nextTahun;
+
+  }//getLastMonth
+
+  function clearForm() {
+    location.href = "loan_edit.php";
+
+    document.formInput.dataEmployee.value = "";
+    document.formInput.dataPeriode.value = 1;
+    document.formInput.dataInterest.value = 0;
+    document.formInput.dataNote.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataEmployee.focus();
+
+    getMonthlyPayment();
+  }//clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+    if (document.formInput.dataEmployee.value == "") {
+      alert("Empty Employee ID!");
+      document.formInput.dataEmployee.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataEmployee.focus();
+    getMonthlyPayment();
+    getLastMonth();
+  }//initPage
+  -->
+  jQuery(function($) {
+  	$('#dataEmployee').autocomplete({
+			source: "hrd_ajax_source.php?action=getemployee",
+			minLength: 2,
+			select: function( event, ui ) {
+				console.log(ui);
+				$('#employee_name').html(ui.item.label);
+			}
+		});
+  })
+  </script>
+[var.pageHeader]
+  <div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+				[var.pageSubMenu]
+	    	<p></p>
+			</div>
+			<div class="col-md-12">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#entry-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">LOAN ENTRY</h3>
+					</div>
+					<div id="entry-panel" class="panel-body collapse in">
+						[var.strMessage]
+						<form action="" method="post" name="formInput" id="formInput" onsubmit="return validInput();"  class="form-horizontal" role="form">
+							<div class="col-md-4">
+								<div class="form-group has-error">
+									<label class="col-sm-4 control-label" for="dataPurpose">[var.strWordsEmpID]</label>
+									<div class="col-sm-8 label-field">
+										[var.strInputEmployee]
+									</div>
+								</div>
+								<div class="form-group has-error">
+									<label class="col-sm-4 control-label" for="dataPurpose">&nbsp;</label>
+									<div class="col-sm-8 label-field" style="padding-top: 7px;">
+										<strong id="employee_name"></strong>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataPurpose">[var.strWordsLoanNo]</label>
+									<div class="col-sm-8 label-field">
+										[var.strInputNo]
+									</div>
+								</div>
+								<div class="form-group has-error">
+									<label class="col-sm-4 control-label" for="dataPurpose">[var.strWordsLoanDate]</label>
+									<div class="col-sm-8 label-field">
+										<div class="input-group">
+                      [var.strInputDate]
+                      <span class="input-group-addon">
+                          <i class="fa fa-calendar"></i>
+                      </span>
+	                	</div>
+									</div>
+								</div>
+								<div class="form-group has-error">
+									<label class="col-sm-4 control-label" for="dataPurpose">[var.strWordsLoanType]</label>
+									<div class="col-sm-8 label-field">
+										[var.strInputType]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataPurpose">[var.strWordsPurpose]</label>
+									<div class="col-sm-8 label-field">
+										[var.strInputPurpose]
+									</div>
+								</div>
+								<div class="form-group has-error">
+									<label class="col-sm-4 control-label" for="dataPurpose">[var.strWordsAmount]</label>
+									<div class="col-sm-8 label-field">
+										[var.strInputAmount]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group has-error">
+									<label class="col-sm-4 control-label" for="dataPurpose">[var.strWordsPeriode]</label>
+									<div class="col-sm-8 label-field">
+										<div class="input-group">
+	                    [var.strInputPeriode]
+	                    <span class="input-group-addon">
+	                        [var.strWordsMonth]
+	                    </span>
+	                	</div>
+	                </div>
+								</div>
+								<div class="form-group has-error">
+									<label class="col-sm-4 control-label" for="dataPurpose">[var.strWordsMargin]</label>
+									<div class="col-sm-8 label-field">
+										<div class="input-group">
+	                    [var.strInputInterest]
+	                    <span class="input-group-addon">
+	                    	%
+	                    </span>
+	                	</div>
+	                </div>
+								</div>
+								<div class="form-group has-error">
+									<label class="col-sm-4 control-label" for="dataPurpose">[var.strWordsMonthlyPayment]</label>
+									<div class="col-sm-8 label-field">
+										<strong id="monthlyPayment">0</strong>
+									</div>
+								</div>
+								<div class="form-group has-error">
+									<label class="col-sm-4 control-label" for="dataPurpose">[var.strWordsstartPayment]</label>
+									<div class="col-sm-8 label-field">
+										[var.strInputStart]
+									</div>
+								</div>
+								<div class="form-group has-error">
+									<label class="col-sm-4 control-label" for="dataPurpose">[var.strWordsLastPayment]</label>
+									<div class="col-sm-8 label-field">
+										[var.strInputFinish]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataPurpose">[var.strWordsNote]</label>
+									<div class="col-sm-8 label-field">
+										[var.strInputNote]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 form-actions">
+								<input class="btn btn-sm btn-primary" name="btnSave" id="btnSave" value="[var.strWordsSave]" type="submit"> 
+                <input class="btn btn-sm btn-info" name="btnNew" id="btnNew" value="[var.strWordsClear]" onclick="clearForm();" type="button"> 
+                <input name="dataID" id="dataID" value="[var.strDataID]" type="hidden">	
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

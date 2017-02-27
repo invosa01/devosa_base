@@ -1,0 +1,93 @@
+<html>
+<head>
+  <title>[var.strPageTitle]</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <link href="./favicon.ico" rel="icon" type="image/ico">
+  <link href="./favicon.ico" rel="shortcut icon" type="image/ico">
+  <link rel="stylesheet" href="./css/login.css" type="text/css" />
+  <script type="text/javascript">
+    // cek apakah input sudah dimasukkan
+    var submitCount=0;
+    function isValid()
+    {
+    	if (submitCount!=0)
+        return false;
+      else
+      {
+      	if (document.LoginForm.dataUserName.value == "")
+        {
+          alert("Silakan masukkan user name anda!");
+          document.LoginForm.dataUserName.focus();
+          return false;
+        }
+        if (document.LoginForm.dataPassword.value == "")
+        {
+          alert("Silakan masukkan password anda!");
+          document.LoginForm.dataPassword.focus();
+          return false;
+        }
+      	submitCount++;
+        return true;
+      }
+    }//isValid
+
+    function windowLoad()
+    {
+  		[var.strErrorAlert]
+      var myForm=document.LoginForm;
+  		myForm.dataUserName.focus();
+  		myForm.dataUserName.select();
+    }
+    window.onload=windowLoad;
+  </script>
+</head>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+  <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="white">
+    <tr>
+      <td >
+        <table width="540" border="0" align="center" cellpadding="2" cellspacing="0"  style="background:url(images/logo_background.jpg) no-repeat">
+          <tr>
+            <td align="center">&nbsp;</td>
+          </tr>          <tr>
+            <td align="center"><img src="images/logo_front.gif"></td>
+          </tr>
+          <tr>
+            <td align="center" >
+              <BR />
+              <form action="index.php" name="LoginForm" method="post">
+                <table align='center' border="0" cellspacing="0" cellpadding="3">
+                  <tr>
+                    <td width="70">User name</td>
+                    <td width="10">:</td>
+                    <td><input name="dataUserName" type="text" size="30" maxlength="30"></td>
+                  </tr>
+                  <tr>
+                    <td>Password</td>
+                    <td>:</td>
+                    <td><input name="dataPassword" type="password" size="30" maxlength="30">[var.strInputPage]</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td><input name="btnLogin" type="submit" value="Login"></td>
+                  </tr>
+                </table>
+              </form>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" >&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center" class="copyright" >[var.strCopyright; protect=no; htmlconv=no]</td>
+        </tr>
+        <tr>
+          <td align="center" >&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script>
+	<!--
+
+	function clearForm() {
+		document.formInput.dataDepartment.value = "";
+		document.formInput.dataNote.value = "";
+		document.formInput.dataID.value = "";
+		document.formInput.dataDate.focus();
+	}//clearForm
+
+	// fungsi memeriksa validasi input
+	function validInput() {
+		if (document.formInput.dataDate.value == "") {
+			alert("Empty Date!");
+			document.formInput.dataDate.focus();
+			return false;
+		}
+		if (document.formInput.dataDue.value == "") {
+			alert("Empty Date!");
+			document.formInput.dataDue.focus();
+			return false;
+		}
+		return true;
+	} //validInput
+
+	// fungsi untuk inisialisasi
+	function initPage_() {
+		document.formInput.dataDateFrom.focus();
+		Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+		Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+	}//initPage
+	-->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">Recruitment Process</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>&nbsp;<strong><a href="recruitmentCandidate.php">Recruitment
+            List </a> | <a href="recruitmentProcessTest.php">Test Result</a> |
+            Interview Result | <a href="recruitmentProcessResult.php">Recruitment
+            Result </a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td colspan="3"><strong>&nbsp;RECRUITMENT DATA</strong></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Department</td>
+                  <td width="15" align="center">:</td>
+                  <td nowrap>[var.strInputDepartment]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Position</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputPosition]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;Job Desc.</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDescription]</td>
+                </tr>
+              </table></td>
+            <td width="20" valign="top">&nbsp;</td>
+            <td valign="top"><table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td colspan="3"><strong>&nbsp;CANDIDATE DATA</strong></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Name</td>
+                  <td width="15" align="center">:</td>
+                  <td nowrap>[var.strInputName]&nbsp; </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Address</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputAddress]&nbsp; </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;Phone</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputPhone]</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;Email</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputEmail]</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td> <input name="dataID2" type="hidden" id="dataID4" value="[var.strDataID]"></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td colspan="3"><strong>&nbsp;INTERVIEW DATA</strong></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Date / Time</td>
+                  <td width="15" align="center">:</td>
+                  <td nowrap>[var.strInputDate]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Location</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputLocation]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;PIC</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputPIC]</td>
+                </tr>
+              </table></td>
+            <td valign="top">&nbsp;</td>
+            <td valign="top">&nbsp;</td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;</td>
+            <td valign="top">&nbsp;</td>
+            <td valign="top">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="3" valign="top"><table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td colspan="3"><strong>&nbsp;INTERVIEW RESULT</strong></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Skills</td>
+                  <td align="center">:</td>
+                  <td nowrap><input name="textfield" type="text" size="30" maxlength="30" style="width:250px">
+                  </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;Potentials</td>
+                  <td align="center">:</td>
+                  <td nowrap><input name="textfield" type="text" size="30" maxlength="30" style="width:250px">
+                  </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;Adaptations</td>
+                  <td align="center">:</td>
+                  <td nowrap><input name="textfield" type="text" size="30" maxlength="30" style="width:250px">
+                  </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;Communication</td>
+                  <td align="center">:</td>
+                  <td nowrap><input name="textfield" type="text" size="30" maxlength="30" style="width:250px">
+                  </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;Expected Salary</td>
+                  <td width="15" align="center">:</td>
+                  <td nowrap><input name="textfield" type="text" size="30" maxlength="30" style="width:250px">
+                  </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;Estimated Date</td>
+                  <td align="center">:</td>
+                  <td nowrap><input name="textfield2" type="text" size="10" maxlength="10">
+                    <input name="btnEstimatedDate" type="submit" id="btnEstimatedDate" value=".."></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;Note</td>
+                  <td align="center">:</td>
+                  <td nowrap><textarea name="textarea" rows="3" wrap="VIRTUAL" style="width:250px"></textarea>
+                  </td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td nowrap><input name="btnSave" type="submit" id="btnSave2" value="Save"></td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td valign="top">&nbsp;</td>
+            <td valign="top">&nbsp;</td>
+            <td valign="top">&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

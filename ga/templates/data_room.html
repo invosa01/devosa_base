@@ -1,0 +1,66 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+[var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top" height="100%">
+[var.DataGrid;protect=no;htmlconv=no]
+   </td>
+  </tr>
+</table>
+<script type="text/javascript">
+	var myClient = {
+    editData : function(idx)
+    {
+      $('formMessage').style.visibility = 'hidden';
+      if (idx == 0)
+      {
+        //reset data
+        $('dataID').value = "";
+        $('id_location').selectedIndex = -1;
+        $('room_code').value = "";
+        $('room_name').value = "";
+        $('room_type').value = "";
+        $('capacity').value = "";
+      }
+      else if (idx != '')
+      {
+        $('dataID').value = $F("detailID" + idx);
+        $('id_location').value = $F("detailId_location" + idx);
+        $('room_code').value = $F("detailRoom_code" + idx);
+        $('room_name').value = $F("detailRoom_name" + idx);
+        $('room_type').value = $F("detailRoom_type" + idx);
+        $('capacity').value = $F("detailCapacity" + idx);
+      }
+      $('id_location').focus();
+    },
+    
+    confirmDelete : function()
+    {
+      return confirm('[var.strConfirmDelete]');
+    },
+    
+    confirmSave : function()
+    {
+      return confirm('[var.strConfirmSave]');
+    }
+  }
+</script>

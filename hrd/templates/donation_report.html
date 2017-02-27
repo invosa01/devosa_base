@@ -1,0 +1,88 @@
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="scripts/calendar.js"></script>
+<script type="text/javascript" src="scripts/calendar-en.js"></script>
+<script type="text/javascript" src="scripts/ylib.js"></script>
+<script type="text/javascript" src="scripts/acEmployee.js"></script>
+<script src="employee_data.php"></script>
+
+<script type="text/javascript">
+    // script-script tambahan, khusus untu loockup employee
+	<!--
+
+	AC_targetElements = ["dataEmployee"];
+
+	// fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+	// kehilangan foku
+	function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employeeName");
+    obj.innerHTML = nama;
+    return 1;
+  }
+    // fungsi memeriksa validasi input
+	function validInput() {
+		if (document.formInput.dataDateFrom.value == "") {
+			alert("Empty Date!");
+			document.formInput.dataDateFrom.focus();
+			return false;
+		}
+		if (document.formInput.dataDateThru.value == "") {
+			alert("Empty Date!");
+			document.formInput.dataDateThru.focus();
+			return false;
+		}
+
+		return true;
+	} //validInput
+
+    // fungsi untuk inisialisasi
+	function initPage_() {
+		document.formInput.dataDateFrom.focus();
+		Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+		Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+		init();
+		onCodeBlur();
+	}//initPage
+    -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+            <a href="donation_edit.php">[var.strWordsDataEntry]</a> |
+            <a href="donation_list.php">[var.strWordsDonationList]</a> | 
+            [var.strWordsDonationReport] |
+            <a href="donation_slip.php">[var.strWordsDispositionForm]</a> </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+      <td>&nbsp;</td>
+    </tr>
+      <tr> 
+      <td valign="top">
+        [var.formFilter;protect=no;htmlconv=no]
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>
+        [var.DataGrid; protect=no; htmlconv=no]
+      </td>
+    </tr>
+  </tbody>
+</table>

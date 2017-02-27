@@ -1,0 +1,1353 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>dm</Author>
+  <LastAuthor>engineer04</LastAuthor>
+  <Created>2008-08-28T21:38:56Z</Created>
+  <LastSaved>2008-11-13T07:15:28Z</LastSaved>
+  <Company>Infotech</Company>
+  <Version>11.6568</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///F:\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>9825</WindowHeight>
+  <WindowWidth>11310</WindowWidth>
+  <WindowTopX>480</WindowTopX>
+  <WindowTopY>30</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21" ss:Name="Default">
+  </Style>
+  <Style ss:ID="s22" ss:Name="Normal_Salary base KBI">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s23" ss:Name="Normal_Salary December 2007">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="MS Sans Serif" ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="m50940136" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+  <Style ss:ID="m50940146" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+  <Style ss:ID="m50939984" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+  <Style ss:ID="m50939994" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="#,##0.0"/>
+  </Style>
+  <Style ss:ID="m50940004" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+  <Style ss:ID="m50940014" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+  <Style ss:ID="m50935622" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="m50935632" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="m50935642" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="m50935652" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="m50935662" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+  <Style ss:ID="m50935672" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+  <Style ss:ID="m50935682" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="#,##0.0"/>
+  </Style>
+  <Style ss:ID="m50941928" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="m50941806" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="m50941634" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="m50924476" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="m50949372" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="m50949382" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="m50949200" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s25" ss:Parent="s22">
+   <Alignment ss:Vertical="Center"/>
+  </Style>
+  <Style ss:ID="s27" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="20" ss:Color="#333333"
+    ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s30" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="16" ss:Color="#333333"/>
+  </Style>
+  <Style ss:ID="s32" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="16" ss:Color="#333333"/>
+   <NumberFormat ss:Format="mmm\-yy"/>
+  </Style>
+  <Style ss:ID="s72" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s73" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+  <Style ss:ID="s75" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="8"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s77" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="8"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s79" ss:Parent="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="8"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s80">
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="8"/>
+  </Style>
+  <Style ss:ID="s82" ss:Parent="s21">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="8"/>
+  </Style>
+  <Style ss:ID="s83" ss:Parent="s21">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="8"/>
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+  <Style ss:ID="s84">
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="8"/>
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+  <Style ss:ID="s85">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s86">
+   <Font x:Family="Swiss" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s87">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+   </Borders>
+   <Font x:Family="Swiss" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s88">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+   </Borders>
+   <Font x:Family="Swiss" ss:Bold="1"/>
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+  <Style ss:ID="s89">
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="11" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s90">
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="16" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s91">
+   <Font ss:FontName="Tahoma" x:Family="Swiss"/>
+  </Style>
+  <Style ss:ID="s94" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s99" ss:Parent="s23">
+   <Alignment ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s101" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s109" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s111" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s114" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="[ENG][$-409]dd\-mmm\-yy;@"/>
+  </Style>
+  <Style ss:ID="s118" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s124" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s129" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="8" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s133" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s134" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s135" ss:Parent="s23">
+   <Alignment ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s136" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s137" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="0%"/>
+  </Style>
+  <Style ss:ID="s138" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s139" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s140" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s142" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s143">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#808080"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="8"/>
+  </Style>
+  <Style ss:ID="s144" ss:Parent="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s145">
+   <Font ss:FontName="Tahoma" x:Family="Swiss" ss:Size="16"/>
+  </Style>
+  <Style ss:ID="s146">
+   <Font/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="RptSalar(FUJI)Ok ">
+  <Table ss:ExpandedColumnCount="23" ss:ExpandedRowCount="11" x:FullColumns="1"
+   x:FullRows="1">
+   <Column ss:Index="2" ss:AutoFitWidth="0" ss:Width="27.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="26.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="72.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="93" ss:Span="3"/>
+   <Column ss:Index="9" ss:AutoFitWidth="0" ss:Width="41.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="60.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="68.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="78.75" ss:Span="10"/>
+   <Row ss:AutoFitHeight="0" ss:Height="24" ss:StyleID="s25"/>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5" ss:StyleID="s25">
+    <Cell ss:Index="3" ss:MergeAcross="19" ss:StyleID="s27"><Data ss:Type="String">UANG SAKU PESERTA MAGANG [var.strMonth] [var.strYear]</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="19.5" ss:StyleID="s25">
+    <Cell ss:Index="3" ss:MergeAcross="19" ss:StyleID="s30"><Data ss:Type="String">FUJI BIJAK PRESTASI</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="19.5" ss:StyleID="s25">
+    <Cell ss:Index="3" ss:MergeAcross="19" ss:StyleID="s32"><Data ss:Type="String">Period :  [var.strPeriode]</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="13.5"/>
+   <Row ss:AutoFitHeight="0" ss:Height="27.75" ss:StyleID="s25">
+    <Cell ss:Index="2" ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="m50935622"><Data
+      ss:Type="String">No</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m50935632"><Data ss:Type="String">NIK</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m50935642"><Data ss:Type="String">Trainee Name</Data></Cell>
+    <Cell ss:MergeAcross="4" ss:StyleID="m50935652"><Data ss:Type="String">Personal ID</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m50935662"><Data ss:Type="String">Basic Salary</Data></Cell>
+    <Cell ss:MergeAcross="2" ss:StyleID="m50935672"><Data ss:Type="String">Allowances</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m50935682"><Data ss:Type="String">Over Time</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m50939984"><Data ss:Type="String">Less Payment</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m50939994"><Data ss:Type="String">Sub Total Additional</Data></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m50940004"><Data ss:Type="String">Deductions</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m50940014"><Data ss:Type="String">More payment</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m50940136"><Data ss:Type="String">Sub Total  Deductional</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m50940146"><Data ss:Type="String">Salary Receive             by employees                       (Take Home Pay)  </Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="27.9375" ss:StyleID="s25">
+    <Cell ss:Index="6" ss:StyleID="s72"><Data ss:Type="String">Department</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="String">Section</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="String">Position</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="String">Join</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="String">Finish</Data></Cell>
+    <Cell ss:Index="12" ss:StyleID="s73"><Data ss:Type="String">Meal</Data></Cell>
+    <Cell ss:StyleID="s73"><Data ss:Type="String">Transport</Data></Cell>
+    <Cell ss:StyleID="s73"><Data ss:Type="String">Shift</Data></Cell>
+    <Cell ss:Index="18" ss:StyleID="s73"><Data ss:Type="String">Absent</Data></Cell>
+    <Cell ss:StyleID="s73"><Data ss:Type="String">Meal Canteen</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="18" ss:StyleID="s25">
+    <Cell ss:Index="2" ss:StyleID="s75"><Data ss:Type="String" x:Ticked="1">(1)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(2)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(3)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(4)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(5)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(6)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(7)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(8)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(9)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(10)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(11)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(12)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(13)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(14)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(15)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(16)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(17)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(18)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(19)</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String" x:Ticked="1">(20)</Data></Cell>
+    <Cell ss:StyleID="s79"><Data ss:Type="String" x:Ticked="1">(21)</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15" ss:StyleID="s80">
+    <Cell ss:Index="2" ss:StyleID="s82"
+     ss:Formula="=IF(ISNUMBER(R[-1]C),1+R[-1]C, 1)"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s82" ss:Formula="=IF(ISNUMBER(R[-1]C),1+R[-1]C, 1)"><Data
+      ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataFuji.employee_id;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataFuji.employee_name;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataFuji.department_name;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataFuji.section_code;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataFuji.position_name;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataFuji.join_date;block=xlDate]</Data></Cell>
+    <Cell ss:Index="11" ss:StyleID="s83"><Data ss:Type="String">[dataFuji.basic_salary;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataFuji.meal_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataFuji.transport_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataFuji.shift_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataFuji.overtime;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataFuji.less_payment;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s84" ss:Formula="=SUM(RC[-5]:RC[-1])"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataFuji.absence_deduction;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataFuji.meal_canteen;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataFuji.more_payment;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s84" ss:Formula="=SUM(RC[-3]:RC[-1])"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s83" ss:Formula="=RC[-11]+RC[-5]-RC[-1]"><Data
+      ss:Type="Error">#VALUE!</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="4.5">
+    <Cell ss:Index="2" ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="33" ss:StyleID="s86">
+    <Cell ss:Index="2" ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R9C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R9C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R9C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R9C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R9C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R9C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R9C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R9C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R9C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R9C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R9C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R9C:R[-2]C)"><Data ss:Type="Error">#VALUE!</Data></Cell>
+    <Cell ss:StyleID="s88"/>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Print>
+    <ValidPrinterInfo/>
+    <HorizontalResolution>600</HorizontalResolution>
+    <VerticalResolution>600</VerticalResolution>
+   </Print>
+   <Selected/>
+   <LeftColumnVisible>7</LeftColumnVisible>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>2</ActiveRow>
+     <ActiveCol>2</ActiveCol>
+     <RangeSelection>R3C3:R3C22</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="RptSalary-Cash(KBI)">
+  <Table ss:ExpandedColumnCount="40" ss:ExpandedRowCount="12" x:FullColumns="1"
+   x:FullRows="1">
+   <Column ss:AutoFitWidth="0" ss:Width="24"/>
+   <Column ss:Index="4" ss:AutoFitWidth="0" ss:Width="96"/>
+   <Column ss:AutoFitWidth="0" ss:Width="70.5"/>
+   <Column ss:Index="9" ss:AutoFitWidth="0" ss:Width="65.25"/>
+   <Column ss:Index="12" ss:AutoFitWidth="0" ss:Width="60.75"/>
+   <Column ss:Index="15" ss:AutoFitWidth="0" ss:Width="61.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="83.25"/>
+   <Column ss:Index="24" ss:AutoFitWidth="0" ss:Width="57.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="66"/>
+   <Column ss:Index="29" ss:AutoFitWidth="0" ss:Width="69"/>
+   <Column ss:Index="37" ss:AutoFitWidth="0" ss:Width="60.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="80.25"/>
+   <Column ss:Index="40" ss:AutoFitWidth="0" ss:Width="57"/>
+   <Row ss:Index="2" ss:AutoFitHeight="0" ss:Height="14.25">
+    <Cell ss:StyleID="s89"><Data ss:Type="String">[var.strCompanyName]</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="14.25">
+    <Cell ss:StyleID="s89"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="19.5" ss:StyleID="s146">
+    <Cell ss:StyleID="s145"><Data ss:Type="String">SALARY LIST EMPLOYEES OF [var.strMonth] [var.strYear]</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="18" ss:StyleID="s146">
+    <Cell ss:StyleID="s145"><Data ss:Type="String">PERIOD : [var.strPeriode]</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="18">
+    <Cell ss:StyleID="s90"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.25" ss:StyleID="s91">
+    <Cell ss:MergeDown="1" ss:StyleID="s94"><Data ss:Type="String">No.</Data></Cell>
+    <Cell ss:StyleID="s99"/>
+    <Cell ss:MergeDown="1" ss:StyleID="s101"><Data ss:Type="String">NIK</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m50924476"><Data ss:Type="String">Employee Name</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Department </Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Section</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Position</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Grade</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s114"><Data ss:Type="String">Join Date</Data></Cell>
+    <Cell ss:StyleID="s118"><Data ss:Type="String">Marital </Data></Cell>
+    <Cell ss:StyleID="s118"><Data ss:Type="String">Base </Data></Cell>
+    <Cell ss:StyleID="s118"><Data ss:Type="String">Grade/ </Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Seniority</Data></Cell>
+    <Cell ss:MergeAcross="6" ss:StyleID="m50941634"><Data ss:Type="String">Allowance</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Total</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Overtime</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s124"><Data ss:Type="String">Less Payment</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">SUB TOTAL</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">FIX SALARY</Data></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m50941806"><Data ss:Type="String">Jamsostek</Data></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m50941928"><Data ss:Type="String">Askes</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Loan</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Absent</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s124"><Data ss:Type="String">BII Account</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Out Meal</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s124"><Data ss:Type="String">Meal In Canteen</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s124"><Data ss:Type="String">More Payment</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s124"><Data ss:Type="String">Union Payment</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">SUB TOTAL</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s129"><Data ss:Type="String">Salary Receive        By Employees            (Take Home Pay)</Data></Cell>
+    <Cell ss:StyleID="s133"/>
+    <Cell ss:StyleID="s134"><Data ss:Type="String">Jamsostek</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5" ss:StyleID="s91">
+    <Cell ss:Index="2" ss:StyleID="s135"/>
+    <Cell ss:Index="10" ss:StyleID="s136"><Data ss:Type="String">Status</Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Salary </Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Golongan</Data></Cell>
+    <Cell ss:Index="14" ss:StyleID="s136"><Data ss:Type="String">Meal</Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Attendance</Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Transportation</Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Family </Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Sanding</Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Housing </Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Shift</Data></Cell>
+    <Cell ss:Index="26" ss:StyleID="s137"><Data ss:Type="Number">0.02</Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">3,7%</Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Company</Data></Cell>
+    <Cell ss:StyleID="s138"><Data ss:Type="String">Employees</Data></Cell>
+    <Cell ss:Index="39" ss:StyleID="s139"/>
+    <Cell ss:StyleID="s140"><Data ss:Type="String">Payment</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="10.5" ss:StyleID="s80">
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(1)</Data></Cell>
+    <Cell ss:StyleID="s143"/>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(2)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(3)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(4)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(5)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(6)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(7)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(8)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(9)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(10)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(11)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(12)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(13)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(14)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(15)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(16)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(17)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(18)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(19)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(20)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(21)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(22)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(23)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(24)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(25)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(26)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(27)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(28)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(29)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(30)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(31)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(32)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(33)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(34)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(35)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(36)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(37)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(38)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(39)</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15" ss:StyleID="s80">
+    <Cell ss:StyleID="s82" ss:Formula="=IF(ISNUMBER(R[-1]C),1+R[-1]C, 1)"><Data
+      ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s82" ss:Formula="=IF(ISNUMBER(R[-1]C),1+R[-1]C, 1)"><Data
+      ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiCash.employee_id;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiCash.employee_name;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiCash.department_name;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiCash.section_code;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiCash.position_name;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiCash.salary_grade_code;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiCash.join_date;block=xlDate]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiCash.family_status_code;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.basic_salary;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.grade_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.seniority_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.meal_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.attendance_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.transport_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.family_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.sanding_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.housing_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.shift_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83" ss:Formula="=SUM(RC[-10]:RC[-1])"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.overtime;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.less_payment;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83" ss:Formula="=SUM(RC[-3]:RC[-1])"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s83"
+     ss:Formula="=SUM(RC[-14],RC[-13],RC[-12],RC[-8],RC[-7],RC[-6])"><Data
+      ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s83" ss:Formula="=2%*RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s83" ss:Formula="=3.7%*RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.askes_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.askes_deduction;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.loan_deduction;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.absence_deduction;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83" ss:Formula="=ROUND(RC[-1]/1000,0)*1000"><Data
+      ss:Type="Error">#VALUE!</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.out_meal;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.meal_canteen;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.more_payment;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiCash.union_payment;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"
+     ss:Formula="=SUM(RC[-1],RC[-2],RC[-3],RC[-4],RC[-5],RC[-6],RC[-7],RC[-8],RC[-11])"><Data
+      ss:Type="Error">#VALUE!</Data></Cell>
+    <Cell ss:StyleID="s83" ss:Formula="=SUM(RC[-14]-RC[-1])"><Data ss:Type="Error">#VALUE!</Data></Cell>
+    <Cell ss:StyleID="s83"/>
+    <Cell ss:StyleID="s83" ss:Formula="=RC[-15]*6.89%"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="4.5">
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="33" ss:StyleID="s86">
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Error">#VALUE!</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Error">#VALUE!</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Error">#VALUE!</Data></Cell>
+    <Cell ss:StyleID="s88"/>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>28</ActiveRow>
+     <ActiveCol>1</ActiveCol>
+     <RangeSelection>R29C2:R30C2</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="RptSalary-Transfer(KBI)">
+  <Table ss:ExpandedColumnCount="40" ss:ExpandedRowCount="12" x:FullColumns="1"
+   x:FullRows="1">
+   <Column ss:AutoFitWidth="0" ss:Width="24"/>
+   <Row ss:Index="2" ss:AutoFitHeight="0" ss:Height="14.25">
+    <Cell ss:StyleID="s89"><Data ss:Type="String">[var.strCompanyName]</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="14.25">
+    <Cell ss:StyleID="s89"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="19.5">
+    <Cell ss:StyleID="s145"><Data ss:Type="String">SALARY LIST EMPLOYEES OF [var.strMonth] [var.strYear]</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="18">
+    <Cell ss:StyleID="s145"><Data ss:Type="String">PERIOD : [var.strPeriode]</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="18">
+    <Cell ss:StyleID="s90"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.25" ss:StyleID="s91">
+    <Cell ss:MergeDown="1" ss:StyleID="s94"><Data ss:Type="String">No.</Data></Cell>
+    <Cell ss:StyleID="s99"/>
+    <Cell ss:MergeDown="1" ss:StyleID="s101"><Data ss:Type="String">NIK</Data></Cell>
+    <Cell ss:StyleID="s111"><Data ss:Type="String">Employee</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Department </Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Section</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Position</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Grade</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s114"><Data ss:Type="String">Join Date</Data></Cell>
+    <Cell ss:StyleID="s118"><Data ss:Type="String">Marital </Data></Cell>
+    <Cell ss:StyleID="s118"><Data ss:Type="String">Base </Data></Cell>
+    <Cell ss:StyleID="s118"><Data ss:Type="String">Grade/ </Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Seniority</Data></Cell>
+    <Cell ss:MergeAcross="6" ss:StyleID="m50949200"><Data ss:Type="String">Allowance</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Total</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Overtime</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s124"><Data ss:Type="String">Less Payment</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">SUB TOTAL</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">FIX SALARY</Data></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m50949372"><Data ss:Type="String">Jamsostek</Data></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m50949382"><Data ss:Type="String">Askes</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Loan</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Absent</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s124"><Data ss:Type="String">BII Account</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">Out Meal</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s124"><Data ss:Type="String">Meal In Canteen</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s124"><Data ss:Type="String">More Payment</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s124"><Data ss:Type="String">Union Payment</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s109"><Data ss:Type="String">SUB TOTAL</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s129"><Data ss:Type="String">Salary Receive        By Employees            (Take Home Pay)</Data></Cell>
+    <Cell ss:StyleID="s133"/>
+    <Cell ss:StyleID="s134"><Data ss:Type="String">Jamsostek</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5" ss:StyleID="s91">
+    <Cell ss:Index="2" ss:StyleID="s135"/>
+    <Cell ss:Index="4" ss:StyleID="s144"><Data ss:Type="String">Name</Data></Cell>
+    <Cell ss:Index="10" ss:StyleID="s136"><Data ss:Type="String">Status</Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Salary </Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Golongan</Data></Cell>
+    <Cell ss:Index="14" ss:StyleID="s136"><Data ss:Type="String">Meal</Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Attendance</Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Transportation</Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Family </Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Sanding</Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Housing </Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Shift</Data></Cell>
+    <Cell ss:Index="26" ss:StyleID="s137"><Data ss:Type="Number">0.02</Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">3,7%</Data></Cell>
+    <Cell ss:StyleID="s136"><Data ss:Type="String">Company</Data></Cell>
+    <Cell ss:StyleID="s138"><Data ss:Type="String">Employees</Data></Cell>
+    <Cell ss:Index="39" ss:StyleID="s139"/>
+    <Cell ss:StyleID="s140"><Data ss:Type="String">Payment</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="10.5" ss:StyleID="s80">
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(1)</Data></Cell>
+    <Cell ss:StyleID="s143"/>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(2)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(3)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(4)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(5)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(6)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(7)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(8)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(9)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(10)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(11)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(12)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(13)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(14)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(15)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(16)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(17)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(18)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(19)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(20)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(21)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(22)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(23)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(24)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(25)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(26)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(27)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(28)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(29)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(30)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(31)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(32)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(33)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(34)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(35)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(36)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(37)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(38)</Data></Cell>
+    <Cell ss:StyleID="s142"><Data ss:Type="String" x:Ticked="1">(39)</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15" ss:StyleID="s80">
+    <Cell ss:StyleID="s82" ss:Formula="=IF(ISNUMBER(R[-1]C),1+R[-1]C, 1)"><Data
+      ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s82" ss:Formula="=IF(ISNUMBER(R[-1]C),1+R[-1]C, 1)"><Data
+      ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiTransfer.employee_id;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiTransfer.employee_name;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiTransfer.department_name;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiTransfer.section_code;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiTransfer.position_name;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiTransfer.salary_grade_code;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiTransfer.join_date;block=xlDate]</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">[dataKbiTransfer.family_status_code;block=Row]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.basic_salary;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.grade_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.seniority_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.meal_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.attendance_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.transport_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.family_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.sanding_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.housing_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.shift_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83" ss:Formula="=SUM(RC[-10]:RC[-1])"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.overtime;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.less_payment;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83" ss:Formula="=SUM(RC[-3]:RC[-1])"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s83"
+     ss:Formula="=SUM(RC[-14],RC[-13],RC[-12],RC[-8],RC[-7],RC[-6])"><Data
+      ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s83" ss:Formula="=2%*RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s83" ss:Formula="=3.7%*RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.askes_allowance;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.askes_deduction;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.loan_deduction;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.absence_deduction;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.bii_account;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.out_meal;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.meal_canteen;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.more_payment;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">[dataKbiTransfer.union_payment;ope=xlNum]</Data></Cell>
+    <Cell ss:StyleID="s83"
+     ss:Formula="=SUM(RC[-1],RC[-2],RC[-3],RC[-4],RC[-5],RC[-6],RC[-7],RC[-8],RC[-11])"><Data
+      ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s83" ss:Formula="=SUM(RC[-14]-RC[-1])"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s83"/>
+    <Cell ss:StyleID="s83" ss:Formula="=RC[-15]*6.89%"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="4.5">
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s85"><Data ss:Type="String">-</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="33" ss:StyleID="s86">
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s87"/>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s88"/>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R10C:R[-2]C)"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Print>
+    <ValidPrinterInfo/>
+    <HorizontalResolution>300</HorizontalResolution>
+    <VerticalResolution>300</VerticalResolution>
+   </Print>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>1</ActiveRow>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

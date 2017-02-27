@@ -1,0 +1,242 @@
+<html>
+<head>
+  <title>MRF</title>
+  <style>
+  
+    @page
+    {
+      margin: 0px 0px 0px 0px;
+      size: A4;
+    }
+    
+    td
+    {
+      font-size: 11pt;
+    }
+    .header_1
+    {
+      font-size: 13pt;
+    }
+    .tableGrid
+    {
+      border-top-color: black;
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-left-color: black;
+      border-left-width: 1px;
+      border-left-style: solid;
+    }
+    .tableGrid td
+    {
+      border-bottom-color: black;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-right-color: black;
+      border-right-width: 1px;
+      border-right-style: solid;
+    }
+    .tableNoGrid
+    {
+      border-width: 0px;
+      border-style: none;
+    }
+    .tableNoGrid td
+    {
+      border-width: 0px;
+      border-style: none;
+    }
+    .kotak
+    {
+      padding-width: 2px;
+      border-width: 1px;
+      border-style: solid;
+      border-color: black;
+      width: 20px;
+      color: white;
+      text-align: center;
+    }
+    .kotakX
+    {
+      padding-width: 2px;
+      border-width: 1px;
+      border-style: solid;
+      border-color: black;
+      width: 20px;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body onload="window.print()">
+<p align='right' style="font-weight:bold">CONFIDENTIAL</p>
+<table width="100%" cellpadding=3 cellspacing=0 border=0 class="tableGrid">
+  <tr valign="top">
+    <td colspan=3 align="center" nowrap>
+      <p class="header_1">
+        <strong>MANPOWER REQUISITION FORM</strong><br />
+        <em>FORMULIR PERMINTAAN PENAMBAHAN KARYAWAN</em>
+      </p>
+    </td>
+    <td width="15%" nowrap>
+      <p>MRF No : [var.strDataNo]<br /><em>No. FPPK</em></p>
+    </td>
+    <td width="15%">
+      <p>Date : [var.strDataDate]<br /><em>Tgl</em></p>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td width="30%" nowrap>
+      <p>Position : [var.strDataPosition]<br /><em>Jabatan</em></p>
+    </td>
+    <td width="40%" colspan=2>
+      <p>Office : [var.strDataCompany]<br /><em>Kantor</em></p>
+    </td>
+    <td width="30%" colspan=2 nowrap>
+      <p><em>Divisi/Dept/Unit :</em><br />[var.strDataDepartment]</p>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+      <p>Number Required : [var.strDataRequired]<br /><em>Jumlah Kebutuhan</em></p>
+    </td>
+    <td colspan=2>
+      <p>Date Required : [var.strDataDateRequired]<br /><em>Tanggal Dibutuhkan</em></p>
+    </td>
+    <td colspan=2 nowrap>
+      <p>Total Number of Employees : [var.strDataTotalEmployee]<br /><em>Total Jumlah Karyawan :</em></p>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap> Type of Request : <br /><em>Tipe Permohonan</em> </td>
+    <td nowrap> 
+      <table border=0 cellspacing=2 border=0 class="tableNoGrid">
+        <tr>
+          <td style="border-width:1px; border-style:solid;border-color:black;" width="20px">&nbsp;[var.strDataTypeAdd]</td>
+          <td>&nbsp;Additional</td>
+        </tr>
+        <tr>
+          <td style="border-width:1px; border-style:solid;border-color:black;" width="20px">&nbsp;[var.strDataTypeSub]</td>
+          <td>&nbsp;Substitution</td>
+        </tr>
+      </table>
+    </td>
+    <td nowrap> 
+      <table border=0 cellspacing=2 border=0 class="tableNoGrid">
+        <tr>
+          <td style="border-width:1px; border-style:solid;border-color:black;" width="20px">&nbsp;[var.strDataGenderM]</td>
+          <td>&nbsp;Male</td>
+        </tr>
+        <tr>
+          <td style="border-width:1px; border-style:solid;border-color:black;" width="20px">&nbsp;[var.strDataGenderF]</td>
+          <td>&nbsp;Female</td>
+        </tr>
+      </table>
+    </td>
+    <td nowrap> 
+      <table border=0 cellspacing=2 border=0 class="tableNoGrid">
+        <tr>
+          <td nowrap style="border-width:1px; border-style:solid;border-color:black;" width="20px">&nbsp;[var.strDataStatusP]</td>
+          <td nowrap>&nbsp;Permanent</td>
+        </tr>
+        <tr>
+          <td nowrap style="border-width:1px; border-style:solid;border-color:black;" width="20px">&nbsp;[var.strDataStatusC]</td>
+          <td nowrap>&nbsp;Contract mths/yrs</td>
+        </tr>
+      </table>
+    </td>
+    <td nowrap>
+      <table border=0 cellspacing=2 border=0 class="tableNoGrid">
+        <tr>
+          <td nowrap style="border-width:1px; border-style:solid;border-color:black;" width="20px">&nbsp;[var.strDataBudgetTrue]</td>
+          <td nowrap>&nbsp;According to Budget</td>
+        </tr>
+        <tr>
+          <td nowrap style="border-width:1px; border-style:solid;border-color:black;" width="20px">&nbsp;[var.strDataBudgetFalse]</td>
+          <td nowrap>&nbsp;Over Budget</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td colspan=5>Reason for this additional or substitution : <br />
+      <em>Alasan Permohonan untuk Penambahan/Penggantian</em>
+      <p>[var.strDataReason]</p>
+      <br />
+    </td>
+  </tr>
+  <tr valign="top">
+    <td colspan=5>Job Descriptions : <br />
+      <em>Uraian Jabatan</em>
+      <p>[var.strDataJobDescription]</p>
+      <br />
+    </td>
+  </tr>
+  <tr valign="top">
+    <td colspan=5>Job Qualifications : <br />
+      <em>Kualifikasi Jabatan</em>
+      <p>[var.strDataQualification]</p>
+      <br />
+    </td>
+  </tr>
+  <tr valign="top" align="center">
+    <td> Name <br /><em>Nama</em> </td>
+    <td> Sign <br /><em>Paraf</em> </td>
+    <td> Date <br /><em>Tgl</em> </td>
+    <td nowrap colspan=2> Filled by Corporate HR <br /><em>Diisi oleh Grup SDM - Kantor Pusat</em> </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap> Department Head : <br /><em>Kepala Departemen</em> </td>
+    <td valign="bottom" align=center nowrap> [var.strCreatorName]&nbsp;</td>
+    <td valign="bottom" align=center nowrap> [var.strCreatedDate]&nbsp;</td>
+    <td nowrap colspan=2> Name of Candidate <br /><em>Nama Calon Karyawan</em> </td>
+  </tr>
+  <tr >
+    <td nowrap> Division Head : <br /><em>Kepala Divisi</em> </td>
+    <td valign="bottom" align=center nowrap> [var.strVerifiedName]&nbsp;</td>
+    <td valign="bottom" align=center nowrap> [var.strVerifiedDate]&nbsp;</td>
+    <td nowrap colspan=2> Starting Date : <br /><em>Tanggal Mulai Kerja</em> </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap> HR Department Head : <br /><em>Kepala Departemen SDM</em> </td>
+    <td valign="bottom" align=center nowrap> [var.strApprovedName]&nbsp;</td>
+    <td valign="bottom" align=center nowrap> [var.strApprovedDate]&nbsp;</td>
+    <td nowrap colspan=2> End of Contract / Employment : <br /><em>Tanggal Akhir Kontrak</em> </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap> Support Division Head : <br /><em>Kepala Divisi Support</em> </td>
+    <td> &nbsp;</td>
+    <td> &nbsp;</td>
+    <td nowrap colspan=2> Temporary / Permanent No. of Candidate : <br /><em>NIP sementara calon karyawan</em> </td>
+  </tr>
+  <tr valign="top">
+    <td> Managing Director : <br /><em>Direksi</em> </td>
+    <td valign="bottom" align=center nowrap> [var.strDirectorName]&nbsp;</td>
+    <td valign="bottom" align=center nowrap> [var.strDirectorDate]&nbsp;</td>
+    <td nowrap colspan=2> Others : <br /><em>Lain-lain</em> </td>
+  </tr>
+  <tr valign="top">
+    <td colspan=5> Notes from HR : <br /><em>Catatan dari SDM</em> 
+      <p></p>
+        <br />
+        <br />
+        <br />
+      </p>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td colspan=3> Level / Band : [var.strDataGrade]<br /><em>Golongan</em> </td>
+    <td nowrap colspan=2> MRF Signature & Name : <br /><em>Nama & Paraf Permohonan FPPK</em> </td>
+  </tr>
+  <tr valign="top">
+    <td colspan=3> Monthly Salary : [var.strDataSalary]<br /><em>Gaji per Bulan</em> </td>
+    <td nowrap colspan=2> Allowances : [var.strDataAllowance]<br /><em>Tunjangan Lain-lain : </em> </td>
+  </tr>
+</table>
+<p align="center">
+  <em>Note: Before this requisition is approved by the HO, no Branch/Group is allowed to hire the candidate employee</em>
+</p>
+<p align="right">
+  <small>[var.strNow]</small>
+</p>
+</body>
+</html>

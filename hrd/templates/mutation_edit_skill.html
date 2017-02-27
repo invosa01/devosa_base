@@ -1,0 +1,272 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<script src="department_data.php"></script>
+<link   href="../css/calendar.css" rel="stylesheet" type="text/css">
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+  <!--
+
+  // memeriksa apakah opsi employee status dipilih atau gak
+  function checkStatus() {
+    var pilih = document.formInput.dataIsStatus.checked;
+    var obj = document.getElementById("inputStatus");
+
+    document.formInput.dataStatusNew.disabled = !pilih;
+    document.formInput.dataStatusDateFrom.disabled = !pilih;
+    document.formInput.dataStatusDateThru.disabled = !pilih;
+
+    if (pilih) obj.style.display = (document.all) ? "block" : "table-row";
+    else obj.style.display = "none";
+  } // checkStatus
+
+
+/*
+  // memeriksa apakah opsi resign dipilih atau gak
+  function checkResign() {
+    var pilih = document.formInput.dataIsResign.checked;
+    var obj = document.getElementById("inputResign");
+
+    document.formInput.dataResignDate.disabled = !pilih;
+    if (pilih) obj.style.display = (document.all) ? "block" : "table-row";
+    else obj.style.display = "none";
+  } // checkResign
+
+  // memeriksa apakah opsi salary dipilih atau gak
+  function checkSalary() {
+    var pilih = document.formInput.dataIsSalary.checked;
+    var obj = document.getElementById("inputSalary");
+
+    document.formInput.dataSalaryOld.disabled = !pilih;
+    document.formInput.dataSalaryProposed.disabled = !pilih;
+    document.formInput.dataSalaryNew.disabled = !pilih;
+    document.formInput.dataSalaryOldDate.disabled = !pilih;
+    document.formInput.dataSalaryProposedDate.disabled = !pilih;
+    document.formInput.dataSalaryNewDate.disabled = !pilih;
+    document.formInput.dataSalaryNote.disabled = !pilih;
+    if (pilih) obj.style.display = (document.all) ? "block" : "table-row";
+    else obj.style.display = "none";
+  } // checkSalary
+*/
+  // memeriksa apakah opsi position dipilih atau gak
+  function checkPosition() {
+    var pilih = document.formInput.dataIsPosition.checked;
+    var obj = document.getElementById("inputPosition");
+
+    document.formInput.dataPositionOld.disabled = !pilih;
+    document.formInput.dataPositionNew.disabled = !pilih;
+    document.formInput.dataGradeOld.disabled = !pilih;
+    document.formInput.dataGradeNew.disabled = !pilih;
+    document.formInput.dataPositionOldDate.disabled = !pilih;
+    document.formInput.dataPositionNewDate.disabled = !pilih;
+    if (pilih) obj.style.display = (document.all) ? "block" : "table-row";
+    else obj.style.display = "none";
+  } // checkPosition
+
+  function clearForm() {
+    document.formInput.dataEmployee.value = "";
+    document.formInput.dataLetterCode.value = "";
+    document.formInput.dataNote.value = "";
+    document.formInput.dataID.value = "";
+    document.formInput.dataDateFrom.focus();
+  }//clearForm
+
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDate.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDate.focus();
+      return false;
+    }
+
+    if (document.formInput.dataEmployee.value == "") {
+      alert("Empty Employee ID!");
+      document.formInput.dataEmployee.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDate.focus();
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+    Calendar.setup({ inputField:"dataPositionOldDate", button:"btnPositionOldDate" });
+    Calendar.setup({ inputField:"dataPositionNewDate", button:"btnPositionNewDate" });
+    init();
+    onCodeBlur();
+
+    checkStatus();
+    checkPosition();
+
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30">&nbsp;</td>
+          <td nowrap><strong>Proposal Entry | <a href="mutation_list.php">
+            Proposal List</a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table width="100%" border="0" cellpadding="2" cellspacing="0">
+          <tr>
+            <td valign="top">&nbsp;</td>
+            <td valign="top">
+              <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td width="30%">&nbsp;</td>
+                  <td width="5%" align="center">&nbsp;</td>
+                  <td width="65%">&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong>[var.strWordsProposalDate]</strong></td>
+                  <td align="center"><strong>:</strong></td>
+                  <td nowrap>[var.strInputDate]&nbsp; <input name="btnDate" type="button" id="btnDate" value=".."></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong> [var.strWordsLetterCode]</strong></td>
+                  <td align="center"><strong>:</strong></td>
+                  <td nowrap>[var.strInputLetterCode]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong> [var.strWordsEmployeeID]</strong></td>
+                  <td align="center"><strong>:</strong></td>
+                  <td nowrap>[var.strInputEmployee]&nbsp;<font color="red">*</font>
+                    <input name="btnGet" type="submit" id="btnGet" value="Get Info"></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td><strong id="employee_name"></strong>&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td width="30%" nowrap><strong>[var.strWordsNote]</strong></td>
+                  <td width="5%" align="center">:</td>
+                  <td width="65%" nowrap>[var.strInputNote]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap><strong> [var.strWordsStatus]</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputStatus]</td>
+                </tr>
+                
+              </table></td>
+          </tr>
+          
+          <tr  class="tableHeader" style="cursor:pointer">
+            <td valign="top" >[var.strInputIsPosition]</td>
+            <td valign="top" align="left" onClick="document.formInput.dataIsPosition.checked = !document.formInput.dataIsPosition.checked;checkPosition();"><strong>[var.strWordsEmployeeGrade]</strong></td>
+          </tr>
+          <tr id="inputPosition">
+            <td valign="top">&nbsp;</td>
+            <td valign="top">
+              <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr valign="top">
+                  <td nowrap>[var.strWordsRecentLevel]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputPositionOld]</td>
+                  <td nowrap>&nbsp;&nbsp;</td>
+                  <td nowrap>[var.strWordsGrade]</td>
+                  <td nowrap>:</td>
+                  <td nowrap>[var.strInputGradeOld]</td>
+                  <td nowrap>&nbsp;&nbsp;</td>
+                  <td nowrap>[var.strWordsStartDate]</td>
+                  <td nowrap>:</td>
+                  <td nowrap>[var.strInputPositionOldDate]
+                    <input name="btnPositionOldDate" type="button" id="btnPositionOldDate" value=".."></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> [var.strWordsNewLevel]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputPositionNew]</td>
+                  <td nowrap>&nbsp;</td>
+                  <td nowrap>[var.strWordsGrade]</td>
+                  <td nowrap>:</td>
+                  <td nowrap>[var.strInputGradeNew]</td>
+                  <td nowrap>&nbsp;&nbsp;</td>
+                  <td nowrap>[var.strWordsStartDate]</td>
+                  <td nowrap>:</td>
+                  <td nowrap>[var.strInputPositionNewDate]
+                    <input name="btnPositionNewDate" type="button" id="btnPositionNewDate" value=".."></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td align="center" valign="top">&nbsp;</td>
+            <td align="center" valign="top">
+            <table width="700" border="0" align="left" cellpadding="1" cellspacing="0">
+
+                <tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td><strong id="employee_name"></strong>&nbsp; <input name="btnSave" type="submit" id="btnSave2" value="Save">
+                    &nbsp; <input name="btnNew" type="button" id="btnNew" value="Clear Form" onClick="location.href = 'mutation_edit.php';"> [var.strBtnPrint]
+                    <input name="dataID" type="hidden" id="dataID2" value="[var.strDataID]">
+                  </td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td align="center" valign="top">&nbsp;</td>
+            <td align="center" valign="top">&nbsp; </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>

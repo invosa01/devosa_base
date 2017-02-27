@@ -1,0 +1,150 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script>
+  <!--
+
+  //fungsi untuk memeriksa apakah input valid
+  function validInput() {
+
+    return true;
+  }//validInput
+
+  //edit data tanggal tertentu
+  function editEvent(id, tanggal) 
+  {
+    var bln = document.formInput.dataMonth.value;
+    var thn = document.formInput.dataYear.value;
+    if (bln < 10) bln = "0" + bln;
+    if (tanggal < 10) tanggal = "0" + tanggal ;
+    document.formInput.dataDate.value = thn + "-" + bln + "-" + tanggal;
+    if (id != 0)
+    {
+      document.formInput.dataID.value = id;
+      document.formInput.dataNote.value = document.getElementById("dataNote"+id).value;
+      document.formInput.dataCategory.value = document.getElementById("dataCategory"+id).value;
+      document.formInput.dataHoliday.value = document.getElementById("dataStatus"+id).value;
+      document.formInput.dataLeave.value = document.getElementById("dataLeave"+id).value;
+    }
+    else
+    {
+      document.formInput.dataID.value = "";
+      document.formInput.dataNote.value = "";
+      document.formInput.dataCategory.selectedIndex = 0;
+    }
+    document.formInput.dataNote.focus();
+  } //editEvent
+
+  // fungsi untuk menghapus data
+  function deleteEvent(id, tanggal) {
+    if (tanggal != "" && tanggal != "undefined") {
+      var bln = document.formInput.dataMonth.value;
+      var thn = document.formInput.dataYear.value;
+
+      if (confirm("[var.strConfirmDelete]")) {
+        location.href = "working_calendar.php?btnDelete=Delete&dataMonth=" + bln + "&dataYear=" + thn + "&dataDay=" + tanggal + "&dataID=" + id;
+      }
+    }
+  }//deleteEvent
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+  }//initPage
+  -->
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+  			<div class="col-md-6 pull-left"><strong>[var.strMonthNavigation]<a class="btn btn-info btn-small" href="holiday_list.php">[var.strWordsEventList]</a></strong></div>
+  			<div class="col-md-6">
+  				<form action="" method="post" name="formFilter" id="formFilter" class="form-horizontal" role="form">
+	  				<div class="form-group">
+							<label class="col-sm-2 control-label" for="dataType">[var.strWordsSelectMonth]</label>
+							<div class="col-sm-2 no-padding">
+								[var.strMonthList]
+							</div>
+							<div class="col-sm-2">
+								[var.strYearList]
+							</div>
+							<div class="col-md-6 no-padding">
+								<input class="btn btn-success btn-small" name="btnShow" type="submit" id="btnShow2" value="[var.strWordsShow]">
+							</div>
+						</div>
+  				</form>
+  			</div>
+  		</div>
+  		<div class="col-md-12">
+  			<div class="col-md-8">
+  				[var.strCalendar]	
+  			</div>
+  			<div class="col-md-4">
+  				[var.strLegend]	
+  			</div>
+  			<div class="col-md-4">
+	  			<div class="panel">
+						<div class="panel-heading">
+							<div class="panel-actions">
+								<div class="pull-right" id="collapse-filter">
+							  	<a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+							  </div>
+							</div>
+							<h3 class="panel-title">INPUT DATA</h3>
+						</div>
+						<div id="list-panel" class="panel-body collapse in">
+							<form action="working_calendar.php" method="post" name="formInput" id="formInput" class="form-horizontal" role="form">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="dataDate">[var.strWordsDate]</label>
+										<div class="col-sm-9">
+											<div class="input-group">
+		                    <input class='form-control datepicker' data-date-format='yyyy-mm-dd' name="dataDate" type="text" id="dataDate" value="[var.strNow]" size="15" maxlength="10">
+		                    <span class="input-group-addon">
+		                        <i class="fa fa-calendar"></i>
+		                    </span>
+			              	</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="dataNote">[var.strWordsEvent]</label>
+										<div class="col-sm-9">
+											<input class="form-control" name="dataNote" type="text" id="dataNote" size="60" maxlength="30">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="dataDate">[var.strWordsCategory]</label>
+										<div class="col-sm-9">
+											[var.strHolidayType]
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="dataHoliday">[var.strWordsHoliday]</label>
+										<div class="col-sm-3">
+											<select class="form-select select2" name="dataHoliday" id="select">
+			                  <option value="t" selected>[var.strWordsYes]</option>
+			                  <option value="f">[var.strWordsNo]</option>
+			                </select>
+										</div>
+										<label class="col-sm-3 control-label" for="dataLeave">[var.strWordsLeave]</label>
+										<div class="col-sm-3">
+											<select class="form-select select2"  name="dataLeave" id="select3">
+			                  <option value="t">[var.strWordsYes]</option>
+			                  <option value="f" selected>[var.strWordsNo]</option>
+			                </select>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12 form-actions">
+									<input class="btn btn-primary btn-sm" name="btnSave" type="submit" id="btnSave2" value="[var.strWordsSave]">
+		              <input name="dataMonth" type="hidden" id="dataMonth" value="[var.strDataMonth]">
+		              <input name="dataYear" type="hidden" id="dataYear" value="[var.strDataYear]">
+		              <input name="dataID" type="hidden" id="dataID">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+  		</div>
+  	</div>
+  </div>

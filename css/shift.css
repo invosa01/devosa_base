@@ -1,0 +1,45 @@
+table.dataGrid td.sunday
+{
+  text-align : center;
+  background-color : #fe0c23;
+  padding: 0px 0px 0px 0px;
+}
+
+table.dataGrid td.sunday select
+{
+  text-align : left;
+  margin  : 0px 0px 0px 0px;
+  padding : 0px 0px 0px 0px;
+  background-color : #fe0c23;
+  width : 35px;
+}
+
+table.dataGrid td.saturday
+{
+  text-align : center;
+  background-color : #fec80c;
+  padding: 0px 0px 0px 0px;
+}
+
+table.dataGrid td.saturday select
+{
+  text-indent : 0px;
+  margin  : 0px 0px 0px 0px;
+  padding : 0px 0px 0px 0px;
+  background-color : #fec80c;
+  width : 35px;
+}
+
+table.dataGrid td.normal
+{
+  text-align : center;
+  padding: 0px 0px 0px 0px;
+}
+
+table.dataGrid td.normal select
+{
+  text-indent : 0px;
+  margin  : 0px 0px 0px 0px;
+  padding : 0px 0px 0px 0px;
+  width : 35px;
+}

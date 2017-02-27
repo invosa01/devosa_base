@@ -1,0 +1,298 @@
+  <script src="scripts/calendar.js"></script>
+  <script src="scripts/calendar-en.js"></script>
+  <link href="../css/calendar.css" rel="stylesheet" type="text/css">
+  <script src="scripts/acEmployee.js"></script>
+  <script src="scripts/ylib.js"></script>
+  <script src="scripts/invosa.js"></script>
+  <script src="employee_data.php"></script>
+  <link href="../css/ac.css" rel="stylesheet" type="text/css">
+  <script>
+    // script-script tambahan, khusus untu loockup employee
+
+    AC_targetElements = ["dataEmployee"];
+
+    // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+    // kehilangan foku
+    function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+  </script>
+  <script>
+  <!--
+  // fungsi memeriksa validasi input
+  function validInput() {
+      if (document.formInput.dataDateFrom.value == "") {
+          alert("Empty Date!");
+          document.formInput.dataDateFrom.focus();
+          return false;
+      }
+      if (document.formInput.dataDateThru.value == "") {
+          alert("Empty Date!");
+          document.formInput.dataDateThru.focus();
+          return false;
+      }
+      ok = true;//;validateForm(document.formInput);
+
+      return ok;
+  } //validInput
+
+  // fungsi memeriksa validasi input data
+  function validInputData() {
+
+      ok = validateForm(document.formData);
+
+      return ok;
+  } //validInputData
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmStatusChanges(isDenied) {
+    bolOK = confirm("[var.strConfirmChangeStatus]");
+    if (bolOK && isDenied) {
+      //document.formData.action = "absence_denied.php";
+    }
+    return bolOK;
+  } //confirmStatusChanges
+
+
+   // fungsi untuk mengecek checkbox di depan (untuk approval)
+  function checkAll() {
+    var total = document.formData.totalData.value;
+    cek = (document.formData.chkAll.checked) ? "true" : "false";
+    for (i = 1; i <= total; i++) {
+      eval("document.formData.chkID" + i + ".checked = " + cek + ";");
+    }
+  }//checkAll
+
+  // menghitung total OT
+  function getTotalOT(id) {
+    if (id != "")
+    {
+      total = 0;
+      l1 = (eval("document.formData.detailOT1" + id + ".value"));
+      l2 = (eval("document.formData.detailOT2" + id + ".value"));
+      l3 = (eval("document.formData.detailOT3" + id + ".value"));
+      l4 = (eval("document.formData.detailOT4" + id + ".value"));
+
+      if (!isNaN(l1)) total += parseFloat(l1);
+      if (!isNaN(l2)) total += parseFloat(l2);
+      if (!isNaN(l3)) total += parseFloat(l3);
+      if (!isNaN(l4)) total += parseFloat(l4);
+
+      eval("document.formData.detailTotalOT" + id + ".value = " + total)
+    }
+  }
+
+  // fungsi untuk mengisi semua data attendance sesuai total hari kerja
+  function useWorkingDays() {
+    ok = confirm("Are you sure want to use working day(s) as attendance of all employee?");
+    if (ok) {
+      total = document.formData.totalData.value;
+      work = document.formData.dataWorkingDays.value;
+      for (i = 1; i <= total; i++)
+      {
+        eval("document.formData.detailAttendance" + i + ".value = " + total);
+      }
+    }
+  } //useWorkingDays
+
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+      document.formInput.dataDateFrom.focus();
+      Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+      Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+      init();
+      onCodeBlur();
+  }//initPage
+  -->
+  </script>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td align="left">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="pageHeaderTitle" align="left">
+      <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30">&nbsp;</td>
+            <td class="pageHeaderTitleText" nowrap="nowrap">&nbsp;ATTENDANCEDATA For Onsite Employee<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td width="30">&nbsp;</td>
+            <td nowrap="nowrap"><strong> Data Entry</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="inputBox" valign="top">
+      <form action="" method="post" name="formInput" id="formInput"
+ onsubmit="return validInput();">
+        <table border="0" cellpadding="2" cellspacing="0">
+          <tbody>
+            <tr>
+              <td valign="top">
+              <table align="left" border="0" cellpadding="1"
+ cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td align="center" width="15">&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap">Date From</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputDateFrom]&nbsp; <input
+ name="btnDateFrom" id="btnDateFrom" value=".." type="button"></td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap"> Date Thru</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputDateThru]&nbsp; <input
+ name="btnDateThru" id="btnDateThru" value=".." type="button"></td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap">Employee ID</td>
+                    <td align="center">:</td>
+                    <td>[var.strInputEmployee]</td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap">&nbsp;</td>
+                    <td align="center">&nbsp;</td>
+                    <td>&nbsp;<strong id="employee_name"></strong></td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td align="center">&nbsp;</td>
+                    <td><input name="btnShow" id="btnShow" value="Show"
+ onclick="document.formInput.target=''" type="submit"> 
+                    &nbsp;<input
+ name="btnPrint" id="btnPrint" value="Print"
+ onclick="document.formInput.target='_blank'" type="submit"> 
+                    &nbsp; </td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td align="center">&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+              </td>
+              <td valign="top" width="20">&nbsp;</td>
+              <td valign="top">
+              <table align="left" border="0" cellpadding="1"
+ cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td align="center" width="15">&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap"> &nbsp;Department</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputDepartment]</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;Section</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputSection]</td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap"> Employee Status</td>
+                    <td align="center">:</td>
+                    <td nowrap="nowrap">[var.strInputEmployeeStatus]</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td align="center">&nbsp;</td>
+                    <td>&nbsp; </td>
+                  </tr>
+                </tbody>
+              </table>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">&nbsp;</td>
+              <td valign="top">&nbsp;</td>
+              <td valign="top">&nbsp;</td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="listTop"><strong>LIST OF EMPLOYEE ATTENDANCE [var.strInfo]</strong></td>
+    </tr>
+    <tr>
+      <td class="[var.strMsgClass]" align="center">[var.strMessages]</td>
+    </tr>
+    <tr>
+      <td>
+      <form action="" method="post" name="formData" id="formData" onSubmit="return validInputData()">
+        <table class="gridTable" border="0" cellpadding="0"
+ cellspacing="0" width="">
+          <tbody>
+            <tr class="tableHeader" align="center">
+              <td class="tableHeader" nowrap="nowrap">&nbsp;</td>
+              <td colspan="4" class="tableHeader" nowrap="nowrap">EMPLOYEE</td>
+              <td rowspan="1" colspan="3" class="tableHeader"
+ nowrap="nowrap">ATTENDANCE</td>
+              <td rowspan="1" colspan="5" class="tableHeader"
+ nowrap="nowrap">&nbsp;[var.strWordsOVERTIME]</td>
+            </tr>
+            <tr class="tableHeader" align="center">
+              <td class="tableHeader" nowrap="nowrap">&nbsp;</td>
+              <td class="tableHeader" nowrap="nowrap">ID</td>
+              <td class="tableHeader" nowrap="nowrap">NAME</td>
+              <td class="tableHeader" nowrap="nowrap">DEPT</td>
+              <td class="tableHeader" nowrap="nowrap">SECT</td>
+              <td class="tableHeader" nowrap="nowrap">ATTD</td>
+              <td class="tableHeader" nowrap="nowrap">LATE</td>
+              <td class="tableHeader" nowrap="nowrap">EARLY</td>
+              <td class="tableHeader" nowrap="nowrap">OT1</td>
+              <td class="tableHeader" nowrap="nowrap">OT2</td>
+              <td class="tableHeader" nowrap="nowrap">OT3</td>
+              <td class="tableHeader" nowrap="nowrap">OT4</td>
+              <td valign="top">TOTAL</td>
+            </tr>
+            [var.strDataDetail]
+            <tr>
+              <td><input name="chkAll" onclick="checkAll()"
+ type="checkbox"></td>
+              <td colspan="15">&nbsp;&nbsp;[var.strButtons] <input
+ name="totalData" id="totalData" value="[var.intTotalData]"
+ type="hidden"> [var.strHidden] &nbsp; </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+<!--/td--> </td>
+    </tr>
+  </tbody>
+</table>

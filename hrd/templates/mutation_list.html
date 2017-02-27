@@ -1,0 +1,270 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script>
+  <!--
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDateFrom.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateFrom.focus();
+      return false;
+    }
+    if (document.formInput.dataDateThru.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+
+  // fungsi untuk minta konfirmasi perubahan status
+  function confirmChanges() {
+    return confirm("[var.strConfirmChangeStatus]");
+  } //confirmDelete
+
+  // fungsi untuk minta konfirmasi perubahan status
+  function confirmStatusChanges() {
+    return confirm("[var.strConfirmChangeStatus]");
+  } //confirmStatusChanges
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+    	var that = document.getElementById('chkID'+ i);
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+        //eval("document.formData.chkID" + i + ".parentNode.className = \"checked\");
+        that.parentNode.className = 'checked';
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+        that.parentNode.className = '';
+      }
+    } //for
+
+  }//checkAll
+function setHiddenChk(obj, objName, objChecked)
+{
+  if (objChecked)
+  {
+    obj.value = "t";
+    eval("document.formData." + objName + ".value = 't'");
+  }
+  else
+  {
+    obj.value = "f";
+    eval("document.formData." + objName + ".value = 'f'");
+  }
+}
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDateFrom.focus();
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+    init();
+    onCodeBlur();
+  }//initPage
+  -->
+  jQuery(function($) {
+		$('#dataEmployee').autocomplete({
+			source: "hrd_ajax_source.php?action=getemployee",
+			minLength: 2,
+			select: function( event, ui ) {
+				console.log(ui);
+				$('#employee_name').html(ui.item.label);
+			}
+		});
+	});
+</script>
+[var.pageHeader]
+	<div class="main-content">
+  	<div class="row">
+  		<div class="col-md-12">
+				[var.pageSubMenu]
+	    	<p></p>
+			</div>
+			<div class="col-md-12">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#input-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">[var.strWordsINPUTDATA]</h3>
+					</div>
+					<div id="input-panel" class="panel-body collapse in">
+						<form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();" class="form-horizontal" role="form">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataType">[var.strWordsDateFrom]</label>
+									<div class="col-sm-4">
+										<div class="input-group">
+	                      [var.strInputDateFrom]
+	                      <span class="input-group-addon">
+	                          <i class="fa fa-calendar"></i>
+	                      </span>
+	                	</div>
+									</div>
+									<label class="col-sm-1 control-label" for="dataType">[var.strWordsDateThru]</label>
+									<div class="col-sm-4">
+										<div class="input-group">
+                      [var.strInputDateThru]
+                      <span class="input-group-addon">
+                          <i class="fa fa-calendar"></i>
+                      </span>
+	                	</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataEmployeeStatus">[var.strWordsRequestStatus]</label>
+									<div class="col-sm-9">
+										[var.strInputRequestStatus]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataEmployeeStatus">[var.strWordsEmployeeID]</label>
+									<div class="col-sm-9">
+										[var.strInputEmployee]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataEmployeeStatus">&nbsp;</label>
+									<div class="col-sm-9">
+										<strong id="employee_name">[var.strEmployeeName]</strong>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataEmployeeStatus">[var.strWordsCompany]</label>
+									<div class="col-sm-9">
+										[var.strInputCompany]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataEmployeeStatus">[var.strWordsDivision]</label>
+									<div class="col-sm-9">
+										[var.strInputDivision]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataEmployeeStatus">[var.strWordsDepartment]</label>
+									<div class="col-sm-9">
+										[var.strInputDepartment]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataEmployeeStatus">[var.strWordsSection]</label>
+									<div class="col-sm-9">
+										[var.strInputSection]
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataEmployeeStatus">[var.strWordsSubSection]</label>
+									<div class="col-sm-9">
+										[var.strInputSubSection]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataEmployeeStatus">&nbsp;</label>
+									<div class="col-sm-9">
+										[var.strInputShowStatus]
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="dataEmployeeStatus">&nbsp;</label>
+									<div class="col-sm-9">
+										[var.strInputShowDepartment]
+									</div>
+								</div>	
+							</div>
+							<div class="col-md-12">&nbsp;</div>
+							<div class="col-md-12">
+								<input class="btn btn-primary" name="btnShow" type="submit" id="btnShow" value="[var.strWordsShowData]" onclick="document.formInput.target=''">
+               	<input class="btn btn-success" name="btnExcel" id="btnExcel" value="[var.strWordsExcel]" type="submit" onClick="document.formInput.target = ''">
+               	<input class="btn btn-primary" name="btnPrint" type="submit" id="btnPrint" value="[var.strWordsPrint]" onclick="document.formInput.target='_blank'">
+              	<input class="btn btn-primary" name="btnPrintStatus" type="submit" id="btnPrintStatus" value="[var.strWordsPrintStatusChanges]" onclick="document.formInput.target='_blank'">
+               	<input class="btn btn-primary" name="btnPrintDepartment" type="submit" id="btnPrintDepartment" value="[var.strWordsPrintDepartmentChanges]" onclick="document.formInput.target='_blank'">
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+						  	<a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+						  </div>
+						</div>
+						<h3 class="panel-title">[var.strWordsRequestList]</h3>
+					</div>
+					<div id="list-panel" class="panel-body collapse in">
+						<div class="col-md-12">
+							<div class="alert alert-success">[var.strInfo]<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>
+							<form action="" method="post" name="formData" id="formData">
+				        <table border="0" cellpadding="0" cellspacing="0" class="table table-striped table-hover gridTable">
+				        	<thead>
+				          <tr align="center" class="tableHeader">
+				            <th style="width: 40px;" rowspan="2" nowrap class="tableHeader">&nbsp;</th>
+				            <th rowspan="2" nowrap class="tableHeader">[var.strWordsProposalDate]</th>
+				            <th rowspan="2" nowrap class="tableHeader">[var.strWordsLetterCode]</th>
+				            <th rowspan="2" nowrap class="tableHeader">[var.strWordsEmployeeID]</th>
+				            <th rowspan="2" nowrap class="tableHeader">[var.strWordsName]</th>
+				            [var.strHeader1]
+				            <th rowspan="2" nowrap class="tableHeader">[var.strWordsNote]</th>
+				            <th rowspan="2" nowrap class="tableHeader">[var.strWordsStatus]</th>
+				            [var.strHeaderEdit]
+				          </tr>
+				          [var.strHeader2]
+				          </thead>
+				          <tbody>
+				          [var.strDataDetail]
+				          <tr>
+				          <td><div class="checkbox" style="margin-top: 0;margin-bottom: 0;"><label><input class=\"checkbox-inline\" name="chkAll" type="checkbox" id="chkAll" value="All" onClick="checkAll();"></label></div>
+				            </td>
+				            <td colspan="30"> &nbsp;
+				              [var.strButtons]
+				              <input name="totalData" type="hidden" id="totalData" value="[var.intTotalData]">
+				              [var.strHidden] &nbsp; </td>
+				          </tr>
+				          </tbody>
+				        </table>
+				      </form>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

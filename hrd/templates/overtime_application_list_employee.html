@@ -1,0 +1,298 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data.php"></script>
+<script src="scripts/invosa.js"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  // script-script tambahan, khusus untu loockup employee
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+
+  <!--
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDateFrom.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateFrom.focus();
+      return false;
+    }
+    if (document.formInput.dataDateThru.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+    return true;
+  } //validInput
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("[var.strConfirmDelete]");
+  } //confirmDelete
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmApprove() {
+    return confirm("Are you sure want to approve selected data?");
+  } //confirmDelete
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+  function togleTree(i)
+  {
+  alert(i);
+    var detailRow = document.getElementById("detail"+ i);
+    detailRow.style.display = document.all ? "block" : "table-row";
+  }
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDateFrom.focus();
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+    init();
+    onCodeBlur();
+  }//initPage
+  -->
+</script>
+<script>
+  //menampilkan detail karyawan yang ikut lembur
+  function showDetail(index) {
+    if (index == "" || index == "undefined") {
+      return 0;
+    }
+
+    kiri = (screen.width / 2) - 150;
+    atas = (screen.height / 2) - 10;
+
+    id = eval("document.formData.chkID" + index + ".value");
+    status = eval("document.formData.dataStatus" + index + ".value");
+    if (status < 2) {
+      url = "overtimeApplicationShowDetail.php?dataID=" + id + "&objectName=detailData" + index;
+      url += "&objectView=detail" + index;
+    } else {
+      url = "overtimeApplicationShowDetailFull.php?dataID=" + id + "&objectName=detailData" + index;
+      url += "&objectView=detail" + index;
+    }
+    properti = "width=300, height=20, resizable=no, statusbar=no,menubar=no, titlebar=no, top=" + atas + ", left=" + kiri;
+
+    var obj = window.open("","popup",properti);
+    obj.document.write("Please wait ...");
+    obj.document.title = "Please wait ..";
+    window.open(url,"popup",properti);
+  }
+</script>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap class="pageHeaderTitleText">[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td width="30"></td>
+          <td nowrap><strong>
+            <a href="overtime_application_edit.php">[var.strWordsDataEntry]</a> | 
+            [var.strWordsOvertimeList] |
+            <a href="overtime_list_holiday.php">[var.strWordsHolidayOTApproval]</a> |
+            <a href="overtime_list_workday.php">[var.strWordsWorkdayOTApproval]</a> 
+
+          </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+   <td class="inputTop">[var.strWordsFILTERDATA]</td> 
+ </tr>
+  <tr> 
+      <td align="left" class="inputBox" >
+        <form action="" method="post" name="formInput" id="formInput">
+          <table border="0" cellpadding="2" cellspacing="0" width="100%">
+            <tr>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+
+                <tr valign="top"> 
+                  <td nowrap>&nbsp;[var.strWordsDateFrom]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDateFrom]&nbsp; <input name="btnDateFrom" type="button" id="btnDateFrom" value=".."></td>
+                </tr>
+                <tr valign="top"> 
+                  <td nowrap> &nbsp;[var.strWordsDateTo]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDateThru]&nbsp; <input name="btnDateThru" type="button" id="btnDateThru" value=".."></td>
+                </tr>
+                 <tr>
+                  <td nowrap>&nbsp;[var.strWordsEmployeeID]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputEmployee]</td>
+                <tr valign="top"> 
+                  <td nowrap>&nbsp;</td>
+                  <td align="center" nowrap>&nbsp;</td>
+                  <td nowrap><strong id="employeeName"> </strong></td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;[var.strWordsStatus]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputStatus]</td>
+                </tr>
+                <tr valign="top"> 
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td> <input name="btnShow" type="submit" id="btnShow" value="[var.strWordsShow]"></td>
+                </tr>
+              </table>
+            </td>
+            <td width="20" valign="top">&nbsp;</td>
+
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td nowrap> &nbsp;[var.strWordsLevel]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputPosition]</td>
+                </tr>
+                <tr>
+                  <td nowrap> &nbsp;[var.strWordsGrade]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputGrade]</td>
+                </tr>
+                <tr>
+                  <td nowrap> &nbsp;[var.strWordsEmployeeStatus]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputEmployeeStatus]</td>
+                </tr>
+                <tr>
+                  <td nowrap> &nbsp;[var.strWordsActive]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputActive]</td>
+                </tr>
+                <tr valign="top">
+                  <td>&nbsp;[var.strWordsBranch]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputBranch]</td>
+                </tr>
+
+              </table></td> 
+              <td width="20" valign="top">&nbsp;</td>
+
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+
+                </tr>
+                 <tr valign="top">
+                  <td nowrap> &nbsp;Company</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputCompany]</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap> &nbsp;[var.strWordsDivision]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDivision]</td>
+                </tr>
+                <tr>
+                  <td nowrap> &nbsp;[var.strWordsDepartment]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDepartment]</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;[var.strWordsSection]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputSection]</td>
+                </tr>
+                <tr>
+                  <td nowrap> &nbsp;[var.strWordsSubSection]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputSubSection]</td>
+                </tr>
+
+              </table></td>
+         </tr>
+
+        </table>
+      </form></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td><form action="" method="post" name="formData" id="formData">
+        <table border="0" cellpadding="0" cellspacing="0" class="gridTable" width="100%">
+          <tr align="center" class="tableHeader"> 
+            <td nowrap rowspan="2" width="15px" >&nbsp;</td>
+            <td nowrap rowspan="2" width="50px" >[var.strWordsDATE]&nbsp;</td>
+            <td nowrap rowspan="2" width="50px">[var.strWordsID]&nbsp;</td>
+            <td nowrap rowspan="2" width="150px">[var.strWordsEmployeeName]&nbsp;</td>
+            <td nowrap rowspan="2" width="50px">[var.strWordsOutdated]&nbsp;</td>
+            <td nowrap rowspan="2" width="50px">[var.strWordsSalary]&nbsp;</td>
+            <td nowrap colspan="2">[var.strWordsPlan]&nbsp;</td>
+            <td nowrap colspan="2">[var.strWordsEarlyOT]&nbsp;</td>
+            <td nowrap colspan="2">[var.strWordsPlan]&nbsp;</td>
+            <td nowrap colspan="2">[var.strWordsAfternoonOT]&nbsp;</td>
+            <td nowrap colspan="2">[var.strWordsWorkDay]&nbsp;</td>
+            <td nowrap colspan="3">[var.strWordsHoliday]&nbsp;</td>
+            <td nowrap rowspan="2" width="20px">[var.strWordsTotal]&nbsp;</td>
+            <td nowrap rowspan="2" width="40px">[var.strWordsStatus]</td>
+            <td nowrap rowspan="2" width="40px">[var.strWordsTransport]</td>
+            
+            <td nowrap rowspan="2">[var.strWordsNote]</td>
+            <td nowrap rowspan="2" width="40px">&nbsp;</td>
+          </tr>
+          <tr align="center" class="tableHeader"> 
+            <td nowrap width="40px">[var.strWordsStart]&nbsp;</td>
+            <td nowrap width="40px">[var.strWordsFinish]&nbsp;</td>
+            <td nowrap width="40px">[var.strWordsStart]&nbsp;</td>
+            <td nowrap width="40px">[var.strWordsFinish]&nbsp;</td>
+            <td nowrap width="40px">[var.strWordsStart]&nbsp;</td>
+            <td nowrap width="40px">[var.strWordsFinish]&nbsp;</td>
+            <td nowrap width="40px">[var.strWordsStart]&nbsp;</td>
+            <td nowrap width="40px">[var.strWordsFinish]&nbsp;</td>
+            <td nowrap width="25px">[var.strWordsl1]&nbsp;</td>
+            <td nowrap width="25px">[var.strWordsl2]&nbsp;</td>
+            <td nowrap width="25px">[var.strWordsl1]&nbsp;</td>
+            <td nowrap width="25px">[var.strWordsl2]&nbsp;</td>
+            <td nowrap width="25px">[var.strWordsl3]&nbsp;</td>
+          </tr>
+          [var.strDataDetail] 
+          <tr> 
+            <td> <input name="chkAll" type="checkbox" id="chkAll" value="All" onChange="checkAll();"> 
+              &nbsp;</td>
+            <td colspan="23">
+              [var.strButtonList]
+              <input name="totalData" type="hidden" id="totalData" value="[var.intTotalData]">
+              [var.strHidden] &nbsp; </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+</table>

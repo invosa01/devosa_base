@@ -1,0 +1,97 @@
+<script type="text/javascript">
+    var myClient = {
+        editData: function (params) {
+            arrParam = params.split("|");
+            idx = arrParam[0];
+            strSet = arrParam[1];
+            intMaxSet = arrParam[2];
+            $('formMessage').style.visibility = 'hidden';
+            if (idx == 0) {
+                //reset data
+                $('grade_code').removeAttribute('readOnly');
+                $('dataID').value = "";
+                $('grade_code').value = "";
+                //$('dataCompanyId').value = "";
+                $('dataCompanyId').selectedIndex = -1;
+                $('dataPlatform').selectedIndex = -1;
+                $('dataPlatformAmount').value = "";
+
+                for (i = 1; i <= intMaxSet; i = i + 1) {
+                    $(strSet + i).value = 0;
+                }
+
+                //$('get_add_sc').checked = true;
+                $('note').value = "";
+            }
+            else if (idx != '') {
+                $('grade_code').readOnly = true;
+                $('dataID').value = $F("detailID" + idx);
+                $('grade_code').value = $F("detailCode" + idx);
+
+                $('dataCompanyId').value = $F("detailCompanyId" + idx);
+                $('dataPlatform').value = $F("detailPlatform" + idx);
+                $('dataPlatformAmount').value = $F("detailPlatformAmount" + idx);
+                /*$('get_add_sc').checked = ($F("detailAddSC" + idx) == 't');
+                bolChecked = ($F("detailAddSC" + idx) == 't');
+                if (bolChecked) {
+                    $('get_add_sc').parentNode.className = 'checked';
+                } else {
+                    $('get_add_sc').parentNode.className = '';
+                }*/
+                for (i = 1; i <= intMaxSet; i = i + 1) {
+                    $(strSet + i).value = $F("detailAllowance" + i + "_" + idx);
+                }
+                $('note').value = $F("detailNote" + idx);
+            }
+            $('grade_code').focus();
+            $('grade_code').select();
+        },
+
+        confirmDelete: function () {
+            return confirm('[var.strConfirmDelete]');
+        },
+
+        confirmSave: function () {
+            return confirm('[var.strConfirmSave]');
+        },
+
+    }
+    jQuery(function ($) {
+        $('.edit-data').on('click', function () {
+            var strID = $(this).attr('id');
+            var splitID = strID.split('-');
+            $('#dataCompanyId').val($('#detailCompanyId' + splitID[1]).val());
+            $('#dataCompanyId').select2('destroy');
+            $('#dataCompanyId').select2();
+            $('#dataPlatform').val($('#detailPlatform' + splitID[1]).val());
+            $('#dataPlatform').select2('destroy');
+            $('#dataPlatform').select2();
+        });
+    })
+</script>
+[var.pageHeader]
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            [var.formInput;protect=no;htmlconv=no]
+        </div>
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-actions">
+                        <div class="pull-right" id="collapse-filter">
+                            <a href="#"
+                               data-toggle="collapse"
+                               data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="panel-title">COMPANY LIST</h3>
+                </div>
+                <div id="list-panel" class="panel-body collapse in">
+                    [var.DataGrid;protect=no;htmlconv=no]
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

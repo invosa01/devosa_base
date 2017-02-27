@@ -1,0 +1,675 @@
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script>
+	<!--
+
+	//fungsi untuk memeriksa apakah input valid
+	function validInput() {
+		hasil = validateForm(document.formData);
+		return hasil;
+	}//validInput
+
+	// fungsi untuk inisialisasi
+	function initPage_() {
+		//document.formInput.dataCode.focus();
+	}//initPage
+	-->
+</script>
+<script>
+	// menampilkan tampilan yang hilang
+	function moreInput(tipe) {
+		var x = parseFloat(eval("document.formData.numShow" + tipe + ".value"));
+		var max = parseFloat(eval("document.formData.maxDetail" + tipe + ".value"));
+		if (x < max) {
+			ylib_getObj("detailData" + tipe + "_" + x).style.display = document.all ? "block" : "table-row";
+
+			eval("document.formData.dataBreak" + tipe + "_" + x + ".disabled = false");
+			eval("document.formData.dataDuration" + tipe + "_" + x + ".disabled = false");
+			eval("document.formData.dataNote" + tipe + "_" + x + ".disabled = false");
+			eval("document.formData.numShow" + tipe + ".value++");
+		}
+	}//moreInput
+</script>
+[var.pageHeader]
+<div class="main-content">
+	<div class="row">
+		<form action=""
+			  method="post"
+			  name="formData"
+			  id="formData"
+			  onSubmit="return validInput()"
+			  class="form-horizontal"
+			  role="form">
+			<div class="col-md-5">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+								<a href="#"
+								   data-toggle="collapse"
+								   data-target="#identity-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+							</div>
+						</div>
+						<h3 class="panel-title">[var.strWordsCompanyIdentity]</h3>
+					</div>
+					<div id="identity-panel" class="panel-body collapse in">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="col-sm-5 control-label" for="dataType">[var.strWordsCompanyName]</label>
+
+								<div class="col-sm-7">
+									<input class="form-control"
+										   name="strCompanyName"
+										   type="text"
+										   id="strCompanyName"
+										   value="[var.strCompanyName]"
+										   maxlength="100">
+									<input name="oldCompanyName"
+										   type="hidden"
+										   id="oldCompanyName"
+										   value="[var.strCompanyName]">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label" for="dataType">[var.strWordsCompanyCode]</label>
+
+								<div class="col-sm-7">
+									<input class="form-control"
+										   name="strCompanyCode"
+										   type="text"
+										   id="strCompanyCode"
+										   value="[var.strCompanyCode]"
+										   maxlength="10">
+									<input name="oldCompanyCode"
+										   type="hidden"
+										   id="oldCompanyCode"
+										   value="[var.strCompanyCode]">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label" for="dataType">[var.strWordsFileType]</label>
+
+								<div class="col-sm-7">
+									<input class="form-control"
+										   name="strCompanyBankAccountNo"
+										   type="text"
+										   id="strCompanyBankAccountNo"
+										   value="[var.strCompanyBankAccountNo]">
+									<input name="oldCompanyBankAccountNo"
+										   type="hidden"
+										   id="oldCompanyBankAccountNo"
+										   value="[var.strCompanyBankAccountNo]">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+								<a href="#"
+								   data-toggle="collapse"
+								   data-target="#daily-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+							</div>
+						</div>
+						<h3 class="panel-title">[var.strWordsDailySetting]</h3>
+					</div>
+					<div id="daily-panel" class="panel-body collapse in">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="col-sm-5 control-label" for="dataType">[var.strWordsStartTime]</label>
+
+								<div class="col-sm-7">
+									<input class="form-control"
+										   name="strStartTime"
+										   type="text"
+										   id="strStartTime"
+										   value="[var.strStartTime]"
+										   maxlength="10"
+										   class="time">
+									<input name="oldStartTime"
+										   type="hidden"
+										   id="oldStartTime"
+										   value="[var.oldStartTime]">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label" for="dataType">[var.strWordsFinishTime]</label>
+
+								<div class="col-sm-7">
+									<input class="form-control"
+										   name="strFinishTime"
+										   type="text"
+										   id="strFinishTime"
+										   value="[var.strFinishTime]"
+										   maxlength="10"
+										   class="time">
+									<input name="oldFinishTime"
+										   type="hidden"
+										   id="oldFinishTime"
+										   value="[var.oldFinishTime]">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label"
+									   for="dataType">[var.strWordsFridayFinishTime]</label>
+
+								<div class="col-sm-7">
+									<input class="form-control"
+										   name="strFridayFinishTime"
+										   type="text"
+										   id="strFridayFinishTime"
+										   value="[var.strFridayFinishTime]"
+										   size="60"
+										   maxlength="10"
+										   class="time">
+									<input name="oldFridayFinishTime"
+										   type="hidden"
+										   id="oldFridayFinishTime"
+										   value="[var.oldFridayFinishTime]">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label" for="dataType">[var.strWordsSaturdayOff]</label>
+
+								<div class="col-sm-7">
+									<div class="checkbox"><label><input class="checkbox-inline"
+																		name="strSaturday"
+																		type="checkbox"
+																		id="strSaturday"
+																		value="t"
+																		[var.strSaturday]></label></div>
+									<input name="oldSaturday" type="hidden" id="oldSaturday" value="[var.oldSaturday]">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--<div class="panel">
+                    <div class="panel-heading">
+                        <div class="panel-actions">
+                            <div class="pull-right" id="collapse-filter">
+                                <a href="#"
+                                   data-toggle="collapse"
+                                   data-target="#attendance-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="panel-title">[var.strWordsAttendanceImportSetting]</h3>
+                    </div>
+                    <div id="attendance-panel" class="panel-body collapse in">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label"
+                                       for="strAttendanceFilePath">[var.strWordsFilePath]</label>
+
+                                <div class="col-sm-7">
+                                    <input class="form-control"
+                                           name="strAttendanceFilePath"
+                                           type="text"
+                                           id="strAttendanceFilePath"
+                                           value="[var.strAttendanceFilePath]"
+                                           size="100"
+                                           class="string">
+                                    <input name="oldAttendanceFilePath"
+                                           type="hidden"
+                                           id="oldAttendanceFilePath"
+                                           value="[var.oldAttendanceFilePath]">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label" for="dataType">[var.strWordsFinishTime]</label>
+
+                                <div class="col-sm-7">
+                                    <input class="form-control"
+                                           name="strAttendanceFileType"
+                                           type="text"
+                                           id="strAttendanceFileType"
+                                           value="[var.strAttendanceFileType]"
+                                           size="100"
+                                           class="string">
+                                    <input name="oldAttendanceFileType"
+                                           type="hidden"
+                                           id="oldAttendanceFileType"
+                                           value="[var.oldAttendanceFileType]">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+								<a href="#"
+								   data-toggle="collapse"
+								   data-target="#date-setting-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+							</div>
+						</div>
+						<h3 class="panel-title">[var.strWordsDateSetting]</h3>
+					</div>
+					<div id="date-setting-panel" class="panel-body collapse in">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="col-sm-5 control-label"
+									   for="dateFormat">[var.strWordDateFormat]</label>
+
+								<div class="col-sm-7">
+									[var.inputDateSettingList]
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label" for="dateNote">[var.strWordDateNote]</label>
+
+								<div class="col-sm-7">
+									<p>( Logout & Relogin for Apply Date Setting Effect After Save. )</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+								<a href="#"
+								   data-toggle="collapse"
+								   data-target="#tax-method"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+							</div>
+						</div>
+						<h3 class="panel-title">Salary Tax Setting</h3>
+					</div>
+                    <div id="tax-calculation" class="panel-body collpase-in">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="col-sm-5 control-label" for="dataTaxCalculation">Tax Calculation : </label>
+								<div class="radiobox col-sm-3 no-margin"><label><input name="strTaxCalculation"
+																					   type="radio"
+																					   id="strTaxCalculation"
+																					   value="0"
+																					   style="padding-top: 0 !important;">Cumulative</label>
+								</div>
+								<div class="radiobox col-sm-3 no-margin"><label><input name="strTaxCalculation"
+																					   type="radio"
+																					   id="strTaxCalculation"
+																					   value="1"
+																					   style="padding-top: 0 !important;">Flat</label>
+								</div>
+								<input name="oldTaxCalculation"
+									   type="hidden"
+									   id="oldTaxCalculation"
+									   value="[var.oldTaxCalculation]" />
+								<script>
+									var TaxCalculation = document.getElementById("oldTaxCalculation").value;
+									if (TaxCalculation == 0) {
+										document.getElementsByName("strTaxCalculation")[0].checked = true;
+									} else if (TaxCalculation == 1) {
+										document.getElementsByName("strTaxCalculation")[1].checked = true;
+									}
+								</script>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<input class="btn btn-primary" name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]">
+				</div>
+			</div>
+			<div class="col-md-7">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+								<a href="#"
+								   data-toggle="collapse"
+								   data-target="#breaktime-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+							</div>
+						</div>
+						<h3 class="panel-title">[var.strWordsBreakTime]</h3>
+					</div>
+					<div id="breaktime-panel" class="panel-body collapse in">
+						<table class="table table-striped table-hover gridTable"
+							   border="0"
+							   cellspacing="0"
+							   cellpadding="2">
+							<thead>
+							<tr class="inputBox">
+								<th nowrap><strong>[var.strWordsDayType]</strong></th>
+								<th nowrap>&nbsp;</th>
+								<th nowrap><strong>[var.strWordsStartTime]</strong></th>
+								<th nowrap><strong>[var.strWordsDur]</strong></th>
+								<th nowrap><strong>[var.strWordsFinishTime]</strong></th>
+								<th nowrap><strong>[var.strWordsNote]</strong></th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td valign="top" nowrap>[var.strWordsNormalDay]</td>
+								<td><input name="dataID0_0" type="hidden" id="dataID0_0" value="[var.strNormalID0]">
+									:
+								</td>
+								<td><input class="form-control"
+										   name="dataBreak0_0"
+										   type="text"
+										   id="dataBreak0_0"
+										   value="[var.strNormalBreak0]"
+										   size="10"
+										   maxlength="10"
+										   class="time"></td>
+								<td><input class="form-control"
+										   name="dataDuration0_0"
+										   type="text"
+										   id="dataDuration0_0"
+										   value="[var.strNormalDuration0]"
+										   size="10"
+										   maxlength="10"
+										   class="numeric"></td>
+								<td>&nbsp;[var.strNormalFinish0]</td>
+								<td><input class="form-control"
+										   name="dataNote0_0"
+										   type="text"
+										   id="dataNote0_0"
+										   value="[var.strNormalNote0]"
+										   size="30"
+										   maxlength="30"
+										   class="string-empty"></td>
+							</tr>
+							[var.strBreakNormal]
+							<tr>
+								<td valign="top" nowrap>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td><a class="btn btn-danger btn-xs" href="javascript:moreInput(0)">more</a></td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td valign="top" nowrap>[var.strWordsFriday]</td>
+								<td>:
+									<input name="dataID1_0" type="hidden" id="dataID1_0" value="[var.strFridayID0]">
+								</td>
+								<td><input class="form-control"
+										   name="dataBreak1_0"
+										   type="text"
+										   id="dataBreak1_0"
+										   value="[var.strFridayBreak0]"
+										   size="10"
+										   maxlength="10"
+										   class="time"></td>
+								<td><input class="form-control"
+										   name="dataDuration1_0"
+										   type="text"
+										   id="dataDuration1_0"
+										   value="[var.strFridayDuration0]"
+										   size="10"
+										   maxlength="10"
+										   class="numeric"></td>
+								<td>&nbsp;[var.strFridayFinish0]</td>
+								<td><input class="form-control"
+										   name="dataNote1_0"
+										   type="text"
+										   id="dataNote1_0"
+										   value="[var.strFridayNote0]"
+										   size="30"
+										   maxlength="30"
+										   class="string-empty"></td>
+							</tr>
+							[var.strBreakFriday]
+							<tr>
+								<td valign="top" nowrap>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td><a class="btn btn-danger btn-xs" href="javascript:moreInput(1)">more</a></td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td valign="top" nowrap>[var.strWordsHoliday]</td>
+								<td>:
+									<input name="dataID2_0" type="hidden" id="dataID2_0" value="[var.strHolidayID0]">
+								</td>
+								<td><input class="form-control"
+										   name="dataBreak2_0"
+										   type="text"
+										   id="dataBreak2_0"
+										   value="[var.strHolidayBreak0]"
+										   size="10"
+										   maxlength="10"
+										   class="time"></td>
+								<td><input class="form-control"
+										   name="dataDuration2_0"
+										   type="text"
+										   id="dataDuration2_0"
+										   value="[var.strHolidayDuration0]"
+										   size="10"
+										   maxlength="10"
+										   class="numeric"></td>
+								<td>&nbsp;[var.strHolidayFinish0]</td>
+								<td><input class="form-control"
+										   name="dataNote2_0"
+										   type="text"
+										   value="[var.strHolidayNote0]"
+										   size="30"
+										   maxlength="50"
+										   class="string-empty"></td>
+							</tr>
+							[var.strBreakHoliday]
+							<tr>
+								<td valign="top" nowrap>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td><a class="btn btn-danger btn-xs" href="javascript:moreInput(2)">more</a></td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+								<a href="#"
+								   data-toggle="collapse"
+								   data-target="#leave-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+							</div>
+						</div>
+						<h3 class="panel-title">[var.strWordsLeaveAndOvertime]</h3>
+					</div>
+					<div id="leave-panel" class="panel-body collapse in">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">[var.strWordsLeaveMethod]</label>
+
+								<div class="radiobox col-sm-2 no-margin"><label><input name="strLeaveMethod"
+																					   type="radio"
+																					   id="strLeaveMethod"
+																					   value="0"
+																					   style="padding-top: 0 !important;">[var.strWordsJoinDate]</label>
+								</div>
+								<div class="radiobox col-sm-3 no-margin"><label><input name="strLeaveMethod"
+																					   type="radio"
+																					   id="strLeaveMethod"
+																					   value="1"
+																					   style="padding-top: 0 !important;">[var.strWordsProrate]</label>
+								</div>
+								<div class="radiobox col-sm-4 no-margin"><label><input name="strLeaveMethod"
+																					   type="radio"
+																					   id="strLeaveMethod"
+																					   value="2"
+																					   style="padding-top: 0 !important;">[var.strWordsJoinDateCutoff]</label>
+								</div>
+								<input name="oldLeaveMethod"
+									   type="hidden"
+									   id="oldLeaveMethod"
+									   value="[var.oldLeaveMethod]" />
+								<script>
+									var leaveMethod = document.getElementById("oldLeaveMethod").value;
+									if (leaveMethod == 0) {
+										document.getElementsByName("strLeaveMethod")[0].checked = true;
+									} else if (leaveMethod == 1) {
+										document.getElementsByName("strLeaveMethod")[1].checked = true;
+									} else if (leaveMethod == 2) {
+										document.getElementsByName("strLeaveMethod")[2].checked = true;
+									}
+								</script>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label"
+									   for="strJCI">[var.strWordsInitialLeaveQuota]</label>
+
+								<div class="col-sm-3">
+									<input class="form-control"
+										   name="strJCI"
+										   type="text"
+										   id="strJCI"
+										   value="[var.strJCI]"
+										   maxlength="10"
+										   class="numeric">
+									<input name="oldJCI" type="hidden" id="oldJCI" value="[var.oldJCI]">
+								</div>
+								<div class="col-sm-6">
+									[var.strWordsDays]
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label"
+									   for="strHCM">[var.strWordsMaximumAdvanceLeave]</label>
+
+								<div class="col-sm-3">
+									<input class="form-control"
+										   name="strHCM"
+										   type="text"
+										   id="strHCM"
+										   value="[var.strHCM]"
+										   size="10"
+										   maxlength="10"
+										   class="numeric">
+									<input name="oldHCM" type="hidden" id="oldHCM" value="[var.oldHCM]">
+								</div>
+								<div class="col-sm-6">
+									[var.strWordsDays]
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label"
+									   for="strPCB">[var.strWordsGrandLeavePeriod]</label>
+
+								<div class="col-sm-3">
+									<input class="form-control"
+										   name="strPCB"
+										   type="text"
+										   id="strPCB"
+										   value="[var.strPCB]"
+										   size="10"
+										   maxlength="10"
+										   class="numeric">
+									<input name="oldPCB" type="hidden" id="oldPCB" value="[var.oldPCB]">
+								</div>
+								<div class="col-sm-6">
+									[var.strWordsYears]
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="strJCB">[var.strWordsGrandLeaveQuota]</label>
+
+								<div class="col-sm-3">
+									<input class="form-control"
+										   name="strJCB"
+										   type="text"
+										   id="strJCB"
+										   value="[var.strJCB]"
+										   size="10"
+										   maxlength="10"
+										   class="numeric">
+									<input name="oldJCB" type="hidden" id="oldJCB" value="[var.oldJCB]">
+								</div>
+								<div class="col-sm-6">
+									[var.strWordsDays]
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label"
+									   for="strPCB">[var.strWordsGrandLeaveAreValidFor]</label>
+
+								<div class="col-sm-3">
+									<input class="form-control"
+										   name="strMBCB"
+										   type="text"
+										   id="strMBCB"
+										   value="[var.strMBCB]"
+										   size="10"
+										   maxlength="10"
+										   class="numeric">
+									<input name="oldMBCB" type="hidden" id="oldMBCB" value="[var.oldMBCB]">
+								</div>
+								<div class="col-sm-6">
+									[var.strWordsMonths]
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="strJCN">[var.strWordsLeaveQuota]</label>
+
+								<div class="col-sm-3">
+									<input class="form-control"
+										   name="strJCN"
+										   type="text"
+										   id="strJCN"
+										   value="[var.strJCN]"
+										   size="10"
+										   maxlength="10"
+										   class="numeric">
+									<input name="oldJCN" type="hidden" id="oldJCN" value="[var.oldJCN]">
+								</div>
+								<div class="col-sm-6">
+									[var.strWordsDays]
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label"
+									   for="strMBCN">[var.strWordsLeaveAreValidFor]</label>
+
+								<div class="col-sm-3">
+									<input class="form-control"
+										   name="strMBCN"
+										   type="text"
+										   id="strMBCN"
+										   value="[var.strMBCN]"
+										   size="10"
+										   maxlength="10"
+										   class="numeric">
+									<input name="oldMBCN" type="hidden" id="oldMBCN" value="[var.oldMBCN]">
+								</div>
+								<div class="col-sm-6">
+									[var.strWordsMonths]
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="strMaxOTMember">[var.strWordsMaximumMemberOnSPL]</label>
+
+								<div class="col-sm-3">
+									<input class="form-control"
+										   name="strMaxOTMember"
+										   type="text"
+										   id="strMaxOTMember"
+										   value="[var.strMaxOTMember]"
+										   size="10"
+										   maxlength="10"
+										   class="numeric">
+									<input name="oldMaxOTMember"
+										   type="hidden"
+										   id="oldMaxOTMember"
+										   value="[var.oldMaxOTMember]">
+								</div>
+								<div class="col-sm-6">
+									&nbsp;
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

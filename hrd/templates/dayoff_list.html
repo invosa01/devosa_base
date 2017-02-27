@@ -1,0 +1,199 @@
+<script type="text/javascript" src="../js/calendar.js"></script>
+<script type="text/javascript" src="../js/calendar-en.js"></script>
+<script type="text/javascript" src="../js/invosa.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/acEmployee.js"></script>
+<script type="text/javascript" src="../js/ylib.js"></script>
+<script type="text/javascript" src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+    // script-script tambahan, khusus untu loockup employee
+
+    AC_targetElements = ["dataEmployee"];
+
+    // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+    // kehilangan foku
+    function onCodeBlur() {
+    var kode = document.formInput.dataEmployee.value;
+    var nama = AC_getNameByCode(kode);
+    var obj = document.getElementById("employee_name");
+    obj.innerHTML = nama;
+    return 1;
+  }
+</script>
+<script type="text/javascript">
+    <!--
+    // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDateFrom.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateFrom.focus();
+      return false;
+    }
+    
+    if (document.formInput.dataDateThru.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+    
+    if (dateCompare(document.formInput.dataDateFrom.value, document.formInput.dataDateThru.value) > 0)
+    {
+      alert("Error : date from bigger than date thru");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+    
+    // fungsi untuk menampilkan data detail, berdasar NIK karyawan tertentu
+    function goViewDetail(nik)
+    {
+      if (nik != "")
+      {
+        document.formInput.dataEmployee.value = nik;
+        document.formInput.dataType.value = 1;
+        document.formInput.btnShow.click();
+      }
+    }
+    
+    // fungsi untuk melakukan proses perubahan info due date day off tertentu
+    function goChangeDue(no)
+    {
+      if (no != "")
+      {
+        ok = confirm("Are you sure want to change due date of selected data?");
+        if (ok)
+        {
+          dt = document.getElementById("dataDueDate" + no).value;
+          id = document.getElementById("dataID" + no).value;
+          document.formInput.dataType.value = 1;
+          document.formInput.dataUpdate.value = 1;
+          document.formInput.dataDayOffID.value = id;
+          document.formInput.dataDueDate.value = dt;
+          document.formInput.btnShow.click();
+        }
+      }
+    }
+
+    // fungsi untuk inisialisasi
+    function initPage_() {
+      document.formInput.dataDateFrom.focus();
+      Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+      Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+      init();
+      onCodeBlur();
+      [var.strInitAction]
+    }//initPage
+    -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;Overtime Report</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;<strong>
+            <a href="dayoff_search.php">[var.strWordsDayOffList]</a> |
+            [var.strWordsEmployeeDayOff] 
+            </strong>
+          </td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td nowrap>&nbsp;[var.strWordsDateFrom]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDateFrom]&nbsp; <input name="btnDateFrom" type="button" id="btnDateFrom" value=".."></td>
+                </tr>
+                <tr>
+                  <td nowrap> &nbsp;[var.strWordsDateThru]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputDateThru]&nbsp; <input name="btnDateThru" type="button" id="btnDateThru" value=".."></td>
+                </tr>
+                <tr>
+                  <td nowrap>&nbsp;[var.strWordsEmployeeID]</td>
+                  <td align="center">:</td>
+                  <td>[var.strInputEmployee]</td>
+                </tr>
+                <tr>
+                  <td nowrap>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td nowrap>&nbsp;<strong id="employee_name"></strong></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td><input name="btnShow" type="submit" id="btnShow" value="Show Data" onClick="document.formInput.target='';">&nbsp;
+                  <!-- 
+                  <input name="btnPrint" type="submit" id="btnPrint" value="Print" onClick="document.formInput.target='_blank';">
+                  <input name="btnExcel" type="submit" id="btnExcel" value="Excel" onClick="document.formInput.target='';">
+                   -->
+                  </td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+            <td width="20" valign="top">&nbsp;</td>
+            <td valign="top"> <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td width="15" align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;[var.strWordsType]</td>
+                  <td align="center">:</td>
+                  <td nowrap>[var.strInputType]</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;
+                    <input type=hidden name="dataDueDate" id="dataDueDate" value="">
+                    <input type=hidden name="dataDayOffID" id="dataDayOffID" value="0">
+                    <input type=hidden name="dataUpdate" id="dataUpdate" value="0">
+                  </td>
+                  <td>&nbsp; </td>
+                </tr>
+              </table></td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputTop"><strong>[var.strWordsLISTOFDAYOFF] &nbsp; &nbsp; [var.strInfo]</strong></td>
+  </tr>
+  <tr>
+    <td>[var.strDataDetail]</td>
+  </tr>
+</table>

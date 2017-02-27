@@ -1,0 +1,82 @@
+<script type="text/javascript">
+    var myClient = {
+        editData: function (params) {
+            arrParam = params.split("|");
+            idx = arrParam[0];
+            strSet = arrParam[1];
+            intMaxSet = arrParam[2];
+            $('formMessage').style.visibility = 'hidden';
+            if (idx == 0) {
+                //reset data
+                $('dataCode').removeAttribute('readOnly');
+                $('dataID').value = "";
+                $('dataCode').value = "";
+                $('dataName').value = "";
+                $('branch1').value = "";
+                $('branch2').value = "";
+                $('branch3').value = "";
+                $('dataLocalTimeDifference').value = 0;
+                $('dataUmk').value = 0;
+                $('dataLateTolerance').value = 0;
+                $('dataCompanyId').value = "";
+                for (i = 1; i <= intMaxSet; i = i + 1) {
+                    $(strSet + i).value = 0;
+                }
+            }
+            else if (idx != '') {
+                $('dataCode').readOnly = true;
+                $('dataID').value = $F("detailID" + idx);
+                $('dataCode').value = $F("detailCode" + idx);
+                $('dataName').value = $F("detailName" + idx);
+                $('dataLocalTimeDifference').value = $F("detailLocalTimeDifference" + idx);
+                $('dataLateTolerance').value = $F("detailLateTolerance" + idx);
+                $('dataUmk').value = $F("detailUmk" + idx);
+                $('dataCompanyId').value = $F("detailCompanyId" + idx);
+                for (i = 1; i <= intMaxSet; i = i + 1) {
+                    $(strSet + i).value = $F("detailAllowance" + i + "_" + idx);
+                }
+            }
+            $('dataCode').focus();
+        },
+
+        confirmDelete: function () {
+            return confirm('[var.strConfirmDelete]');
+        },
+
+        confirmSave: function () {
+            return confirm('[var.strConfirmSave]');
+        }
+    }
+/*    jQuery(function($) {
+        $('.edit-data').on('click', function(){
+            $('#dataCompanyId').select2('destroy');
+            $('#dataCompanyId').select2();
+        });
+    })*/
+</script>
+[var.pageHeader]
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            [var.formInput;protect=no;htmlconv=no]
+        </div>
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-actions">
+                        <div class="pull-right" id="collapse-filter">
+                            <a href="#"
+                               data-toggle="collapse"
+                               data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="panel-title">BRANCH LIST</h3>
+                </div>
+                <div id="list-panel" class="panel-body collapse in">
+                    [var.DataGrid;protect=no;htmlconv=no]
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

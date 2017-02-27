@@ -1,0 +1,476 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <LastAuthor>Des</LastAuthor>
+  <Created>2012-10-09T18:57:39Z</Created>
+  <Version>11.5606</Version>
+ </DocumentProperties>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>8580</WindowHeight>
+  <WindowWidth>19980</WindowWidth>
+  <WindowTopX>240</WindowTopX>
+  <WindowTopY>60</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s24">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+  </Style>
+  <Style ss:ID="s25">
+   <Alignment ss:Vertical="Top"/>
+  </Style>
+  <Style ss:ID="s28">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+  </Style>
+  <Style ss:ID="s29">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+  </Style>
+  <Style ss:ID="s30">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Font ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s31">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="employee_resume_print">
+  <Table ss:ExpandedColumnCount="9" ss:ExpandedRowCount="62" x:FullColumns="1"
+   x:FullRows="1">
+   <Column ss:AutoFitWidth="0" ss:Width="166.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="49.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="161.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="43.5" ss:Span="1"/>
+   <Column ss:Index="6" ss:AutoFitWidth="0" ss:Width="170.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="69.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="158.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="92.25"/>
+   <Row>
+    <Cell ss:MergeAcross="8" ss:StyleID="s29"/>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:MergeAcross="8" ss:StyleID="s30"><Data ss:Type="String">&#160;PRIMARY DATA</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="2"><Data ss:Type="String">[var.strMoreAddress]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:MergeDown="39" ss:StyleID="s31"><Data ss:Type="String">[var.strDataPhoto]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="2"><Data ss:Type="String">[var.strMorePhone]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsFamilyStatus]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputFamilyStatus]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="2"><Data ss:Type="String">[var.strMoreContact]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsLivingCostStatus]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputLivingCost]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsMedicalQuotaStatus]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputMedicalQuotaStatus]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsEmployeeID]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputEmployeeID]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsInspouse]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputInspouse]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsFingerID]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputFingerID]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsEmployeeName]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputName]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsCompany]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputCompany]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsLetterCode]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputLetterCode]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsEmployeeStatus]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputEmployeeStatus]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsNickname]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputNickname]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsSubsection]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputSubSection]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsBirthday]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">[var.strInputBirthday]&#160;</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsSection]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputSection]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsBirthplace]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputBirthplace]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsDepartment]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputDepartment]</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsGender]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputGender]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsDivision]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputDivision]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsAddress]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputAddress]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsManagement]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputManagement]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsCityZip]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputCity] / [var.strInputZip]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsBranch]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputBranch]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsPhone]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputPhone]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsLevel]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputPosition]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsEmail]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputEmail]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsFunctionalPosition]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputFunctionalPosition]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsEmergencyContact]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputEmergencyContact]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsJobGrade]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputSalaryGrade]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsRelation]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputEmergencyRelation]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsActive]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputActive]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsEmergencyAddress]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputEmergencyAddress]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsEmergencyPhone]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputEmergencyPhone]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsJoinDate]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">[var.strInputJoinDate]&#160;</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsWeight]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputWeight]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsPermanentDate]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">[var.strInputPermanentDate]&#160;</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsHeight]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputHeight]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsFinishDate]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">[var.strInputDueDate]&#160;</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsBloodType]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputBlood]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsResignDate]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">[var.strInputResignDate]&#160;</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsIDCard]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputIDCard]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsDriverLicenseA]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputLicenseA]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsNPWP]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputNPWP]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsDriverLicenseB]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputLicenseB]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsJamsostekNo]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputJamsostekNo]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsDriverLicenseC]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputLicenseC]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsZakat]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputIsZakat]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsNationality]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputNationality]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsBankCode]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputBankCode]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsPassport]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputPassport]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsBankBranch]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputBankBranch]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsBankAccountType]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputBankAccountType]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsReligion]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputReligion]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsBankAccount]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputBankAccount]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsEducationLevel]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputEducation]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsBankAccountName]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputBankAccountName]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsWeddingDate]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">[var.strInputWeddingDate]&#160;</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsTransport]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputTransport]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsBank2Code]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputBank2Code]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsTransportFee]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputTransportFee]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsBank2Branch]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputBank2Branch]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsNote]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputNote]</Data></Cell>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsBank2AccountType]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputBank2AccountType]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:Index="6" ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsBank2Account]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputBank2Account]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="4" ss:StyleID="s31"/>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">&#160;[var.strWordsBank2AccountName]</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">:</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">[var.strInputBank2AccountName]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="4" ss:StyleID="s31"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="4" ss:StyleID="s31"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s24"/>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="8" ss:StyleID="s29"/>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:MergeAcross="8" ss:StyleID="s30"><Data ss:Type="String">&#160;FAMILY DATA</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="8" ss:StyleID="s29"/>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="5"><Data ss:Type="String">[var.strDataFamily]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Name</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Sex</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Age</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Birthday</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Relation</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="8" ss:StyleID="s29"/>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:MergeAcross="8" ss:StyleID="s30"><Data ss:Type="String">&#160;EDUCATION DATA</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="8" ss:StyleID="s29"/>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="8"><Data ss:Type="String">[var.strDataEducation]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Level</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Institution</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Faculty</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Location</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Registration No.</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Certificate No.</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Periode</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Note</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="8" ss:StyleID="s29"/>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:MergeAcross="8" ss:StyleID="s30"><Data ss:Type="String">&#160;TRAINING DATA</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="8" ss:StyleID="s29"/>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="7"><Data ss:Type="String">[var.strDataTraining]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Subject</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Institution</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Location</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Trainer</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Periode</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Cost</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Note</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="8" ss:StyleID="s29"/>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:MergeAcross="8" ss:StyleID="s30"><Data ss:Type="String">&#160;WORK EXPERIENCE</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="8" ss:StyleID="s29"/>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="5"><Data ss:Type="String">[var.strDataWork]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Institution</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Location</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Position</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Periode</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Note</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <DoNotDisplayGridlines/>
+   <TopRowVisible>24</TopRowVisible>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R1C9</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

@@ -1,0 +1,228 @@
+
+<link href="../includes/datagrid/css/aqua.css" rel="stylesheet" type="text/css">
+<!--<script type="text/javascript" src="../js/tiny_mce/tiny_mce_src.js"></script>-->
+<script src="department_data_fkr.php"></script>
+<script type="text/javascript">
+  
+  // fungsi memeriksa saat department dipilih, untuk menentukan divisinya
+  function checkDepartment() 
+  {
+    dNo = (arguments.length > 0) ? arguments[0] : "";
+    var dept = document.getElementById("department_code" + dNo).value;
+
+    if (dept != "") 
+    {
+      if (arrDepartment[dept] != "undefined") 
+      {
+        document.getElementById("division_code" + dNo).value = arrDepartment[dept];
+      }
+    }
+  }// checkDepartment
+
+  // fungsi memeriksa saat section dipilih, untuk menentukan divisinya
+  function checkSection() 
+  {
+    dNo = (arguments.length > 0) ? arguments[0] : "";
+    var sect = document.getElementById("section_code" + dNo).value;
+
+    if (sect != "") 
+    {
+      if (arrSection[sect][0] != "undefined") document.getElementById("division_code" + dNo).value = arrSection[sect][0];
+      if (arrSection[sect][1] != "undefined") document.getElementById("department_code" + dNo).value = arrSection[sect][1];
+    }
+    //document.getElementById("dataSubSection" + dNo).value = "";
+  }// checkSection
+
+</script>
+<script type="text/javascript">
+  //this function javascript below use prototype.js (if you use datagrid class you don't have to include this script//
+  var myClient = {
+    submitCount : 0,
+    submitToServer : function()
+    {
+      queryString  = "ajax=1&";
+      queryString += $('formInput').serialize();
+      
+      var obj = this;
+      new Ajax.Request('fkr_edit.php',
+        { method:'post',
+          parameters: queryString,
+          onSuccess: function(transport, json)
+          {
+            obj.submitCount = 0;
+            //alert(transport.responseText);
+            if ((transport.responseText || '') == '') return false;
+            var responseData = transport.responseText;
+            if (responseData.length > 5)
+              if (responseData.substring(0, 5) == 'ERROR')
+              {
+                //alert(responseData);
+                $('formMessage').style.display = "none";
+                $('formErrorMessage').style.display = "block";
+                $('formErrorMessage').update(responseData);
+                return false;
+              }
+            location.href = responseData;
+          },
+          onLoading: function()
+          {
+            if (obj.submitCount != 0)
+            {
+              $('formInput').disabled = true;
+              $('formMessage').style.display = "block";
+              $('formMessage').update('<img src="../images/loading.gif" border=0 /> Please wait, saving data...');
+            }
+          },
+          onFailure: function()
+          {
+            if (obj.submitCount != 0)
+            {
+              $('formInput').disabled = false;
+              $('formErrorMessage').style.display = "block";
+              $('formErrorMessage').update('Failed to save data!');
+              obj.submitCount = 0;
+            }
+          }
+        });
+      return false;
+    }, 
+
+    confirmDelete : function()
+    {
+      return confirm('Are you sure to delete this data?');
+    },
+    
+    getElementsByName_iefix : function(tag, name) 
+    {
+      var elem = document.getElementsByTagName(tag);
+      var arr = new Array();
+      for(i = 0,iarr = 0; i < elem.length; i++) {
+          att = elem[i].getAttribute("name");
+          if(att == name) 
+          {
+               arr[iarr] = elem[i];
+               iarr++;
+          }
+      }
+      return arr;
+    },
+
+    confirmSave : function()
+    {
+      if (this.submitCount != 0) return false;
+      
+      // cek validasi dulu
+      if ($('employee_status').value == 1 && $('contract_month0').checked) // kontrak
+      {
+        alert('Please select month period for contract!');
+        return false;
+      }
+      
+      this.submitCount++;
+      if (myformInput.doSubmit())
+      {
+        if (confirm('Do you want to save this entry?'))
+        {
+          return this.submitToServer();
+        }
+      }
+      this.submitCount = 0;
+      return false;
+    }
+  }
+</script>
+<table class="content" width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td class="pageHeaderTitle">
+      <table border="0" cellspacing="0" cellpadding="1" width="100%">
+        <tr> 
+          <td class="blank" width=20><img src="[var.pageIcon]" border="0" /></td>
+          <td class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+          <td class="" align="right">[var.strDateTime]&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td height="5"></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+[var.formInput;protect=no;htmlconv=no]
+    </td>
+  </tr>
+  <tr [var.strSignatureStyle]> 
+    <td>
+      <p>&nbsp;</p>
+      <table cellpadding=2 cellspacing=0 class="gridTable" width="100%">
+        <tr align=center valign=top>
+          <td width="33%" nowrap>
+            &nbsp;[var.strWordsReq],
+            <p>&nbsp;</p>
+            <p>(__________________________)</p>
+            <p>[var.strWordsOfficer1]</p>
+          </td>
+          <td width="33%" nowrap>
+            &nbsp;[var.strWordsAppr]
+            <p>&nbsp;</p>
+            <p>(__________________________)</p>
+            <p>[var.strWordsOfficer2]</p>
+          </td>
+          <td width="33%" nowrap>
+            &nbsp;[var.strWordsAck]
+            <p>&nbsp;</p>
+            <p>(__________________________)</p>
+            <p>[var.strWordsOfficer3]</p>
+          </td>
+        </tr>
+        <tr height="30">  
+          <td>&nbsp;Tgl : </td>
+          <td>&nbsp;Tgl : </td>
+          <td>&nbsp;Tgl : </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<script type="text/javascript">
+  var sal1 = document.getElementById('salary1');
+  var sal2 = document.getElementById('salary2');
+  var sal3 = document.getElementById('salary3');
+  set = '[var.strSet]';
+  empty = [var.emp];
+  if(empty != 1 ){
+  sal1.value = '[var.salary1]';
+  sal2.value = '[var.salary2]';
+  sal3.value = '[var.salary3]';
+  }
+  </script>
+<script type="text/javascript">
+function getData(combobox){
+			var val = combobox.name;
+			theSet = set+"_code";
+			if ( val == theSet){
+                var value = combobox.options[combobox.selectedIndex].value;
+				var p = document.getElementById('page');
+				p.value = value;
+				document.getElementById('formInput').submit();
+			}
+        }
+</script>
+<script type="text/javascript" src="../js/numberformat.js"></script>
+<script type="text/javascript">
+  /*for(var i = 1; i<= $('hNumShowWorkingExperience').value; i++)
+  {
+    tinyMCE.execCommand('mceAddControl', false, "jobDescription"+i);
+  }*/
+  
+  var n = $('hNumShowDetail').value;
+  for(i = 1; i <= n ; i++)
+  {
+    if ($('amount_start'+i)) maskEdit($('amount_start'+i), editKeyBoardNumeric);
+    if ($('amount_next'+i)) maskEdit($('amount_next'+i), editKeyBoardNumeric);
+  }
+</script>
+<script type="text/javascript">
+  [var.strInitAction]
+  
+</script>

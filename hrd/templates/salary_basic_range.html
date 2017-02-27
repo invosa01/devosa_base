@@ -1,0 +1,91 @@
+<script src="scripts/acEmployee.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script src="employee_data.php"></script>
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script>
+  <!--
+
+  AC_targetElements = ["dataEmployee"];
+
+  // fungsi untuk cek validasi
+  function validInput() {
+    return validateForm(document.formData);
+  }// validInput
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    init();
+    onCodeBlur();
+  }//initPage
+
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td nowrap>&nbsp;<strong>Employee Basic Salary and Allowance | <a href="salary_deduction.php">Employee
+            Deduction </a></strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox"> 
+    <form action="" method="post" name="formInput" id="formInput">
+    <table border="0">
+      <tr valign="top">
+        <td nowrap> &nbsp;Start Date</td>
+        <td align="center">:</td>
+        <td nowrap>[var.strInputStartDate]</td>
+      </tr>
+      <tr valign="top">
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>
+          <input type=hidden name=dataPage value=1>
+          <input name="btnShow" type="submit" id="btnShow" value="Show Data">&nbsp;
+          <input name="btnCreate" type="submit" id="btnCreate" value="Create New">
+        </td>
+      </tr>
+    </table>
+    </form>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>EMPLOYEE BASIC SALARY</strong></td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData" onSubmit="return validInput()">
+        <table border="0" cellpadding="0" cellspacing="0" class="gridTable">
+          <tr align="center" class="tableHeader">
+            <td nowrap>&nbsp;</td>
+            <td nowrap>[var.strWordsGradeCode]</td>
+            [var.strHeader]
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td colspan="2" nowrap>[var.strHidden]&nbsp;&nbsp; <input type=submit name="btnSave" value="Save">
+            </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+      </form></td>
+  </tr>
+</table>
+<script>initPage_();</script>

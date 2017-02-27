@@ -1,0 +1,223 @@
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="scripts/acEmployee.js"></script>
+<script type="text/javascript" src="scripts/ylib.js"></script>
+<script type="text/javascript" src="scripts/invosa.js"></script>
+<script src="employee_data.php"></script>
+<script src="employeeGradeData.php"></script>
+<script type="text/javascript" src="scripts/calendar.js"></script>
+<script type="text/javascript" src="scripts/calendar-en.js"></script>
+<link href="calendar.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript">
+  // script-script tambahan, khusus untu loockup employee
+
+  [var.strJSCharityPlatform]
+  AC_targetElements = ["dataEmployee"];
+  AC_kode = "dataEmployee";
+  AC_nama = "dataEmployeeName";
+
+  
+  // fungsi untuk memberi default uang saku
+  function getPlatform()
+  {
+    strNIK = document.formInput.dataEmployee.value;
+    strTipe = document.formInput.dataCode.selectedIndex;
+    
+    if (strNIK != "" && strTipe != -1)
+    {
+      // cari dulu gradenya
+      strGrade = '';
+      for (j = 0; j < AC_emplGrade.length;j++)
+      {
+        if (AC_emplGrade[j][0] == strNIK)
+        {
+          strGrade = AC_emplGrade[j][1];
+          break;
+        }
+      }
+      if (strGrade != "")
+      {
+        // cari platfornya
+        for (j = 0; j < arrPlatform[strTipe].length; j++)
+        {
+          if (arrPlatform[strTipe][j][0] == strGrade)
+          {
+            fltTmp = arrPlatform[strTipe][j][1];
+            if (fltTmp == "") fltTmp = 0;
+            document.formInput.dataAmount.value = fltTmp;
+          }
+        }
+      }
+    }
+  }
+
+
+  // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+  // kehilangan fokus.
+  function onCodeBlur()
+  {
+    if (AC_kode != "" && AC_nama != "")
+    {
+      var kode = document.getElementById(AC_kode).value;
+      var nama = AC_getNameByCode(kode);
+      var obj = document.getElementById(AC_nama);
+      obj.innerHTML = nama;
+      getPlatform();
+    }
+    return 1;
+  }
+
+  function resetInput()   
+  {
+    location.href = "reimbursement_edit.php";
+  /*
+    document.formInput.dataName.value = "";
+    document.formInput.dataNote.value = "";
+    document.formInput.dataID.value == ""
+    document.formInput.dataTax.checked = false;
+    document.getElementById("detailEmployee").style.display = "none";
+*/
+  }//resetInput
+  // fungsi untuk cek validasi
+  function validInput()
+  {
+    if (document.formInput.dataName.value == "_ADDNEW_")
+    {
+      if (document.formInput.dataName1.value == "")
+      {
+        alert("Empty Allowance Name");
+        return false;
+      }
+    }
+    return vali3Form(document.formInput);
+  }// validInput
+
+  
+  // fungsi untuk cek validasi
+  function validInputDetail()
+  {
+    return validateForm(document.formData);
+  }// validInput
+
+
+  // fungsi untuk inisialisasi
+  function initPage_()
+  {
+    Calendar.setup({ inputField:"dataDate", button:"btnDate" });
+    //Calendar.setup({ inputField:"dataTaxDate", button:"btnTaxDate" });
+    Calendar.setup({ inputField:"dataEventDate", button:"btnEventDate" });
+    document.formInput.dataEmployee.focus();
+    init();
+  }//initPage
+
+  // fungsi untuk menuju ke page tertentu
+  function goPage(no) {
+    if (no != "") {
+      document.formData.dataPage.value = no;
+      document.formData.btnFilter.click();
+    }
+  }//goPage
+
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
+          <td class="pageHeaderTitleText" nowrap>[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td width="30"></td>
+          <td nowrap><strong>
+            [var.strWordsDataEntry] | 
+            <a href="reimbursement_list.php">[var.strWordsDonationList]</a></strong>
+          </td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td  [var.strMsgClass] align="center">[var.strMessages]</td>
+  </tr>
+  <tr class="inputTop">
+    <td>&nbsp;[var.strWordsINPUTDATA]</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox">
+    <form action="" method="post" name="formInput" id="formInput" enctype="multipart/form-data" action="reimbursement_edit.php" onsubmit="return validInput();">
+        <table border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr valign="top">
+            <td>&nbsp;</td>
+            <td width="15" align="center">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordsEmployeeID]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputEmployee]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordsDonationType]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputCode]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordsDonationDate]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputDate]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordsAmount]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputAmount]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordsEventDate]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputEventDate]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordsName]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputName]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;[var.strWordsRelationship]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputRelationship]</td>
+          </tr>
+          <tr valign="top">
+            <td nowrap>&nbsp;[var.strWordsRemark]</td>
+            <td align="center">:</td>
+            <td nowrap>[var.strInputNote]</td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td> <input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]">
+              <input type=hidden name='dataID' id='dataID' value="[var.strDataID]">
+              <input name="btnNew" type="button" id="btnNew" value="[var.strWordsAddNew]" onClick="resetInput();">
+            </td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form>
+      </fieldset>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>

@@ -1,0 +1,35 @@
+#==============================================================================#
++-----------------------------------+
+| PHP Database Class                |
++-----------------------------------+
+
+Author	: Dedy Sukandar
+Email   : dedy@sukandar.com
+Website	: http://www.sukandar.com/
+Licence	: Free
+Version	: 0.9b
+
+cDbClass is a database class to execute any query.
+
+Limitation
+  - 2 database provided: postgres and mysql
+
+For using this class:
+  see demo.php
+#==============================================================================#
+
+examples:
+---------
+  include_once("dbClass.php");  
+  $db = new cDbClass;
+  if ($db->connect())
+  {
+    $res = $db->execute("SELECT \"employeeID\", \"employeeName\" FROM \"hrdEmployee\"");
+    while ($row = $db->fetchrow($res, "ASSOC"))
+    {
+      foreach($row as $key => $val)
+        echo $val." ";
+
+      echo "<br />";
+    }
+  }

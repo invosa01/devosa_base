@@ -1,0 +1,866 @@
+<script src="scripts/ajax.js"></script>
+<script src="scripts/ylib.js"></script>
+<script src="employee_data_ot.php"></script>
+<script type="text/javascript" src="../js/organizationalFilter2.js"></script>
+<script>
+    // script-script tambahan, khusus untu loockup employee
+
+    AC_targetElements = ["dataEmployee"];
+
+    // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
+    // kehilangan fokus.
+    function onCodeBlur() {
+        var kode = document.formInput.dataEmployee.value;
+        var nama = AC_getNameByCode(kode);
+        var obj = document.getElementById("employee_name");
+        obj.innerHTML = nama;
+        return 1;
+    }
+</script>
+<script>
+    var strDataDetail = "[var.strDataDetail]";
+    // fungsi untuk menngecek atau menguncheck checkbox
+    function checkAll() {
+        var intData = document.formInput.totalData.value;
+        var isChecked = document.formInput.chkAll.checked;
+
+        for (i = 1; i <= intData; i++) {
+            if (isChecked) {
+                eval("document.formInput.chkID" + i + ".checked = true");
+                eval("document.formInput.chkID" + i + ".parentNode.className = 'checked'");
+            } else {
+                eval("document.formInput.chkID" + i + ".checked = false");
+                eval("document.formInput.chkID" + i + ".parentNode.className = ''");
+            }
+        } //for
+
+    }//checkAll
+
+    function resetInput() {
+        /*
+         document.formInput.dataSection.value = "";
+         document.formInput.dataSubSection.value = "";
+         document.formInput.dataID.value = "";
+         document.formInput.dataSection.focus();
+         */
+        location.href = "overtime_application_edit.php";
+    }//resetInput
+
+    //fungsi untuk memeriksa apakah input valid
+    function validInput() {
+        if (document.formInput.dataDate.value == "") {
+            alert("Empty Date Data");
+            document.formInput.dataDate.value
+            return false;
+        }
+        /*if (document.formInput.dataSection.value == "") {
+         alert("Empty Section");
+         document.formInput.dataSection.value
+         return false;
+         }*/
+
+        return true;
+    }//validInput
+
+    function checkIsOutdated() {
+        strOutdated = document.formInput.dataIsOutdatedTemp.value;
+        if (strOutdated == "f" || strOutdated == "t")
+        {
+            document.formInput.dataIsOutdated.checked = (document.formInput.dataIsOutdatedTemp.value == "t");
+            setSalaryMonth(document.formInput.dataIsOutdated.checked);
+        }
+        else
+        {
+            strSalaryStart  = document.formInput.dataSalaryStart.value ;
+            strSalaryFinish = document.formInput.dataSalaryFinish.value ;
+            //apakah OTDate sudah lewat tanggal penggajian nya (seharusnya bulan lalu)
+            intOTDate    = dateCompare(strSalaryStart, document.formInput.dataDate.value);
+            //apakah EntryDate baru (tanggal entrynya sudah masuk tanggal penggajian bulan ini)
+            intEntryDate = dateCompare(document.formInput.dataEntryDate.value, strSalaryStart);
+            comboList =       document.formInput.dataSalaryMonth;
+            if (intOTDate == 1 && intEntryDate  == 1) {
+                document.formInput.dataIsOutdated.checked   = true;
+                setSalaryMonth(true)
+            }
+            else
+            {
+                document.formInput.dataIsOutdated.checked   = false;
+                setSalaryMonth(false);
+            }
+        }
+
+    }//checkIsOutdated
+
+    // menampilkan tampilan yang hilang
+    function moreInput(tipe) {
+        var x = parseFloat(eval("document.formInput.numShow"+tipe+".value"));
+        var max = parseFloat(eval("document.formInput.maxDetail"+tipe+".value"));
+        if (x < max) {
+            ylib_getObj("detailData"+tipe+"_"+x).style.display = document.all ? "block" : "table-row";
+
+            eval("document.formInput.dataBreak"+tipe+"_"+x+".disabled = false");
+            eval("document.formInput.dataDuration"+tipe+"_"+x+".disabled = false");
+            eval("document.formInput.dataNote"+tipe+"_"+x+".disabled = false");
+            eval("document.formInput.numShow"+tipe+".value++");
+        }
+    }//moreInput
+
+
+    //mengambil data karyawan untuk ditampilkan di fieldset berdasarkan nilai dari filter
+    function searchEmployee()
+    {
+        if (document.formInput.dataSubSection.value != "")
+        {
+            /*strCategory = "sub_section";
+             strKey = document.formSearch.dataSubSection.value;
+             var objAjax = new createRequestObject();
+             getDataAjax(objAjax, "post", "overtime_application_edit.php?ajax=searchEmployee&strCategory=" + strCategory + "&strKey=" + strKey, "", "showEmployee");*/
+        }
+        else if (document.formInput.dataSection.value != "")
+        {
+            /*strCategory = "section";
+             strKey = document.formSearch.dataSection.value;
+             var objAjax = new createRequestObject();
+             getDataAjax(objAjax, "post", "overtime_application_edit.php?ajax=searchEmployee&strCategory=" + strCategory + "&strKey=" + strKey, "", "showEmployee");*/
+        }
+        else if (document.formInput.dataDepartment.value != "")
+        {
+            /*strCategory = "department";
+             strKey = document.formSearch.dataDepartment.value;
+             var objAjax = new createRequestObject();
+             getDataAjax(objAjax, "post", "overtime_application_edit.php?ajax=searchEmployee&strCategory=" + strCategory + "&strKey=" + strKey, "", "showEmployee");*/
+        }
+        else if (document.formInput.dataDivision.value != "")
+        {
+            /*strCategory = "division";
+             strKey = document.formSearch.dataDivision.value;
+             var objAjax = new createRequestObject();
+             getDataAjax(objAjax, "post", "overtime_application_edit.php?ajax=searchEmployee&strCategory=" + strCategory + "&strKey=" + strKey, "", "showEmployee");*/
+        }
+    }
+
+    //menampilkan data karyawan yang diambil di function searchEmployee
+    function showEmployee(str)
+    {
+        strResult = "[var.strSearchHeader]";
+        arrStr  = str.split("|");
+
+        for(i=1; i < arrStr.length; i++)
+        {
+            strResult += "<tr><td>";
+            j = i-1;
+            arrData = arrStr[j].split(",");
+
+            strResult += "<div class='checkbox no-margin'><label><input class='checkbox-inline' type='checkBox' id='chkSearchID" + i + "' name='chkSearchID" + i + "' value='" + arrData[1] + "' onClick='editSearchList()'></label></div>" ;
+
+            strResult += "</td><td>" + arrData[1] + "</td><td>";
+            strResult += arrData[2] + "</tr>";
+        }
+
+        document.formInput.totalSearchData.value = i;
+
+        strResult += "[var.strSearchFooter]";
+
+        var obj = document.getElementById("dataSearchEmployeeTbl");
+        obj.innerHTML = strResult;
+        document.getElementById("checkUpdate").value = 'change';
+
+    }
+
+    //fungsi untuk menyesuaikan daftar employee di fieldset search yang akan di insert di fieldset List of Employee
+    function editSearchList()
+    {
+        var intData    = document.formInput.totalSearchData.value;
+        var strSearchData = "";
+
+        for (i = 1; i < intData; i++)
+        {
+            itemSearch = document.getElementById("chkSearchID" + i);
+            if (itemSearch.checked)
+            {
+                itemSearch = document.getElementById("chkSearchID" + i);
+                strSearchData += "|" + itemSearch.value ;
+            }
+        } //for
+        document.formInput.dataSearchEmployee.value = strSearchData;
+    }//editSearchList
+
+    //fungsi untuk menyesuaikan early time di detail berdasarkan di data
+    function setEarly()
+    {
+        bolChecked    = document.formInput.chkEarly.checked;
+        bolChecked    = !bolChecked;
+
+        document.formInput.dataStartEarly.disabled  = bolChecked;
+        document.formInput.dataFinishEarly.disabled = bolChecked;
+        for (i=1; i <= document.formInput.totalData.value; i++)
+        {
+            eval("document.formInput.detailStartEarlyActual"  + i + ".disabled = " + bolChecked);
+            eval("document.formInput.detailFinishEarlyActual"  + i + ".disabled = " + bolChecked);
+        }
+    }//setEArly
+    function setSalaryMonth(bolChecked)
+    {
+        document.formInput.dataSalaryMonth.disabled = !bolChecked;
+        document.formInput.dataSalaryYear.disabled  = !bolChecked;
+        if (!bolChecked)
+        {
+            document.formInput.dataSalaryMonth.value    = "";
+            document.formInput.dataSalaryYear.value    = "";
+        }
+        else
+        {
+            comboList =       document.formInput.dataSalaryMonth;
+            for (i = 1; i < comboList.length; i++)
+            {
+                if (comboList[i].value == strSalaryFinish)
+                {
+                    strSelected = document.getElementById(comboList[i].value);
+                    strSelected .selected = true;
+                }
+            }
+            document.formInput.dataSalaryYear.value    = document.formInput.dataFinishYear.value;
+        }
+    }
+
+    //fungsi untuk mengecek apakah early overtime aktif atau tidak
+    function checkEarly()
+    {
+        var bolChecked    = document.formInput.chkEarly.checked;
+        bolChecked = !bolChecked;
+        document.formInput.dataStartEarly.disabled = bolChecked;
+        document.formInput.dataFinishEarly.disabled = bolChecked;
+
+    }//checkEarly
+
+    // fungsi untuk menngecek atau menguncheck checkbox pada field search employee
+    function checkSearchAll()
+    {
+        var intData = document.formInput.totalSearchData.value;
+        var objSearchAll = document.getElementById("chkSearchAll");
+
+        for (i = 1; i < intData; i++)
+        {
+            if (objSearchAll.checked) {
+                itemSearch = document.getElementById("chkSearchID" + i);
+                itemSearch.checked = true;
+                itemSearch.parentNode.className = 'checked';
+            } else {
+                itemSearch = document.getElementById("chkSearchID" + i);
+                itemSearch.checked = false;
+                itemSearch.parentNode.className = '';
+
+            }
+        } //for
+        editSearchList();
+
+    }//checkSearchAll
+
+    // mengambil data karyawan untuk di tambahkan ke fieldset list of employee
+    function addEmployee(strList)
+    {
+        strDate      = document.formInput.dataDate.value;
+        strOldList   = document.formInput.dataListEmployee.value;
+        intTotalData = document.formInput.totalData.value;
+        var objAjax = new createRequestObject();
+        var table = document.getElementById('dataDetail');
+        var rowCount = table.rows.length;
+        document.getElementById('btnAdd').disabled = true;
+        document.getElementById('btnAddEmployee').disabled = true;
+        getDataAjax(objAjax, "post", "overtime_application_edit.php?ajax=addEmployee&strList=" + strList + "&strDate=" + strDate + "&intTotalData=" + intTotalData + "&strOldList=" + strOldList, "", "updateEmployee");
+    }
+
+    // menampilkan data karyawan di fieldset list of employee yang diambil dgn function addEmployee
+    function updateEmployee(str)
+    {
+        document.getElementById('btnAdd').disabled = false;
+        document.getElementById('btnAddEmployee').disabled = false;
+        arrTemp  = str.split("~");
+        if (arrTemp[0].length > 10)
+            return false;
+        oldTotal = document.formInput.totalData.value;
+        document.formInput.totalData.value = arrTemp[0];
+        document.formInput.dataListEmployee.value = arrTemp[1];
+        objMasterStartEarlyPlan = document.formInput.dataStartEarly;
+        objMasterFinishEarlyPlan = document.formInput.dataFinishEarly;
+        objMasterStartPlan = document.formInput.dataStart;
+        objMasterFinishPlan = document.formInput.dataFinish;
+        bolEarlyOT = document.formInput.chkEarly.checked;
+        arrEmp = arrTemp[2].split("|");
+        for (i=1; i < arrEmp.length; i++)
+        {
+            arrDetail = arrEmp[i-1].split(">");
+            j = parseInt(oldTotal) + parseInt(i);
+
+            objDetail = document.getElementById("row" + j);
+            objDetail.style.display = "table-row";
+            eval("document.formInput.chkID" + j + ".checked = true");
+            eval("document.formInput.chkID" + j + ".disabled = false");
+
+            eval("document.formInput.chkID" + j + ".value = " + arrDetail[0] + "; ");
+
+
+            objIDEmployee                   = eval("document.formInput.detailIDEmployee" + j);
+            objStartEarlyPlan               = eval("document.formInput.detailStartEarlyPlan" + j);
+            objFinishEarlyPlan              = eval("document.formInput.detailFinishEarlyPlan" + j);
+            //objStartEarlyAuto               = eval("document.formInput.detailStartEarlyAuto" + j);
+            //objFinishEarlyAuto              = eval("document.formInput.detailFinishEarlyAuto" + j);
+            objStartEarlyActual             = eval("document.formInput.detailStartEarlyActual" + j);
+            objFinishEarlyActual            = eval("document.formInput.detailFinishEarlyActual" + j);
+            objStartActual                  = eval("document.formInput.detailStartActual" + j);
+            objFinishActual                 = eval("document.formInput.detailFinishActual" + j);
+            objStartPlan                    = eval("document.formInput.detailStartPlan" + j);
+            objFinishPlan                   = eval("document.formInput.detailFinishPlan" + j);
+            //objStartAuto                    = eval("document.formInput.detailStartAuto" + j);
+            //objFinishAuto                   = eval("document.formInput.detailFinishAuto" + j);
+            objAttStart                     = eval("document.formInput.detailAttendanceStart" + j);
+            objAttFinish                    = eval("document.formInput.detailAttendanceFinish" + j);
+
+            objHoliday                      = eval("document.formInput.chkHoliday" + j);
+            objTransport                    = eval("document.formInput.detailTransport" + j);
+            objTransportFee                 = eval("document.formInput.detailTransportFee" + j);
+            objPurpose                      = eval("document.formInput.detailPurpose" + j);
+
+            objID                           = document.getElementById("detailEmployeeID" + j);
+            objName                         = document.getElementById("detailEmployeeName" + j);
+
+            objID.innerHTML                 = arrDetail[1];
+            objName.innerHTML               = arrDetail[2];
+            objIDEmployee.value             = arrDetail[0];
+            bolAutoOT                       = (arrDetail[3] == "t");
+
+            //objStartAuto.value              = (bolAutoOT) ? arrDetail[5] : ""; //normal finish
+            //objFinishAuto.value             = (bolAutoOT) ? arrDetail[9] : ""; //finish auto (normal finish + 1 hour)
+
+            objStartPlan.value              = objMasterStartPlan.value;
+            objFinishPlan.value             = objMasterFinishPlan.value;
+
+            objStartActual.value            = objMasterStartPlan.value;
+            objFinishActual.value           = arrDetail[7]; //attendance finish
+
+
+            objHoliday.checked              = (arrDetail[10] == "t");
+
+            if (bolEarlyOT == true)
+            {
+                objStartEarlyPlan.value       = objMasterStartEarlyPlan.value;
+                objFinishEarlyPlan.value      = objMasterFinishEarlyPlan.value;
+
+                if (false /*bolAutoOT*/)
+                {
+                    objStartEarlyAuto.value     = arrDetail[8]; //start early auto (normal start - 1 hour)
+                    objFinishEarlyAuto.value    = arrDetail[4]; //normal start
+                }
+
+                objStartEarlyActual.value     = arrDetail[6]; //attendance start
+                objFinishEarlyActual.value    = objMasterFinishEarlyPlan.value;
+
+                objStartEarlyPlan.disabled    = !bolEarlyOT;
+                objFinishEarlyPlan.disabled   = !bolEarlyOT;
+
+                //objStartEarlyAuto.disabled    = (!bolEarlyOT || !bolAutoOT);
+                //objFinishEarlyAuto.disabled   = (!bolEarlyOT || !bolAutoOT);
+
+                objStartEarlyActual.disabled  = !bolEarlyOT;
+                objFinishEarlyActual.disabled = !bolEarlyOT;
+            }
+            else
+            {
+                objStartEarlyPlan.value       = "";
+                objFinishEarlyPlan.value      = "";
+
+                //objStartEarlyAuto.value       = "";
+                //objFinishEarlyAuto.value      = "";
+
+                objStartEarlyActual.value     = "";
+                objFinishEarlyActual.value    = "";
+            }
+
+            objAttStart.value               = arrDetail[6]; //attendance start
+            objAttFinish.value              = arrDetail[7]; //attendance finish
+            objTransport.value              = arrDetail[11]; //transport
+            objTransportFee.value           = arrDetail[12]; //transportfee
+
+            //objStartAuto.disabled           = !bolAutoOT;
+            //objFinishAuto.disabled          = !bolAutoOT;
+            objStartPlan.disabled           = false;
+            objFinishPlan.disabled          = false;
+            objStartActual.disabled         = false;
+            objFinishActual.disabled        = false;
+            objHoliday.disabled             = false;
+            objTransport.disabled           = false;
+            objTransportFee.disabled        = false;
+            objPurpose.disabled             = false;
+            checkAttendance(j)
+        }
+    }
+    function checkAttendance(index)
+    {
+        intTotal = document.formInput.totalData.value;
+        if (index == "0" || index == "" || index == 0  )
+        {
+            for (i = 1; i <= intTotal; i++)
+            {
+                checkAttendance(i);
+            }
+            return true;
+        }
+
+        objStartEarlyPlan    = eval("document.formInput.detailStartEarlyPlan"  + index);
+        objFinishEarlyPlan   = eval("document.formInput.detailFinishEarlyPlan" + index);
+        //objStartEarlyAuto    = eval("document.formInput.detailStartEarlyAuto"  + index);
+        //objFinishEarlyAuto   = eval("document.formInput.detailFinishEarlyAuto" + index);
+        objStartEarlyActual  = eval("document.formInput.detailStartEarlyActual"  + index);
+        objFinishEarlyActual = eval("document.formInput.detailFinishEarlyActual" + index);
+        objAttendanceStart   = eval("document.formInput.detailAttendanceStart"   + index);
+
+        objStartPlan         = eval("document.formInput.detailStartPlan"         + index);
+        objFinishPlan        = eval("document.formInput.detailFinishPlan"        + index);
+        //objStartAuto         = eval("document.formInput.detailStartAuto"         + index);
+        //objFinishAuto        = eval("document.formInput.detailFinishAuto"        + index);
+        objStartActual       = eval("document.formInput.detailStartActual"       + index);
+        objFinishActual      = eval("document.formInput.detailFinishActual"      + index);
+        objFinishActualTemp  = eval("document.formInput.detailFinishActualTemp"  + index);
+        objAttendanceFinish  = eval("document.formInput.detailAttendanceFinish"  + index);
+
+        objStartActual.value       = objStartPlan.value;
+        objFinishEarlyActual.value = objFinishEarlyPlan.value;
+
+        if (objAttendanceFinish.value == "" || objAttendanceStart.value == "")
+        {
+            objFinishActual.value = objAttendanceFinish.value;
+            objStartEarlyActual.value = objAttendanceStart.value;
+        }
+        else
+        {
+            if (false/*objStartEarlyAuto.value != "" && objFinishEarlyAuto.value != "" */)
+            {
+                if (getMinute(objFinishEarlyPlan.value) < getMinute(objFinishEarlyAuto.value) && getMinute(objAttendanceStart.value) <= getMinute(objStartEarlyAuto.value))
+                    objFinishEarlyActual.value = objFinishEarlyAuto.value;
+            }
+            if (false/*objStartAuto.value != "" && objFinishAuto.value != "" */)
+            {
+                if (getMinute(objStartPlan.value) > getMinute(objStartAuto.value) && getMinute(objAttendanceFinish.value) >= getMinute(objFinishAuto.value))
+                    objStartActual.value= objStartAuto.value;
+            }
+            if (getMinute(objStartPlan.value) <= getMinute(objFinishPlan.value))
+            {
+                if ((getMinute(objAttendanceFinish.value) >= getMinute(objFinishPlan.value)) || (getMinute(objFinishActual.value) > getMinute(objFinishPlan.value)))
+                {
+                    objFinishActual.value = objFinishPlan.value;
+                }
+                else
+                {
+                    objFinishActual.value = objAttendanceFinish.value;
+                }
+            }
+            if (document.formInput.chkEarly.checked)
+            {
+                if (getMinute(objStartEarlyPlan.value) <= getMinute(objFinishEarlyPlan.value))
+                {
+                    if ((getMinute(objAttendanceStart.value) <= getMinute(objStartEarlyPlan.value)) || (getMinute(objStartEarlyActual.value) < getMinute(objStartEarlyPlan.value)))
+                    {
+                        objStartEarlyActual.value   = objStartEarlyPlan.value;
+                    }
+                    else
+                    {
+                        objStartEarlyActual.value   = objAttendanceStart.value;
+                    }
+                }
+            }
+        }
+        if ((getMinute(objStartEarlyActual.value) >= getMinute(objFinishEarlyActual.value)) || objStartEarlyActual.value == "")
+        {
+            objStartEarlyActual.value   = "";
+            objFinishEarlyActual.value  = "";
+        }
+        if ((getMinute(objStartActual.value) >= getMinute(objFinishActual.value)) || objFinishActual.value == "")
+        {
+            objStartActual.value        = "";
+            objFinishActual.value       = "";
+        }
+        return true;
+    }// checkAttendance
+    function getMinute(strTime)
+    {
+        arrTmp = strTime.split(":");
+        intTime = (60 * parseFloat(arrTmp[0])) + parseFloat(arrTmp[1]);
+        return intTime;
+    }
+
+    // fungsi untuk inisialisasi
+    function initPage_() {
+        document.formInput.dataDate.focus();
+        Calendar.setup({ inputField:"dataDate", button:"btnDate"/*, onUpdate:checkIsOutdated*/});
+        Calendar.setup({ inputField:"dataEntryDate", button:"btnEntryDate"/*, onUpdate:checkIsOutdated*/});
+        init();
+        onCodeBlur();
+        checkEarly();
+        //checkIsOutdated()
+        if (document.formInput.dataSubSection.value != "")
+            searchEmployee("sub_section", document.formInput.dataSubSection.value)
+        else if (document.formInput.dataSection.value != "")
+            searchEmployee("section", document.formInput.dataSection.value)
+        else if (document.formInput.dataDepartment.value != "")
+            searchEmployee("department", document.formInput.dataDepartment.value)
+        else if (document.formInput.dataDivision.value != "")
+            searchEmployee("division", document.formInput.dataDivision.value)
+        document.formInput.dataDate.focus();
+
+    }//initPage
+
+    -->
+</script>
+<script>
+
+    // melakukan pengisian default untuk semua data, jadi isinya sesuai default
+    // tipe = start/finish
+    function setDefault(tipe)
+    {
+        var total = document.formInput.totalData.value;
+        var timeStart  = eval("document.formInput.dataStart" + tipe + ".value");
+        var timeFinish = eval("document.formInput.dataFinish" + tipe + ".value");
+
+        for (i = 1; i <= total; i++) {
+            eval("document.formInput.detailStart" + tipe + "Plan" + i + ".value = " + "'" + timeStart  + "'");
+            eval("document.formInput.detailFinish" + tipe + "Plan" + i + ".value = " + "'" + timeFinish + "'");
+        }
+        checkAttendance(0);
+
+    }//setDefault
+
+
+    // menyusaikan nilai start dan finish pada detail dengan form utama
+    function checkDefaultEarly() {
+        setDefault("Early");
+    }
+    function checkDefaultAfternoon() {
+        setDefault("");
+    }
+    function DeleteData() {
+        //alert(row);
+        var table = document.getElementById('dataDetail');
+        var rowCount = table.rows.length;
+
+        for(var i=0; i<rowCount; i++) {
+            var row = table.rows[i];
+            var chkbox = row.cells[1].childNodes[0];
+
+            if(null != chkbox && true == chkbox.checked) {
+                table.deleteRow(i);
+                rowCount--;
+                i--;
+            }
+
+
+        }
+    }
+    jQuery(function($) {
+        $('#dataDivision').on('change', function(){
+            var strCategory = "division";
+            var strKey = $(this).val();
+            var AjaxAddress = 'overtime_application_edit.php?ajax=searchEmployee&strCategory=' + strCategory + '&strKey=' + strKey;
+            $.ajax({
+                url : AjaxAddress,
+                dataType : 'html',
+                success : function(data){
+                    var returnData = data.trim();
+                    showEmployee(returnData);
+                    $("input:checkbox, input:radio").uniform();
+                }
+            });
+        });
+        $('#dataDepartment').on('change', function(){
+            var strCategory = "department";
+            var strKey = $(this).val();
+            var AjaxAddress = 'overtime_application_edit.php?ajax=searchEmployee&strCategory=' + strCategory + '&strKey=' + strKey;
+            $.ajax({
+                url : AjaxAddress,
+                dataType : 'html',
+                success : function(data){
+                    var returnData = data.trim();
+                    showEmployee(returnData);
+                    $("input:checkbox, input:radio").uniform();
+                }
+            });
+        });
+        $('#dataSection').on('change', function(){
+            var strCategory = "section";
+            var strKey = $(this).val();
+            var AjaxAddress = 'overtime_application_edit.php?ajax=searchEmployee&strCategory=' + strCategory + '&strKey=' + strKey;
+            $.ajax({
+                url : AjaxAddress,
+                dataType : 'html',
+                success : function(data){
+                    var returnData = data.trim();
+                    showEmployee(returnData);
+                    $("input:checkbox, input:radio").uniform();
+                }
+            });
+        });
+        $('#dataSubSection').on('change', function(){
+            var strCategory = "sub_section";
+            var strKey = $(this).val();
+            var AjaxAddress = 'overtime_application_edit.php?ajax=searchEmployee&strCategory=' + strCategory + '&strKey=' + strKey;
+            $.ajax({
+                url : AjaxAddress,
+                dataType : 'html',
+                success : function(data){
+                    var returnData = data.trim();
+                    showEmployee(returnData);
+                    $("input:checkbox, input:radio").uniform();
+                }
+            });
+        });
+        $('#checkUpdate').on('change', function(){
+            alert('Change');
+        });
+        $('#dataEmployee').autocomplete({
+            source: "hrd_ajax_source.php?action=getemployee",
+            minLength: 2,
+            select: function( event, ui ) {
+                console.log(ui);
+                $('#employee_name').html(ui.item.label);
+            }
+        });
+    });
+</script>
+[var.pageHeader]
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            [var.pageSubMenu]
+            <p></p>
+        </div>
+        <div class="col-md-12">
+            <form action="" method="post" enctype="multipart/form-data" name="formInput" id="formInput" onSubmit="return validInput();" class="form-horizontal" role="form">
+                <div class="col-md-8">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="panel-actions">
+                                <div class="pull-right" id="collapse-filter">
+                                    <a href="#" data-toggle="collapse" data-target="#input-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="panel-title">[var.strWordsINPUTDATA]</h3>
+                        </div>
+                        <div id="input-panel" class="panel-body collapse in">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataEntryDate">[var.strWordsEntryDate]</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            [var.strInputEntryDate]
+	                    <span class="input-group-addon">
+	                        <i class="fa fa-calendar"></i>
+	                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataDate">[var.strWordsOvertimeDate]</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            [var.strInputDate]
+	                    <span class="input-group-addon">
+	                        <i class="fa fa-calendar"></i>
+	                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataStartEarly">[var.strWordsEarlyOvertime]</label>
+                                    <div class="col-sm-3">
+                                        [var.strInputEarly1]
+                                    </div>
+                                    <div class="col-sm-1 center">
+                                        to
+                                    </div>
+                                    <div class="col-sm-3">
+                                        [var.strInputEarly2]
+                                    </div>
+                                    <div class="col-sm-1 left">
+                                        [var.strInputEarly3]
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataStart">[var.strWordsAfternoonOvertime]</label>
+                                    <div class="col-sm-3">
+                                        [var.strInputAfternoon1]
+                                    </div>
+                                    <div class="col-sm-1 center">
+                                        to
+                                    </div>
+                                    <div class="col-sm-3">
+                                        [var.strInputAfternoon2]
+                                    </div>
+                                    <div class="col-sm-1 left">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataIsOutdated">[var.strWordsIsOutdated]</label>
+                                    <div class="col-sm-8">
+                                        [var.strInputIsOutdated]
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataSalaryMonth">[var.strWordsSalaryMonth]</label>
+                                    <div class="col-sm-8">
+                                        [var.strInputSalaryMonth] [var.strInputSalaryYear]
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataEmployee">[var.strWordsEmployeeID]</label>
+                                    <div class="col-sm-5">
+                                        [var.strInputEmployee1]
+                                    </div>
+                                    <div class="col-sm-3 no-padding">
+                                        [var.strInputEmployee2]
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">&nbsp;</label>
+                                    <div class="col-sm-8">
+                                        <strong id="employee_name">&nbsp;</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="dataEntryDate">[var.strWordsBreakTime]</label>
+                                        <div class="col-sm-8" style="padding-left: 4px !important;">
+                                            <table class="table table-striped table-hover table-bordered" border="0" cellspacing="0" cellpadding="0">
+                                                <thead>
+                                                <tr>
+                                                    <th class="center" nowrap>[var.strWordsStartTime]</th>
+                                                    <th class="center" nowrap>[var.strWordsDurMin]</th>
+                                                    <th class="center" nowrap>[var.strWordsFinishTime]</th>
+                                                    <th class="left" nowrap>[var.strWordsNote]</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                [var.strBreakNormal]
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataNote">[var.strWordsNote]</label>
+                                    <div class="col-sm-8">
+                                        [var.strInputNote]
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dataNote">[var.strWordsStatus]</label>
+                                    <div class="col-sm-8">
+                                        [var.strInputStatus]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <input class="btn btn-primary btn-sm" name="btnSave" type="submit" id="btnSave3" value="[var.strWordsCreate]">
+                                <input name="dataID" type="hidden" id="dataID3" value="[var.strDataID]">
+                                <input class="btn btn-info btn-sm" name="btnNew" type="button" id="btnNew3" value="[var.strWordsAddNew]" onClick="resetInput();">
+                                [var.strButtonPrint]
+                                <input name="totalData"          type="hidden" id="totalData"          value="[var.intTotalData]">
+                                <input name="totalSearchData"    type="hidden" id="totalSearchData"    value="0">
+                                <input name="dataSearchEmployee" type="hidden" id="dataSearchEmployee" value="">
+                                <div  id="detail"></div>
+                                [var.strSalaryMonthInfo]
+                                <input name="dataListEmployee"   type="hidden" id="dataListEmployee"   value="[var.strEmployeeList]">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="panel-actions">
+                                <div class="pull-right" id="collapse-filter">
+                                    <a href="#" data-toggle="collapse" data-target="#filter-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="panel-title">[var.strWordsSearchEmployee]</h3>
+                        </div>
+                        <div id="filter-panel" class="panel-body collapse in">
+                            <div id="formSearch" name="formSearch" class="form-horizontal" role="form">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="dataDivision">[var.strWordsDivision]</label>
+                                        <div class="col-sm-8">
+                                            [var.strInputDivision]
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="dataDepartment">[var.strWordsDepartment]</label>
+                                        <div class="col-sm-8">
+                                            [var.strInputDepartment]
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="dataSubDepartment">[var.strWordsSubDepartment]</label>
+                                        <div class="col-sm-8">
+                                            [var.strInputDataSubDepartment]
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="dataSection">[var.strWordsSection]</label>
+                                        <div class="col-sm-8">
+                                            [var.strInputSection]
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="dataSubSection">[var.strWordsSubSection]</label>
+                                        <div class="col-sm-8">
+                                            [var.strInputSubSection]
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table table-striped table-hover table-bordered gridTable" id="dataSearchEmployeeTbl">
+                                        <thead>
+                                        [var.strSearchHeader]
+                                        </thead>
+                                        <tbody>
+                                        [var.strSearchFooter]
+                                        </tbody>
+                                    </table>
+                                    <input type="hidden" id="checkUpdate" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="panel-actions">
+                                <div class="pull-right" id="collapse-filter">
+                                    <a href="#" data-toggle="collapse" data-target="#input2-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="panel-title">OVERTIME ENTRY LIST</h3>
+                        </div>
+                        <div id="input2-panel" class="panel-body collapse in">
+                            <table id=dataDetail border='0' cellpadding='0' cellspacing='0' class='table table-striped table-hover table-bordered gridTable' width="100%">
+                                <thead>
+                                [var.strDataDetail]
+                                </thead>
+                                <tbody>
+                                [var.strDetailFooter]
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

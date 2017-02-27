@@ -1,0 +1,174 @@
+<script>
+  <!--
+  function resetInput() {
+    document.formInput.dataName.value = "";
+    document.formInput.dataAddress.value = "";
+    document.formInput.dataTelephone.value = "";
+    document.formInput.dataEmail.value = "";
+    document.formInput.dataFlag.value = "2";
+    document.formInput.dataID.value = "";
+    document.formInput.dataName.focus();
+  }//resetInput
+
+  // fungsi untuk menyiapkan data diedit
+  function editData(index) {
+    if (index != "") {
+      document.formInput.dataName.value = eval("document.formData.detailName" + index + ".value");
+      document.formInput.dataAddress.value = eval("document.formData.detailAddress" + index + ".value");
+      document.formInput.dataTelephone.value = eval("document.formData.detailTelephone" + index + ".value");
+      document.formInput.dataEmail.value = eval("document.formData.detailEmail" + index + ".value");
+      document.formInput.dataFlag.value = eval("document.formData.detailFlag" + index + ".value");
+      document.formInput.dataID.value = eval("document.formData.chkID" + index + ".value");
+	  document.formInput.dataFlag.value = eval("document.formData.detailSubject" + index + ".value");
+      document.formInput.dataName.select();
+    }
+  }//editData
+
+  //fungsi untuk memeriksa apakah input valid
+  function validInput() {
+    if (document.formInput.dataName.value == "") {
+      alert("Empty Training Instructor");
+      document.formInput.dataName.value
+      return false;
+    }
+    if (document.formInput.dataAddress.value == "") {
+      alert("Empty Address");
+      document.formInput.dataAddress.value
+      return false;
+    }
+    return true;
+  }//validInput
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("Are you sure want to delete selected data?");
+  } //confirmDelete
+
+  //membuka window baru untuk format print
+  function dataPrint() {
+    url = "data_training_instructor.php?btnPrint=Print";
+    window.open(url);
+  } //data Print
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataName.focus();
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong><a href="data_training_type.php">Training Type Data</a> | <a href="data_training_vendor.php">Training Data Institution</a> | Training Data Instructor </strong></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="inputBox"> <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table width="500" border="0" align="left" cellpadding="1" cellspacing="0">
+          <tr>
+            <td width="15%">&nbsp;</td>
+            <td width="5%">&nbsp;</td>
+            <td width="80%">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="21" nowrap> &nbsp;[var.strWordsInstructorName]</td>
+            <td>:</td>
+            <td><input name="dataName" type="text" id="dataName" size="50" maxlength="50"></td>
+          </tr>
+          <tr>
+            <td height="21" nowrap> &nbsp;[var.strWordsAddress]</td>
+            <td>:</td>
+            <td><textarea name="dataAddress" type="text" cols="38"></textarea></td>
+          </tr>
+          <tr>
+      <tr>
+            <td height="21" nowrap> &nbsp;[var.strWordsTelephone]</td>
+            <td>:</td>
+            <td><input name="dataTelephone" type="text"  size="50" maxlength="50"></td>
+          </tr>
+      <tr>
+            <td height="21" nowrap> &nbsp;[var.strWordsEmail]</td>
+            <td>:</td>
+            <td><input name="dataEmail" type="text"  size="50" maxlength="50"></td>
+          </tr>
+	  <tr>
+            <td height="21" nowrap> &nbsp;[var.strWordsSubject]</td>
+            <td>:</td>
+            <td><input name="dataSubject" type="text"  size="50" maxlength="50"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><input name="btnSave" type="submit" id="btnSave" value="[var.strWordsSave]">
+              <input name="dataID" type="hidden" id="dataID">
+              <input name="dataFlag" type="hidden" id="dataFlag" value=2>
+              <input name="btnNew" type="button" id="btnNew" value="[var.strWordsAddNew]" onClick="resetInput();"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="listTop"><strong>[var.strWordsLISTOFTRAININGINSTRUCTOR]</strong></td>
+  </tr>
+  <tr>
+    <td><form action="" method="post" name="formData" id="formData">
+        <table width="400" border="0" cellpadding="1" cellspacing="0" class="gridTable">
+          <tr class="tableHeader">
+            <td width="5">&nbsp;</td>
+            <td nowrap class="tableHeader"> [var.strWordsINSTRUCTORNAME]</td>
+            <td nowrap class="tableHeader">[var.strWordsADDRESS]</td>
+      <td nowrap class="tableHeader">[var.strWordsTELEPHONE]</td>
+      <td nowrap class="tableHeader">[var.strWordsEMAIL]</td>
+	  <td nowrap class="tableHeader">[var.strWordsSubject]</td>
+      <td width="19">&nbsp;</td>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td><input name="chkAll" type="checkbox" id="chkAll" value="checkbox" onClick="checkAll();"></td>
+            <td colspan="6"><input name="btnDelete" type="submit" id="btnDelete" value="[var.strWordsDelete]" onClick="return confirmDelete();">
+              <input name="totalData" type="hidden" id="totalData" value="[var.intTotalData]">
+              <input name="btnPrint" type="button" id="btnPrint" value="[var.strWordsPrint]" onClick="dataPrint()">
+            </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>

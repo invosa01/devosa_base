@@ -1,0 +1,186 @@
+<script type="text/javascript" src="../js/calendar.js"></script>
+<script type="text/javascript" src="../js/calendar-en.js"></script>
+<script type="text/javascript" src="../js/invosa.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script>
+  <!--
+  // fungsi memeriksa validasi input
+  function validInput() {
+    if (document.formInput.dataDateFrom.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateFrom.focus();
+      return false;
+    }
+    
+    if (document.formInput.dataDateThru.value == "") {
+      alert("Empty Date!");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+    
+    if (dateCompare(document.formInput.dataDateFrom.value, document.formInput.dataDateThru.value) > 0)
+    {
+      alert("Error : date from bigger than date thru");
+      document.formInput.dataDateThru.focus();
+      return false;
+    }
+
+    return true;
+  } //validInput
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmDelete() {
+    return confirm("Are you sure want to delete selected data?");
+  } //confirmDelete
+
+  // fungsi untuk minta konfirmasi perubahaan status
+  function confirmChange() {
+    return confirm("Are you sure want to change status of selected data?");
+  } //confirmChange
+
+
+  // fungsi untuk minta konfirmasi delete
+  function confirmStatusChanges(isDenied) {
+    bolOK = confirm("Are you sure want to change status of selected data?");
+    if (bolOK && isDenied) {
+      document.formData.action = "training_request_denied.php";
+    }
+    return bolOK;
+  } //confirmStatusChanges
+
+  // fungsi untuk menngecek atau menguncheck checkbox
+  function checkAll() {
+    var intData = document.formData.totalData.value;
+    var isChecked = document.formData.chkAll.checked;
+
+    for (i = 1; i <= intData; i++) {
+      if (isChecked) {
+        eval("document.formData.chkID" + i + ".checked = true");
+      } else {
+        eval("document.formData.chkID" + i + ".checked = false");
+      }
+    } //for
+
+  }//checkAll
+
+  // fungsi untuk inisialisasi
+  function initPage_() {
+    document.formInput.dataDateFrom.focus();
+    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+  }//initPage
+  -->
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap class="pageHeaderTitleText">&nbsp;[var.strPageTitle]</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td width="20" class="blank">&nbsp;</td>
+          <td nowrap>&nbsp;<strong>
+          <a href="training_sharing_session_edit.php">[var.strWordsInputSharingSession]</a> 
+          | <a href="training_request_list.php">[var.strWordsInputSharingSessionFromTraining]</a> 
+          | [var.strWordsSharingSessionList]
+          </strong></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="inputBox">
+      <form action="" method="post" name="formInput" id="formInput" onSubmit="return validInput();">
+        <table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td valign="top">
+              <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsDateFrom]</td>
+                  <td width="10">:</td>
+                  <td nowrap>[var.strFilterDateFrom]
+                    <input name="btnDateFrom" type="button" id="btnDateFrom" value=".."></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap>&nbsp;[var.strWordsDateTo]</td>
+                  <td>:</td>
+                  <td nowrap>[var.strFilterDateThru]
+                    <input name="btnDateThru" type="button" id="btnDateThru" value=".."></td>
+                </tr>
+                <tr valign="bottom" height="25">
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td> <input name="btnShow" type="submit" id="btnShow" value="[var.strWordsShowData]">
+                       <input name="btnExcel" id="btnExcel" value="Excel" type="submit" onClick="document.formInput.target = ''">
+                  </td>
+                </tr>
+              </table></td>
+            <td width="20" valign="top">&nbsp;</td>
+            <td valign="top">
+              <table border="0" align="left" cellpadding="1" cellspacing="0">
+                <tr valign="top">
+                  <td nowrap> &nbsp;[var.strWordsDepartment]</td>
+                  <td width="10">:</td>
+                  <td nowrap>[var.strFilterDepartment]</td>
+                </tr>
+              </table></td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="listTop"><strong>[var.strWordsSharingSessionList] [var.strInfo]</strong></td>
+  </tr>
+  <tr>
+    <td>
+      <form action="" method="post" name="formData" id="formData">
+        <table border="0" cellpadding="0" cellspacing="0" class="gridTable">
+          <tr align='center'>
+            <th width="5" rowspan="2">&nbsp;</th>
+            <th colspan="6">[var.strWordsSharingSession]</th>
+            <th colspan="6">[var.strWordsTraining]</th>
+            <th rowspan="2">&nbsp;</th>
+            <th rowspan="2">&nbsp;</th>
+          </tr>
+          <tr align='center'>
+            <th>[var.strWordsDateFrom]</th>
+            <th>[var.strWordsDateTo]</th>
+            <th>[var.strWordsPlace]</th>
+            <th>[var.strWordsTopic]</th>
+            <th>[var.strWordsTrainer]</th>
+            <th>[var.strWordsParticipant]</th>
+            <th>[var.strWordsDepartment]</th>
+            <th>[var.strWordsDateFrom]</th>
+            <th>[var.strWordsDateTo]</th>
+            <th>[var.strWordsTopic]</th>
+            <th>[var.strWordsInstitution]</th>
+            <th>[var.strWordsParticipant]</th>
+          </tr>
+          [var.strDataDetail]
+          <tr>
+            <td><input name="chkAll" type="checkbox" id="chkAll" value="All" onClick="checkAll();">
+            </td>
+            <td colspan="16"> 
+              [var.strButtonList]
+              <input name="totalData" type="hidden" id="totalData" value="[var.intTotalData]">
+              [var.strHidden] &nbsp; 
+            </td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>

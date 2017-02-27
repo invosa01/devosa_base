@@ -1,0 +1,477 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>ppkp</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <link href="[var.strPrintCss;magnet=link;mtype=m*]" rel="stylesheet" type="text/css">
+  <style>
+    [onload;magnet=style;mtype=m*m;file='[var.strStyle]';htmlconv=no;protect=no]
+  </style>
+  <script type="text/javascript" src="../js/ylib.js"></script>
+  <script type="text/javascript">
+  <!--
+
+  // mengolah waktu load
+  function initPage_() {
+    [var.strPrintInit]
+  }//initPage
+
+  -->
+  </script>
+</head>
+<body leftmargin="10" topmargin="0" onload="initPage_()" marginheight="0"
+ marginwidth="10">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td align="left">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top">
+      <table align="center" border="0" cellpadding="2" cellspacing="0"
+ width="100%">
+        <tbody>
+          <tr>
+            <td valign="top"><img style="width: 153px; height: 55px;"
+ alt="Logo" src="images/logo.gif"></td>
+            <td align="right" valign="top"><b>Periode</b><br>
+[var.strPeriode]<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+&nbsp;<br>
+      </td>
+    </tr>
+    <tr>
+      <td class="tableHeader" align="center">
+      <h2>&nbsp;PENILAIAN PRESTASI KERJA PEGAWAI <br>
+(PPKP)</h2>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">&nbsp;<br>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <table align="center" border="0" cellpadding="2" cellspacing="0"
+ width="60%">
+        <tbody>
+          <tr>
+            <td nowrap="nowrap"><strong>&nbsp;Pegawai</strong></td>
+            <td nowrap="nowrap"><strong>:</strong></td>
+            <td nowrap="nowrap"><strong>[var.strEmployee] <input
+ name="dataID" id="dataID" value="[var.strDataID]" type="hidden"> </strong></td>
+          </tr>
+          <tr>
+            <td valign="top"><b>&nbsp;Jabatan<br>
+            </b></td>
+            <td valign="top"><b>:<br>
+            </b></td>
+            <td valign="top"><b>[var.strPosition]<br>
+            </b></td>
+          </tr>
+          <tr>
+            <td valign="top"><b>&nbsp;Department/Group<br>
+            </b></td>
+            <td valign="top"><b>:<br>
+            </b></td>
+            <td valign="top"><b>[var.strDepartment]<br>
+            </b></td>
+          </tr>
+          <tr>
+            <td valign="top"><b>&nbsp;Atasan<br>
+            </b></td>
+            <td valign="top"><b>:<br>
+            </b></td>
+            <td valign="top"><b>[var.strManager]<br>
+            </b></td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp; <br>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <table align="center" border="0" cellpadding="2" cellspacing="0"
+ width="100%">
+        <tbody>
+          <tr>
+            <td valign="top"><b>BAGIAN PERTAMA</b><br>
+            </td>
+            <td align="right" valign="top"><b>PENENTUAN / PENCAPAIAN
+SASARAN KERJA</b><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr align="left">
+      <form action="" method="post" name="formInput" id="formInput"></form>
+      <td valign="top">
+      <table class="gridTable" border="0" cellpadding="1"
+ cellspacing="0" width="100%">
+        <tbody>
+          <tr class="tableHeader" align="center">
+            <td nowrap="nowrap">No.</td>
+            <td nowrap="nowrap">Sasaran</td>
+            <td nowrap="nowrap">Target</td>
+            <td nowrap="nowrap">Bobot</td>
+            <td nowrap="nowrap">Pencapaian</td>
+            <td nowrap="nowrap">Nilai</td>
+            <td nowrap="nowrap">Total</td>
+            <td nowrap="nowrap">Keterangan</td>
+          </tr>
+          [var.strDetailTarget]
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td align="right">[var.strTotalWeight1]&nbsp;</td>
+            <td>&nbsp;</td>
+            <td align="right">[var.strTotalPoint1]&nbsp;</td>
+            <td align="right">[var.strTotal1]&nbsp;</td>
+            <td><strong id="dataKriteria">&nbsp;[var.strNoteCriteria1]</strong>&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="8">&nbsp;</td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">
+      <table align="center" border="0" cellpadding="2" cellspacing="0"
+ width="100%">
+        <tbody>
+          <tr>
+            <td valign="top"><b>BAGIAN KEDUA</b><br>
+            </td>
+            <td align="right" valign="top"><b>PENILAIAN KOMPETENSI
+PEGAWAI</b><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">
+      <table class="gridTable" border="0" cellpadding="1"
+ cellspacing="0" width="100%">
+        <tbody>
+          <tr class="tableHeader" align="center">
+            <td nowrap="nowrap">No.</td>
+            <td nowrap="nowrap">Aspek Kompetensi<br>
+            </td>
+            <td nowrap="nowrap">Nilai</td>
+          </tr>
+          [var.strDetailCompetency]
+          <tr>
+            <td>&nbsp;</td>
+            <td align="right"><strong>Total</strong></td>
+            <td align="right">[var.strTotalPoint2]</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td align="right"><strong>Rata-rata</strong></td>
+            <td align="right">[var.strTotal2]</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td align="right"><strong>Kategori</strong></td>
+            <td>&nbsp;<strong id="dataKriteria">[var.strNoteCriteria2]</strong></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp; </td>
+            <td>&nbsp;</td>
+            <td align="center">&nbsp;</td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">
+      <table align="center" border="0" cellpadding="2" cellspacing="0"
+ width="100%">
+        <tbody>
+          <tr>
+            <td valign="top"><b>BAGIAN KETIGA</b><br>
+            </td>
+            <td align="right" valign="top"><b>PENILAIAN PERILAKU KERJA</b><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">
+      <table class="gridTable" border="0" cellpadding="1"
+ cellspacing="0" width="100%">
+        <tbody>
+          <tr class="tableHeader" align="center">
+            <td nowrap="nowrap">No.</td>
+            <td nowrap="nowrap">Penilaian Perilaku Kerja<br>
+            </td>
+            <td nowrap="nowrap">Bobot</td>
+            <td nowrap="nowrap">Nilai<br>
+            </td>
+            <td nowrap="nowrap">Total</td>
+          </tr>
+          [var.strDetailBehavior]
+          <tr>
+            <td>&nbsp;</td>
+            <td align="right"><strong>Total</strong></td>
+            <td align="right"><strong>[var.strTotalWeight3]</strong>&nbsp;</td>
+            <td align="right"><strong>[var.strTotalPoint3]</strong>&nbsp;</td>
+            <td align="right"><strong>[var.strTotal3]</strong>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td align="right"><strong>Kategori</strong></td>
+            <td colspan="3" align="center">&nbsp;<strong
+ id="dataKriteria">[var.strNoteCriteria3]</strong>&nbsp;</td>
+          </tr>
+          <tr>
+            <td> &nbsp; </td>
+            <td>&nbsp;</td>
+            <td colspan="3" align="center">&nbsp;</td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">
+      <table align="center" border="0" cellpadding="2" cellspacing="0"
+ width="100%">
+        <tbody>
+          <tr>
+            <td valign="top"><b>BAGIAN KEEMPAT</b><br>
+            </td>
+            <td align="right" valign="top"><b>NILAI AKHIR PENILAIAN
+PRESTASI KERJA</b><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <table class="gridTable" border="0" cellpadding="1"
+ cellspacing="0" width="100%">
+        <tbody>
+          <tr class="tableHeader" align="center">
+            <td nowrap="nowrap">No.</td>
+            <td nowrap="nowrap">Penilaian Prestasi Kerja Pegawai<br>
+            </td>
+            <td nowrap="nowrap">Bobot</td>
+            <td nowrap="nowrap">Nilai</td>
+            <td nowrap="nowrap">Total</td>
+          </tr>
+          <tr>
+            <td align="center">1.</td>
+            <td align="left" nowrap="nowrap">Pencapaian Sasaran Kerja
+Pegawai<br>
+            </td>
+            <td align="right">[var.strWeight1]&nbsp;</td>
+            <td align="right">[var.strTotal1]&nbsp;</td>
+            <td align="right">[var.strDataTotal1]&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="center">2.</td>
+            <td align="left" nowrap="nowrap">Aspek Kompetensi Pegawai<br>
+            </td>
+            <td align="right">[var.strWeight2]&nbsp;</td>
+            <td align="right">[var.strTotal2]&nbsp;</td>
+            <td align="right">[var.strDataTotal2]&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="center">3.</td>
+            <td align="left" nowrap="nowrap">Aspek Perilaku Kerja
+Pegawai<br>
+            </td>
+            <td align="right">[var.strWeight3]&nbsp;</td>
+            <td align="right">[var.strTotal3]&nbsp;</td>
+            <td align="right">[var.strDataTotal3]&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td align="right"><strong>Total</strong></td>
+            <td align="right">[var.strTotalWeight]&nbsp;</td>
+            <td align="right">[var.strTotalPoint]&nbsp;</td>
+            <td align="right">[var.strTotal]&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td align="right"><strong>Kategori</strong></td>
+            <td colspan="3" align="center"><strong id="dataKriteria">[var.strNoteCriteria]</strong>&nbsp;</td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">
+      <table class="gridTable" border="0" cellpadding="3"
+ cellspacing="0" width="100%">
+        <tbody>
+          <tr class="tableHeader" align="center">
+            <td>Nilai Tahun Sebelumnya<br>
+            </td>
+            <td>Definition Kategori<br>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td>
+            <table class="noGridTable" border="0" cellpadding="2"
+ cellspacing="0" width="90%">
+              <tbody>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="right" nowrap="nowrap">Semester I</td>
+                  <td align="right" nowrap="nowrap">Semester II</td>
+                </tr>
+                <tr>
+                  <td nowrap="nowrap">Year [var.strPrevYear1]</td>
+                  <td align="right">[var.strPrevResult1_1]</td>
+                  <td align="right">[var.strPrevResult1_2]</td>
+                </tr>
+                <tr>
+                  <td>Year [var.strPrevYear2]</td>
+                  <td align="right">[var.strPrevResult2_1]</td>
+                  <td align="right">[var.strPrevResult2_2]</td>
+                </tr>
+              </tbody>
+            </table>
+            </td>
+            <td nowrap="nowrap"><br>
+            <strong>A</strong> (Total: 91-100) = [var.strCategoryA]<br>
+            <strong>B</strong> (Total: 81-90) = [var.strCategoryB]<br>
+            <strong>C</strong> (Total: 71-80) = [var.strCategoryC]<br>
+            <strong>D</strong> (Total: 60-70) = [var.strCategoryD]<br>
+            <strong>E</strong> (Total: 0-59) = [var.strCategoryE] </td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">
+      <table align="center" border="0" cellpadding="2" cellspacing="0"
+ width="100%">
+        <tbody>
+          <tr>
+            <td valign="top"><b>BAGIAN KELIMA</b><br>
+            </td>
+            <td align="right" valign="top"><b>UMPAN BALIK DAN PENILAIAN</b><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">
+      <table border="0" cellpadding="2" cellspacing="0" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">
+            <table class="gridTable" align="left" border="0"
+ cellpadding="1" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td colspan="3" rowspan="1" class="tableHeader">&nbsp;Unpan
+Balik<span style="font-weight: bold;"></span></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap="nowrap"><strong>&nbsp;Employee Note
+(Comment)</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap="nowrap">[var.strInputEmployeeNote]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap="nowrap"><strong>&nbsp;Manager Note
+(Comment)</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap="nowrap">[var.strInputManagerNote] &nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap="nowrap"><strong>&nbsp;Employee Strong
+Point</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap="nowrap">[var.strInputEmployeeStrong] <br>
+                  &nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap="nowrap"><strong>&nbsp;Impovement Need</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap="nowrap">[var.strInputImprovement]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap="nowrap">&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td nowrap="nowrap">&nbsp; </td>
+                </tr>
+                <tr valign="top">
+                  <td colspan="3" class="tableHeader" nowrap="nowrap">&nbsp;Pengembangan<span
+ style="font-weight: bold;"> </span><strong></strong></td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap="nowrap"> <strong>&nbsp; Training</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap="nowrap">[var.strInputTraining]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap="nowrap">&nbsp; <strong>Mutasi/Promosi</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap="nowrap">[var.strInputMutation]&nbsp;</td>
+                </tr>
+                <tr valign="top">
+                  <td nowrap="nowrap"> <strong>&nbsp; Lain-lain</strong></td>
+                  <td align="center">:</td>
+                  <td nowrap="nowrap">[var.strInputOther]&nbsp;</td>
+                </tr>
+                <tr>
+                  <td><br>
+                  </td>
+                  <td><br>
+                  </td>
+                  <td><br>
+                  </td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </tbody>
+            </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center"><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>
