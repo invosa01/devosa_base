@@ -200,6 +200,7 @@ class clsSalaryCalculation
                 if ($row['prorate'] == 't') {
                     if ($row['allowance_code'] == 'basic_salary') {
                         $this->arrDetail[$row['id_employee']]['basic_salary'] = $row['amount'];
+                        $this->arrDetail[$row['id_employee']]['basic_salary_actual'] = $row['amount'] * $fltProrate;
                     }
                     $row['amount'] *= $fltProrate;
                     $this->arrDA[$row['allowance_code']][$row['id_employee']]['amount'] = $row['amount'];
@@ -2025,6 +2026,7 @@ class clsSalaryCalculation
                 // isi data default dengan informasi karyawan
                 $this->arrDetail[$intID]['id_employee'] = $intID;
                 $this->arrDetail[$intID]['employee_id'] = $rowEmp['employee_id'];
+                $this->arrDetail[$intID]['employee_name'] = $rowEmp['employee_name'];
                 $this->arrDetail[$intID]['npwp'] = $rowEmp['npwp'];
                 $this->arrDetail[$intID]['join_date'] = $rowEmp['join_date'];
                 $this->arrDetail[$intID]['resign_date'] = $rowEmp['resign_date'];
@@ -2146,6 +2148,9 @@ class clsSalaryCalculation
         $strSalaryYear = $arrDt[0];
         $strSQL = "SELECT count(*) as total_data FROM hrd_salary_detail WHERE id_salary_master = (SELECT id FROM hrd_salary_master WHERE status >=2 AND EXTRACT(MONTH FROM salary_date) = $strSalaryMonth
                   AND EXTRACT(YEAR FROM salary_date) = $strSalaryYear) AND id_employee = $strID;";
+        /*echo "Salary Month : ".$strSalaryMonth." Salary Year : ".$strSalaryYear."<br/>";
+        echo $strSQL;
+        die();*/
         $resDb = $this->data->execute($strSQL);
         while ($rowDb = $this->data->fetchrow($resDb)) {
             $intTotalData = $rowDb['total_data'];
