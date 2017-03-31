@@ -468,7 +468,7 @@ class clsSalaryCalculation
             //$baseJamsostek = $employeeUmk;
             $baseJamsostek = $this->arrDetail[$strID]['base_jamsostek'];
             $basePension = ($baseJamsostek > $this->arrConf['pension_max']) ? $this->arrConf['pension_max'] : $baseJamsostek;
-            $baseBPJS = $baseJamsostek;
+            $baseBPJS = ($baseJamsostek > $this->arrConf['bpjs_max']) ? $this->arrConf['bpjs_max'] : $baseJamsostek;
 
             if ($fltProrate == 0) {
                 $basePension = 0;
