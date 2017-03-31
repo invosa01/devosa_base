@@ -235,7 +235,8 @@ class clsSalaryCalculation
                 //$this->arrDetail[$strIDEmp]['base_ot']  += $this->arrDetail[$strIDEmp]['actual_basic_salary'];
                 //$this->arrDetail[$strIDEmp]['base_tax'] += $this->arrDetail[$strIDEmp]['basic_salary'];
                 //$this->arrDetail[$strIDEmp]['base_jamsostek'] += $this->arrDetail[$strIDEmp]['basic_salary'];
-                $this->arrDetail[$strIDEmp]['base_irregular_tax'] = 0;
+                //$this->arrDetail[$strIDEmp]['base_irregular_tax'] = 0;
+                $this->arrDetail[$strIDEmp]['base_irregular_tax'] = $this->arrDetail[$strIDEmp]['base_irregular_tax'];
                 //proses special allowance: seniority
                 $this->compute(
                     $strIDEmp,
@@ -1019,8 +1020,8 @@ class clsSalaryCalculation
             if ($intMethod == 1) {
                 $this->arrDetail[$strID]['tax_allowance'] += $this->arrDetail[$strID]['tax']; // tambah nilai potongan
                 $this->arrDetail[$strID]['base_tax'] += $this->arrDetail[$strID]['tax']; // tambah nilai potongan
-                $this->arrDetail[$strID]['irregular_tax_allowance'] += $this->arrDetail[$strID]['irregular_tax']; // tambah nilai potongan
-                $this->arrDetail[$strID]['base_irregular_tax'] += $this->arrDetail[$strID]['irregular_tax']; // tambah nilai potongan
+                //$this->arrDetail[$strID]['irregular_tax_allowance'] += $this->arrDetail[$strID]['irregular_tax']; // tambah nilai potongan
+                //$this->arrDetail[$strID]['base_irregular_tax'] += $this->arrDetail[$strID]['irregular_tax']; // tambah nilai potongan
             }
             $this->arrDetail[$strID]['total_deduction'] += $this->arrDetail[$strID]['tax']; // tambah nilai potongan
             $this->arrDetail[$strID]['total_deduction'] += $this->arrDetail[$strID]['irregular_tax']; // tambah nilai potongan
@@ -1038,7 +1039,8 @@ class clsSalaryCalculation
             } else {
                 $this->arrDetail[$strID]['tax_pensiun'] = 0;
             }*/
-            $fltTotal = $this->arrDetail[$strID]['total_net'] - $this->arrDetail[$strID]['total_deduction'] + $this->arrDetail[$strID]['tax_allowance'] + $this->arrDetail[$strID]['irregular_tax_allowance'];// - $this->arrDetail[$strID]['tax_pesangon'];
+            //$fltTotal = $this->arrDetail[$strID]['total_net'] - $this->arrDetail[$strID]['total_deduction'] + $this->arrDetail[$strID]['tax_allowance'] + $this->arrDetail[$strID]['irregular_tax_allowance'];// - $this->arrDetail[$strID]['tax_pesangon'];
+            $fltTotal = $this->arrDetail[$strID]['total_net'] - $this->arrDetail[$strID]['total_deduction'] + $this->arrDetail[$strID]['tax_allowance'];// - $this->arrDetail[$strID]['tax_pesangon'];
             $fltIrrTotal = $this->arrDetail[$strID]['total_net_irregular'] - $this->arrDetail[$strID]['zakat_deduction_irregular'] - $this->arrDetail[$strID]['irregular_tax'];
             $fltRound = roundMoney($fltTotal, $intRound);
             $this->arrDetail[$strID]['total_gross'] = $fltTotal;      // total gaji yang diterima

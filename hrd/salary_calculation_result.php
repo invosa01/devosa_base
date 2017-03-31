@@ -896,6 +896,23 @@ function getDataGrid($db, $strCriteria, $bolLimit = true, $isFullView = false, $
                 "deduction_tax"
             )
         );
+        $myDataGrid->addColumn(
+            new DataGrid_Column(
+                getWords("irregular tax"),
+                "deduction_tax_irregular",
+                ["rowspan" => 2, "width" => 70],
+                ["nowrap" => "nowrap", "align" => "right"],
+                false,
+                true,
+                "",
+                "formatNumeric()",
+                "numeric",
+                true,
+                15,
+                true,
+                "deduction_tax_irregular"
+            )
+        );
     }
     if ($bolIrregular) {
         $myDataGrid->addColumn(
@@ -1196,8 +1213,11 @@ function getDataGrid($db, $strCriteria, $bolLimit = true, $isFullView = false, $
     //put result to array dataset
     while ($rowDb = $db->fetchrow($resDb)) {
         //$rowDb['total_ot_min'] = (1.5 * $rowDb['ot1_min']) * (2 * $rowDb['ot2_min']) * (3 * $rowDb['ot3_min']) * (4 * $rowDb['ot4_min']); // hardcode
-        $rowDb['allowance_tax'] = $rowDb['tax_allowance'] + $rowDb['irregular_tax_allowance'];
-        $rowDb['deduction_tax'] = $rowDb['tax'] + $rowDb['irregular_tax'];
+        //$rowDb['allowance_tax'] = $rowDb['tax_allowance'] + $rowDb['irregular_tax_allowance'];
+        $rowDb['allowance_tax'] = $rowDb['tax_allowance'];
+        //$rowDb['deduction_tax'] = $rowDb['tax'] + $rowDb['irregular_tax'];
+        $rowDb['deduction_tax'] = $rowDb['tax'];
+        $rowDb['deduction_tax_irregular'] = $rowDb['irregular_tax'];
         $rowDb['shift_hour'] = $rowDb['shift_hour'] / 60;
         $rowDb['l_e'] = standardFormat($rowDb['late_round'] + $rowDb['early_round'], true, 2);
         $rowDb['ot1_min'] = ($rowDb['ot1_min']) / 60;

@@ -464,7 +464,13 @@ var $strFamilyStatus;
             $taxUntilCurrentPeriod = ($annualizetaxincome - $taxIrregular) * $currentTaxableMonth / $taxableMonth;        //PPh terhutang sampai bulan ini
             $taxUntilLastPeriod = $this->taxBefore;                                                                                                    //PPh terhutang sampai bulan kemarin
             $monthlytax = $countpph21->roundDown(($taxUntilCurrentPeriod - $taxUntilLastPeriod), 0);
-            if ((abs($monthlytax - $taxAllowance) >= $fltDelta) && (abs(
+            if ((abs($monthlytax - $taxAllowance) >= $fltDelta)
+            ) {
+                $taxAllowance = ($taxAllowance + $monthlytax) / 2;
+                //$taxIrregularAllowance = ($taxIrregularAllowance + $monthlytaxIrregular) / 2;
+            } else {
+                $bolPuter = false;
+            }/*if ((abs($monthlytax - $taxAllowance) >= $fltDelta) && (abs(
                         $monthlytaxIrregular - $taxIrregularAllowance
                     ) >= $fltDelta)
             ) {
@@ -472,7 +478,7 @@ var $strFamilyStatus;
                 $taxIrregularAllowance = ($taxIrregularAllowance + $monthlytaxIrregular) / 2;
             } else {
                 $bolPuter = false;
-            }
+            }*/
         }
         if ($bolRegular) {
             $this->fltTaxRegular = $monthlytax;
