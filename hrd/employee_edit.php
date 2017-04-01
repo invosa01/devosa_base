@@ -107,6 +107,7 @@ $strWordsGrossUp = getWords("Nett Salary");
 $strWordsGetJamsostek = getWords("get Jamsostek");
 $strWordsGetBpjs = getWords("get BPJS");
 $strWordsGetPension = getWords("get Pension");
+$strWordsGetJshk = getWords("get JSHK");
 $strWordsMembership = getWords("membership");
 $strWordsNote = getWords("note");
 $strWordsMajor = getWords("major");
@@ -115,6 +116,7 @@ $strWordsAddNew = getWords("add new");
 $strWordsDeletePicture = getWords("delete picture");
 $strWordsBPJSNo = getWords("BPJS kesehatan No.");
 $strWordsBPJS2No = getWords("BPJS ketenagakerjaan No.");
+$strWordsPensionNo = getWords("Penion Card No.");
 $strDataDetail = "";
 $intDefaultWidth = 30;
 $intDefaultWidthPx = 210;
@@ -171,13 +173,13 @@ function createTempData($db, $strDataID)
   $strFields .= "emergency_phone, emergency_relation, driver_license_a, ";
   $strFields .= "driver_license_b, driver_license_c, wedding_date, weight, height, ";
   $strFields .= "blood_type, primary_city, primary_zip, transport, transport_fee, ";
-  $strFields .= "functional_code, zakat, gross_up, get_jamsostek, get_bpjs, get_pension, is_immune_auto_alpha";
+  $strFields .= "functional_code, zakat, gross_up, get_jamsostek, get_bpjs, get_pension, get_jshk, is_immune_auto_alpha";
   //$strFields .= "koperasi, pukfspmi, npwp, jamsostek, insurance, koperasi_no, ";
   //$strFields .= "pukfspmi_no, insurance_no, jamsostek_start, jamsostek_finish, ";
   //$strFields .= "koperasi_start, koperasi_finish, pukfspmi_start, pukfspmi_finish, ";
   //$strFields .= "insurance_start, insurance_finish,  ";
   $strFields .= "house_status, nickname, letter_code, passport, ";
-  $strFields .= "major,mother_name,bpjs_no,bpjs_tk_no ";
+  $strFields .= "major,mother_name,bpjs_no,bpjs_tk_no, pension_no ";
   //$strFields .= ",marital_status ";
   /*
   $strSQL  = "INSERT INTO hrd_employee  (created, modified_by, created_by, employee_id, ";
@@ -306,6 +308,7 @@ function getData($db, &$arrData)
       $arrData['dataIsImmuneAutoAlpha'] = $rowDb['is_immune_auto_alpha'];
       $arrData['dataIsBPJS'] = $rowDb['get_bpjs'];
       $arrData['dataIsPension'] = $rowDb['get_pension'];
+      $arrData['dataIsJSHK'] = $rowDb['get_jshk'];
       $arrData['dataBankCode'] = "" . $rowDb['bank_code'];
       $arrData['dataBankBranch'] = "" . $rowDb['bank_branch'];
       $arrData['dataBankAccountType'] = "" . $rowDb['bank_account_type'];
@@ -347,6 +350,7 @@ function getData($db, &$arrData)
       $arrData['dataMother'] = $rowDb['mother_name'];
       $arrData['dataBPJS'] = $rowDb['bpjs_no'];
       $arrData['dataBPJSTK'] = $rowDb['bpjs_tk_no'];
+      $arrData['dataPensionNo'] = $rowDb['pension_no'];
       writeLog(ACTIVITY_VIEW, MODULE_PAYROLL, "$strDataID ->" . $rowDb['employee_id'], 0);
     }
   }
@@ -382,6 +386,7 @@ function getData($db, &$arrData)
     $arrData['dataIsImmuneAutoAlpha'] = "";
     $arrData['dataIsBPJS'] = "";
     $arrData['dataIsPension'] = "";
+    $arrData['dataIsJSHK'] = "";
     $arrData['dataJamsostekNo'] = "";
     $arrData['dataInsuranceFinish'] = "";
     $arrData['dataBankCode'] = "";
@@ -435,6 +440,7 @@ function getData($db, &$arrData)
     $arrData['dataMother'] = "";
     $arrData['dataBPJS'] = "";
     $arrData['dataBPJSTK'] = "";
+    $arrData['dataPensionNo'] = "";
   }
   return true;
 } // showData
@@ -523,12 +529,14 @@ function saveData($db, &$strDataID, &$strError)
   (isset($_REQUEST['dataID'])) ? $strDataID = $_REQUEST['dataID'] : $strDataID = "";
   (isset($_REQUEST['dataActive'])) ? $strDataActive = '1' : $strDataActive = '0';
   (isset($_REQUEST['dataJamsostekNo'])) ? $strDataJamsostekNo = $_REQUEST['dataJamsostekNo'] : $strDataJamsostekNo = "";
+  (isset($_REQUEST['dataPensionNo'])) ? $strDataPensionNo = $_REQUEST['dataPensionNo'] : $strDataPensionNo = "";
   (isset($_REQUEST['dataIsZakat'])) ? $strDataIsZakat = 't' : $strDataIsZakat = 'f';
   (isset($_REQUEST['dataIsGrossUp'])) ? $strDataIsGrossUp = 't' : $strDataIsGrossUp = 'f';
   (isset($_REQUEST['dataIsJamsostek'])) ? $strDataIsJamsostek = '1' : $strDataIsJamsostek = '0';
   (isset($_REQUEST['dataIsImmuneAutoAlpha'])) ? $strDataIsImmuneAutoAlpha = '1' : $strDataIsImmuneAutoAlpha = '0';
   (isset($_REQUEST['dataIsBPJS'])) ? $strDataIsBPJS = '1' : $strDataIsBPJS = '0';
   (isset($_REQUEST['dataIsPension'])) ? $strDataIsPension = '1' : $strDataIsPension = '0';
+  (isset($_REQUEST['dataIsJSHK'])) ? $strDataIsJSHK = '1' : $strDataIsJSHK = '0';
   (isset($_REQUEST['dataMajor'])) ? $strDataMajor = $_REQUEST['dataMajor'] : $strDataMajor = '';
   (isset($_REQUEST['dataMother'])) ? $strDataMother = $_REQUEST['dataMother'] : $strDataMother = '';
   (isset($_REQUEST['dataBPJS'])) ? $strDataBPJS = $_REQUEST['dataBPJS'] : $strDataBPJS = '';
@@ -618,10 +626,10 @@ function saveData($db, &$strDataID, &$strError)
       $strSQL .= "active, note, ";
       $strSQL .= "wedding_date,weight, height,  ";
       $strSQL .= "blood_type, npwp, functional_code, ";
-      $strSQL .= "zakat, gross_up,get_jamsostek,get_bpjs,get_pension,is_immune_auto_alpha, jamsostek_no, transport, transport_fee, ";
+      $strSQL .= "zakat, gross_up,get_jamsostek,get_bpjs,get_pension, get_jshk, is_immune_auto_alpha, jamsostek_no, transport, transport_fee, ";
       $strSQL .= "bank_account_name, bank_code, ";
       $strSQL .= "bank2_account_name, bank2_code, ";
-      $strSQL .= "nickname, letter_code, passport, flag, major_code, mother_name, bpjs_no, bpjs_tk_no) ";
+      $strSQL .= "nickname, letter_code, passport, flag, major_code, mother_name, bpjs_no, bpjs_tk_no, pension_no) ";
       $strSQL .= "VALUES(now(),'" . $_SESSION['sessionUserID'] . "',now(),'" . $_SESSION['sessionUserID'] . "', ";
       $strSQL .= "'$strDataEmployeeID','$strdataName','$strdataFingerID', '$strDataGender', ";
       $strSQL .= "'$strDataCurrency', '$strDataSalaryPaymentType', ";
@@ -641,11 +649,11 @@ function saveData($db, &$strDataID, &$strError)
       $strSQL .= "'$strDataActive', '$strDataNote',  ";
       $strSQL .= "$strDataWeddingDate, '$strDataWeight', '$strDataHeight',  ";
       $strSQL .= "'$strDataBlood', '$strDataNPWP','$strDataFunctionalPosition', ";
-      $strSQL .= "'$strDataIsZakat', '$strDataIsGrossUp','$strDataIsJamsostek','$strDataIsBPJS','$strDataIsPension','$strDataIsImmuneAutoAlpha','$strDataJamsostekNo', '$strDataTransport', $strDataTransportFee, ";
+      $strSQL .= "'$strDataIsZakat', '$strDataIsGrossUp','$strDataIsJamsostek','$strDataIsBPJS','$strDataIsPension','$strDataIsJSHK','$strDataIsImmuneAutoAlpha','$strDataJamsostekNo', '$strDataTransport', $strDataTransportFee, ";
       $strSQL .= "'$strDataBankAccountName', '$strDataBankCode', ";
       $strSQL .= "'$strDataBank2AccountName', '$strDataBank2Code', ";
       $strSQL .= "'$strdataNick','$strDataLetterCode', '$strDataPassport', '$strFlag', '$strDataMajor',";
-      $strSQL .= "'$strDataMother','$strDataBPJS','$strDataBPJSTK') ";
+      $strSQL .= "'$strDataMother','$strDataBPJS','$strDataBPJSTK','$strDataPensionNo') ";
       $resExec = $db->execute($strSQL);
       // ambil data IDnya
       $strSQL = "SELECT id FROM hrd_employee WHERE employee_id = '$strDataEmployeeID' ";
@@ -730,7 +738,8 @@ function saveData($db, &$strDataID, &$strError)
       $strSQL .= "bank2_account_name = '$strDataBank2AccountName',";
       $strSQL .= "functional_code = '$strDataFunctionalPosition', email = '$strDataEmail', ";
       $strSQL .= "wedding_date = $strDataWeddingDate, ";
-      $strSQL .= "zakat = '$strDataIsZakat', gross_up = '$strDataIsGrossUp',get_jamsostek = $strDataIsJamsostek,get_bpjs = $strDataIsBPJS,get_pension = '$strDataIsPension', jamsostek_no = '$strDataJamsostekNo', ";
+      $strSQL .= "zakat = '$strDataIsZakat', gross_up = '$strDataIsGrossUp',get_jamsostek = $strDataIsJamsostek,get_bpjs = $strDataIsBPJS, get_pension = '$strDataIsPension', jamsostek_no = '$strDataJamsostekNo', ";
+      $strSQL .= "get_jshk = '$strDataIsJSHK', pension_no = '$strDataPensionNo', ";
       $strSQL .= "transport = '$strDataTransport', transport_fee = '$strDataTransportFee', ";
       $strSQL .= "nickname = '$strdataNick', letter_code = '$strDataLetterCode', passport = '$strDataPassport', ";
       $strSQL .= "major_code = '$strDataMajor', mother_name='$strDataMother',";
@@ -1168,6 +1177,7 @@ if ($db->connect()) {
     $strInputMothersName = "<input type=text name=dataMother size=$intDefaultWidth maxlength=127 value=\"" . $arrData['dataMother'] . "\" class=\"form-control string\">";
     $strInputBPJS = "<input type=text name=dataBPJS size=$intDefaultWidth maxlength=127 value=\"" . $arrData['dataBPJS'] . "\"  class=\"form-control string\">";
     $strInputBPJSTK = "<input type=text name=dataBPJSTK size=$intDefaultWidth maxlength=127 value=\"" . $arrData['dataBPJSTK'] . "\"  class=\"form-control string\">";
+    $strInputPensionNo = "<input type=text name=dataPensionNo size=$intDefaultWidth maxlength=127 value=\"" . $arrData['dataPensionNo'] . "\"  class=\"form-control string\">";
     $strInputFingerID = "<input type=text name=dataFingerID size=$intDefaultWidth maxlength=15 value=\"" . $arrData['dataFingerID'] . "\" class=\"form-control\" >";
     $strInputNick = "<input type=text name=dataNick size=$intDefaultWidth maxlength=15 value=\"" . $arrData['dataNick'] . "\" class=\"form-control\">";
     $strInputLetterCode = "<input type=text name=dataLetterCode size=$intDefaultWidth maxlength=63 value=\"" . $arrData['dataLetterCode'] . "\" class=\"form-control\">";
@@ -1442,6 +1452,11 @@ if ($db->connect()) {
     } else {
       $strInputIsPension = "<div class=\"checkbox\"><label><input class=\"checkbox-inline\" type=checkbox name=dataIsPension value=0></label></div>";
     }
+    if ($arrData['dataIsJSHK'] == '1') {
+      $strInputIsJSHK = "<div class=\"checkbox\"><label><input class=\"checkbox-inline\" type=checkbox name=dataIsJSHK value=1 checked></label></div>";
+    } else {
+      $strInputIsJSHK = "<div class=\"checkbox\"><label><input class=\"checkbox-inline\" type=checkbox name=dataIsJSHK value=0></label></div>";
+    }
     if ($arrData['dataIsImmuneAutoAlpha'] == '1') {
       $strInputIsImmuneAutoAlpha = "<div class=\"checkbox\"><label><input class=\"checkbox-inline\" type=checkbox name=dataIsImmuneAutoAlpha value=1 checked></label></div>";
     } else {
@@ -1529,6 +1544,7 @@ if ($db->connect()) {
     $strInputIsGrossUp = ($strInputIsGrossUp == '1') ? "Yes" : "No";
     $strInputIsJamsostek = ($strInputIsJamsostek == '1') ? "Yes" : "No";
     $strInputIsBPJS = ($strInputIsBPJS == '1') ? "Yes" : "No";
+    $strInputIsJSHK = ($strInputIsJSHK == '1') ? "Yes" : "No";
     $strInputIsPension = ($strInputIsPension == '1') ? "Yes" : "No";
     $strInputIsImmuneAutoAlpha = ($strInputIsImmuneAutoAlpha == 't') ? "Yes" : "No";
     $strInputSubSection = ($strInputSubSection == "-") ? "-" : $arrSubSection['sub_section_code'];
@@ -1542,6 +1558,7 @@ if ($db->connect()) {
     $strInputMothersName = !empty($arrData['dataMother']) ? $arrData['dataMother'] : "-";
     $strInputBPJS = !empty($arrData['dataBPJS']) ? $arrData['dataBPJS'] : "-";
     $strInputBPJSTK = !empty($arrData['dataBPJSTK']) ? $arrData['dataBPJSTK'] : "-";
+    $strInputPensionNo = !empty($arrData['dataPensionNo']) ? $arrData['dataPensionNo'] : "-";
     $strInputFamilyStatusTax = !empty($arrData['dataTaxStatus']) ? $arrData['dataTaxStatus'] : "-";
     $strInputFamilyStatusActual = !empty($arrData['dataFamilyStatus']) ? $arrData['dataFamilyStatus'] : "-";
     $strInputPosition = !empty($arrData['dataPosition']) ? $arrData['dataPosition'] : "-";
