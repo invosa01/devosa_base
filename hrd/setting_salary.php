@@ -391,78 +391,78 @@ $arrSetting = [
     ],
     //"strTHRMultival" => array("code" => "thr_allowance_multival", "value" => "f", "note" => "Indicator of Out Fix Allow ", "default" => "t",),
     //Leave Allowance
-    "strLeaveName"               => [
-        "code"    => "leave_allowance_name",
-        "value"   => "Leave Allowance",
-        "note"    => "Display Name for Leave Allow",
-        "default" => "Leave Allowance",
-    ],
-    "strLeaveAmount"             => [
-        "code"    => "leave_allowance",
-        "value"   => "0",
-        "note"    => "Amount for Leave Allow ",
-        "default" => "0",
-    ],
-    "strLeaveActive"             => [
-        "code"    => "leave_allowance_active",
-        "value"   => "t",
-        "note"    => "Is Leave Allow Active?",
-        "default" => "t",
-    ],
-    "strLeaveIr"                 => [
-        "code"    => "leave_allowance_irregular",
-        "value"   => "t",
-        "note"    => "Is Irregular",
-        "default" => "t",
-    ],
-    "strLeaveBen"                => [
-        "code"    => "leave_allowance_benefit",
-        "value"   => "t",
-        "note"    => "Is Benefit",
-        "default" => "t",
-    ],
-    "strLeaveShow"               => [
-        "code"    => "leave_allowance_show",
-        "value"   => "t",
-        "note"    => "Show Leave Allow",
-        "default" => "t",
-    ],
-    "strLeaveProrate"            => [
-        "code"    => "leave_allowance_prorate",
-        "value"   => "t",
-        "note"    => "Prorate Leave Allow",
-        "default" => "t",
-    ],
-    "strLeaveOT"                 => [
-        "code"    => "leave_allowance_ot",
-        "value"   => "t",
-        "note"    => "Leave Allow include OT",
-        "default" => "t",
-    ],
-    "strLeaveTax"                => [
-        "code"    => "leave_allowance_tax",
-        "value"   => "t",
-        "note"    => "Leave Allow include in tax",
-        "default" => "t",
-    ],
-    "strLeaveJams"               => [
-        "code"    => "leave_allowance_jams",
-        "value"   => "t",
-        "note"    => "Leave Allow include in jamsostek",
-        "default" => "t",
-    ],
-    "strLeaveDaily"              => [
-        "code"    => "leave_allowance_daily",
-        "value"   => "t",
-        "note"    => "Leave Allow include is daily allowance",
-        "default" => "f",
-    ],
-    "strLeaveHidezero"           => [
-        "code"    => "leave_allowance_hidezero",
-        "value"   => "t",
-        "note"    => "Leave Allow  is hidden if the value is zero",
-        "default" => "f",
-    ],
+    /* "strLeaveName"               => [
+         "code"    => "leave_allowance_name",
+         "value"   => "Leave Allowance",
+         "note"    => "Display Name for Leave Allow",
+         "default" => "Leave Allowance",
+     ],
+     "strLeaveAmount"             => [
+         "code"    => "leave_allowance",
+         "value"   => "0",
+         "note"    => "Amount for Leave Allow ",
+         "default" => "0",
+     ],
+     "strLeaveActive"             => [
+         "code"    => "leave_allowance_active",
+         "value"   => "t",
+         "note"    => "Is Leave Allow Active?",
+         "default" => "t",
+     ],
+     "strLeaveIr"                 => [
+         "code"    => "leave_allowance_irregular",
+         "value"   => "t",
+         "note"    => "Is Irregular",
+         "default" => "t",
+     ],
+     "strLeaveBen"                => [
+         "code"    => "leave_allowance_benefit",
+         "value"   => "t",
+         "note"    => "Is Benefit",
+         "default" => "t",
+     ],
+     "strLeaveShow"               => [
+         "code"    => "leave_allowance_show",
+         "value"   => "t",
+         "note"    => "Show Leave Allow",
+         "default" => "t",
+     ],
+     "strLeaveProrate"            => [
+         "code"    => "leave_allowance_prorate",
+         "value"   => "t",
+         "note"    => "Prorate Leave Allow",
+         "default" => "t",
+     ],
+     "strLeaveOT"                 => [
+         "code"    => "leave_allowance_ot",
+         "value"   => "t",
+         "note"    => "Leave Allow include OT",
+         "default" => "t",
+     ],
+     "strLeaveTax"                => [
+         "code"    => "leave_allowance_tax",
+         "value"   => "t",
+         "note"    => "Leave Allow include in tax",
+         "default" => "t",
+     ],
+     "strLeaveJams"               => [
+         "code"    => "leave_allowance_jams",
+         "value"   => "t",
+         "note"    => "Leave Allow include in jamsostek",
+         "default" => "t",
+     ],
+     "strLeaveDaily"              => [
+         "code"    => "leave_allowance_daily",
+         "value"   => "t",
+         "note"    => "Leave Allow include is daily allowance",
+         "default" => "f",
+     ],
+     "strLeaveHidezero"           => [
+         "code"    => "leave_allowance_hidezero",
+         "value"   => "t",
+         "note"    => "Leave Allow  is hidden if the value is zero",
+         "default" => "f",
+     ],*/
     //"strLeaveMultival" => array("code" => "leave_allowance_multival", "value" => "f", "note" => "Indicator of Out Fix Allow ", "default" => "t",),
     //Jamsostek Allowance
     "strJamsAllowName"           => [
@@ -687,7 +687,7 @@ $arrSetting = [
     ],
     //"strJkmAllowMultival" => array("code" => "jkm_allowance_multival", "value" => "f", "note" => "Indicator of Out Fix Allow ", "default" => "t",),
     //Jkm Allowance
-    "strSeniorityAllowName"     => [
+    /*"strSeniorityAllowName"     => [
         "code"    => "seniority_allowance_name",
         "value"   => "Seniority Allowance",
         "note"    => "Display Name for Seniority Allow",
@@ -758,9 +758,9 @@ $arrSetting = [
         "value"   => "t",
         "note"    => "Seniority Allow  is hidden if the value is zero",
         "default" => "f",
-    ],
+    ],*/
     //"strJkmAllowMultival" => array("code" => "jkm_allowance_multival", "value" => "f", "note" => "Indicator of Out Fix Allow ", "default" => "t",),
-    "strKerajinanAllowName"     => [
+    /*"strKerajinanAllowName"     => [
         "code"    => "kerajinan_allowance_name",
         "value"   => "Kerajinan Allowance",
         "note"    => "Display Name for Kerajinan Allow",
@@ -831,7 +831,7 @@ $arrSetting = [
         "value"   => "t",
         "note"    => "Kerajinan Allow  is hidden if the value is zero",
         "default" => "f",
-    ],
+    ],*/
     //"strJkmAllowMultival" => array("code" => "jkm_allowance_multival", "value" => "f", "note" => "Indicator of Out Fix Allow ", "default" => "t",),
     //pension Allowance
     "strPensionAllowName"       => [
@@ -978,6 +978,80 @@ $arrSetting = [
         "note"    => "BPJS allowance  is hidden if the value is zero",
         "default" => "f",
     ],
+    // JSHK Allowance
+    "strJSHKAllowanceName"       => [
+        "code"    => "jshk_allowance_name",
+        "value"   => "JSHK allowance",
+        "note"    => "Display Name for JSHK",
+        "default" => "JSHK allowance",
+    ],
+    "strJSHKAllowanceAmount"     => [
+        "code"    => "jshk_allowance",
+        "value"   => "0.4",
+        "note"    => "Amount for JSHK allowance %",
+        "default" => "0.4",
+    ],
+    "strJSHKAllowanceActive"     => [
+        "code"    => "jshk_allowance_active",
+        "value"   => "t",
+        "note"    => "Is JSHK allowance Active?",
+        "default" => "t",
+    ],
+    "strJSHKAllowanceIr"         => [
+        "code"    => "jshk_allowance_irregular",
+        "value"   => "f",
+        "note"    => "Is Irregular",
+        "default" => "f",
+    ],
+    "strJSHKAllowanceBen"        => [
+        "code"    => "jshk_allowance_benefit",
+        "value"   => "t",
+        "note"    => "Is Benefit",
+        "default" => "t",
+    ],
+    "strJSHKAllowanceShow"       => [
+        "code"    => "jshk_allowance_show",
+        "value"   => "f",
+        "note"    => "Show JSHK allowance ",
+        "default" => "f",
+    ],
+    "strJSHKAllowanceProrate"    => [
+        "code"    => "jshk_allowance_prorate",
+        "value"   => "f",
+        "note"    => "Prorate JSHK allowance ",
+        "default" => "f",
+    ],
+    "strJSHKAllowanceOT"         => [
+        "code"    => "jshk_allowance_ot",
+        "value"   => "f",
+        "note"    => "JSHK allowance include OT",
+        "default" => "f",
+    ],
+    "strJSHKAllowanceTax"        => [
+        "code"    => "jshk_allowance_tax",
+        "value"   => "t",
+        "note"    => "JSHK allowance include in tax",
+        "default" => "t",
+    ],
+    "strJSHKAllowanceJams"       => [
+        "code"    => "jshk_allowance_jams",
+        "value"   => "f",
+        "note"    => "JSHK allowance include in jamsostek",
+        "default" => "f",
+    ],
+    "strJSHKAllowanceDaily"      => [
+        "code"    => "jshk_allowance_daily",
+        "value"   => "f",
+        "note"    => "JSHK allowance include is daily allowance",
+        "default" => "f",
+    ],
+    "strJSHKAllowanceHidezero"   => [
+        "code"    => "jshk_allowance_hidezero",
+        "value"   => "f",
+        "note"    => "JSHK allowance  is hidden if the value is zero",
+        "default" => "f",
+    ],
+    //Jamostek Deduction
     "strJamsDeducName"     => [
         "code"    => "jamsostek_deduction_name",
         "value"   => "Jamsostec Deduction",
@@ -1210,7 +1284,8 @@ $arrSetting = [
         "note"    => "late Deduc is hidden if the value is zero",
         "default" => "f",
     ],
-    "strZakatName"     => [
+    // Zakat
+    /*"strZakatName"     => [
         "code"    => "zakat_deduction_name",
         "value"   => "Zakat Deduction",
         "note"    => "Display Name for Zakat",
@@ -1269,7 +1344,7 @@ $arrSetting = [
         "value"   => "t",
         "note"    => "Zakat Deduc is hidden if the value is zero",
         "default" => "f",
-    ],
+    ],*/
     //"strZakatMultival" => array("code" => "zakat_deduction_multival", "value" => "t", "note" => "Indicator of Out Fix Allow ", "default" => "t",),
     "strBPJSDeducName"        => [
         "code"    => "bpjs_deduction_name",
@@ -1414,6 +1489,7 @@ $arrFixAllowance = [
     "JkmAllow"      => ["jkm allowance", "%"],
     "BPJSAllowance" => ["BPJS allowance", "%"],
     "PensionAllow"  => ["Pension allowance", "%"],
+    "JSHKAllowance" => ["JSHK allowance", "%"],
 ];
 // daftar tunjangan yang "FIX" -> settingnya dari data master
 $arrFixAllowance2["Overtime"] = ["overtime allowance", ""];
