@@ -1,45 +1,107 @@
-<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<script src="ylib.js"></script>
 <script>
-  function goUrl(url) {
-    if (url != "") {
 
-      if (document.formInput.dataEmployeeID.value == "") {
-        alert("Please save data first");
-      } else {
-        location.href = url + ".php?dataID=" + document.formInput.dataID.value;
-      }
+    function insertDate(tgl) {
+        if (tgl != "" && tgl != 'undefined') {
+            document.formInput.dataDate.value = tgl;
+        }
+    } //insertDate
+
+    //fungsi nampilin pesan saat submit
+    function onImport() {
+        var obj = document.getElementById("pesan");
+        if (typeof obj != "undefined")
+            obj.innerHTML = "Import in progresss ...please wait ...";
     }
-  }//goUrl
+    // fungsi untuk inisialisasi
+    function initPage_() {
+//    Calendar.setup({ inputField:"dataDateFrom", button:"btnDateFrom" });
+//    Calendar.setup({ inputField:"dataDateThru", button:"btnDateThru" });
+    }//initPage
 </script>
+[var.pageHeader]
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form action=""
+                  method="post"
+                  name="formInput"
+                  id="formInput"
+                  enctype="multipart/form-data"
+                  onSubmit="onImport()">
+                <table align="left" border="0" cellpadding="1" cellspacing="0" width="300">
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <!--td nowrap>&nbsp;[var.strWordsEmployeeFile]</td>
+                        <td align="center"></td>
+                        <td nowrap>[var.strInputFile]&nbsp;</td-->
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"
+                                   for="detailDoc" style="margin-top: 20px;">[var.strWordsEmployeeFile]</label><br />
 
-<table width="90%" border="0" cellpadding="0" cellspacing="0">
-  <tr>
-    <td colspan="2" align="left">&nbsp;</td>
-  </tr>
-  <tr>
-    <td colspan="2" align="left" class="pageHeaderTitle"> <table border="0" cellspacing="0" cellpadding="2">
-        <tr>
-          <td width="30"><img src="[var.pageIcon]" border="0" width="30" /></td>
-          <td nowrap class="pageHeaderTitleText">[var.strWordsEmployeeData]</td>
-        </tr>
-      </table></td>
-  </tr>
-  <tr>
-    <td colspan="2">&nbsp;</td>
-  </tr>
-  <tr align="left"> <td valign="top" class="inputBox">
-      <form action="" method="post" enctype="multipart/form-data"  name="formInput" id="formInput" onsubmit="return validInput();">
-      <table>
-     <tr>
-      [var.strInputImport]
-     </tr></table>
-      </form>
-    </td>
-  </tr>
-    <tr>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td [var.strMsgClass] align="center">[var.strMessages]</td>
-  </tr>
-</table>
+                            <div class="col-sm-6 fileinput fileinput-new" data-provides="fileinput">
+                                    <span class="btn btn-success btn-file"><span class="fileinput-new">Select file</span><span
+                                            class="fileinput-exists">Change</span>[var.strInputFile]</span>
+                                <span class="fileinput-filename"></span>
+                                <i class="fa fa-times fileinput-exists" data-dismiss="fileinput"></i>
+                            </div>
+                        </div>
+                    </tr>
+                    <tr>
+                        <!--td nowrap>&nbsp;[var.strWordsDownloadTemplate]</td>
+                        <td align="center"></td>
+                        <td nowrap>[var.strDownloadFiles]&nbsp;</td-->
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" style="margin-top: 20px;">[var.strWordsDownloadTemplate]</label>
+                            <div class="col-sm-6">[var.strDownloadFiles]</div>
+                        </div>
+                    </tr>
+
+
+                    <tr valign="top">
+                        <!--td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td nowrap><input name="btnImport" id="btnImport" value="[var.strWordsImport]" type="submit">
+                            &nbsp;<strong id='pesan'></strong>
+                        </td-->
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <input class="btn btn-small btn-primary" name="btnImport" id="btnImport" value=[var.strWordsImport] type="submit">
+                            </div>
+                        </div>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <form action="" method="post" name="formData" id="formData">
+                    <tr>
+                        <td id="strProcess">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><strong>[var.strMessage]</strong></td>
+                    </tr>
+                </form>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    initPage_();
+</script>
