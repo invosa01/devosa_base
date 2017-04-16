@@ -2148,7 +2148,7 @@ class clsSalaryCalculation
         $arrDt = explode("-", $strSalaryDate);
         $strSalaryMonth = (int)$arrDt[1];
         $strSalaryYear = $arrDt[0];
-        $strSQL = "SELECT count(*) as total_data FROM hrd_salary_detail WHERE id_salary_master IN (SELECT id FROM hrd_salary_master WHERE status >=2 AND EXTRACT(MONTH FROM salary_date) = $strSalaryMonth
+        $strSQL = "SELECT count(*) as total_data FROM hrd_salary_detail AS t1 WHERE id_salary_master IN (SELECT id FROM hrd_salary_master AS t2 WHERE status >=2 AND EXTRACT(MONTH FROM salary_date) = $strSalaryMonth
                   AND EXTRACT(YEAR FROM salary_date) = $strSalaryYear) AND id_employee = $strID;";
         /*echo "Salary Month : ".$strSalaryMonth." Salary Year : ".$strSalaryYear."<br/>";
         echo $strSQL;
@@ -2177,7 +2177,7 @@ class clsSalaryCalculation
         $arrDt = explode("-", $strSalaryDate);
         $strSalaryMonth = (int)$arrDt[1];
         $strSalaryYear = $arrDt[0];
-        $strSQL = "SELECT count(*) as total_data FROM hrd_salary_detail WHERE id_salary_master = (SELECT id FROM hrd_salary_master WHERE status >=2 AND EXTRACT(MONTH FROM salary_date) = $strSalaryMonth
+        $strSQL = "SELECT count(*) as total_data FROM hrd_salary_detail AS t1 WHERE id_salary_master IN (SELECT id FROM hrd_salary_master AS t2 WHERE status >=2 AND EXTRACT(MONTH FROM salary_date) = $strSalaryMonth
                   AND EXTRACT(YEAR FROM salary_date) = $strSalaryYear) AND id_employee = $strID AND prorate <> 1;";
         $resDb = $this->data->execute($strSQL);
         while ($rowDb = $this->data->fetchrow($resDb)) {
@@ -2258,6 +2258,7 @@ class clsSalaryCalculation
         }
         $resExec = $this->data->execute($strSQL);
         if ($resExec == false) {
+            //die(strSQL);
             $bolOK = false;
         }
         // save data master allowance
