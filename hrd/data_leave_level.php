@@ -57,16 +57,18 @@ function getFormInput() {
  * @return string
  */
 function getDataGrid() {
+    global $myDataGrid;
     # Declare db class.
     $db = new CdbClass();
     # Declare datagrid class.
-    $myDataGrid = new cDataGrid('form1', 'DataGrid1', '100%', '100%', true, false, false, true);
+    $myDataGrid = new cDataGrid('formData', 'DataGrid1', '100%', '100%', true, false, false, true);
     $myDataGrid->setAJAXCallBackScript(basename($_SERVER['PHP_SELF']));
 
     $myDataGrid->addColumnCheckbox(new DataGrid_Column('chkID', 'id', ['align' => 'center', 'width' => '5'], ['align' => 'center']));
     $myDataGrid->addColumn(new DataGrid_Column(getWords('Level Code'), 'level_code', '', ['align' => 'left']));
     $myDataGrid->addColumn(new DataGrid_Column(getWords('Maximal Leave Quota'), 'max_quota', '', ['align' => 'left']));
-
+    $myDataGrid->addColumn(new DataGrid_Column(getWords('Edit'), '', '', ['align' => 'left']));
+    $myDataGrid->addSpecialButton('btnDelete', 'btnDelete', 'submit', getWords('delete'), '', 'deleteData()');
     $myDataGrid->getRequest();
     # Get total data.
     $strSQLCount = "SELECT COUNT(id) FROM hrd_leave_level_quota ";
@@ -118,5 +120,13 @@ function saveData() {
  * @return void
  */
 function deleteData() {
-
+    global $myDataGrid;
+    $db = new CdbClass();
+    $strSQL = "";
+    foreach ($myDataGrid->checkboxes as $strValue) {
+        $strSQL .= "DELETE FROM hrd_leave_level_quota WHERE id = $strValue; ";
+    }
+    if ($db->connect()) {
+        $db->execute($strSQL);
+    }
 }
