@@ -2167,4 +2167,42 @@ function getDateSettingList($db, $varname, $default = "", $extra = "", $criteria
     }
     return $strResult;
 }
+
+/**
+ * Function to create a list of leave level quota.
+ *
+ * @param            $db
+ * @param            $varname
+ * @param string     $default
+ * @param string     $extra
+ * @param string     $criteria
+ * @param string     $action
+ * @param bool|false $listonly
+ *
+ * @return string
+ */
+function getLeaveLevelList($db, $varname, $default = "", $extra = "", $criteria = "", $action = "", $listonly = false)
+{
+    $strResult = "";
+    if (!$listonly) {
+        $strResult .= "<select id=\"$varname\" name=\"$varname\" class=\"form-control select2\" $action>\n";
+    }
+    $strResult .= $extra;
+    $strSQL = "SELECT * FROM hrd_leave_level_quota $criteria ORDER BY id ";
+    $resDb = $db->execute($strSQL);
+    while ($rowDb = $db->fetchrow($resDb)) {
+        $strCode = $rowDb['level_code'];
+        ($strCode == $default) ? $strSelect = "selected" : $strSelect = "";
+        $strResult .= "<option value=\"$strCode\" $strSelect>$strCode ";
+        if ($rowDb['max_quota'] != "") {
+            $strResult .= "   - " .$rowDb['max_quota']. " days";
+        }
+        $strResult .= " </option>\n";
+    }
+    if (!$listonly) {
+        $strResult .= "</select>\n";
+    }
+    return $strResult;
+}
+
 ?>
