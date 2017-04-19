@@ -441,6 +441,7 @@ class clsSalaryCalculation
         $fltBPJSDeduction = (isset($this->arrConf['bpjs_deduction'])) ? $this->arrConf['bpjs_deduction'] : 0;
         $fltPensionAllowance = (isset($this->arrConf['pension_allowance'])) ? $this->arrConf['pension_allowance'] : 0;
         $fltPensionDeduction = (isset($this->arrConf['pension_deduction'])) ? $this->arrConf['pension_deduction'] : 0;
+        $fltJSHKAllowance = (isset($this->arrConf['jshk_allowance'])) ? $this->arrConf['jshk_allowance'] : 0;
         $bolJkkAllowanceTax = (isset($this->arrMA['jkk_allowance']['tax']) && $this->arrMA['jkk_allowance']['tax'] == 't');
         $bolJkmAllowanceTax = (isset($this->arrMA['jkm_allowance']['tax']) && $this->arrMA['jkm_allowance']['tax'] == 't');
         $bolJamsAllowanceTax = (isset($this->arrMA['jamsostek_allowance']['tax']) && $this->arrMA['jamsostek_allowance']['tax'] == 't');
@@ -449,10 +450,12 @@ class clsSalaryCalculation
         $bolBPJSDeductionTax = (isset($this->arrMD['bpjs_deduction']['tax']) && $this->arrMD['bpjs_deduction']['tax'] == 't');
         $bolPensionAllowanceTax = (isset($this->arrMA['pension_allowance']['tax']) && $this->arrMA['pension_allowance']['tax'] == 't');
         $bolPensionDeductionTax = (isset($this->arrMD['pension_deduction']['tax']) && $this->arrMD['pension_deduction']['tax'] == 't');
+        $bolJSHKAllowanceTax = (isset($this->arrMD['jshk_allowance']['tax']) && $this->arrMD['jshk_allowance']['tax'] == 't');
         foreach ($this->arrDetail AS $strID => $arrInfo) {
             $bolGetJamsostek = $this->arrEmployee[$strID]['get_jamsostek'];
             $bolGetBPJS = $this->arrEmployee[$strID]['get_bpjs'];
             $bolGetPension = $this->arrEmployee[$strID]['get_pension'];
+            $bolGetJSHK = $this->arrEmployee[$strID]['get_jshk'];
             $fltProrate = $this->arrDetail[$strID]['prorate'];
             $baseJamsostek = 0;
             $baseBPJS = 0;
@@ -469,10 +472,10 @@ class clsSalaryCalculation
             $baseJamsostek = $this->arrDetail[$strID]['base_jamsostek'];
             $basePension = ($baseJamsostek > $this->arrConf['pension_max']) ? $this->arrConf['pension_max'] : $baseJamsostek;
             $baseBPJS = ($baseJamsostek > $this->arrConf['bpjs_max']) ? $this->arrConf['bpjs_max'] : $baseJamsostek;
-
-            if ($fltProrate == 0) {
+            $baseJSHK = $this->arrDetail[$strID]['base_jamsostek'];
+            /*if ($fltProrate == 0) {
                 $basePension = 0;
-            }
+            }*/
             //base jamsostek di prorata
             $this->arrDetail[$strID]['jkk_allowance'] = ($fltJkkAllowance / 100) * $baseJamsostek;
             $this->arrDetail[$strID]['jkm_allowance'] = ($fltJkmAllowance / 100) * $baseJamsostek;
@@ -491,6 +494,7 @@ class clsSalaryCalculation
                 $this->arrDetail[$strID]['pension_allowance'] = ($fltPensionAllowance / 100) * $basePension;
                 $this->arrDetail[$strID]['pension_deduction'] = ($fltPensionDeduction / 100) * $basePension;
             }
+            //Custom for ICW
             //$baseBPJS = $this->arrConf['bpjs_max'] + $this->arrDA['tambahan_base_bpjs_kesehatan'][$strID]['amount'];
             /* $baseBPJSByRange = getBaseBpjsByRange($this->data, $baseBPJS, $this->arrEmployee[$strID]['company_id']);
              if ($baseBPJSByRange > 0) {
@@ -501,6 +505,10 @@ class clsSalaryCalculation
             if ($bolGetBPJS != "1") {
                 $this->arrDetail[$strID]['bpjs_allowance'] = 0;
                 $this->arrDetail[$strID]['bpjs_deduction'] = 0;
+            }
+            $this->arrDetail[$strID]['jshk_allowance'] = ($fltJSHKAllowance / 100) * $baseJSHK;
+            if ($bolGetJSHK != "1") {
+                $this->arrDetail[$strID]['jshk_allowance'] = 0;
             }
             if (($this->isResignLastMonth($strID) && $this->isPaidProratedLastMonth(
                         $strID
@@ -514,6 +522,7 @@ class clsSalaryCalculation
                 $this->arrDetail[$strID]['pension_deduction'] = 0;
                 $this->arrDetail[$strID]['bpjs_allowance'] = 0;
                 $this->arrDetail[$strID]['bpjs_deduction'] = 0;
+                $this->arrDetail[$strID]['jshk_allowance'] = 0;
             }
             if ($bolJkkAllowanceTax) {
                 $this->arrDetail[$strID]['base_tax'] += $this->arrDetail[$strID]['jkk_allowance'];
@@ -538,6 +547,9 @@ class clsSalaryCalculation
             } // as base tax
             if ($bolBPJSDeductionTax) {
                 $this->arrDetail[$strID]['base_tax'] -= $this->arrDetail[$strID]['bpjs_deduction'];
+            } // as base tax
+            if ($bolJSHKAllowanceTax) {
+                $this->arrDetail[$strID]['base_tax'] += $this->arrDetail[$strID]['jshk_allowance'];
             } // as base tax
         }
     }
@@ -1672,7 +1684,7 @@ class clsSalaryCalculation
         $this->objAtt->generateAbsenceReport();
         $this->objAtt->generatePartialAbsenceReport();
         $strSQL = "
-        SELECT te.id, te.employee_id, te.employee_name, te.id_company,  te.management_code, te.division_code, te.zakat, te.get_jamsostek, te.get_bpjs, te.get_pension,
+        SELECT te.id, te.employee_id, te.employee_name, te.id_company,  te.management_code, te.division_code, te.zakat, te.get_jamsostek, te.get_bpjs, te.get_pension, te.get_jshk,
           te.department_code, te.sub_department_code, te.section_code, te.sub_section_code, te.position_code, te.branch_code, te.nationality, te.id_company,
           te.employee_status, te.gender, te.functional_code, te.grade_code, tg.ot_platform, tg.ot_platform_amount, te.npwp,
           te.family_status_code, te.tax_status_code, te.join_date, te.due_date, te.active, tp.position_group, tp.get_ot, tp.ot_limit, tp.ot_meal_fee,
