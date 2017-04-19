@@ -511,32 +511,35 @@ function getLeaveHoliday($strStartDate, $strFinishDate)
     $intPeriod = $intMBCN;
     $intTerm = intval($strYear) - intval(substr($strJoinDate, 0, 4));
     $strToday = date('Y-m-d');
+    # Leave method prorate.
     if ($this->bolProrate) {
       $arrDuration = getDateInterval($strJoinDate, $strToday);
-      if ($intTerm > 1) {
+      # Work period is equal or more than one year.
+      if ($intTerm >= 1) {
         $intQuota = $fltLeaveQuota;
       }
-      else if ($intTerm === 1) {
-        if ($arrDuration['year'] == 1) {
+      # Work period is less than one year.
+      else {
+        # Work period is equal one year.
+        if ($arrDuration['year'] === 1 && $arrDuration['month'] === 0) {
           $intQuota = $fltLeaveQuota;
         }
+        # Work period is less than one year
         else {
           $intQuota = ($fltLeaveQuota/12) * $arrDuration['month'];
         }
       }
-      else {
-        $intQuota = ($fltLeaveQuota/12) * $arrDuration['month'];
-      }
     }
+    # Leave method January cutoff.
     else if ($this->bolCutoff) {
       if ($intTerm >= 1) {
         $intQuota = $fltLeaveQuota;
       }
       else {
-
         $intQuota = 0;
       }
     }
+    # Leave method join date.
     else if ($this->bolJoinDate) {
       if ($intTerm >= 1) {
         $intQuota = $fltLeaveQuota;
@@ -545,47 +548,6 @@ function getLeaveHoliday($strStartDate, $strFinishDate)
         $intQuota = 0;
       }
     }
-    //Initial leave quota is taken from general setting Initial Leave Quota
-    //Holiday Leave is ignored on the first year
-    //if ($intTerm == 1 && $this->bolProrate) {
-    //  $arrDur = getDateInterval($strJoinDate, $strStart);
-    //  if ($arrDur['year'] == 1) {
-    //    $intQuota = $fltLeaveQuota;
-    //  } else {
-    //    // untuk prorate-nya
-    //    $dateJoin = date_create($strJoinDate);
-    //    $dateFirstJan = date_create($strYear . "-01-01");
-    //    $diff = date_diff($dateJoin, $dateFirstJan);
-    //    $dayQuota = floor(($diff->days % 365) / 30);
-    //    $intQuota = $dayQuota;
-    //  }
-    //} elseif ($intTerm <= 0) {
-    //  $intQuota = 0;
-    //} else if ($intTerm == 1 && $this->bolCutoff) {
-    //  //Tahun 1 = prorata dari 31 Des thn itu
-    //  $strStart = substr($strJoinDate, 0, 4) . "-12-31";
-    //  $arrDur = getDateInterval($strJoinDate, $strStart);
-    //  $intQuota = $arrDur['month'];  //pembulatan kebawah
-    //}
-    ////Normal & add posibility grand leave
-    //else if ($intTerm > 1) {
-    //  $intQuota = $fltLeaveQuota;
-    //  $intTerm = $intTerm - 1;
-    //  // Aturan cuti besar wanaarta
-    //  $intMod5year = floor($intTerm / $intPCB); // cari kelipatan 5 nya
-    //  if ($intMod5year > 0) { // jika kelipatan lebih besar dari 1 maka masa kerja dipastikan lebih dari 5 tahun maka dapet tambahan cuti
-    //    if ($intMod5year < $intPCB) { // jika masa kerja kurang dari 25 tahun
-    //      $intQuota += 1 + $intMod5year;  // cuti ditambah 1 + kelipatan bulat per 5 tahun
-    //    } else if ($intMod5year == $intPCB) {         // masa kerja diatas 5 tahun
-    //      $intQuota += 2 + $intMod5year;
-    //    } else {   // sisanya masa kerja diatas 30 tahun
-    //      $intQuota += 3 + $intMod5year;
-    //    }
-    //  }
-    //} else //Normal leave quota is taken from general setting Leave Quota.
-    //{
-    //  $intQuota = $fltLeaveQuota;
-    //}
     $intHoliday = $this->getLeaveHoliday($strStart1, $strFinish);
     //by Brian - mulai tambahan untuk masa berlaku cuti besar
     //hitung tanggal expired
