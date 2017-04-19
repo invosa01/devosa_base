@@ -401,8 +401,6 @@ function getLeaveHoliday($strStartDate, $strFinishDate)
         $strResult = $strYear . "-" . $arrTmp['month'] . "-" . $arrTmp['day'];
         $strResult = pgDateFormat($strResult, "Y-m-d");// biar rapi saja
       }
-    } else if ($this->bolProrate) {
-      $strResult = $strYear . "-01-01";
     } else {
       $strResult = "";
       if ($strYear == "" || $strJoinDate == "") {
@@ -519,7 +517,7 @@ function getLeaveHoliday($strStartDate, $strFinishDate)
         $intQuota = $fltLeaveQuota;
       }
       # Work period is less than one year.
-      else {
+      else if ($intTerm === 0) {
         # Work period is equal one year.
         if ($arrDuration['year'] === 1 && $arrDuration['month'] === 0) {
           $intQuota = $fltLeaveQuota;
@@ -528,6 +526,9 @@ function getLeaveHoliday($strStartDate, $strFinishDate)
         else {
           $intQuota = ($fltLeaveQuota/12) * $arrDuration['month'];
         }
+      }
+      else {
+        $intQuota = 0;
       }
     }
     # Leave method January cutoff.
