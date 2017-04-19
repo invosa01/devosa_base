@@ -532,8 +532,12 @@ function getLeaveHoliday($strStartDate, $strFinishDate)
     }
     # Leave method January cutoff.
     else if ($this->bolCutoff) {
+      $arrDuration = getDateInterval($strJoinDate, $strYear.'-01-01');
       if ($intTerm >= 1) {
         $intQuota = $fltLeaveQuota;
+      }
+      else if ($intTerm === 0) {
+        $intQuota = ($fltLeaveQuota/12) * (12 - $arrDuration['month'] + 1);
       }
       else {
         $intQuota = 0;
