@@ -483,12 +483,14 @@ function getLeaveHoliday($strStartDate, $strFinishDate)
       return false;
     }
     $strJoinDate = $this->arrEmployee[$strID]['join_date'];
-
+    # Get max leave quota referencing hrd_employee.
     $fltLeaveQuota = 0;
-    $strSQL = "SELECT max_quota FROM hrd_leave_level_quota WHERE level_code = '".$this->arrEmployee[$strID]['leave_level_code']."';";
-    $res = $this->data->execute($strSQL);
-    if ($row = $this->data->fetchrow($res)) {
-      $fltLeaveQuota = $row['max_quota'];
+    if (isset($this->arrEmployee[$strID]['leave_level_code']) && $this->arrEmployee[$strID]['leave_level_code'] !== '') {
+      $strSQL = "SELECT max_quota FROM hrd_leave_level_quota WHERE level_code = '".$this->arrEmployee[$strID]['leave_level_code']."';";
+      $res = $this->data->execute($strSQL);
+      if ($row = $this->data->fetchrow($res)) {
+        $fltLeaveQuota = $row['max_quota'];
+      }
     }
     // hapus dulu data lama, biar gak duplicate
     $strSQL = "
@@ -509,6 +511,7 @@ function getLeaveHoliday($strStartDate, $strFinishDate)
     $intPeriod = $intMBCN;
     $intTerm = intval($strYear) - intval(substr($strJoinDate, 0, 4));
     $strToday = date('Y-m-d');
+    $intQuota = 0;
     # Leave method prorate.
     if ($this->bolProrate) {
       $arrDuration = getDateInterval($strJoinDate, $strToday);
@@ -518,11 +521,11 @@ function getLeaveHoliday($strStartDate, $strFinishDate)
       }
       # Work period is less than one year.
       else if ($intTerm === 0) {
-        # Work period is equal one year.
+        # Work period is less than one year in different year.
         if ($arrDuration['year'] === 1 && $arrDuration['month'] === 0) {
           $intQuota = $fltLeaveQuota;
         }
-        # Work period is less than one year
+        # Work period is less than one year in the same year.
         else {
           $intQuota = ($fltLeaveQuota/12) * $arrDuration['month'];
         }

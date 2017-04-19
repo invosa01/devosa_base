@@ -43,10 +43,14 @@ $tbsPage->Show();
 function getFormInput() {
     global $f;
     # Declare form class.
-    $f = new clsForm('form1', 1, '100%');
+    $f = new clsForm('form1', 3, '100%');
     $f->addInput(getWords('Leave Level'), 'dataLeaveLevel', '', '', 'string', true, true, true);
     $f->addInput(getWords('Yearly Quota'), 'dataYearlyQuota', '', '', 'numeric', true, true, true);
-    $f->addSubmit('btnSave', getWords('Save'), '', true, true, '', '', 'saveData()');
+    $f->addLabel('','','');
+    $f->addLabel('','','');
+    $f->addLabel('','','');
+    $f->addLabel('','','');
+    $f->addSubmit('btnSave', getWords('Save'), 'onclick = "return validInput();"', true, true, '', '', 'saveData()');
 
     return $f->render();
 }
