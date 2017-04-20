@@ -558,14 +558,78 @@ function getDataGrid($db, $strCriteria, $bolLimit = true, $isFullView = false, $
     );
     $myDataGrid->addColumn(
         new DataGrid_Column(
-            getWords("join date"),
-            "join_date",
-            ["rowspan" => 2, "width" => 70],
-            ["nowrap" => "nowrap"],
+            getWords("division"),
+            "division_code",
+            ["rowspan" => 2, "width" => 30],
+            null,
             true,
             true,
             "",
-            "formatDate()",
+            "getDivisionName()",
+            "string",
+            true,
+            12,
+            false
+        )
+    );
+    $myDataGrid->addColumn(
+        new DataGrid_Column(
+            getWords("position"),
+            "position_code",
+            array("rowspan" => 2, "width" => 80),
+            array("nowrap" => "nowrap"),
+            true,
+            true,
+            "",
+            "",
+            "string",
+            true,
+            6,
+            false
+        )
+    );
+    $myDataGrid->addColumn(
+        new DataGrid_Column(
+            getWords("grade"),
+            "grade_code",
+            ["rowspan" => 2, "width" => 30],
+            null,
+            true,
+            true,
+            "",
+            "",
+            "string",
+            true,
+            12,
+            false
+        )
+    );
+    $myDataGrid->addColumn(
+        new DataGrid_Column(
+            getWords("id card"),
+            "id_card",
+            ["rowspan" => 2, "width" => 30],
+            null,
+            true,
+            true,
+            "",
+            "",
+            "string",
+            true,
+            12,
+            false
+        )
+    );
+    $myDataGrid->addColumn(
+        new DataGrid_Column(
+            getWords("npwp"),
+            "npwp",
+            ["rowspan" => 2, "width" => 30],
+            null,
+            true,
+            true,
+            "",
+            "",
             "string",
             true,
             12,
@@ -606,14 +670,14 @@ function getDataGrid($db, $strCriteria, $bolLimit = true, $isFullView = false, $
     );
     $myDataGrid->addColumn(
         new DataGrid_Column(
-            getWords("npwp"),
-            "npwp",
-            ["rowspan" => 2, "width" => 30],
-            null,
+            getWords("join date"),
+            "join_date",
+            ["rowspan" => 2, "width" => 70],
+            ["nowrap" => "nowrap"],
             true,
             true,
             "",
-            "",
+            "formatDate()",
             "string",
             true,
             12,
@@ -622,30 +686,14 @@ function getDataGrid($db, $strCriteria, $bolLimit = true, $isFullView = false, $
     );
     $myDataGrid->addColumn(
         new DataGrid_Column(
-            getWords("grade"),
-            "grade_code",
-            ["rowspan" => 2, "width" => 30],
-            null,
+            getWords("resign date"),
+            "resign_date",
+            ["rowspan" => 2, "width" => 70],
+            ["nowrap" => "nowrap"],
             true,
             true,
             "",
-            "",
-            "string",
-            true,
-            12,
-            false
-        )
-    );
-    $myDataGrid->addColumn(
-        new DataGrid_Column(
-            getWords("division"),
-            "division_code",
-            ["rowspan" => 2, "width" => 30],
-            null,
-            true,
-            true,
-            "",
-            "getDivisionName()",
+            "formatDate()",
             "string",
             true,
             12,
@@ -1100,7 +1148,7 @@ function getDataGrid($db, $strCriteria, $bolLimit = true, $isFullView = false, $
     }
     //get Data and set to Datagrid's DataSource by set the data binding (bind method)
     $strSQL = "
-      SELECT t1.*, t2.employee_name as nama, t2.join_date, t2.gender, t2.salary_currency,
+      SELECT t1.*, t2.employee_name as nama, t2.join_date, t2.gender, t2.salary_currency, t2.resign_date, t2.id_card,
         t3.position_group, 0 as absence, t4.weight AS grade_weight
         $strOtherAllowance $strOtherDeduction
       FROM (
@@ -1108,7 +1156,7 @@ function getDataGrid($db, $strCriteria, $bolLimit = true, $isFullView = false, $
         FROM hrd_salary_detail WHERE id_salary_master = '$strDataID'
       ) AS t1
       LEFT JOIN (
-        SELECT id, employee_name, join_date, id_company, gender, salary_currency
+        SELECT id, employee_name, join_date, resign_date, id_card, id_company, gender, salary_currency
         FROM hrd_employee WHERE 1=1 $strCriteria
       ) AS t2 ON t1.id_employee = t2.id
       LEFT JOIN (

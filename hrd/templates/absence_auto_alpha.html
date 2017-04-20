@@ -1,0 +1,123 @@
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-actions">
+                        <div class="pull-right" id="collapse-filter-1">
+                            <a href="#"
+                               data-toggle="collapse"
+                               data-target="#auto-alpha"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="panel-title">Auto Alpha</h3>
+                </div>
+                <div id="auto-alpha" class="panel-body collapse in">
+                    [var.strMsgAutoAlpha]
+                    <form class="form-horizontal" action="" method="post" name="formInput" id="formAutoAlpha">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label" for="dataDateUnpaidLeaveFrom">Absence Type</label>
+
+                            <div class="col-sm-2">
+                                <div class="input-group has-error">
+                                    [var.strInputTypeAutoAlpha]
+                                    Empty attendance on selected period will be treated as absence with selected absence type.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label" for="dataDateAutoAlphaFrom">Date From</label>
+
+                            <div class="col-sm-2">
+                                <div class="input-group has-error">
+                                    [var.strInputDateAutoAlphaFrom]
+                                    <span class="input-group-addon">
+    		                            <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label" for="dataDateAutoAlphaThru">Date Thru</label>
+
+                            <div class="col-sm-2">
+                                <div class="input-group has-error">
+                                    [var.strInputDateAutoAlphaThru]
+                                    <span class="input-group-addon">
+    		                            <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">&nbsp;</label>
+                            <div class="col-sm-2">
+                                [var.strBtnAutoAlpha]
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-actions">
+                        <div class="pull-right" id="collapse-filter-2">
+                            <a href="#"
+                               data-toggle="collapse"
+                               data-target="#sweeping-unpaid-leave"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="panel-title">Sweeping Unpaid Leave</h3>
+                </div>
+                <div id="sweeping-unpaid-leave" class="panel-body collapse in">
+                    [var.strMsgUnpaidLeave]
+                    <form class="form-horizontal" action="" method="post" name="formInput" id="formUnpaidLeave">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label" for="dataDateUnpaidLeaveFrom">Absence Type</label>
+
+                            <div class="col-sm-2">
+                                <div class="input-group has-error">
+                                    [var.strInputTypeUnpaidLeave]
+                                    Selected absence type will be treated as Unpaid Leave.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label" for="dataDateUnpaidLeaveFrom">Date From</label>
+
+                            <div class="col-sm-2">
+                                <div class="input-group has-error">
+                                    [var.strInputDateUnpaidLeaveFrom]
+                                    <span class="input-group-addon">
+    		                            <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label" for="dataDateUnpaidLeaveFrom">Date Thru</label>
+
+                            <div class="col-sm-2">
+                                <div class="input-group has-error">
+                                    [var.strInputDateUnpaidLeaveThru]
+                                    <span class="input-group-addon">
+    		                            <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">&nbsp;</label>
+                            <div class="col-sm-2">
+                                [var.strBtnUnpaidLeave]
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

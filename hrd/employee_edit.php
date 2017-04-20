@@ -352,6 +352,7 @@ function getData($db, &$arrData)
       $arrData['dataBPJS'] = $rowDb['bpjs_no'];
       $arrData['dataBPJSTK'] = $rowDb['bpjs_tk_no'];
       $arrData['dataPensionNo'] = $rowDb['pension_no'];
+      $arrData['dataLeaveLevel'] = $rowDb['leave_level_code'];
       writeLog(ACTIVITY_VIEW, MODULE_PAYROLL, "$strDataID ->" . $rowDb['employee_id'], 0);
     }
   }
@@ -442,6 +443,7 @@ function getData($db, &$arrData)
     $arrData['dataBPJS'] = "";
     $arrData['dataBPJSTK'] = "";
     $arrData['dataPensionNo'] = "";
+    $arrData['dataLeaveLevel'] = '';
   }
   return true;
 } // showData
@@ -1426,11 +1428,11 @@ if ($db->connect()) {
     );
     $strInputLeaveLevel = getLeaveLevelList(
         $db,
-        "dataLeaveLevel",
+        'dataLeaveLevel',
+        $arrData['dataLeaveLevel'],
         '',
-        $strEmptyOption,
-        "",
-        " style=\"width:$intDefaultWidthPx\""
+        '',
+        'style=\"width:$intDefaultWidthPx\"'
     );
     if ($arrData['dataActive'] == '1') {
       $strInputActive = "<div class=\"checkbox\"><label><input class=\"checkbox-inline\" type=checkbox name=dataActive value=1 checked></label></div>";

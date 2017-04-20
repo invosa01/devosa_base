@@ -21,4 +21,13 @@
         </div>
     </div>
 </div>
-
+<script>
+    function validInput() {
+        var numbers = /^[0-9]+$/;
+        var maxQuota = document.getElementById('dataYearlyQuota').value;
+        if (!(maxQuota.match(numbers))) {
+            alert('Please enter number for maximal leave quota!');
+            return false;
+        }
+    }
+</script>
