@@ -38,10 +38,22 @@ if ($bolCanEdit) {
   $f->addTextArea(getWords("note"), "dataNote", "", ["cols" => 68, "rows" => 2], "string", false, true, true, "", "");
   //$f->addCheckBox(getWords("full absence"), "dataFullAbsence", false, array(), "string", false, true, true,"", "");
   $f->addCheckBox(getWords("leave"), "dataIsLeave", false, null, "string", false, true, true, "", "");
-  $f->addCheckBox(getWords("deduct annual leave"), "dataDeductLeave", false, [], "string", false, true, true, "", "");
-  $f->addInput(
+    $f->addLabel(
+    );
+    $f->addCheckBox(getWords("deduct annual leave"), "dataDeductLeave", false, [], "string", false, true, true, "", "");
+    $f->addInput(
       getWords("leave weight"),
       "dataLeaveWeight",
+      "0",
+      ["size" => 10, "maxlength" => 5],
+      "numeric",
+      true,
+      true,
+      true
+  );
+  $f->addInput(
+      getWords("limit"),
+      "limit",
       "0",
       ["size" => 10, "maxlength" => 5],
       "numeric",
@@ -130,6 +142,9 @@ $myDataGrid->addColumn(
 );
 $myDataGrid->addColumn(
     new DataGrid_Column(getWords("leave weight"), "leave_weight", ['width' => '100'], ['nowrap' => ''])
+);
+$myDataGrid->addColumn(
+    new DataGrid_Column(getWords("limit"), "limit", ['width' => '100'], ['nowrap' => ''])
 );
 $myDataGrid->addColumn(
     new DataGrid_Column(
@@ -267,6 +282,7 @@ function saveData()
       "is_leave"               => ($f->getValue('dataIsLeave')) ? 't' : 'f',
       "deduct_leave"           => ($f->getValue('dataDeductLeave')) ? 't' : 'f',
       "leave_weight"           => $f->getValue('dataLeaveWeight'),
+      "limit"                  => $f->getValue('limit'),
       "cancel_partial_absence" => ($f->getValue('dataCancelPartialAbsence')) ? 't' : 'f',
       /*"deduct_attendance" => ($f->getValue('dataDeductAttendance')) ? 't' : 'f',
       "deduct_meal" => ($f->getValue('dataDeductMeal')) ? 't' : 'f',
