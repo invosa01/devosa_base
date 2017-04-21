@@ -51,6 +51,14 @@ $f->addSelect(
     "Mandatory for E-SPT Masa"
 );
 $f->addSelect(
+    getWords("branch"),
+    "dataBranch",
+    getDataListBranch(getInitialValue("Branch"), true, ['value' => '', 'text' => '', 'selected' => true]),
+    ["style" => "width:$strDefaultWidthPx"],
+    "",
+    false
+);
+$f->addSelect(
     getWords("employee status"),
     "employeeStatus",
     getDataListEmployeeStatus(
@@ -94,9 +102,9 @@ $dataGrid = "";
 $strInitAction = "";
 $strStatus = $f->getValue('employeeStatus');
 $strName = $f->getValue('employeeName');
-// $strLevel = $f->getValue('dataLevel');
 $strCompany = $f->getValue('dataCompany');
 $strType = $f->getValue('dataType');
+$strBranch = $f->getValue('dataBranch');
 if ($showReport) {
     $intYear = intval($f->getValue('dataYear'));
     $intMonth = intval($f->getValue('dataMonth'));
@@ -110,14 +118,9 @@ if ($showReport) {
     if ($strCompany != "") {
         $strKriteria .= " AND t1.id_company = $strCompany ";
     }
-    // if($strLevel != "")
-    // {
-    //   if($strLevel == 1)
-    //     $strKriteria .= " AND t2.position_group::INTEGER >= 2 ";
-    //   elseif ($strLevel == 2)
-    //     $strKriteria .= " AND t2.position_group::INTEGER < 2 ";
-    //   else $strKriteria .= " AND t2.position_group::INTEGER >= 0 ";
-    // }
+    if ($strBranch !== '') {
+        $strKriteria .= " AND t1.branch_code = $strBranch ";
+    }
     //if tahunan
     if ($strType != 1) {
         $dataMasterSalary = getMasterSalarybyYearAndMonth($intYear, $intMonth, $strCompany);

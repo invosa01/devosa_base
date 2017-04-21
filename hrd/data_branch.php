@@ -55,6 +55,15 @@ if ($bolCanEdit) {
         true
     );
     $f->addInput(
+        getWords('Branch NPWP'),
+        'dataBranchNPWP',
+        '',
+        ['size' => 30],
+        'string',
+        false,
+        true
+    );
+    $f->addInput(
         getWords("local time difference (min)"),
         "dataLocalTimeDifference",
         "0",
@@ -115,6 +124,7 @@ $myDataGrid->addColumn(
     new DataGrid_Column(getWords("branch code"), "branch_code", ['width' => '150'], ['nowrap' => ''])
 );
 $myDataGrid->addColumn(new DataGrid_Column(getWords("branch name"), "branch_name", ""));
+$myDataGrid->addColumn(new DataGrid_Column(getWords("branch N P W P"), "branch_npwp", ""));
 $myDataGrid->addColumn(
     new DataGrid_Column(
         getWords("local time difference (min)"),
@@ -254,9 +264,10 @@ function saveData()
         "branch_code"           => check_plain($f->getValue('dataCode')),
         "local_time_difference" => $f->getValue('dataLocalTimeDifference'),
         "late_tolerance"        => $f->getValue('dataLateTolerance'),
-        "umk"        => $f->getValue('dataUmk'),
-        "company_id"      => $f->getValue('dataCompanyId'),
-        "branch_name"           => check_plain($f->getValue('dataName'))
+        "umk"                   => $f->getValue('dataUmk'),
+        "company_id"            => $f->getValue('dataCompanyId'),
+        "branch_name"           => check_plain($f->getValue('dataName')),
+        'branch_npwp'           => $f->getValue('dataBranchNPWP')
     ];
     for ($i = 1; $i <= MAX_ALLOWANCE_SET; $i++) {
         $data[$ARRAY_ALLOWANCE_SET[$strSet]['field_name'] . $i] = $f->getValue($strSet . $i);

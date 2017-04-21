@@ -44,7 +44,7 @@ function getFormInput() {
     global $f;
     # Declare form class.
     $f = new clsForm('form1', 3, '100%');
-    $f->addInput(getWords('Leave Level'), 'dataLeaveLevel', '', '', 'string', true, true, true);
+    $f->addSelect(getWords('grade'), 'dataLeaveLevel', getDataListSalaryGrade(), '', '', true, true, true);
     $f->addInput(getWords('Yearly Quota'), 'dataYearlyQuota', '', '', 'numeric', true, true, true);
     $f->addLabel('','','');
     $f->addLabel('','','');
