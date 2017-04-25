@@ -988,7 +988,8 @@ class clsSalaryCalculation
                 $strTaxStatus = $arrInfo['tax_status_code'];
                 $varSalaryDate = $this->arrData['salary_date'];
                 $fltBasic = $arrInfo['base_tax'];
-                $intMethod = ($this->arrConf['tax_method'] == 't') ? 1 : 0;
+                $intTaxMethod = ($this->arrConf['tax_method'] == 't') ? 1 : 0;
+                $intTaxIrregularMethod = ($this->arrConf['tax_irregular_method'] == 't') ? 1 : 0;
                 $fltBasicIrregular = $arrInfo['base_irregular_tax'];
                 $strJoinDate = $this->arrEmployee[$strID]['join_date'];
                 $strResignDate = $this->arrEmployee[$strID]['resign_date'];
@@ -1001,7 +1002,8 @@ class clsSalaryCalculation
                     $this->arrDetail[$strID]['jamsostek_deduction'],
                     $this->arrDetail[$strID]['pension_deduction'],
                     $strID,
-                    $intMethod,
+                    $intTaxMethod,
+                    $intTaxIrregularMethod,
                     $this->arrBaseTaxPayedTaxBefore[$strID],
                     $this->salaryCalcMonth,
                     $this->salaryCalcYear,
@@ -1029,11 +1031,14 @@ class clsSalaryCalculation
             $this->arrDetail[$strID]['calculated_tax'] = ($fltTax < 0) ? $fltTax : 0;
             $this->arrDetail[$strID]['irregular_tax'] = ($fltIrregularTax < 0) ? 0 : $fltIrregularTax;
             $this->arrDetail[$strID]['tax_reduction'] = $objTax->fltPTKP;
-            if ($intMethod == 1) {
+            if ($intTaxMethod == 1 && $intTaxIrregularMethod == 1) {
                 $this->arrDetail[$strID]['tax_allowance'] += $this->arrDetail[$strID]['tax']; // tambah nilai potongan
                 $this->arrDetail[$strID]['base_tax'] += $this->arrDetail[$strID]['tax']; // tambah nilai potongan
-                //$this->arrDetail[$strID]['irregular_tax_allowance'] += $this->arrDetail[$strID]['irregular_tax']; // tambah nilai potongan
-                //$this->arrDetail[$strID]['base_irregular_tax'] += $this->arrDetail[$strID]['irregular_tax']; // tambah nilai potongan
+                $this->arrDetail[$strID]['irregular_tax_allowance'] += $this->arrDetail[$strID]['irregular_tax']; // tambah nilai potongan
+                $this->arrDetail[$strID]['base_irregular_tax'] += $this->arrDetail[$strID]['irregular_tax']; // tambah nilai potongan
+            } elseif ($intTaxMethod == 1 && $intTaxIrregularMethod == 0) {
+                $this->arrDetail[$strID]['tax_allowance'] += $this->arrDetail[$strID]['tax']; // tambah nilai potongan
+                $this->arrDetail[$strID]['base_tax'] += $this->arrDetail[$strID]['tax']; // tambah nilai potongan
             }
             $this->arrDetail[$strID]['total_deduction'] += $this->arrDetail[$strID]['tax']; // tambah nilai potongan
             $this->arrDetail[$strID]['total_deduction'] += $this->arrDetail[$strID]['irregular_tax']; // tambah nilai potongan
@@ -1059,7 +1064,7 @@ class clsSalaryCalculation
             $this->arrDetail[$strID]['total_gross_round'] = $fltRound;      // total gaji yang diterima, dibulatkan
             $this->arrDetail[$strID]['total_gross_irregular'] = $fltIrrTotal;      // total gaji yang diterima, dibulatkan
             if ($this->irregular == 't') {
-                if ($intMethod == 1) {
+                if ($intTaxIrregularMethod == 1) {
                     $this->arrDetail[$strID]['total_gross'] = $fltBasicIrregular;
                 } else {
                     $this->arrDetail[$strID]['total_gross'] = $fltBasicIrregular - $fltIrregularTax;
