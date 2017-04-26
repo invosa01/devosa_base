@@ -1981,6 +1981,7 @@ function employeeEditSubmenu($activePage)
     $strWordsResume = getWords("resume");
     $strWordsStatistik = getWords("statistik");
     $strWordsDokumen = getWords("dokumen");
+    $strWordsCostSharing = getWords('cost sharing');
     $submenu = [];
     $submenuData = [];
     if ($activePage == $strWordsPrimaryInformation) {
@@ -2053,6 +2054,14 @@ function employeeEditSubmenu($activePage)
         $submenuData['link'] = "javascript:goUrl('employee_document')";
     }
     $submenuData['title'] = $strWordsDokumen;
+    $submenu[] = $submenuData;
+    if ($activePage == $strWordsCostSharing) {
+        $submenuData['active'] = true;
+    } else {
+        $submenuData['active'] = false;
+        $submenuData['link'] = "javascript:goUrl('employee_edit_cost_sharing')";
+    }
+    $submenuData['title'] = $strWordsCostSharing;
     $submenu[] = $submenuData;
     return pageSubMenu($submenu);
 }
