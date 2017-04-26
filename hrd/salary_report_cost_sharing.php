@@ -100,11 +100,12 @@ $tbsPage->Show();
 function getDataListSalary() {
     global $db;
     $intCount = 0;
-    $strSQL = "SELECT * FROM hrd_salary_master WHERE status >= 2;";
+    $strSQL = "SELECT t1.salary_date, t1.id, t2.company_name FROM hrd_salary_master AS t1
+               LEFT JOIN hrd_company AS t2 ON t1.id_company = t2.id WHERE t1.status >= 2;";
     $res = $db->execute($strSQL);
     while($row = $db->fetchrow($res)) {
         $arrData[$intCount]['value'] = $row['id'];
-        $arrData[$intCount]['text'] = 'Payroll - '.date('F Y', strtotime($row['salary_date'])).' ('.$row['salary_date'].')';
+        $arrData[$intCount]['text'] = 'Payroll - '.$row['company_name'].' - '.date('F Y', strtotime($row['salary_date'])).' ('.$row['salary_date'].')';
         $intCount++;
     }
     return $arrData;
