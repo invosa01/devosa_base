@@ -441,7 +441,7 @@ class clsSalaryCalculation
         $fltBPJSDeduction = (isset($this->arrConf['bpjs_deduction'])) ? $this->arrConf['bpjs_deduction'] : 0;
         $fltPensionAllowance = (isset($this->arrConf['pension_allowance'])) ? $this->arrConf['pension_allowance'] : 0;
         $fltPensionDeduction = (isset($this->arrConf['pension_deduction'])) ? $this->arrConf['pension_deduction'] : 0;
-        $fltJSHKAllowance = (isset($this->arrConf['jshk_allowance'])) ? $this->arrConf['jshk_allowance'] : 0;
+        $fltJSHKDeduction = (isset($this->arrConf['jshk_deduction'])) ? $this->arrConf['jshk_deduction'] : 0;
         $bolJkkAllowanceTax = (isset($this->arrMA['jkk_allowance']['tax']) && $this->arrMA['jkk_allowance']['tax'] == 't');
         $bolJkmAllowanceTax = (isset($this->arrMA['jkm_allowance']['tax']) && $this->arrMA['jkm_allowance']['tax'] == 't');
         $bolJamsAllowanceTax = (isset($this->arrMA['jamsostek_allowance']['tax']) && $this->arrMA['jamsostek_allowance']['tax'] == 't');
@@ -450,7 +450,7 @@ class clsSalaryCalculation
         $bolBPJSDeductionTax = (isset($this->arrMD['bpjs_deduction']['tax']) && $this->arrMD['bpjs_deduction']['tax'] == 't');
         $bolPensionAllowanceTax = (isset($this->arrMA['pension_allowance']['tax']) && $this->arrMA['pension_allowance']['tax'] == 't');
         $bolPensionDeductionTax = (isset($this->arrMD['pension_deduction']['tax']) && $this->arrMD['pension_deduction']['tax'] == 't');
-        $bolJSHKAllowanceTax = (isset($this->arrMD['jshk_allowance']['tax']) && $this->arrMD['jshk_allowance']['tax'] == 't');
+        $bolJSHKDeductionTax = (isset($this->arrMD['jshk_deduction']['tax']) && $this->arrMD['jshk_deduction']['tax'] == 't');
         foreach ($this->arrDetail AS $strID => $arrInfo) {
             $bolGetJamsostek = $this->arrEmployee[$strID]['get_jamsostek'];
             $bolGetBPJS = $this->arrEmployee[$strID]['get_bpjs'];
@@ -506,9 +506,9 @@ class clsSalaryCalculation
                 $this->arrDetail[$strID]['bpjs_allowance'] = 0;
                 $this->arrDetail[$strID]['bpjs_deduction'] = 0;
             }
-            $this->arrDetail[$strID]['jshk_allowance'] = ($fltJSHKAllowance / 100) * $baseJSHK;
+            $this->arrDetail[$strID]['jshk_deduction'] = ($fltJSHKDeduction / 100) * $baseJSHK;
             if ($bolGetJSHK != "1") {
-                $this->arrDetail[$strID]['jshk_allowance'] = 0;
+                $this->arrDetail[$strID]['jshk_deduction'] = 0;
             }
             if (($this->isResignLastMonth($strID) && $this->isPaidProratedLastMonth(
                         $strID
@@ -522,7 +522,7 @@ class clsSalaryCalculation
                 $this->arrDetail[$strID]['pension_deduction'] = 0;
                 $this->arrDetail[$strID]['bpjs_allowance'] = 0;
                 $this->arrDetail[$strID]['bpjs_deduction'] = 0;
-                $this->arrDetail[$strID]['jshk_allowance'] = 0;
+                $this->arrDetail[$strID]['jshk_deduction'] = 0;
             }
             if ($bolJkkAllowanceTax) {
                 $this->arrDetail[$strID]['base_tax'] += $this->arrDetail[$strID]['jkk_allowance'];
@@ -548,8 +548,8 @@ class clsSalaryCalculation
             if ($bolBPJSDeductionTax) {
                 $this->arrDetail[$strID]['base_tax'] -= $this->arrDetail[$strID]['bpjs_deduction'];
             } // as base tax
-            if ($bolJSHKAllowanceTax) {
-                $this->arrDetail[$strID]['base_tax'] += $this->arrDetail[$strID]['jshk_allowance'];
+            if ($bolJSHKDeductionTax) {
+                $this->arrDetail[$strID]['base_tax'] -= $this->arrDetail[$strID]['jshk_deduction'];
             } // as base tax
         }
     }
@@ -1849,6 +1849,9 @@ class clsSalaryCalculation
             }
             if (isset($this->arrConf['pension_deduction_active']) && $this->arrConf['pension_deduction_active'] == 't') {
                 $this->arrMD['pension_deduction'] = $this->getFixComponent("pension_deduction");
+            }
+            if (isset($this->arrConf['jshk_deduction_active']) && $this->arrConf['jshk_deduction_active'] == 't') {
+                $this->arrMD['jshk_deduction'] = $this->getFixComponent("jshk_deduction");
             }
             if (isset($this->arrConf['absence_deduction_active']) && $this->arrConf['absence_deduction_active'] == 't') {
                 $this->arrMD['absence_deduction'] = $this->getFixComponent("absence_deduction");

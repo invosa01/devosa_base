@@ -985,79 +985,6 @@ $arrSetting = [
         "note"    => "BPJS allowance  is hidden if the value is zero",
         "default" => "f",
     ],
-    // JSHK Allowance
-    "strJSHKAllowanceName"       => [
-        "code"    => "jshk_allowance_name",
-        "value"   => "JSHK allowance",
-        "note"    => "Display Name for JSHK",
-        "default" => "JSHK allowance",
-    ],
-    "strJSHKAllowanceAmount"     => [
-        "code"    => "jshk_allowance",
-        "value"   => "0.4",
-        "note"    => "Amount for JSHK allowance %",
-        "default" => "0.4",
-    ],
-    "strJSHKAllowanceActive"     => [
-        "code"    => "jshk_allowance_active",
-        "value"   => "t",
-        "note"    => "Is JSHK allowance Active?",
-        "default" => "t",
-    ],
-    "strJSHKAllowanceIr"         => [
-        "code"    => "jshk_allowance_irregular",
-        "value"   => "f",
-        "note"    => "Is Irregular",
-        "default" => "f",
-    ],
-    "strJSHKAllowanceBen"        => [
-        "code"    => "jshk_allowance_benefit",
-        "value"   => "t",
-        "note"    => "Is Benefit",
-        "default" => "t",
-    ],
-    "strJSHKAllowanceShow"       => [
-        "code"    => "jshk_allowance_show",
-        "value"   => "f",
-        "note"    => "Show JSHK allowance ",
-        "default" => "f",
-    ],
-    "strJSHKAllowanceProrate"    => [
-        "code"    => "jshk_allowance_prorate",
-        "value"   => "f",
-        "note"    => "Prorate JSHK allowance ",
-        "default" => "f",
-    ],
-    "strJSHKAllowanceOT"         => [
-        "code"    => "jshk_allowance_ot",
-        "value"   => "f",
-        "note"    => "JSHK allowance include OT",
-        "default" => "f",
-    ],
-    "strJSHKAllowanceTax"        => [
-        "code"    => "jshk_allowance_tax",
-        "value"   => "t",
-        "note"    => "JSHK allowance include in tax",
-        "default" => "t",
-    ],
-    "strJSHKAllowanceJams"       => [
-        "code"    => "jshk_allowance_jams",
-        "value"   => "f",
-        "note"    => "JSHK allowance include in jamsostek",
-        "default" => "f",
-    ],
-    "strJSHKAllowanceDaily"      => [
-        "code"    => "jshk_allowance_daily",
-        "value"   => "f",
-        "note"    => "JSHK allowance include is daily allowance",
-        "default" => "f",
-    ],
-    "strJSHKAllowanceHidezero"   => [
-        "code"    => "jshk_allowance_hidezero",
-        "value"   => "f",
-        "note"    => "JSHK allowance  is hidden if the value is zero",
-        "default" => "f",
-    ],
     //Jamostek Deduction
     "strJamsDeducName"     => [
         "code"    => "jamsostek_deduction_name",
@@ -1474,6 +1401,67 @@ $arrSetting = [
         "note"    => "pension Deduc  is hidden if the value is zero",
         "default" => "f",
     ],
+    // JSHK Allowance
+    "strJSHKDeductionName"       => [
+        "code"    => "jshk_deduction_name",
+        "value"   => "JSHK deduction",
+        "note"    => "Display Name for JSHK",
+        "default" => "JSHK deduction",
+    ],
+    "strJSHKDeductionAmount"     => [
+        "code"    => "jshk_deduction",
+        "value"   => "0.4",
+        "note"    => "Amount for JSHK deduction %",
+        "default" => "0.4",
+    ],
+    "strJSHKDeductionActive"     => [
+        "code"    => "jshk_deduction_active",
+        "value"   => "t",
+        "note"    => "Is JSHK deduction Active?",
+        "default" => "t",
+    ],
+    "strJSHKDeductionShow"       => [
+        "code"    => "jshk_deduction_show",
+        "value"   => "f",
+        "note"    => "Show JSHK deduction ",
+        "default" => "f",
+    ],
+    "strJSHKDeductionProrate"    => [
+        "code"    => "jshk_deduction_prorate",
+        "value"   => "f",
+        "note"    => "Prorate JSHK deduction ",
+        "default" => "f",
+    ],
+    "strJSHKDeductionOT"         => [
+        "code"    => "jshk_deduction_ot",
+        "value"   => "f",
+        "note"    => "JSHK deduction include OT",
+        "default" => "f",
+    ],
+    "strJSHKDeductionTax"        => [
+        "code"    => "jshk_deduction_tax",
+        "value"   => "t",
+        "note"    => "JSHK deduction include in tax",
+        "default" => "t",
+    ],
+    "strJSHKDeductionJams"       => [
+        "code"    => "jshk_deduction_jams",
+        "value"   => "f",
+        "note"    => "JSHK deduction include in jamsostek",
+        "default" => "f",
+    ],
+    "strJSHKDeductionDaily"      => [
+        "code"    => "jshk_deduction_daily",
+        "value"   => "f",
+        "note"    => "JSHK deduction include is daily allowance",
+        "default" => "f",
+    ],
+    "strJSHKDeductionHidezero"   => [
+        "code"    => "jshk_deduction_hidezero",
+        "value"   => "f",
+        "note"    => "JSHK deduction  is hidden if the value is zero",
+        "default" => "f",
+    ],
 ];
 $arrDeductionAttributes = [// daftar attribut allowance
                            ["code" => "active", "name" => "Active"],
@@ -1496,7 +1484,6 @@ $arrFixAllowance = [
     "JkmAllow"      => ["jkm allowance", "%"],
     "BPJSAllowance" => ["BPJS allowance", "%"],
     "PensionAllow"  => ["Pension allowance", "%"],
-    "JSHKAllowance" => ["JSHK allowance", "%"],
 ];
 // daftar tunjangan yang "FIX" -> settingnya dari data master
 $arrFixAllowance2["Overtime"] = ["overtime allowance", ""];
@@ -1537,6 +1524,7 @@ $arrFixDeduction = [// daftar potongan yang "FIX" -> settingnya hardcode, karena
                     "JamsDeduc"    => ["jamsostek deduction", "%"],
                     "BPJSDeduc"    => ["BPJS Kesehatan Deduction", "%"],
                     "PensionDeduc" => ["Pension Deduction", "%"],
+                    "JSHKDeduction" => ["JSHK Deduction", "%"],
 ];
 $arrFixDeduction2 = [// daftar potongan yang multival (beda untuk masing karyawan)
                      "Loan"             => ["loan deduction", "loan_list.php"],
