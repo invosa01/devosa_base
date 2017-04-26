@@ -3,14 +3,14 @@
 function routeMap()
 {
     return [
-        'department'          => 'getDepartmentData',
-        'department-options'  => 'getRenderedDepartmentOptions',
-        'destination'         => 'getDestinationData',
-        'destination-options' => 'getRenderedDestinationOptions',
-        'company'             => 'getCompanyData',
-        'company-options'     => 'getRenderedCompanyOptions',
-        'division'            => 'getDivisionData',
-        'division-options'    => 'getRenderedDivisionOptions',
+        'department'                     => 'getDepartmentData',
+        'department-options'             => 'getRenderedDepartmentOptions',
+        'destination'                    => 'getDestinationData',
+        'destination-options'            => 'getRenderedDestinationOptions',
+        'company'                        => 'getCompanyData',
+        'company-options'                => 'getRenderedCompanyOptions',
+        'division'                       => 'getDivisionData',
+        'division-options'               => 'getRenderedDivisionOptions',
         'salaryCompanyCollector'         => 'getSalaryCompanyCollectorData',
         'salaryCompanyCollector-options' => 'getRenderedSalaryCompanyCollectorOptions'
     ];
@@ -209,11 +209,12 @@ function getRenderedDestinationOptions()
     return $result;
 }
 
-function getSalaryCompanyCollectorData() {
+function getSalaryCompanyCollectorData()
+{
     $strCompanyCollector = null;
     $wheres = [];
-    if (array_key_exists('dataCollectorCompany', $_POST) === TRUE) {
-        $strCompanyCollector = $_POST['dataCollectorCompany'];
+    if (array_key_exists('id_company', $_POST) === true) {
+        $strCompanyCollector = $_POST['id_company'];
     }
     $strSQL = 'SELECT t1.salary_date, t1.id, t2.company_name FROM hrd_salary_master AS t1
                LEFT JOIN hrd_company AS t2 ON t1.id_company = t2.id ';
@@ -224,17 +225,18 @@ function getSalaryCompanyCollectorData() {
     return pgFetchRows(getQuery($strSQL, $wheres));
 }
 
-function getRenderedSalaryCompanyCollectorOptions() {
+function getRenderedSalaryCompanyCollectorOptions()
+{
     $result = '<option value="">-</option>';
     $record = getSalaryCompanyCollectorData();
     foreach ($record as $row) {
-        $result .= '<option value="' . $row['id'] . '">'
+        $result .= '<option value="' . $row['id_company'] . '">'
             . 'Payroll'
             . ' - '
             . $row['company_name']
             . ' - '
             . date('F Y', strtotime($row['salary_date']))
-            . ' ('.$row['salary_date'].') '
+            . ' (' . $row['salary_date'] . ') '
             . '</option>';
     }
     return $result;

@@ -28,8 +28,8 @@
 <script>
     jQuery(function($) {
         $("#dataCollectorCompany").change(function () {
-            var id = $(this).val();
-            var dataString = 'id_company=' + id;
+            var id_company = $(this).val();
+            var dataString = 'id_company=' + id_company;
             $.ajax ({
                 type: "POST",
                 url: "../ajax.php?m=salaryCompanyCollector-options",
