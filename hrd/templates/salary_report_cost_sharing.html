@@ -1,37 +1,46 @@
+[var.pageHeader]
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form name="form1" id="form1" method="post"  class="form-horizontal" role="form">
+                <div class="col-md-12">
+                    [var.formInput; protect=no; htmlconv=no]
+                </div>
+                <div class="col-md-12">
+                    [var.dataGrid; protect=no; htmlconv=no]
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
 
-// fungsi memeriksa validasi input
-  function goPage(no) {
-  if (no != "") {
-    document.formInput.dataPage.value = no;
-    document.formInput.btnShow.click();
-  }
-}//goPage
-
-function validInput() {
-  if (document.form1.dataCompany.value == "") {
-    alert("Please Choose Company!");
-    return false;
-  }
-  else {
-    return true;
-  }
-} //validInput
-
-[var.strInitAction]
+    function validInput() {
+        if (document.form1.dataCompany.value == "") {
+            alert("Please Choose Company!");
+            return false;
+        }
+        else {
+            return true;
+        }
+    } //validInput
 </script>
-[var.pageHeader]
-	<div class="main-content">
-  	<div class="row">
-  		<div class="col-md-12">
-  			<form name="form1" id="form1" method="post"  class="form-horizontal" role="form">
-  				<div class="col-md-12">
-  					[var.formInput; protect=no; htmlconv=no]	
-  				</div>
-  				<div class="col-md-12">
-  					[var.dataGrid; protect=no; htmlconv=no]
-  				</div>
-  			</form>
-  		</div>
-  	</div>
-  </div>
+<script>
+    jQuery(function($) {
+        $("#dataCollectorCompany").change(function () {
+            var id = $(this).val();
+            var dataString = 'id_company=' + id;
+            $.ajax ({
+                type: "POST",
+                url: "../ajax.php?m=salaryCompanyCollector-options",
+                data: dataString,
+                dataType: 'text',
+                cache: false,
+                success: function (respone) {
+                    result = JSON.parse(respone);
+                    $("#dataPayrollMonth").html(result.data);
+                }
+            });
+        });
+    });
+</script>

@@ -10,7 +10,9 @@ function routeMap()
         'company'             => 'getCompanyData',
         'company-options'     => 'getRenderedCompanyOptions',
         'division'            => 'getDivisionData',
-        'division-options'    => 'getRenderedDivisionOptions'
+        'division-options'    => 'getRenderedDivisionOptions',
+        'salaryCompanyCollector'         => 'getSalaryCompanyCollectorData',
+        'salaryCompanyCollector-options' => 'getRenderedSalaryCompanyCollectorOptions'
     ];
 }
 
@@ -202,6 +204,37 @@ function getRenderedDestinationOptions()
             . $row['destination_code']
             . ' - '
             . $row['destination_name']
+            . '</option>';
+    }
+    return $result;
+}
+
+function getSalaryCompanyCollectorData() {
+    $strCompanyCollector = null;
+    $wheres = [];
+    if (array_key_exists('dataCollectorCompany', $_POST) === TRUE) {
+        $strCompanyCollector = $_POST['dataCollectorCompany'];
+    }
+    $strSQL = 'SELECT t1.salary_date, t1.id, t2.company_name FROM hrd_salary_master AS t1
+               LEFT JOIN hrd_company AS t2 ON t1.id_company = t2.id ';
+    $wheres[] = 't1.status >= 2';
+    if ($strCompanyCollector !== null) {
+        $wheres[] = 't1.id_company = ' . pgEscape($strCompanyCollector);
+    }
+    return pgFetchRows(getQuery($strSQL, $wheres));
+}
+
+function getRenderedSalaryCompanyCollectorOptions() {
+    $result = '<option value="">-</option>';
+    $record = getSalaryCompanyCollectorData();
+    foreach ($record as $row) {
+        $result .= '<option value="' . $row['id'] . '">'
+            . 'Payroll'
+            . ' - '
+            . $row['company_name']
+            . ' - '
+            . date('F Y', strtotime($row['salary_date']))
+            . ' ('.$row['salary_date'].') '
             . '</option>';
     }
     return $result;
