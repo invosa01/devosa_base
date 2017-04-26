@@ -25,8 +25,8 @@
             });
         });
         $("#dataCompany").change(function () {
-            var company_code = $(this).val();
-            var dataString = 'company_code=' + company_code;
+            var id = $(this).val();
+            var dataString = 'id=' + id;
             $.ajax ({
                 type: "POST",
                 url: "../ajax.php?m=division-options",
@@ -415,9 +415,9 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         [var.strInputBirthday]
-	                      <span class="input-group-addon">
-	                          <i class="fa fa-calendar"></i>
-	                      </span>
+                          <span class="input-group-addon">
+                              <i class="fa fa-calendar"></i>
+                          </span>
                                     </div>
                                 </div>
                             </div>
@@ -649,9 +649,9 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         [var.strInputWeddingDate]
-	                      <span class="input-group-addon">
-	                          <i class="fa fa-calendar"></i>
-	                      </span>
+                          <span class="input-group-addon">
+                              <i class="fa fa-calendar"></i>
+                          </span>
                                     </div>
                                 </div>
                             </div>
@@ -881,9 +881,9 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         [var.strInputJoinDate]
-	                      <span class="input-group-addon">
-	                          <i class="fa fa-calendar"></i>
-	                      </span>
+                          <span class="input-group-addon">
+                              <i class="fa fa-calendar"></i>
+                          </span>
                                     </div>
                                 </div>
                             </div>

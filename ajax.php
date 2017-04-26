@@ -87,7 +87,7 @@ function getRenderedCompanyOptions()
     $result = '<option value="">-</option>';
     $record = getCompanyData();
     foreach ($record as $row) {
-        $result .= '<option value="' . $row['company_code'] . '">'
+        $result .= '<option value="' . $row['id'] . '">'
             . $row['company_code']
             . ' - '
             . $row['company_name']
@@ -100,8 +100,8 @@ function getDivisionData()
 {
     $companyCode = null;
     $wheres = [];
-    if (array_key_exists('company_code', $_POST) === true) {
-        $companyCode = $_POST['company_code'];
+    if (array_key_exists('id', $_POST) === true) {
+        $companyCode = $_POST['id'];
     }
     $strSQL = 'SELECT
                     cpy."id",
@@ -114,7 +114,7 @@ function getDivisionData()
                     "public".hrd_company AS cpy
                 INNER JOIN "public".hrd_division AS div ON cpy.company_code = div.management_code';
     if ($companyCode !== null) {
-        $wheres[] = 'cpy.company_code = ' . pgEscape($companyCode);
+        $wheres[] = 'cpy.id = ' . pgEscape($companyCode);
     }
     return pgFetchRows(getQuery($strSQL, $wheres));
 }
