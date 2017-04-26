@@ -39,6 +39,7 @@ $strWordsOTBreakfast = getWords("OT breakfast allowance (rp)");
 $strWordsOTBase = getWords("OT base percentage");
 $strWordsNishab = getWords("nishab");
 $strWordsTaxMethod = getWords("tax method");
+$strWordsTaxIrregularMethod = getWords("tax irregular method");
 $strWordsBasicAllowanceList = getWords("basic and allowance list");
 $strWordsSeq = getWords("seq");
 $strWordCode = getWords("code");
@@ -146,6 +147,12 @@ $arrSetting = [
     ],
     "strTaxMethod"               => [
         "code"    => "tax_method",
+        "value"   => "t",
+        "note"    => "0:gross, 1:gross up",
+        "default" => "t",
+    ],
+    "strTaxIrregularMethod"      => [
+        "code"    => "tax_irregular_method",
         "value"   => "t",
         "note"    => "0:gross, 1:gross up",
         "default" => "t",
@@ -2419,10 +2426,14 @@ $strHalfAttendanceAllowance = $arrSetting['strHalfAttendanceAllowance']['value']
 $strBasicSalaryCode = $arrSetting['strBasicSalaryCode']['value'];
 $strNishab = $arrSetting['strNishab']['value'];
 $strTaxMethod = "";
+$strTaxIrregularMethod = "";
 $strBPJSMax = $arrSetting['strBPJSMax']['value'];
 $strPensionMax = $arrSetting['strPensionMax']['value'];
 if ($arrSetting['strTaxMethod']['value'] == "t") {
     $strTaxMethod = "checked";
+}
+if ($arrSetting['strTaxIrregularMethod']['value'] == "t") {
+    $strTaxIrregularMethod = "checked";
 }
 $strInputSalaryDateFrom = getDayList("strSalaryDateFrom", $arrSetting['strSalaryDateFrom']['value']);
 $strInputSalaryDateThru = getDayList("strSalaryDateThru", $arrSetting['strSalaryDateThru']['value']);
