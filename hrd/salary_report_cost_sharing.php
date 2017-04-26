@@ -49,7 +49,7 @@ $f->addSubmit("btnShow",
               "");
 $f->addSubmit("btnExportXLS",
               "Export Excel",
-              ["onClick" => "return validInput();"],
+              'onClick = return validInput();',
               true,
               true,
               "",

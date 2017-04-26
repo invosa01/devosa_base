@@ -230,7 +230,7 @@ function getRenderedSalaryCompanyCollectorOptions()
     $result = '<option value="">-</option>';
     $record = getSalaryCompanyCollectorData();
     foreach ($record as $row) {
-        $result .= '<option value="' . $row['id_company'] . '">'
+        $result .= '<option value="' . $row['id'] . '">'
             . 'Payroll'
             . ' - '
             . $row['company_name']

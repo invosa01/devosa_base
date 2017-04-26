@@ -2,7 +2,7 @@
 <div class="main-content">
     <div class="row">
         <div class="col-md-12">
-            <form name="form1" id="form1" method="post"  class="form-horizontal" role="form">
+            <form name="form1" id="form1" method="post" class="form-horizontal" role="form">
                 <div class="col-md-12">
                     [var.formInput; protect=no; htmlconv=no]
                 </div>
@@ -14,10 +14,19 @@
     </div>
 </div>
 <script type="text/javascript">
-
     function validInput() {
-        if (document.form1.dataCompany.value == "") {
-            alert("Please Choose Company!");
+        var collectorCompany = document.getElementById('dataCollectorCompany').value;
+        var collectibleCompany = document.getElementById('dataCollectibleCompany').value;
+        if (collectorCompany == '') {
+            alert('Please choose a company!!');
+            return false;
+        }
+        if (collectibleCompany == '') {
+            alert('Please choose a company!!');
+            return false;
+        }
+        if (collectorCompany == collectibleCompany) {
+            alert('Please choose different company!!');
             return false;
         }
         else {
@@ -26,7 +35,7 @@
     } //validInput
 </script>
 <script>
-    jQuery(function($) {
+    jQuery(function ($) {
         $("#dataCollectorCompany").change(function () {
             var id_company = $(this).val();
             var dataString = 'id_company=' + id_company;
