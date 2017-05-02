@@ -4,6 +4,40 @@
 <script src="employee_data.php"></script>
 <link href="../css/ac.css" rel="stylesheet" type="text/css">
 <script>
+	jQuery(function ($) {
+		$("#dataCompany").change(function () {
+			var id = $(this).val();
+			var dataString = 'id=' + id;
+			$.ajax ({
+				type: "POST",
+				url: "../ajax.php?m=division-options",
+				data: dataString,
+				dataType: 'text',
+				cache: false,
+				success: function (respone) {
+					result = JSON.parse(respone);
+					$("#dataDivision").html(result.data);
+				}
+			});
+		});
+		$("#dataDivision").change(function () {
+			var division_code = $(this).val();
+			var dataString = 'division_code=' + division_code;
+			$.ajax ({
+				type: "POST",
+				url: "../ajax.php?m=department-options",
+				data: dataString,
+				dataType: 'text',
+				cache: false,
+				success: function (respone) {
+					result = JSON.parse(respone);
+					$("#dataDepartment").html(result.data);
+				}
+			});
+		});
+	});
+</script>
+<script>
   <!--
 
   AC_targetElements = ["dataEmployee"];
@@ -207,7 +241,7 @@
 			          <tbody>
 				          [var.strDataDetail]
 				          <tr>
-				            <td colspan="2" nowrap>&nbsp;[var.strBtnSave]&nbsp;[var.strHidden]&nbsp;&nbsp; 
+				            <td colspan="2" nowrap>&nbsp;[var.strBtnSave]&nbsp;[var.strHidden]&nbsp;&nbsp;
 				            </td>
 				            <td colspan="[var.strSpan2]" align="center" nowrap>&nbsp;[var.strPaging]
 				              <input type=hidden name=totalData value="[var.intTotalData]">

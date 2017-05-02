@@ -159,7 +159,7 @@ class cModel
               break;
             default :
               if ($formatter !== null) {
-                $val = $formatter($val);
+                $val = $formatter[$val];
               } else {
                 $val = $stringPrefix . $val . $stringPrefix;
               }

@@ -12,7 +12,9 @@ function routeMap()
         'division'                       => 'getDivisionData',
         'division-options'               => 'getRenderedDivisionOptions',
         'salaryCompanyCollector'         => 'getSalaryCompanyCollectorData',
-        'salaryCompanyCollector-options' => 'getRenderedSalaryCompanyCollectorOptions'
+        'salaryCompanyCollector-options' => 'getRenderedSalaryCompanyCollectorOptions',
+        'sourceSet'                      => 'getSourceSetData',
+        'sourceSet-options'              => 'getRenderedSourceSetOptions'
     ];
 }
 
@@ -237,6 +239,44 @@ function getRenderedSalaryCompanyCollectorOptions()
             . ' - '
             . date('F Y', strtotime($row['salary_date']))
             . ' (' . $row['salary_date'] . ') '
+            . '</option>';
+    }
+    return $result;
+}
+
+function getSourceSetData()
+{
+    $companyCode = null;
+    $wheres = [];
+    if (array_key_exists('id', $_POST) === true) {
+        $companyCode = $_POST['id'];
+    }
+    $strSQL = 'SELECT
+                    cpy."id",
+                    cpy.company_code,
+                    cpy.company_name,
+                    bss."id",
+                    bss.id_company,
+                    bss.id_salary_set_source,
+                    bss.start_date
+                FROM
+                    "public".hrd_company AS cpy
+                INNER JOIN "public".hrd_basic_salary_set AS bss ON cpy."id" = bss.id_company';
+    if ($companyCode !== null) {
+        $wheres[] = 'cpy."id" = ' . pgEscape($companyCode);
+    }
+    return pgFetchRows(getQuery($strSQL, $wheres));
+}
+
+function getRenderedSourceSetOptions()
+{
+    $result = '<option value="">-</option>';
+    $record = getSourceSetData();
+    foreach ($record as $row) {
+        $result .= '<option value="' . $row['id_salary_set_source'] . '">'
+            . $row['start_date']
+            . ' - '
+            . $row['company_name']
             . '</option>';
     }
     return $result;
