@@ -2025,7 +2025,7 @@ class clsSalaryCalculation
                 $this->arrDetail[$row['id_employee']] = $row;
                 $this->arrDetailEmployee[$row['id']] = $row['id_employee'];
                 /* PENAMBAHAN total unpaid absence */
-                $this->arrDetail[$row['id_employee']['unpaid_absence_day']] = $row['attendance_day'];
+                $this->arrDetail[$row['id_employee']]['unpaid_absence_day'] = $row['attendance_day'];
                 /* END PENAMBAHAN */
             }
             /* coba membetulkan Recalculate */
