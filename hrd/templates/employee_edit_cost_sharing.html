@@ -1,0 +1,35 @@
+<script>
+    function goUrl(url) {
+        if (url != "") {
+
+            if (document.formInput.dataEmployeeID.value == "") {
+                alert("Please save data first");
+            } else {
+                //location.href = url + ".php?dataID=" + document.formInput.dataID.value;
+                document.getElementById('formGoUrl').action = url + '.php';
+                document.formGoUrl.dataID.value = document.formInput.dataID.value;
+                document.formGoUrl.submit();
+            }
+        }
+    }
+</script>
+[var.pageHeader]
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+        [var.pageSubMenu]<p></p>
+        </div>
+        <div class="col-md-12">
+            [var.formInput;protect=no;htmlconv=no]
+        </div>
+        <div class="col-md-12">
+            <div id="input-panel" class="panel-body collapse in">
+                <div class="col-md-12">
+                    <form method="post" name="formGoUrl" id="formGoUrl">
+                        <input type="hidden" name="dataID" value="">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

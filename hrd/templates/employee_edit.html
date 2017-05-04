@@ -3,10 +3,57 @@
 <script src="scripts/calendar.js"></script>
 <script src="scripts/calendar-en.js"></script>
 <script src="department_data.php"></script>
-<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<link href="../css/calendar.css"
+      rel="stylesheet"
+      type="text/css">
 <script src="../js/jquery-ui/jquery.min.js"></script>
 <script>
     jQuery(function ($) {
+        $("#dataManagement").change(function () {
+            var management_code = $(this).val();
+            var dataString = 'management_code=' + management_code;
+            $.ajax ({
+                type: "POST",
+                url: "../ajax.php?m=company-options",
+                data: dataString,
+                dataType: 'text',
+                cache: false,
+                success: function (respone) {
+                    result = JSON.parse(respone);
+                    $("#dataCompany").html(result.data);
+                }
+            });
+        });
+        $("#dataCompany").change(function () {
+            var id = $(this).val();
+            var dataString = 'id=' + id;
+            $.ajax ({
+                type: "POST",
+                url: "../ajax.php?m=division-options",
+                data: dataString,
+                dataType: 'text',
+                cache: false,
+                success: function (respone) {
+                    result = JSON.parse(respone);
+                    $("#dataDivision").html(result.data);
+                }
+            });
+        });
+        $("#dataDivision").change(function () {
+            var division_code = $(this).val();
+            var dataString = 'division_code=' + division_code;
+            $.ajax ({
+                type: "POST",
+                url: "../ajax.php?m=department-options",
+                data: dataString,
+                dataType: 'text',
+                cache: false,
+                success: function (respone) {
+                    result = JSON.parse(respone);
+                    $("#dataDepartment").html(result.data);
+                }
+            });
+        });
         $('#dataJoinDate').on('change', function () {
             var dataJoinDate = $(this).val();
             var dataBirthday = $('#dataBirthday').val();
@@ -62,10 +109,9 @@
             });
         });
 
-    })
+    });
 </script>
 <script>
-
 
     // fungsi memeriksa saat division dipilih, untuk menentukan managementnya
     function checkDivision() {
@@ -289,7 +335,8 @@
             <div class="panel">
                 <div class="panel-heading">
                     <div class="panel-actions">
-                        <div class="pull-right" id="collapse-filter">
+                        <div class="pull-right"
+                             id="collapse-filter">
                             <a href="#"
                                data-toggle="collapse"
                                data-target="#input-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
@@ -297,7 +344,8 @@
                     </div>
                     <h3 class="panel-title">[var.strWordsINPUTDATA]</h3>
                 </div>
-                <div id="input-panel" class="panel-body collapse in">
+                <div id="input-panel"
+                     class="panel-body collapse in">
                     [var.strMessages]
                     <form action=""
                           method="post"
@@ -309,21 +357,24 @@
                           role="form">
                         <div class="col-md-4">
                             <div class="form-group has-warning">
-                                <label class="col-sm-4 control-label" for="dataType">[var.strWordsEmployeeID]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataType">[var.strWordsEmployeeID]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputEmployeeID]
                                 </div>
                             </div>
-                            <!-- <div class="form-group">
+                            <div class="form-group">
                                 <label class="col-sm-4 control-label" for="dataDateFrom">[var.strWordsFingerID]</label>
                                 <div class="col-sm-8">
                   [var.strInputFingerID]
                 </div>
-                            </div> -->
+                            </div>
                             <div class="form-group has-warning">
                                 <label class="col-sm-4 control-label"
-                                       for="dataDateThru">[var.strWordsEmployeeName]</label>
+                                       for="dataDateThru">[var.strWordsEmployeeName]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputName]
@@ -331,7 +382,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsLetterCode]</label>
+                                       for="dataEmployeeStatus">[var.strWordsLetterCode]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputLetterCode]
@@ -339,7 +391,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsNickname]</label>
+                                       for="dataEmployeeStatus">[var.strWordsNickname]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputNick]
@@ -347,7 +400,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsMothersName]</label>
+                                       for="dataEmployeeStatus">[var.strWordsMothersName]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputMothersName]
@@ -355,20 +409,22 @@
                             </div>
                             <div class="form-group has-warning">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsBirthday]</label>
+                                       for="dataEmployeeStatus">[var.strWordsBirthday]
+                                </label>
 
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         [var.strInputBirthday]
-	                      <span class="input-group-addon">
-	                          <i class="fa fa-calendar"></i>
-	                      </span>
+                          <span class="input-group-addon">
+                              <i class="fa fa-calendar"></i>
+                          </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsBirthplace]</label>
+                                       for="dataEmployeeStatus">[var.strWordsBirthplace]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputBirthPlace]
@@ -376,7 +432,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsGender]</label>
+                                       for="dataEmployeeStatus">[var.strWordsGender]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputGender]
@@ -384,7 +441,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsAddress]</label>
+                                       for="dataEmployeeStatus">[var.strWordsAddress]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputAddress]
@@ -392,7 +450,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsCityZip]</label>
+                                       for="dataEmployeeStatus">[var.strWordsCityZip]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputCity] / [var.strInputZip]
@@ -400,7 +459,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsPhone]</label>
+                                       for="dataEmployeeStatus">[var.strWordsPhone]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputPhone]
@@ -408,28 +468,35 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsEmail]</label>
+                                       for="dataEmployeeStatus">[var.strWordsEmail]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputEmail]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsPrivatePhone]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsPrivatePhone]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputPrivatePhone]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsPrivateEmail]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsPrivateEmail]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputPrivateEmail]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsEmergencyContact]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsEmergencyContact]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputEmergencyContact]
@@ -437,58 +504,75 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsRelation]</label>
+                                       for="dataEmployeeStatus">[var.strWordsRelation]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputEmergencyRelation]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsEmergencyAddress]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsEmergencyAddress]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputEmergencyAddress]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsEmergencyPhone]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsEmergencyPhone]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputEmergencyPhone]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsWeight]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsWeight]
+                                </label>
                                 <div class="col-sm-8">
                                     [var.strInputWeight]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsHeight]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsHeight]
+                                </label>
                                 <div class="col-sm-8">
                                     [var.strInputHeight]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsKitas]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsKitas]
+                                </label>
                                 <div class="col-sm-8">
                                     [var.strInputKitas]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsDriverLicenseA]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsDriverLicenseA]
+                                </label>
                                 <div class="col-sm-8">
                                     [var.strInputLicenseA]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsDriverLicenseB]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsDriverLicenseB]
+                                </label>
                                 <div class="col-sm-8">
                                     [var.strInputLicenseB]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsDriverLicenseC]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsDriverLicenseC]
+                                </label>
                                 <div class="col-sm-8">
                                     [var.strInputLicenseC]
                                 </div>
@@ -496,14 +580,17 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataDateFrom">[var.strWordsPassport]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataDateFrom">[var.strWordsPassport]
+                                </label>
                                 <div class="col-sm-8">
-                  [var.strInputPassport]
-                </div>
+                                    [var.strInputPassport]
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsBloodType]</label>
+                                       for="dataEmployeeStatus">[var.strWordsBloodType]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputBlood]
@@ -511,28 +598,35 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsIDCard]</label>
+                                       for="dataEmployeeStatus">[var.strWordsIDCard]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputIDCard]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataType">[var.strWordsNationality]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataType">[var.strWordsNationality]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputNationality]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataDateThru">[var.strWordsReligion]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataDateThru">[var.strWordsReligion]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputReligion]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsEducationLevel]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsEducationLevel]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputEducation]
@@ -540,7 +634,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsMajor]</label>
+                                       for="dataEmployeeStatus">[var.strWordsMajor]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputMajor]
@@ -548,14 +643,15 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsWeddingDate]</label>
+                                       for="dataEmployeeStatus">[var.strWordsWeddingDate]
+                                </label>
 
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         [var.strInputWeddingDate]
-	                      <span class="input-group-addon">
-	                          <i class="fa fa-calendar"></i>
-	                      </span>
+                          <span class="input-group-addon">
+                              <i class="fa fa-calendar"></i>
+                          </span>
                                     </div>
                                 </div>
                             </div>
@@ -573,7 +669,8 @@
                             </div> -->
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsNote]</label>
+                                       for="dataEmployeeStatus">[var.strWordsNote]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputNote]
@@ -581,14 +678,17 @@
                             </div>
                             <div class="form-group has-warning">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsTaxStatus]</label>
+                                       for="dataEmployeeStatus">[var.strWordsTaxStatus]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputFamilyStatusTax]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsFamilyStatus]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsFamilyStatus]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputFamilyStatusActual]
@@ -613,7 +713,9 @@
                                 </div>
                             </div> -->
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsEmployeeStatus]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsEmployeeStatus]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputEmployeeStatus]
@@ -622,7 +724,8 @@
 
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsManagement]</label>
+                                       for="dataEmployeeStatus">[var.strWordsManagement]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputManagement]
@@ -630,7 +733,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsCompany]</label>
+                                       for="dataEmployeeStatus">[var.strWordsCompany]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputCompany]
@@ -639,7 +743,8 @@
 
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsDivision]</label>
+                                       for="dataEmployeeStatus">[var.strWordsDivision]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputDivision]
@@ -647,7 +752,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsDepartment]</label>
+                                       for="dataEmployeeStatus">[var.strWordsDepartment]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputDepartment]
@@ -655,7 +761,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsSubDepartment]</label>
+                                       for="dataEmployeeStatus">[var.strWordsSubDepartment]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputSubDepartment]
@@ -663,7 +770,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsSection]</label>
+                                       for="dataEmployeeStatus">[var.strWordsSection]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputSection]
@@ -671,7 +779,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsSubsection]</label>
+                                       for="dataEmployeeStatus">[var.strWordsSubsection]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputSubSection]
@@ -680,7 +789,8 @@
 
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsBranch]</label>
+                                       for="dataEmployeeStatus">[var.strWordsBranch]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputBranch]
@@ -688,7 +798,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsLevel]</label>
+                                       for="dataEmployeeStatus">[var.strWordsLevel]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputPosition]
@@ -696,14 +807,18 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsFunctionalPosition]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsFunctionalPosition]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputFunctionalPosition]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataType">[var.strWordsJobGrade]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataType">[var.strWordsJobGrade]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputSalaryGrade]
@@ -730,23 +845,20 @@
                                 </div>
                             </div> -->
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataDateFrom">[var.strWordsActive]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataDateFrom">[var.strWordsActive]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputActive]
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataLeaveLevel">[var.strWordsLeaveLevel]</label>
-
-                                <div class="col-sm-8">
-                                    [var.strInputLeaveLevel]
-                                </div>
-                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataDateThru">[var.strWordsCurrency]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataDateThru">[var.strWordsCurrency]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputCurrency]
@@ -754,14 +866,15 @@
                             </div>
                             <div class="form-group has-warning">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsJoinDate]</label>
+                                       for="dataEmployeeStatus">[var.strWordsJoinDate]
+                                </label>
 
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         [var.strInputJoinDate]
-	                      <span class="input-group-addon">
-	                          <i class="fa fa-calendar"></i>
-	                      </span>
+                          <span class="input-group-addon">
+                              <i class="fa fa-calendar"></i>
+                          </span>
                                     </div>
                                 </div>
                             </div>
@@ -773,7 +886,8 @@
                             </div> -->
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsFinishDate]</label>
+                                       for="dataEmployeeStatus">[var.strWordsFinishDate]
+                                </label>
 
                                 <div class="col-sm-8">
                                     <div class="input-group">
@@ -786,7 +900,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsResignDate]</label>
+                                       for="dataEmployeeStatus">[var.strWordsResignDate]
+                                </label>
 
                                 <div class="col-sm-8">
                                     <div class="input-group">
@@ -805,7 +920,8 @@
                             </div> -->
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsGrossUp]</label>
+                                       for="dataEmployeeStatus">[var.strWordsGrossUp]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputIsGrossUp]
@@ -813,14 +929,17 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsNPWP]</label>
+                                       for="dataEmployeeStatus">[var.strWordsNPWP]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputNPWP]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsGetJamsostek]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsGetJamsostek]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputIsJamsostek]
@@ -828,7 +947,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsJamsostekNo]</label>
+                                       for="dataEmployeeStatus">[var.strWordsJamsostekNo]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputJamsostekNo]
@@ -836,14 +956,17 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsGetBpjs]</label>
+                                       for="dataEmployeeStatus">[var.strWordsGetBpjs]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputIsBPJS]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataBPJS">[var.strWordsBPJSNo]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataBPJS">[var.strWordsBPJSNo]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputBPJS]
@@ -851,7 +974,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsGetPension]</label>
+                                       for="dataEmployeeStatus">[var.strWordsGetPension]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputIsPension]
@@ -859,7 +983,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataPensionNo">[var.strWordsPensionNo]</label>
+                                       for="dataPensionNo">[var.strWordsPensionNo]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputPensionNo]
@@ -867,7 +992,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataGetJSHK">[var.strWordsGetJshk]</label>
+                                       for="dataGetJSHK">[var.strWordsGetJshk]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputIsJSHK]
@@ -889,7 +1015,8 @@
                             </div> -->
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsBankCode]</label>
+                                       for="dataEmployeeStatus">[var.strWordsBankCode]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputBankCode]
@@ -897,7 +1024,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsBankBranch]</label>
+                                       for="dataEmployeeStatus">[var.strWordsBankBranch]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputBankBranch]
@@ -911,14 +1039,17 @@
                             </div> -->
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"
-                                       for="dataEmployeeStatus">[var.strWordsBankAccount]</label>
+                                       for="dataEmployeeStatus">[var.strWordsBankAccount]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputBankAccount]
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsBankAccountName]</label>
+                                <label class="col-sm-4 control-label"
+                                       for="dataEmployeeStatus">[var.strWordsBankAccountName]
+                                </label>
 
                                 <div class="col-sm-8">
                                     [var.strInputBankAccountName]
@@ -955,10 +1086,13 @@
                                 </div>
                             </div> -->
                             <div class="form-group">
-                                <label class="col-sm-4 control-label">[var.strWordsPhoto]</label><br />
+                                <label class="col-sm-4 control-label">[var.strWordsPhoto]</label>
+                                <br/>
 
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <div class="fileinput-new thumbnail" style="width: 140px; height: 140px;">
+                                <div class="fileinput fileinput-new"
+                                     data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail"
+                                         style="width: 140px; height: 140px;">
                                         [var.strDataPhoto]
                                     </div>
                                     <div class="fileinput-preview fileinput-exists thumbnail"
@@ -968,7 +1102,9 @@
                                                 class="fileinput-exists">Change</span><input name="dataPhoto"
                                                                                              type="file"
                                                                                              id="dataPhoto"></span>
-                                        <a href="#" class="btn btn-info fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                        <a href="#"
+                                           class="btn btn-info fileinput-exists"
+                                           data-dismiss="fileinput">Remove</a>
                                     </div>
                                 </div>
                             </div>
@@ -979,21 +1115,38 @@
                                    id="btnSave"
                                    value="[var.strWordsSave]"
                                    type="submit">
-                            <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]">
+                            <input name="dataID"
+                                   type="hidden"
+                                   id="dataID"
+                                   value="[var.strDataID]">
                             <input class="btn btn-info"
                                    name="btnNew"
                                    type="button"
                                    id="btnNew"
                                    value="[var.strWordsAddNew]"
-                                   onClick="location.href='employee_edit.php';">[var.strButtonNavigation]
+                                   onClick="location.href='employee_edit.php';">
+                            [var.strButtonNavigation]
                         </div>
                     </form>
-                    <form action="" method="post" name="formSpecial" id="formSpecial">
-                        <input name="dataID" type="hidden" id="dataID" value="[var.strDataID]">
-                        <input name="btnDeletePic" type="hidden" id="dataID3" value="Delete">
+                    <form action=""
+                          method="post"
+                          name="formSpecial"
+                          id="formSpecial">
+                        <input name="dataID"
+                               type="hidden"
+                               id="dataID"
+                               value="[var.strDataID]">
+                        <input name="btnDeletePic"
+                               type="hidden"
+                               id="dataID3"
+                               value="Delete">
                     </form>
-                    <form method="post" name="formGoUrl" id="formGoUrl">
-                        <input type="hidden" name="dataID" value="">
+                    <form method="post"
+                          name="formGoUrl"
+                          id="formGoUrl">
+                        <input type="hidden"
+                               name="dataID"
+                               value="">
                     </form>
                 </div>
             </div>
