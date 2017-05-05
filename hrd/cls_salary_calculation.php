@@ -360,7 +360,7 @@ class clsSalaryCalculation
           (CASE WHEN (ta.maxlink <> '' AND ta.maxlink IS NOT NULL) THEN CAST(ta.maxlink AS DOUBLE PRECISION) END) END) AS maxamount
         FROM (hrd_employee_deduction AS t1
         INNER JOIN (select code, active, maxlink, prorate, show, daily from hrd_deduction_type order by seq) AS t2 ON t1.deduction_code = t2.code) as ta
-        LEFT JOIN hrd_employee_allowance AS t3 ON ta.id_employee = t3.id_employee AND t3.allowance_code = ta.maxlink
+        LEFT JOIN hrd_employee_allowance AS t3 ON ta.id_employee = t3.id_employee AND t3.allowance_code = ta.maxlink AND ta.id_salary_set = t3.id_salary_set
         LEFT JOIN hrd_employee AS t5 ON ta.id_employee = t5.id
         WHERE ta.active = 't' AND ta.id_salary_set = " . $this->arrData['id_salary_set'] . " $strKriteria
       ";
@@ -1214,9 +1214,6 @@ class clsSalaryCalculation
             if ($rowDb['total'] != "") {
                 $intEmployeeUnpaidAbsence += $rowDb['total'];
             }
-        }
-        if ($intEmployeeUnpaidAbsence >= 3) {
-            $intEmployeeUnpaidAbsence = 4;
         }
         return ($fltAmount * $intEmployeeUnpaidAbsence);
     }
