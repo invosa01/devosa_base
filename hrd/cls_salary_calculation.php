@@ -1565,14 +1565,17 @@ class clsSalaryCalculation
         if ($strID != "" && isset($this->arrEmployee[$strID])) {
             $intStart = $this->arrData['salary_start_date'];
             $intFinish = $this->arrData['salary_finish_date'];
+            $intProrateDays = (getSetting('prorate_days') == "NULL" || getSetting(
+                    'prorate_days'
+                ) == "") ? 0 : getSetting('prorate_days');
             $arrDt = explode("-", $intStart);
             $strStartDateSOM = $arrDt[0] . "-" . $arrDt[1] . "-" . "01";
             $strStartDateEOM = $arrDt[0] . "-" . $arrDt[1] . "-" . lastday($arrDt[1], $arrDt[0]);
-            $intDaysPerMonthsStart = lastday($arrDt[1], $arrDt[0]);
+            $intDaysPerMonthsStart = ($intProrateDays <= 0) ? lastday($arrDt[1], $arrDt[0]) : $intProrateDays;
             $arrDt = explode("-", $intFinish);
             $strFinishDateSOM = $arrDt[0] . "-" . $arrDt[1] . "-" . "01";
             $strFinishDateEOM = $arrDt[0] . "-" . $arrDt[1] . "-" . lastday($arrDt[1], $arrDt[0]);
-            $intDaysPerMonthsFinish = lastday($arrDt[1], $arrDt[0]);
+            $intDaysPerMonthsFinish = ($intProrateDays <= 0) ? lastday($arrDt[1], $arrDt[0]) : $intProrateDays;
             $strJoinDate = $this->arrEmployee[$strID]['join_date'];
             $strResignDate = $this->arrEmployee[$strID]['resign_date'];
             // untuk sementara, abaikan dulu perbedaan periode prorata gaji antara company

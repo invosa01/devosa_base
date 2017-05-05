@@ -62,20 +62,21 @@ $strWordsMoreAllowance = getWords("more allowance");
 $strWordsBasicSalaryCode = getWords("basic salary code");
 $strWordsBPJSMax = getWords("maximum allowance for BPJS Kesehatan");
 $strWordsPensionMax = getWords("maximum allowance for BPJS TK Pensiun");
+$strWordsProrateDays = getWords("Prorate Days : *) 0 for Effective By Month");
 $arrSetting = [
-    "strHour"           => [
+    "strHour"            => [
         "code"    => "hour_per_month",
         "value"   => "0",
         "note"    => "Total Hour Per Month",
         "default" => "0",
     ],
-    "strDays"           => [
+    "strDays"            => [
         "code"    => "days_per_month",
         "value"   => "0",
         "note"    => "Total Days Per Month",
         "default" => "0",
     ],
-    "strRound"          => [
+    "strRound"           => [
         "code"    => "salary_round",
         "value"   => "100",
         "note"    => "Salary Rounding Factor",
@@ -157,23 +158,29 @@ $arrSetting = [
         "note"    => "0:gross, 1:gross up",
         "default" => "t",
     ],
-    "strBasicSalaryCode"         => [
+    "strBasicSalaryCode" => [
         "code"    => "basic_salary_code",
         "value"   => "basic_salary",
         "note"    => "Basic Salary Code",
         "default" => "basic_salary",
     ],
-    "strBPJSMax"                 => [
+    "strBPJSMax"         => [
         "code"    => "bpjs_max",
         "value"   => "bpjs_max",
         "note"    => "Maximum allowance for BPJS",
         "default" => "bpjs_max",
     ],
-    "strPensionMax"              => [
+    "strPensionMax"      => [
         "code"    => "pension_max",
         "value"   => "pension_max",
         "note"    => "Maximum allowance for Pension",
         "default" => "pension_max",
+    ],
+    "strProrateDays"     => [
+        "code"    => "prorate_days",
+        "value"   => "0",
+        "note"    => "Pembagi Hari saat Prorate : 0 = Total Hari Bulan Berjalan, selain itu sesuai inputan",
+        "default" => "0",
     ],
     //Basic Salary
     /*"strBasicSalaryName" => array("code" => "basic_salary_name", "value" => "Basic Salary Allowance", "note" => "Display Name for Basic Salary", "default" => "Basic Salary",),
@@ -2423,6 +2430,11 @@ if ($arrSetting['strTaxMethod']['value'] == "t") {
 if ($arrSetting['strTaxIrregularMethod']['value'] == "t") {
     $strTaxIrregularMethod = "checked";
 }
+$strInputProrateDays = getDayList(
+    "strProrateDays",
+    $arrSetting['strProrateDays']['value'],
+    "<option value=0 >0</option>\n"
+);
 $strInputSalaryDateFrom = getDayList("strSalaryDateFrom", $arrSetting['strSalaryDateFrom']['value']);
 $strInputSalaryDateThru = getDayList("strSalaryDateThru", $arrSetting['strSalaryDateThru']['value']);
 $strInputSalaryDate = getDayList("strSalaryDate", $arrSetting['strSalaryDate']['value']);
