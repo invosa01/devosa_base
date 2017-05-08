@@ -287,7 +287,7 @@ function saveData($db, &$strDataID, &$strError)
             MODULE_EMPLOYEE
         );
         $strError = $messages['data_saved'];
-        return true;
+        $bolOK = true;
     }
     $arrShift = [];
     $strSQL = "SELECT *, t2.shift_off FROM hrd_shift_schedule_employee AS t1 ";
@@ -442,6 +442,8 @@ function saveData($db, &$strDataID, &$strError)
         $resExec = $db->execute($strSQL);
         if ($bolOK) {
             $strCurrDate = $strDataDateFrom;
+            $strSQL = "DELETE FROM hrd_absence_detail WHERE id_absence = '$strDataID' ; ";
+            $res = $db->execute($strSQL);
             while (dateCompare($strCurrDate, $strDataDateThru) <= 0) {
                 $arrShift = getShiftScheduleByDate($db, $strCurrDate, "", "", $strIDEmployee);
                 $arrWorkSchedule = getWorkSchedule($db, $strCurrDate, $strIDEmployee);
@@ -455,7 +457,6 @@ function saveData($db, &$strDataID, &$strError)
                 else {
                     $bolHoliday = isHoliday($strCurrDate);
                 }
-                $strSQL = "DELETE FROM hrd_absence_detail WHERE id_absence = '$strDataID' AND absence_date = '$strCurrDate' ; ";
                 if (!$bolHoliday) //jika bukan hari libur, masukkan datanya
                 {
                     $strSQL .= "INSERT INTO hrd_absence_detail (created,modified_by,created_by, id_absence, id_employee, absence_date, absence_type) ";
@@ -490,7 +491,7 @@ if ($db->connect()) {
     $strUserRole = $_SESSION['sessionUserRole'];
     if (isset($_REQUEST['dataID'])) {
         $bolIsNew = false;
-        $strDataID = "";
+        $strDataID = $_REQUEST['dataID'];
     } else {
         $strDataID = "";
         $bolIsNew = true;
