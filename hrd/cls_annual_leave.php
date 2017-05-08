@@ -522,11 +522,11 @@ function getLeaveHoliday($strStartDate, $strFinishDate)
       # Work period is less than one year.
       else if ($intTerm === 0) {
         # Work period is less than one year in different year.
-        if ($arrDuration['year'] === 1 && $arrDuration['month'] === 0) {
+        if ($arrDuration['year'] === 1) {
           $intQuota = $fltLeaveQuota;
         }
         # Work period is less than one year in the same year.
-        else {
+        else if ($arrDuration['year'] === 0) {
           $intQuota = ($fltLeaveQuota/12) * $arrDuration['month'];
         }
       }
@@ -537,11 +537,11 @@ function getLeaveHoliday($strStartDate, $strFinishDate)
     # Leave method January cutoff.
     else if ($this->bolCutoff) {
       $arrDuration = getDateInterval($strJoinDate, $strYear.'-01-01');
-      if ($intTerm >= 1) {
+      if ($intTerm > 1) {
         $intQuota = $fltLeaveQuota;
       }
-      else if ($intTerm === 0) {
-        $intQuota = ($fltLeaveQuota/12) * (12 - $arrDuration['month'] + 1);
+      else if ($intTerm === 1) {
+        $intQuota = ($fltLeaveQuota/12) * ($arrDuration['month'] + 1);
       }
       else {
         $intQuota = 0;
