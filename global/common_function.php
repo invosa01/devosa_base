@@ -331,7 +331,7 @@ function redirectPage($strDestPage = "login.php", $strSrcPage = "", $bolSave = t
             }
             $_SESSION['sessionLastPage'] = $strSrcPage;
         }
-        header("location:$strDestPage");
+        header("location: $strDestPage");
     }
 }
 
