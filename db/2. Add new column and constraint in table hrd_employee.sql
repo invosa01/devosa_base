@@ -1,4 +1,4 @@
-ALTER TABLE hrd_employee ADD COLUMN leave_level_code character varying(55);
+ALTER TABLE hrd_employee ADD COLUMN leave_level_code character varying(50);
 
 ALTER TABLE hrd_employee
   ADD CONSTRAINT hrd_employee_fk_hrd_leave_level_employee FOREIGN KEY (leave_level_code)
