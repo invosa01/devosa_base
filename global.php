@@ -206,6 +206,7 @@ if (function_exists('loadStandardCore') === false) {
             [
                 'src/System/Sessions.php',
                 'src/System/Database.php',
+                'src/System/Config.php'
             ]
         );
     }

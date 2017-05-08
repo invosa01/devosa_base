@@ -258,7 +258,7 @@ function saveData($db, &$strDataID, &$strError)
     $strSQL .= "    OVERLAPS (DATE '$strDataDateFrom', DATE '$strDataDateThru') ";
     $strSQL .= "    OR (date_thru = DATE '$strDataDateFrom') ";
     $strSQL .= "    OR (date_thru = DATE '$strDataDateThru')) ";
-    $strSQL .= " AND STATUS <> " . REQUEST_STATUS_DENIED;
+    $strSQL .= " AND STATUS <> " . REQUEST_STATUS_DENIED . " AND id <> $strDataID ";
     $resS = $db->execute($strSQL);
     if ($rowDb = $db->fetchrow($resS)) {
         $strError = $error['overlaping_date_entry'];
@@ -287,7 +287,7 @@ function saveData($db, &$strDataID, &$strError)
             MODULE_EMPLOYEE
         );
         $strError = $messages['data_saved'];
-        return true;
+        $bolOK = true;
     }
     $arrShift = [];
     $strSQL = "SELECT *, t2.shift_off FROM hrd_shift_schedule_employee AS t1 ";
@@ -442,6 +442,8 @@ function saveData($db, &$strDataID, &$strError)
         $resExec = $db->execute($strSQL);
         if ($bolOK) {
             $strCurrDate = $strDataDateFrom;
+            $strSQL = "DELETE FROM hrd_absence_detail WHERE id_absence = '$strDataID' ; ";
+            $res = $db->execute($strSQL);
             while (dateCompare($strCurrDate, $strDataDateThru) <= 0) {
                 $arrShift = getShiftScheduleByDate($db, $strCurrDate, "", "", $strIDEmployee);
                 $arrWorkSchedule = getWorkSchedule($db, $strCurrDate, $strIDEmployee);
@@ -455,7 +457,6 @@ function saveData($db, &$strDataID, &$strError)
                 else {
                     $bolHoliday = isHoliday($strCurrDate);
                 }
-                $strSQL = "DELETE FROM hrd_absence_detail WHERE id_absence = '$strDataID' AND absence_date = '$strCurrDate' ; ";
                 if (!$bolHoliday) //jika bukan hari libur, masukkan datanya
                 {
                     $strSQL .= "INSERT INTO hrd_absence_detail (created,modified_by,created_by, id_absence, id_employee, absence_date, absence_type) ";
@@ -490,7 +491,7 @@ if ($db->connect()) {
     $strUserRole = $_SESSION['sessionUserRole'];
     if (isset($_REQUEST['dataID'])) {
         $bolIsNew = false;
-        $strDataID = "";
+        $strDataID = $_REQUEST['dataID'];
     } else {
         $strDataID = "";
         $bolIsNew = true;
@@ -558,8 +559,8 @@ if ($db->connect()) {
     //----- TAMPILKAN DATA ---------
     //echo "tt".$arrData['dataEmployee'];
     $strInputDate = "<input type=hidden size=15 maxlength=10 name=dataDate id=dataDate value=\"" . $arrData['dataDate'] . "\" >" . $arrData['dataDate_'];
-    $strInputDateFrom = "<input class=\"form-control datepicker\" type=text size=15 maxlength=10 name=dataDateFrom id=dataDateFrom value=\"" . $arrData['dataDateFrom'] . "\" data-date-format=\"" . $_SESSION['sessionDateSetting']['html_format'] . "\">";
-    $strInputDateThru = "<input class=\"form-control datepicker\" type=text size=15 maxlength=10 name=dataDateThru id=dataDateThru value=\"" . $arrData['dataDateThru'] . "\" data-date-format=\"" . $_SESSION['sessionDateSetting']['html_format'] . "\">";
+    $strInputDateFrom = "<input class=\"form-control datepicker\" type=text size=15 maxlength=10 name=dataDateFrom id=dataDateFrom value=\"" . $arrData['dataDateFromOri'] . "\" data-date-format=\"" . $_SESSION['sessionDateSetting']['html_format'] . "\">";
+    $strInputDateThru = "<input class=\"form-control datepicker\" type=text size=15 maxlength=10 name=dataDateThru id=dataDateThru value=\"" . $arrData['dataDateThruOri'] . "\" data-date-format=\"" . $_SESSION['sessionDateSetting']['html_format'] . "\">";
     $strInputEmployee = "<input class=\"form-control\" type=text name=dataEmployee id=dataEmployee size=10 maxlength=30 value=\"" . $strEmployeeNIK . "\" $strReadonly >";
     $strInputDuration = "<input class=\"form-control\" type=text name=dataDuration id=dataDuration size=30 maxlength=10 value=\"" . $arrData['dataDuration'] . "\" readonly class='numeric' >";
     $strInputNote = "<textarea class=\"form-control\" name=dataNote cols=30 rows=3 wrap='virtual' >" . $arrData['dataNote'] . "</textarea>";
