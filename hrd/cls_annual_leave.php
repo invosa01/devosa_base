@@ -485,8 +485,8 @@ function getLeaveHoliday($strStartDate, $strFinishDate)
     $strJoinDate = $this->arrEmployee[$strID]['join_date'];
     # Get max leave quota referencing hrd_employee.
     $fltLeaveQuota = 0;
-    if (isset($this->arrEmployee[$strID]['grade_code']) && $this->arrEmployee[$strID]['grade_code'] !== '') {
-      $strSQL = "SELECT max_quota FROM hrd_leave_level_quota WHERE level_code = '".$this->arrEmployee[$strID]['grade_code']."';";
+    if (isset($this->arrEmployee[$strID]['leave_level_code']) && $this->arrEmployee[$strID]['leave_level_code'] !== '') {
+      $strSQL = "SELECT max_quota FROM hrd_leave_level_quota WHERE level_code = '".$this->arrEmployee[$strID]['leave_level_code']."';";
       $res = $this->data->execute($strSQL);
       if ($row = $this->data->fetchrow($res)) {
         $fltLeaveQuota = $row['max_quota'];

@@ -44,7 +44,7 @@ function getFormInput() {
     global $f;
     # Declare form class.
     $f = new clsForm('form1', 3, '100%');
-    $f->addSelect(getWords('grade'), 'dataLeaveLevel', getDataListSalaryGrade(), '', '', true, true, true);
+    $f->addInput(getWords('Leave Level'), 'dataLeaveLevel', '', '', 'string', true, true, true);
     $f->addInput(getWords('Yearly Quota'), 'dataYearlyQuota', '', '', 'numeric', true, true, true);
     $f->addLabel('','','');
     $f->addLabel('','','');
@@ -71,6 +71,7 @@ function getDataGrid() {
     $myDataGrid->addColumnCheckbox(new DataGrid_Column('chkID', 'id', ['align' => 'center', 'width' => '5'], ['align' => 'center']));
     $myDataGrid->addColumn(new DataGrid_Column(getWords('Level Code'), 'level_code', '', ['align' => 'left']));
     $myDataGrid->addColumn(new DataGrid_Column(getWords('Maximal Leave Quota'), 'max_quota', '', ['align' => 'left']));
+    $myDataGrid->addColumn(new DataGrid_Column(getWords('Edit'), '', '', ['align' => 'left']));
     $myDataGrid->addSpecialButton('btnDelete', 'btnDelete', 'submit', getWords('delete'), '', 'deleteData()');
     $myDataGrid->getRequest();
     # Get total data.
