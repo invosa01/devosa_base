@@ -243,27 +243,6 @@ class cModel
                     }
                     $strAttribute = implode(" OR ", $arrResult);
                 } else {
-<<<<<<< HEAD
-                  $val = $stringPrefix . $formatter(
-                          $this->db->columns[$this->tableInfo[$key]['type']]['format']
-                      ) . $stringPrefix;
-                }
-              } else {
-                $val = $stringPrefix . $val . $stringPrefix;
-              }
-              break;
-            case "string" :
-              //print_r($val);
-              $val = $stringPrefix . $this->db->escape_string($val) . $stringPrefix;
-              break;
-            default :
-              if ($formatter !== null) {
-                $val = $formatter[$val];
-              } else {
-                $val = $stringPrefix . $val . $stringPrefix;
-              }
-          }
-=======
                     $varAttribute = $this->_formatData($varAttribute, false);
                     foreach ($varAttribute as $key => $value) {
                         $arrResult[] = $key . " = " . $value;
@@ -302,7 +281,6 @@ class cModel
             } else {
                 $strAttribute = $varAttribute;
             }
->>>>>>> 5eabbc66e99a3cfa0e8de8a238c22f0fc389d1c7
         } else {
             $strAttribute = "*";
         }
