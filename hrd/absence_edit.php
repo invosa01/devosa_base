@@ -258,7 +258,10 @@ function saveData($db, &$strDataID, &$strError)
     $strSQL .= "    OVERLAPS (DATE '$strDataDateFrom', DATE '$strDataDateThru') ";
     $strSQL .= "    OR (date_thru = DATE '$strDataDateFrom') ";
     $strSQL .= "    OR (date_thru = DATE '$strDataDateThru')) ";
-    $strSQL .= " AND STATUS <> " . REQUEST_STATUS_DENIED . " AND id <> $strDataID ";
+    $strSQL .= " AND STATUS <> " . REQUEST_STATUS_DENIED ;
+    if ($strDataID !== '') {
+        $strSQL .= " AND id <> $strDataID ";
+    }
     $resS = $db->execute($strSQL);
     if ($rowDb = $db->fetchrow($resS)) {
         $strError = $error['overlaping_date_entry'];
