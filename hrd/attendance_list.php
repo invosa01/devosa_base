@@ -168,7 +168,6 @@ function getData($db, $bolSync = false)
             syncShiftAttendance($db, $strDateFrom, $strDateThru, $strKriteria);
             syncOvertimeApplication($db, $strDateFrom, $strDateThru, $strIDEmployee, $strKriteria);
             syncLateEarly($db, $strDateFrom, $strDateThru, "", $strKriteria);
-            checkBlankAttendance($db, $strDateFrom, $strDateThru, $strKriteria);
         }
         //get approved late or early
         $tblAbsencePartial = new cHrdAbsencePartial();
