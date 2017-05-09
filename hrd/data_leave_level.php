@@ -34,24 +34,23 @@ $strTemplateFile = getTemplate(str_replace(".php", ".html", basename($_SERVER['P
 # Load page template.
 $tbsPage->LoadTemplate($strMainTemplate);
 $tbsPage->Show();
-
 /**
  * Function to create an input form.
  *
  * @return string
  */
-function getFormInput() {
+function getFormInput()
+{
     global $f;
     # Declare form class.
     $f = new clsForm('form1', 3, '100%');
-    $f->addSelect(getWords('grade'), 'dataLeaveLevel', getDataListSalaryGrade(), '', '', true, true, true);
+    $f->addInput(getWords('Leave Level'), 'dataLeaveLevel', '', '', 'string', true, true, true);
     $f->addInput(getWords('Yearly Quota'), 'dataYearlyQuota', '', '', 'numeric', true, true, true);
-    $f->addLabel('','','');
-    $f->addLabel('','','');
-    $f->addLabel('','','');
-    $f->addLabel('','','');
+    $f->addLabel('', '', '');
+    $f->addLabel('', '', '');
+    $f->addLabel('', '', '');
+    $f->addLabel('', '', '');
     $f->addSubmit('btnSave', getWords('Save'), 'onclick = "return validInput();"', true, true, '', '', 'saveData()');
-
     return $f->render();
 }
 
@@ -60,17 +59,20 @@ function getFormInput() {
  *
  * @return string
  */
-function getDataGrid() {
+function getDataGrid()
+{
     global $myDataGrid;
     # Declare db class.
     $db = new CdbClass();
     # Declare datagrid class.
     $myDataGrid = new cDataGrid('formData', 'DataGrid1', '100%', '100%', true, false, false, true);
     $myDataGrid->setAJAXCallBackScript(basename($_SERVER['PHP_SELF']));
-
-    $myDataGrid->addColumnCheckbox(new DataGrid_Column('chkID', 'id', ['align' => 'center', 'width' => '5'], ['align' => 'center']));
+    $myDataGrid->addColumnCheckbox(
+        new DataGrid_Column('chkID', 'id', ['align' => 'center', 'width' => '5'], ['align' => 'center'])
+    );
     $myDataGrid->addColumn(new DataGrid_Column(getWords('Level Code'), 'level_code', '', ['align' => 'left']));
     $myDataGrid->addColumn(new DataGrid_Column(getWords('Maximal Leave Quota'), 'max_quota', '', ['align' => 'left']));
+    $myDataGrid->addColumn(new DataGrid_Column(getWords('Edit'), '', '', ['align' => 'left']));
     $myDataGrid->addSpecialButton('btnDelete', 'btnDelete', 'submit', getWords('delete'), '', 'deleteData()');
     $myDataGrid->getRequest();
     # Get total data.
@@ -88,19 +90,20 @@ function getDataGrid() {
  *
  * @return void
  */
-function saveData() {
+function saveData()
+{
     global $f;
     # Get input value.
     $arrData = [
         'level_code' => getRequestValue('dataLeaveLevel'),
-        'max_quota' => getRequestValue('dataYearlyQuota')
+        'max_quota'  => getRequestValue('dataYearlyQuota')
     ];
     # Create query string.
     $strColumn = '';
     $strValue = '';
-    foreach($arrData as $key => $value) {
-        $strColumn .= (isset($strColumn) && $strColumn !== '') ? ", ".$key : $key ;
-        $strValue .= (isset($strValue) && $strValue !== '') ? ", "."'$value'" : "'$value'" ;
+    foreach ($arrData as $key => $value) {
+        $strColumn .= (isset($strColumn) && $strColumn !== '') ? ", " . $key : $key;
+        $strValue .= (isset($strValue) && $strValue !== '') ? ", " . "'$value'" : "'$value'";
     }
     $strSQL = "INSERT INTO hrd_leave_level_quota ($strColumn) VALUES ($strValue);";
     # Declare db class.
@@ -109,8 +112,7 @@ function saveData() {
         if ($db->execute($strSQL)) {
             # Save to table hrd_level_leave_quota, display success message on success.
             $f->message = 'Data saved successfully';
-        }
-        else {
+        } else {
             # Display error message on failed.
             $f->message = 'Failed to save';
         }
@@ -122,7 +124,8 @@ function saveData() {
  *
  * @return void
  */
-function deleteData() {
+function deleteData()
+{
     global $myDataGrid;
     $db = new CdbClass();
     $strSQL = "";

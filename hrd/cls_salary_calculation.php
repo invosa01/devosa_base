@@ -180,7 +180,7 @@ class clsSalaryCalculation
                     $this->arrDetail[$row['id_employee']]['base_ot'] += $row['amount'];
                 } // as base ot
                 if ($this->arrMA[$row['allowance_code']]['jams'] == 't') {
-                  $this->arrDetail[$row['id_employee']]['base_jamsostek'] += $row['amount'];
+                    $this->arrDetail[$row['id_employee']]['base_jamsostek'] += $row['amount'];
                 }
                 /*
                  * 2016-11-26 | Ade Sanusi
@@ -360,7 +360,7 @@ class clsSalaryCalculation
           (CASE WHEN (ta.maxlink <> '' AND ta.maxlink IS NOT NULL) THEN CAST(ta.maxlink AS DOUBLE PRECISION) END) END) AS maxamount
         FROM (hrd_employee_deduction AS t1
         INNER JOIN (select code, active, maxlink, prorate, show, daily from hrd_deduction_type order by seq) AS t2 ON t1.deduction_code = t2.code) as ta
-        LEFT JOIN hrd_employee_allowance AS t3 ON ta.id_employee = t3.id_employee AND t3.allowance_code = ta.maxlink
+        LEFT JOIN hrd_employee_allowance AS t3 ON ta.id_employee = t3.id_employee AND t3.allowance_code = ta.maxlink AND ta.id_salary_set = t3.id_salary_set
         LEFT JOIN hrd_employee AS t5 ON ta.id_employee = t5.id
         WHERE ta.active = 't' AND ta.id_salary_set = " . $this->arrData['id_salary_set'] . " $strKriteria
       ";
@@ -662,7 +662,7 @@ class clsSalaryCalculation
             $employeeID = $row2['employee_id'];//$this->arrDetail[$intID]['employee_id'];
             $lateDate = $row2['attendance_date'];
             if ($employeeID == '08800069' || $employeeID == 'A0002' || $employeeID == 'A0003') {
-                echo "Employee ID >>".$employeeID." | ".$row2['id']." << Date: ".$lateDate." Late Deduction : ".$this->arrDetail[$row2['id']]['late_deduction'];
+                echo "Employee ID >>" . $employeeID . " | " . $row2['id'] . " << Date: " . $lateDate . " Late Deduction : " . $this->arrDetail[$row2['id']]['late_deduction'];
                 echo "<br/>";
             }
             if ((isset($this->arrConf['late_deduction_tax'])) && $this->arrConf['late_deduction_tax'] == 't') {
@@ -788,7 +788,6 @@ class clsSalaryCalculation
                 $this->arrDetail[$strID]['overtime_allowance'] = $this->arrDetail[$strID]['ot1'] + $this->arrDetail[$strID]['ot2'] + $this->arrDetail[$strID]['ot2b'] + $this->arrDetail[$strID]['ot3'] + $this->arrDetail[$strID]['ot4'];
                 $this->arrDetail[$strID]['overtime_allowance'] = ($this->arrDetail[$strID]['ot1_min'] * 1.5 + $this->arrDetail[$strID]['ot2_min'] * 2 + $this->arrDetail[$strID]['ot3_min'] * 3 + $this->arrDetail[$strID]['ot4_min'] * 4) / 60 * $this->arrDetail[$strID]['ot_per_hour'];
             }
-
             $fltOTMealAllowance = $this->arrEmployee[$strID]['ot_meal_fee'] * $intOTMealCounter;
             if ($this->arrEmployee[$strID]['ot_platform'] == 3) { //Jika Flat
                 /*$this->arrDetail[$strID]['overtime_allowance'] = $fltOTMealAllowance;
@@ -1014,14 +1013,12 @@ class clsSalaryCalculation
                 if ($this->arrConf['tax_calculation'] == '0') {
                     $fltTax = $objTax->getTax(true);
                     $fltIrregularTax = $objTax->getTax(false);
-                }
-                # Check tax calculation method, 1 = flat. This method is calculated referencing only base tax and tax in current month.
+                } # Check tax calculation method, 1 = flat. This method is calculated referencing only base tax and tax in current month.
                 else if ($this->arrConf['tax_calculation'] == '1') {
                     if ($this->salaryCalcMonth === 12 || (isset($strResignDate) && $strResignDate != '')) {
                         $fltTax = $objTax->getTax(true);
                         $fltIrregularTax = $objTax->getTax(false);
-                    }
-                    else {
+                    } else {
                         $fltTax = $objTax->getTaxAnnual(true);
                         $fltIrregularTax = $objTax->getTaxAnnual(false);
                     }
@@ -1214,9 +1211,6 @@ class clsSalaryCalculation
             if ($rowDb['total'] != "") {
                 $intEmployeeUnpaidAbsence += $rowDb['total'];
             }
-        }
-        if ($intEmployeeUnpaidAbsence >= 3) {
-            $intEmployeeUnpaidAbsence = 4;
         }
         return ($fltAmount * $intEmployeeUnpaidAbsence);
     }

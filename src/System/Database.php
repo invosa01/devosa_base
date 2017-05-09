@@ -11,6 +11,12 @@
  * @link      -
  */
 defined('STANDARD_FUNCTION_LOADED') === true or die('STANDARD FUNCTION NOT LOADED YET');
+/**
+ * A Flag sign if standard postgresql database driver library has been loaded or not.
+ *
+ * @constant boolean STANDARD_PGSQL_DRIVER_LIBRARY
+ */
+define('STANDARD_PGSQL_DRIVER_LIBRARY', true);
 if (function_exists('getPgConnection') === false) {
     /**
      * Get postgreSQL database connection.

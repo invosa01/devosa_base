@@ -3,7 +3,7 @@
 CREATE TABLE hrd_leave_level_quota
 (
   id serial NOT NULL,
-  level_code character varying(255), -- Level in this table is different from level in position/grade/functional
+  level_code character varying(50), -- Level in this table is different from level in position/grade/functional
   max_quota integer, -- Maximum leave quota per level
   CONSTRAINT hrd_level_leave_quota_pk PRIMARY KEY (id)
 )

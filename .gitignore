@@ -45,3 +45,5 @@ development.ini
 
 /global/configuration.php
 /configuration.php
+error_log
+devosa_dberror.log
