@@ -63,7 +63,8 @@ function getData(
     &$intRows,
     $strKriteria = "",
     $strOrder = ""
-) {
+)
+{
     global $words;
     global $ARRAY_LEAVE_TYPE;
     global $chkEmp;
@@ -80,20 +81,21 @@ function getData(
     // uddin untuk membalik tanggal menjadi format asli
     /*$arrDate = explode("-", $strDataDateFrom);
     $strDataDateFrom = $arrDate[2] . "-" . $arrDate[1] . "-" . $arrDate[0];*/
-    $strDataDateFrom = standardDateToSQLDateNew(
+    //die($_SESSION['sessionDateSetting']['date_sparator']);
+    /*$strDataDateFrom = standardDateToSQLDateNew(
         $strDataDateFrom,
         $_SESSION['sessionDateSetting']['date_sparator'],
         $_SESSION['sessionDateSetting']['pos_year'],
         $_SESSION['sessionDateSetting']['pos_month'],
         $_SESSION['sessionDateSetting']['pos_day']
-    );
-    $strDataDateThru = standardDateToSQLDateNew(
-        $strDataDateThru,
-        $_SESSION['sessionDateSetting']['date_sparator'],
-        $_SESSION['sessionDateSetting']['pos_year'],
-        $_SESSION['sessionDateSetting']['pos_month'],
-        $_SESSION['sessionDateSetting']['pos_day']
-    );
+    );*/
+    /* $strDataDateThru = standardDateToSQLDateNew(
+         $strDataDateThru,
+         $_SESSION['sessionDateSetting']['date_sparator'],
+         $_SESSION['sessionDateSetting']['pos_year'],
+         $_SESSION['sessionDateSetting']['pos_month'],
+         $_SESSION['sessionDateSetting']['pos_day']
+     );*/
     /*$arrDate = explode("-", $strDataDateThru);
     $strDataDateThru = $arrDate[2] . "-" . $arrDate[1] . "-" . $arrDate[0];*/
     // ambil data informasi kehadiran dan absen
@@ -387,9 +389,9 @@ function showRows($strNo, $rowData, $strClass = "")
     $strResult .= "  <td nowrap >&nbsp;" . $rowData['employee_name'] . "</td>\n";
     $strResult .= "  <td nowrap class=\"center\">&nbsp;" . $rowData['attendance'] . "</td>\n";
     $strResult .= "  <td nowrap class=\"center\">&nbsp;" . $rowData['late'] . "</td>\n";
-    $strResult .= "  <td nowrap class=\"center\">&nbsp;" . minuteToTime($rowData['totalLate']) ." ( ".$rowData['totalLate']. " ) </td>\n";
+    $strResult .= "  <td nowrap class=\"center\">&nbsp;" . minuteToTime($rowData['totalLate']) . " ( " . $rowData['totalLate'] . " ) </td>\n";
     $strResult .= "  <td nowrap class=\"center\">&nbsp;" . $rowData['early'] . "</td>\n";
-    $strResult .= "  <td nowrap class=\"center\">&nbsp;" . minuteToTime($rowData['totalEarly']) ." ( ".$rowData['totalEarly']. " ) </td>\n";
+    $strResult .= "  <td nowrap class=\"center\">&nbsp;" . minuteToTime($rowData['totalEarly']) . " ( " . $rowData['totalEarly'] . " ) </td>\n";
     $strResult .= "  <td nowrap class=\"center\">&nbsp;" . $rowData['holiday'] . "</td>\n";
     $strResult .= "  <td nowrap class=\"center\">&nbsp;" . $total['total'] . "</td>\n";
     // hitung absen
@@ -577,20 +579,20 @@ function showDataDepartment($db, $arrData)
     }
     // array temporer untuk reset data
     $arrEmptyData = [
-        "id"            => "",
-        "late"          => 0,
-        "early"         => 0,
-        "totalLate"     => 0,
-        "totalEarly"    => 0,
-        "absence"       => 0,
-        "absenceleave"  => 0,
-        "leave"         => 0, /*"trip" => 0,*/
-        "training"      => 0,
-        "attendance"    => 0,
-        "employee_id"   => "",
+        "id" => "",
+        "late" => 0,
+        "early" => 0,
+        "totalLate" => 0,
+        "totalEarly" => 0,
+        "absence" => 0,
+        "absenceleave" => 0,
+        "leave" => 0, /*"trip" => 0,*/
+        "training" => 0,
+        "attendance" => 0,
+        "employee_id" => "",
         "employee_name" => "",
-        "holiday"       => "0",
-        "shift"         => "0"
+        "holiday" => "0",
+        "shift" => "0"
     ];
     foreach ($arrAbsType AS $kode => $nama) {
         $arrEmptyData['absence_' . $kode] = 0;
