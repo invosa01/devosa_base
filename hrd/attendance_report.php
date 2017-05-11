@@ -80,20 +80,21 @@ function getData(
     // uddin untuk membalik tanggal menjadi format asli
     /*$arrDate = explode("-", $strDataDateFrom);
     $strDataDateFrom = $arrDate[2] . "-" . $arrDate[1] . "-" . $arrDate[0];*/
-    $strDataDateFrom = standardDateToSQLDateNew(
+    //die($_SESSION['sessionDateSetting']['date_sparator']);
+    /*$strDataDateFrom = standardDateToSQLDateNew(
         $strDataDateFrom,
         $_SESSION['sessionDateSetting']['date_sparator'],
         $_SESSION['sessionDateSetting']['pos_year'],
         $_SESSION['sessionDateSetting']['pos_month'],
         $_SESSION['sessionDateSetting']['pos_day']
-    );
-    $strDataDateThru = standardDateToSQLDateNew(
-        $strDataDateThru,
-        $_SESSION['sessionDateSetting']['date_sparator'],
-        $_SESSION['sessionDateSetting']['pos_year'],
-        $_SESSION['sessionDateSetting']['pos_month'],
-        $_SESSION['sessionDateSetting']['pos_day']
-    );
+    );*/
+    /* $strDataDateThru = standardDateToSQLDateNew(
+         $strDataDateThru,
+         $_SESSION['sessionDateSetting']['date_sparator'],
+         $_SESSION['sessionDateSetting']['pos_year'],
+         $_SESSION['sessionDateSetting']['pos_month'],
+         $_SESSION['sessionDateSetting']['pos_day']
+     );*/
     /*$arrDate = explode("-", $strDataDateThru);
     $strDataDateThru = $arrDate[2] . "-" . $arrDate[1] . "-" . $arrDate[0];*/
     // ambil data informasi kehadiran dan absen
@@ -102,7 +103,7 @@ function getData(
     $arrEmpAbs = getEmployeeAbsence($db, $strDataDateFrom, $strDataDateThru);
     //$arrEmpLv   = getEmployeeLeave($db,$strDataDateFrom,$strDataDateThru);
     //$arrEmpTrip  = getEmployeeTrip($db,$strDataDateFrom,$strDataDateThru);
-    $arrEmpTrn = getEmployeeTraining($db, $strDataDateFrom, $strDataDateThru);
+    //$arrEmpTrn = getEmployeeTraining($db, $strDataDateFrom, $strDataDateThru);
     //get approved late or early
     $tblAbsPart = new cHrdAbsencePartial();
     $strCriteria = "partial_absence_date BETWEEN '$strDataDateFrom' AND '$strDataDateThru' AND status >= " . REQUEST_STATUS_APPROVED . " ";
@@ -370,7 +371,7 @@ function showRows($strNo, $rowData, $strClass = "")
     global $db;
     $strSQL = "SELECT COUNT(*) AS total from hrd_attendance AS t1
 				INNER JOIN (
-					SELECT * FROM hrd_shift_type 
+					SELECT * FROM hrd_shift_type
 				) AS t2 ON t1.code_shift_type=t2.code AND t2.shift_allowance>0
 				INNER JOIN (
 					SELECT * FROM hrd_employee
@@ -379,7 +380,6 @@ function showRows($strNo, $rowData, $strClass = "")
     if ($rowData['attendance'] < 100) {
         $strSQL .= " AND t3.employee_id='" . $rowData['employee_id'] . "'";
     }
-    // echo $strSQL;
     $resDb = $db->execute($strSQL);
     $total = $db->fetchrow($resDb);
     $strResult .= "  <td nowrap align=right>$strNo&nbsp;</td>\n";
@@ -387,9 +387,13 @@ function showRows($strNo, $rowData, $strClass = "")
     $strResult .= "  <td nowrap >&nbsp;" . $rowData['employee_name'] . "</td>\n";
     $strResult .= "  <td nowrap class=\"center\">&nbsp;" . $rowData['attendance'] . "</td>\n";
     $strResult .= "  <td nowrap class=\"center\">&nbsp;" . $rowData['late'] . "</td>\n";
-    $strResult .= "  <td nowrap class=\"center\">&nbsp;" . minuteToTime($rowData['totalLate']) ." ( ".$rowData['totalLate']. " ) </td>\n";
+    $strResult .= "  <td nowrap class=\"center\">&nbsp;" . minuteToTime(
+            $rowData['totalLate']
+        ) . " ( " . $rowData['totalLate'] . " ) </td>\n";
     $strResult .= "  <td nowrap class=\"center\">&nbsp;" . $rowData['early'] . "</td>\n";
-    $strResult .= "  <td nowrap class=\"center\">&nbsp;" . minuteToTime($rowData['totalEarly']) ." ( ".$rowData['totalEarly']. " ) </td>\n";
+    $strResult .= "  <td nowrap class=\"center\">&nbsp;" . minuteToTime(
+            $rowData['totalEarly']
+        ) . " ( " . $rowData['totalEarly'] . " ) </td>\n";
     $strResult .= "  <td nowrap class=\"center\">&nbsp;" . $rowData['holiday'] . "</td>\n";
     $strResult .= "  <td nowrap class=\"center\">&nbsp;" . $total['total'] . "</td>\n";
     // hitung absen
@@ -460,18 +464,20 @@ function showDataDepartment($db, $arrData)
     $strKriteriaDept = "";
     $strKriteriaSect = "";
     if ($strDataCompany != "") {
-        $strTempKriteria = "AND management_code LIKE '" . getCompanyCode() . "%' ";
+        $arrCompanyInfo = arrCompanyInfo($db, $strDataCompany);
+        $companyCode = $arrCompanyInfo['company_code'];
+        $strTempKriteria = "AND management_code LIKE '" . $companyCode . "%' ";
         $strKriteriaDiv .= $strTempKriteria;
         $strKriteriaDept .= $strTempKriteria;
         $strKriteriaSect .= $strTempKriteria;
     }
     $bolShowTotal = true;
     // cek jika cuma 1 employee yg dicari
-    if ($strDataEmployee != "" && isset($arrData[1])) {
-        $strTempKriteriaMan = "AND management_code = '" . $arrData[1]['management_code'] . "' ";
-        $strTempKriteriaDiv = "AND division_code = '" . $arrData[1]['division_code'] . "' ";
-        $strTempKriteriaDept = "AND department_code = '" . $arrData[1]['department_code'] . "' ";
-        $strTempKriteriaSect = "AND section_code = '" . $arrData[1]['section_code'] . "' ";
+    if ($strDataEmployee != "" && isset($arrData[0])) {
+        $strTempKriteriaMan = "AND management_code = '" . $arrData[0]['management_code'] . "' ";
+        $strTempKriteriaDiv = "AND division_code = '" . $arrData[0]['division_code'] . "' ";
+        $strTempKriteriaDept = "AND department_code = '" . $arrData[0]['department_code'] . "' ";
+        $strTempKriteriaSect = "AND section_code = '" . $arrData[0]['section_code'] . "' ";
         $strKriteriaMan .= $strTempKriteriaMan;
         $strKriteriaDiv .= $strTempKriteriaMan . $strTempKriteriaDiv;
         $strKriteriaDept .= $strTempKriteriaMan . $strTempKriteriaDiv . $strTempKriteriaDept;
@@ -913,7 +919,7 @@ if ($db->connect()) {
         getAbsenceType($db);
         $bolShow = (isset($_REQUEST['btnShow']) || $bolPrint);
         $strDataDateFromStandar = $strDataDateFrom;
-        $strDataDateThruStandar = $strDataDateFrom;
+        $strDataDateThruStandar = $strDataDateThru;
         $strDataDateFrom = standardDateToSQLDateNew(
             $strDataDateFrom,
             $_SESSION['sessionDateSetting']['date_sparator'],
