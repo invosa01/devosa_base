@@ -359,13 +359,15 @@ function getDateInterval($dateFrom, $dateThru)
 function getIntervalDate($dateFrom, $dateThru)
 {
     $intDuration = 0;
-    if (validStandardDate($dateFrom) && validStandardDate($dateThru)) {
-        list($tahun1, $bulan1, $tanggal1) = explode("-", $dateFrom);
-        list($tahun2, $bulan2, $tanggal2) = explode("-", $dateThru);
-        $tsTanggal1 = mktime(0, 0, 0, $bulan1, $tanggal1, $tahun1);
-        $tsTanggal2 = mktime(10, 0, 0, $bulan2, $tanggal2, $tahun2);
-        $intSelisih = $tsTanggal2 - $tsTanggal1;
-        $intDuration = ($intSelisih / 86400);
+    if ($dateThru >= $dateFrom) {
+        if (validStandardDate($dateFrom) && validStandardDate($dateThru)) {
+            list($tahun1, $bulan1, $tanggal1) = explode("-", $dateFrom);
+            list($tahun2, $bulan2, $tanggal2) = explode("-", $dateThru);
+            $tsTanggal1 = mktime(0, 0, 0, $bulan1, $tanggal1, $tahun1);
+            $tsTanggal2 = mktime(10, 0, 0, $bulan2, $tanggal2, $tahun2);
+            $intSelisih = $tsTanggal2 - $tsTanggal1;
+            $intDuration = ($intSelisih / 86400);
+        }
     }
     return round($intDuration);
 }
