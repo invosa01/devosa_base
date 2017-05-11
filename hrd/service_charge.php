@@ -8,6 +8,7 @@ doIncludes(
         'classes/hrd/hrd_service_charge.php',
         'classes/hrd/hrd_service_charge_detail.php',
         'src/Helper/FormHelper.php',
+        'src/Helper/GridHelper.php',
         'src/System/Postfix.php'
     ]
 );
@@ -88,7 +89,8 @@ function renderPage()
         'strTemplateFile'    => getTemplate(str_replace(".php", ".html", $calledFile)),
         'formObject'         => null,
         'formInput'          => '',
-        'DataGrid'           => ''
+        'gridContents'       => null,
+        'gridList'           => '',
     ];
     extractToGlobal($globalVariables);
     # Important to given access to our global variables.
@@ -101,8 +103,9 @@ function renderPage()
     $formObject = getFormObject($formOptions);
     $formInput = $formObject->render();
     # Get grid list contents.
-    $gridOptions = [];
-    $DataGrid = getGridListContents($gridOptions);
+    $gridOptions = ['caption' => strtoupper($strWordsLISTOF . " " . getWords($privileges['menu_name']))];
+    $gridContents = getGridListContents($gridOptions);
+    $gridList = $gridContents->render();
     # Start to render using tiny but strong class.
     $tbsPage = new clsTinyButStrong;
     $tbsPage->LoadTemplate($strMainTemplate);
@@ -125,25 +128,8 @@ function getFormObject(array $formOptions = [])
     return getBuildForm($formModel, $formOptions);
 }
 
-function getGridListContents(array $datagridOptions = [])
+function getDataGrid()
 {
-    global $privileges, $strWordsLISTOF;
-    $db = new CdbClass;
-    $myDataGrid = new cDataGrid("formData", "DataGrid1");
-    $myDataGrid->caption = strtoupper($strWordsLISTOF . " " . getWords($privileges['menu_name']));
-    $myDataGrid->setAJAXCallBackScript(basename($_SERVER['PHP_SELF']));
-    $myDataGrid->addColumnNumbering(new DataGrid_Column(getWords("no."), "", ['width' => '30'], ['nowrap' => '']));
-    $myDataGrid->addColumn(
-        new DataGrid_Column(getWords("Calculation Date"), "date_calculation", ['width' => '150'], ['nowrap' => ''])
-    );
-    $myDataGrid->addColumn(
-        new DataGrid_Column(getWords("Date From"), "date_from", ['width' => '200'], ['nowrap' => ''])
-    );
-    $myDataGrid->addColumn(
-        new DataGrid_Column(getWords("Date Thru"), "date_thru", ['width' => '200'], ['nowrap' => ''])
-    );
-    $myDataGrid->addColumn(new DataGrid_Column(getWords("Amount"), "amount", null, ['nowrap' => '']));
-    $myDataGrid->getRequest();
     $strSql = 'SELECT
                     sch.date_calculation,
                     sch.date_from,
@@ -151,14 +137,27 @@ function getGridListContents(array $datagridOptions = [])
                     sch.amount
                 FROM
                     "public".hrd_service_charge AS sch';
-    $dataset = $myDataGrid->getData($db, $strSql);
     $strSqlCount = 'SELECT
                         "count" (*)
                     FROM
                         "public".hrd_service_charge AS sch';
-    $myDataGrid->totalData = $myDataGrid->getTotalData($db, $strSqlCount);
-    $myDataGrid->bind($dataset);
-    return $myDataGrid->render();
+    return [
+        'strSql'      => $strSql,
+        'strSqlCount' => $strSqlCount
+    ];
+}
+
+function getGridListContents(array $gridOptions = [])
+{
+    $gridDataBinding = getDataGrid();
+    $gridModel = [
+        'no'               => ['no', 'No.', '', ['width' => '30'], ['nowrap' => '']],
+        'date_calculation' => ['data', 'Calculation Date', 'date_calculation', ['width' => '30'], ['nowrap' => '']],
+        'date_from'        => ['data', 'Date From', 'date_from', ['width' => '150'], ['nowrap' => '']],
+        'date_thru'        => ['data', 'Date Thru', 'date_thru', ['width' => '200'], ['nowrap' => '']],
+        'amount'           => ['data', 'Amount', 'amount', ['width' => '200'], ['nowrap' => '']]
+    ];
+    return getBuildGrid($gridModel, $gridOptions, $gridDataBinding);
 }
 
 function getValidationInputDate($startDate, $endDate)
