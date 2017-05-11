@@ -182,6 +182,12 @@ $arrSetting = [
         "note"    => "Pembagi Hari saat Prorate : 0 = Total Hari Bulan Berjalan, selain itu sesuai inputan",
         "default" => "0",
     ],
+    'strProrateMethod' => [
+        'code'    => 'prorate_method',
+        'value'   => '0',
+        'note'    => 'Prorate method',
+        'default' => '0'
+    ],
     //Basic Salary
     /*"strBasicSalaryName" => array("code" => "basic_salary_name", "value" => "Basic Salary Allowance", "note" => "Display Name for Basic Salary", "default" => "Basic Salary",),
     "strBasicSalaryActive" => array("code" => "basic_salary_active", "value" => "t", "note" => "Is Basic Salary Active?", "default" => "t",),
@@ -1796,7 +1802,7 @@ function saveData($db, &$strError)
             $strValue = $_REQUEST[$kode];
             $strSQL .= "UPDATE all_setting SET modified_by = '$strmodified_byID', ";
             $strSQL .= "created = now(), value = '$strValue' ";
-            $strSQL .= "WHERE code = '" . $arrData['code'] . "'AND template_name IS NULL; ";
+            $strSQL .= "WHERE code = '" . $arrData['code'] . "' AND template_name IS NULL; ";
         }
     }
     // //
@@ -2435,6 +2441,13 @@ $strInputProrateDays = getDayList(
     $arrSetting['strProrateDays']['value'],
     "<option value=0 >0</option>\n"
 );
+$arrayProrateMethod = [
+    0 => 'Option0',
+    1 => 'Option1',
+    2 => 'Option2',
+    3 => 'Harris'
+];
+$strProrateMethod = getComboFromArray($arrayProrateMethod, 'strProrateMethod', $arrSetting['strProrateMethod']['value']);
 $strInputSalaryDateFrom = getDayList("strSalaryDateFrom", $arrSetting['strSalaryDateFrom']['value']);
 $strInputSalaryDateThru = getDayList("strSalaryDateThru", $arrSetting['strSalaryDateThru']['value']);
 $strInputSalaryDate = getDayList("strSalaryDate", $arrSetting['strSalaryDate']['value']);
