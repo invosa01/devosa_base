@@ -183,6 +183,13 @@ $arrSetting = [
         'note' => '0: cumulative, 1: flat',
         'default' => '0',
         'oldparameter' => 'oldTaxCalculation'
+    ],
+    'strLeaveReference' => [
+        'code' => 'leave_reference',
+        'value' => '',
+        'note' => 'fill it using organizational code such as grade_code, position_code, etc',
+        'default' => '0',
+        'oldparameter' => 'oldLeaveReference'
     ]
 ];
 // untuk breakTime, dipisiahkan, karena tabelnya beda
@@ -246,6 +253,7 @@ $strWordsMinimumAutoOT = getWords("minimum auto overtime");
 $strWordsMaximumAutoOT = getWords("maximum auto overtime");
 $strWordsFilePath = getWords("file path");
 $strWordsFileType = getWords("file type");
+$strWordsLeaveReference = getWords('Leave Reference');
 //----------------------------------------------------------------------
 //--- DAFTAR FUNSI------------------------------------------------------
 // fungsi untuk menampilkan data
@@ -501,6 +509,8 @@ $strMBCN = $arrSetting['strMBCN']['value'];
 $oldMBCN = $arrSetting['strMBCN']['value'];
 $strMBCB = $arrSetting['strMBCB']['value'];
 $oldMBCB = $arrSetting['strMBCB']['value'];
+$strLeaveReference = $arrSetting['strLeaveReference']['value'];
+$oldLeaveReference = $arrSetting['strLeaveReference']['value'];
 $strAttendanceFilePath = $arrSetting['strAttendanceFilePath']['value'];
 $oldAttendanceFilePath = $arrSetting['strAttendanceFilePath']['value'];
 $strAttendanceFileType = $arrSetting['strAttendanceFileType']['value'];

@@ -377,7 +377,7 @@ class clsAnnualLeave
             //bila tahun 1, maka cuti = join date
             //bila tahun 2+, cuti = 1 Jan
             $intTerm = intval($strYear) - intval(substr($strJoinDate, 0, 4));
-            if ($intTerm > 1) {
+            if ($intTerm >= 1) {
                 $strResult = $strYear . "-01-01";
             } else {
                 $strResult = "";
