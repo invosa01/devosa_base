@@ -2442,10 +2442,10 @@ $strInputProrateDays = getDayList(
     "<option value=0 >0</option>\n"
 );
 $arrayProrateMethod = [
-    0 => 'Option0',
-    1 => 'Option1',
-    2 => 'Option2',
-    3 => 'Harris'
+    0 => 'Working Day',
+    1 => 'Calendar Day',
+    2 => 'Fix Constant and Working Day',
+    3 => 'Fix Constant and Calendar Day'
 ];
 $strProrateMethod = getComboFromArray($arrayProrateMethod, 'strProrateMethod', $arrSetting['strProrateMethod']['value']);
 $strInputSalaryDateFrom = getDayList("strSalaryDateFrom", $arrSetting['strSalaryDateFrom']['value']);
