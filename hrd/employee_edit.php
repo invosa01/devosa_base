@@ -118,6 +118,7 @@ $strWordsBPJSNo = getWords("BPJS kesehatan No.");
 $strWordsBPJS2No = getWords("BPJS ketenagakerjaan No.");
 $strWordsPensionNo = getWords("Penion Card No.");
 $strWordsLeaveLevel = getWords('Leave Quota');
+$strWordsSyncLeave = getWords('Sync Leave');
 $strDataDetail = "";
 $intDefaultWidth = 30;
 $intDefaultWidthPx = 210;
@@ -376,6 +377,7 @@ function getData($db, &$arrData)
             $arrData['dataBPJSTK'] = $rowDb['bpjs_tk_no'];
             $arrData['dataPensionNo'] = $rowDb['pension_no'];
             $arrData['dataLeaveLevel'] = $rowDb['leave_level_code'];
+            $arrData['dataSyncLeave'] = $rowDb['sync_leave'];
             writeLog(ACTIVITY_VIEW, MODULE_PAYROLL, "$strDataID ->" . $rowDb['employee_id'], 0);
         }
     }
@@ -467,6 +469,7 @@ function getData($db, &$arrData)
         $arrData['dataBPJSTK'] = "";
         $arrData['dataPensionNo'] = "";
         $arrData['dataLeaveLevel'] = '';
+        $arrData['dataSyncLeave'] = 't';
     }
     return true;
 } // showData
@@ -603,7 +606,8 @@ function saveData($db, &$strDataID, &$strError)
     (isset($_REQUEST['dataMother'])) ? $strDataMother = $_REQUEST['dataMother'] : $strDataMother = '';
     (isset($_REQUEST['dataBPJS'])) ? $strDataBPJS = $_REQUEST['dataBPJS'] : $strDataBPJS = '';
     (isset($_REQUEST['dataBPJSTK'])) ? $strDataBPJSTK = $_REQUEST['dataBPJSTK'] : $strDataBPJSTK = '';
-    (isset($_REQUEST['dataLeaveLevel'])) ? $strDataLeaveLevel = $_REQUEST['dataLeaveLevel'] : $strDataLeaveLevel = '';
+    (isset($_REQUEST['dataSyncLeave'])) ? $strDataSyncLeave = 't' : $strDataSyncLeave = 'f';
+    $strDataLeaveLevel = (($strDataSyncLeave === 't') && (getSetting('leave_reference') !== '')) ? getLevelCode($db, getSetting('leave_reference'), $strDataID) : $_REQUEST['dataLeaveLevel'];
     $strDataIsBirthday = 't';
     // cek validasi -----------------------
     if ($strDataEmployeeID == "") {
@@ -632,6 +636,9 @@ function saveData($db, &$strDataID, &$strError)
         return false;
     } else if (!is_numeric($strDataHeight)) {
         $strError = $error['invalid_number'];
+        return false;
+    } else if (!isDataExists($db, 'hrd_leave_level_quota', 'level_code', $strDataLeaveLevel)) {
+        $strError = 'Reference does not exist in master data leave level, vice versa.';
         return false;
     } else {
         $strKriteria = ($strDataID == "") ? "" : "AND id <> '$strDataID' ";
@@ -692,7 +699,7 @@ function saveData($db, &$strDataID, &$strError)
             $strSQL .= "zakat, gross_up,get_jamsostek,get_bpjs,get_pension, get_jshk, is_immune_auto_alpha, jamsostek_no, transport, transport_fee, ";
             $strSQL .= "bank_account_name, bank_code, ";
             $strSQL .= "bank2_account_name, bank2_code, ";
-            $strSQL .= "nickname, letter_code, passport, flag, major_code, mother_name, bpjs_no, bpjs_tk_no, pension_no, leave_level_code) ";
+            $strSQL .= "nickname, letter_code, passport, flag, major_code, mother_name, bpjs_no, bpjs_tk_no, pension_no, leave_level_code, sync_leave) ";
             $strSQL .= "VALUES(now(),'" . $_SESSION['sessionUserID'] . "',now(),'" . $_SESSION['sessionUserID'] . "', ";
             $strSQL .= "'$strDataEmployeeID','$strdataName','$strdataFingerID', '$strDataGender', ";
             $strSQL .= "'$strDataCurrency', '$strDataSalaryPaymentType', ";
@@ -716,7 +723,7 @@ function saveData($db, &$strDataID, &$strError)
             $strSQL .= "'$strDataBankAccountName', '$strDataBankCode', ";
             $strSQL .= "'$strDataBank2AccountName', '$strDataBank2Code', ";
             $strSQL .= "'$strdataNick','$strDataLetterCode', '$strDataPassport', '$strFlag', '$strDataMajor',";
-            $strSQL .= "'$strDataMother','$strDataBPJS','$strDataBPJSTK', '$strDataPensionNo', '$strDataLeaveLevel') ";
+            $strSQL .= "'$strDataMother','$strDataBPJS','$strDataBPJSTK', '$strDataPensionNo', '$strDataLeaveLevel', '$strDataSyncLeave') ";
             $resExec = $db->execute($strSQL);
             // ambil data IDnya
             $strSQL = "SELECT id FROM hrd_employee WHERE employee_id = '$strDataEmployeeID' ";
@@ -806,7 +813,7 @@ function saveData($db, &$strDataID, &$strError)
             $strSQL .= "transport = '$strDataTransport', transport_fee = '$strDataTransportFee', ";
             $strSQL .= "nickname = '$strdataNick', letter_code = '$strDataLetterCode', passport = '$strDataPassport', ";
             $strSQL .= "major_code = '$strDataMajor', mother_name='$strDataMother',";
-            $strSQL .= "bpjs_no='$strDataBPJS',bpjs_tk_no='$strDataBPJSTK', is_immune_auto_alpha = $strDataIsImmuneAutoAlpha, leave_level_code = '$strDataLeaveLevel' ";
+            $strSQL .= "bpjs_no='$strDataBPJS',bpjs_tk_no='$strDataBPJSTK', is_immune_auto_alpha = $strDataIsImmuneAutoAlpha, leave_level_code = '$strDataLeaveLevel', sync_leave = '$strDataSyncLeave' ";
             $strSQL .= "WHERE id = '$strDataID' ";
             $resExec = $db->execute($strSQL);
             writeLog(ACTIVITY_EDIT, MODULE_PAYROLL, "$strDataID -> $strDataEmployeeID", 0);
@@ -1193,6 +1200,14 @@ function getMoreContact($db, $strDataID = "")
     $strResult .= "</tr>\n";
     return $strResult;
 } //getMorePhone
+
+function getLevelCode($db, $strLeaveReference, $strIDEmployee) {
+    $strSQL = "SELECT $strLeaveReference FROM hrd_employee WHERE id = $strIDEmployee;";
+    $res = $db->execute($strSQL);
+    if ($row = $db->fetchrow($res)) {
+        return $row[$strLeaveReference];
+    }
+}
 //----------------------------------------------------------------------
 //----MAIN PROGRAM -----------------------------------------------------
 $db = new CdbClass;
@@ -1545,6 +1560,11 @@ if ($db->connect()) {
         } else {
             $strInputIsImmuneAutoAlpha = "<div class=\"checkbox\"><label><input class=\"checkbox-inline\" type=checkbox name=dataIsImmuneAutoAlpha value=0></label></div>";
         }
+        if ($arrData['dataSyncLeave'] == 't') {
+            $strInputSyncLeave = "<div class=\"checkbox\"><label><input class=\"checkbox-inline\" type=checkbox name=dataSyncLeave value=1 checked></label></div>";
+        } else {
+            $strInputSyncLeave = "<div class=\"checkbox\"><label><input class=\"checkbox-inline\" type=checkbox name=dataSyncLeave value=0></label></div>";
+        }
     } else { // employee hanya bisa view
         $arrCompanyName = [];
         $strSQL = "SELECT id, company_name FROM hrd_company ";
@@ -1622,6 +1642,7 @@ if ($db->connect()) {
         $strInputGender = getWords($ARRAY_GENDER[$strInputGender]);
         $strInputReligion = $arrReligion[$strInputReligion];
         $strInputActive = ($strInputActive == '1') ? "Yes" : "No";
+        $strInputSyncLeave = ($strInputSyncLeave == TRUE) ? 'Yes' : 'No';
         $strInputInspouse = ($strInputInspouse == 't') ? "Yes" : "No";
         $strInputIsZakat = ($strInputIsZakat == 't') ? "Yes" : "No";
         $strInputIsGrossUp = ($strInputIsGrossUp == '1') ? "Yes" : "No";
