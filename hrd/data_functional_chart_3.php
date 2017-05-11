@@ -114,12 +114,12 @@ $pFunc = @$_GET["func"];
 $pLevel = @$_GET["lvl"];
 $pMgt = @$_GET["mgt"];
 $strKriteria = "";
-$firstLevel = 5; // isi dengan level functional yg deiset sebagai head (president directur)
+$firstLevel = 1; // isi dengan level functional yg deiset sebagai head (president directur)
 
 if ($pMgt == 'true') {
     $strKriteria .= "AND is_managerial is true";
 }
-$companyId = isset($_GET['company_id']) ? $_GET['company_id'] : 23;
+$companyId = isset($_GET['company_id']) ? $_GET['company_id'] : 24;
 $strSQL .= " SELECT * FROM hrd_functional ";
 $strSQL .= " WHERE head_code = '' AND company_id='$companyId'";
 
