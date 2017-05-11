@@ -270,12 +270,13 @@ class clsAttendanceClass
     }
 
     // fungsi untuk mengambil apakah ada jadwal shift untuk karyawan tersebut
-    function setFilter($strDateFrom, $strDateThru, $strIDEmployee = "", $strKriteria = "")
+    function setFilter($strDateFrom, $strDateThru, $strIDEmployee = "", $strKriteria = "", $arrData = [])
     {
         $this->strDateFrom = $strDateFrom;
         $this->strDateThru = $strDateThru;
         $this->strIDEmployee = $strIDEmployee;
         $this->strKriteria = $strKriteria;
+        $this->arrData = $arrData;
     }
 } // class
 // kelas khusus untuk data kehadiran karyawan tertentu, sekedar menyimpan datanya saja
