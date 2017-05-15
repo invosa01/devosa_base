@@ -143,7 +143,8 @@ function deleteData()
     $db = new CdbClass();
     $strSQL = "";
     foreach ($myDataGrid->checkboxes as $strValue) {
-        $strSQL .= "DELETE FROM hrd_leave_level_quota WHERE id = $strValue; ";
+        $strSQL .= "UPDATE hrd_employee SET leave_level_code = NULL WHERE leave_level_code = (SELECT level_code FROM hrd_leave_level_quota WHERE id = $strValue);
+                    DELETE FROM hrd_leave_level_quota WHERE id = $strValue;";
     }
     if ($db->connect()) {
         $db->execute($strSQL);
