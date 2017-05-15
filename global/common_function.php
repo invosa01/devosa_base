@@ -2038,13 +2038,13 @@ function employeeEditSubmenu($activePage)
     $submenuData['title'] = $strWordsResume;
     $submenu[] = $submenuData;
     $submenuData = [];
-    if ($activePage == $strWordsStatistik) {
-        $submenuData['active'] = true;
-    } else {
-        $submenuData['active'] = false;
-        $submenuData['link'] = "javascript:goUrl('employee_statistic')";
-    }
-    $submenuData['title'] = $strWordsStatistik;
+//    if ($activePage == $strWordsStatistik) {
+//        $submenuData['active'] = true;
+//    } else {
+//        $submenuData['active'] = false;
+//        $submenuData['link'] = "javascript:goUrl('employee_statistic')";
+//    }
+//    $submenuData['title'] = $strWordsStatistik;
     $submenu[] = $submenuData;
     $submenuData = [];
     if ($activePage == $strWordsDokumen) {
@@ -2055,14 +2055,14 @@ function employeeEditSubmenu($activePage)
     }
     $submenuData['title'] = $strWordsDokumen;
     $submenu[] = $submenuData;
-    if ($activePage == $strWordsCostSharing) {
-        $submenuData['active'] = true;
-    } else {
-        $submenuData['active'] = false;
-        $submenuData['link'] = "javascript:goUrl('employee_edit_cost_sharing')";
-    }
-    $submenuData['title'] = $strWordsCostSharing;
-    $submenu[] = $submenuData;
+//    if ($activePage == $strWordsCostSharing) {
+//        $submenuData['active'] = true;
+//    } else {
+//        $submenuData['active'] = false;
+//        $submenuData['link'] = "javascript:goUrl('employee_edit_cost_sharing')";
+//    }
+    //$submenuData['title'] = $strWordsCostSharing;
+   // $submenu[] = $submenuData;
     return pageSubMenu($submenu);
 }
 
