@@ -86,7 +86,7 @@ function setAutoAlpha($db, $strDateFrom, $strDateThru, $strDataAbsenceType)
                    LEFT JOIN (select id_employee,shift_code FROM hrd_shift_schedule_employee where shift_date = '$strCurDate') AS shf ON emp.id=shf.id_employee
                    WHERE emp.active=1 AND emp.join_date <= '$strCurDate' AND (emp.resign_date is null or emp.resign_date >= '$strCurDate') AND (emp.is_immune_auto_alpha = 0 OR emp.is_immune_auto_alpha IS NULL) AND
                       emp.id NOT IN (SELECT id_employee FROM hrd_attendance WHERE attendance_date = '$strCurDate')
-                      AND emp.id NOT IN (SELECT id_employee FROM hrd_shift_schedule_employee WHERE shift_code='OFF' AND shift_date = '$strCurDate')
+                      AND emp.id NOT IN (SELECT id_employee FROM hrd_shift_schedule_employee AS t1 LEFT JOIN hrd_shift_type AS t2 ON t1.shift_code = t2.code WHERE t2.shift_off = TRUE AND t1.shift_date = '$strCurDate')
                       AND emp.id NOT IN (SELECT id_employee FROM hrd_trip WHERE date_from <= '$strCurDate' AND date_thru >= '$strCurDate')
                       AND emp.id NOT IN (SELECT id_employee FROM hrd_absence_detail WHERE absence_date = '$strCurDate')";
         $resDb = $db->execute($strSQL);
@@ -94,7 +94,7 @@ function setAutoAlpha($db, $strDateFrom, $strDateThru, $strDataAbsenceType)
             $intLastID = 0;
             $strIDEmployee = $rowDb['id'];
             $bolHoliday = true;
-            if ($rowDb['shift_code'] == "" OR $rowDb['shift_code'] == "OFF") {
+            if ($rowDb['shift_code'] == "") {
                 $bolHoliday = isHoliday($strCurDate);
             } else {
                 $bolHoliday = false;
