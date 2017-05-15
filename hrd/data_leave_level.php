@@ -42,8 +42,10 @@ $tbsPage->Show();
 function getFormInput()
 {
     global $f;
+    $strDataID = getPostValue('dataID');
     # Declare form class.
     $f = new clsForm('form1', 3, '100%');
+    $f->addHidden('dataID', $strDataID);
     $f->addInput(getWords('Leave Level'), 'dataLeaveLevel', '', '', 'string', true, true, true);
     $f->addInput(getWords('Yearly Quota'), 'dataYearlyQuota', '', '', 'numeric', true, true, true);
     $f->addLabel('', '', '');
@@ -72,7 +74,7 @@ function getDataGrid()
     );
     $myDataGrid->addColumn(new DataGrid_Column(getWords('Level Code'), 'level_code', '', ['align' => 'left']));
     $myDataGrid->addColumn(new DataGrid_Column(getWords('Maximal Leave Quota'), 'max_quota', '', ['align' => 'left']));
-    $myDataGrid->addColumn(new DataGrid_Column(getWords('Edit'), '', '', ['align' => 'left']));
+    $myDataGrid->addColumn(new DataGrid_Column(getWords('Edit'), '', '', ['align' => 'left'], false, false, '', 'printEditLink()'));
     $myDataGrid->addSpecialButton('btnDelete', 'btnDelete', 'submit', getWords('delete'), '', 'deleteData()');
     $myDataGrid->getRequest();
     # Get total data.
@@ -98,14 +100,25 @@ function saveData()
         'level_code' => getRequestValue('dataLeaveLevel'),
         'max_quota'  => getRequestValue('dataYearlyQuota')
     ];
+    # Get data id, to determine whether it is an new data to be inserted or old data to be updated.
+    $strDataID = getRequestValue('dataID');
     # Create query string.
     $strColumn = '';
     $strValue = '';
-    foreach ($arrData as $key => $value) {
-        $strColumn .= (isset($strColumn) && $strColumn !== '') ? ", " . $key : $key;
-        $strValue .= (isset($strValue) && $strValue !== '') ? ", " . "'$value'" : "'$value'";
+    if (isset($strDataID) && $strDataID !== '') {
+        $strStringUpdate = '';
+        foreach ($arrData as $key => $value) {
+            $strStringUpdate .= (isset($strStringUpdate) && $strStringUpdate !== '') ? ', '.$key. ' = '. "'$value'" : $key. ' = '. "'$value'" ;
+        }
+        $strSQL = "UPDATE hrd_leave_level_quota SET $strStringUpdate WHERE id = $strDataID;";
     }
-    $strSQL = "INSERT INTO hrd_leave_level_quota ($strColumn) VALUES ($strValue);";
+    else {
+        foreach ($arrData as $key => $value) {
+            $strColumn .= (isset($strColumn) && $strColumn !== '') ? ", " . $key : $key;
+            $strValue .= (isset($strValue) && $strValue !== '') ? ", " . "'$value'" : "'$value'";
+        }
+        $strSQL = "INSERT INTO hrd_leave_level_quota ($strColumn) VALUES ($strValue);";
+    }
     # Declare db class.
     $db = new CdbClass();
     if ($db->connect()) {
@@ -135,4 +148,21 @@ function deleteData()
     if ($db->connect()) {
         $db->execute($strSQL);
     }
+}
+
+/**
+ * @param $params
+ *
+ * @return string
+ */
+function printEditLink($params) {
+    $strResult = '';
+    extract($params);
+    if ((isset($counter) && $counter !== '') && isset($record)) {
+        $strResult = '<input type="hidden" name="detailID'.$counter.'" id="detailID'.$counter.'" value="'.$record['id'].'"/>
+                      <input type="hidden" name="detailLeaveLevel'.$counter.'" id="detailLeaveLevel'.$counter.'" value="'.$record['level_code'].'"/>
+                      <input type="hidden" name="detailYearlyQuota'.$counter.'" id="detailYearlyQuota'.$counter.'" value="'.$record['max_quota'].'"/>
+                      <a href="javascript:myClient.editData('.$counter.')">Edit</a>';
+    }
+    return $strResult;
 }
