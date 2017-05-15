@@ -1,0 +1,61 @@
+<script src="scripts/calendar.js"></script>
+<script src="scripts/calendar-en.js"></script>
+<link href="../css/calendar.css" rel="stylesheet" type="text/css">
+<link href="../css/ac.css" rel="stylesheet" type="text/css">
+<script src="scripts/ylib.js"></script>
+<script src="scripts/invosa.js"></script>
+<script>
+    jQuery(function ($) {
+        $('#dataEmployee').autocomplete({
+            source: "hrd_ajax_source.php?action=getemployee",
+            minLength: 2,
+            select: function (event, ui) {
+                console.log(ui);
+                $('#employee_name').html(ui.item.label);
+            }
+        });
+    })
+    var myClient = {
+        editData: function (idx) {
+            $('formMessage').style.visibility = 'hidden';
+            if (idx == 0) {
+                $('dataId').value = "";
+                $('dataEmployee').value = "";
+                $('dataNoteEo').value = "";
+            }
+            $('dataEmployee').focus();
+            $('dataEmployee').select();
+        },
+        confirmDelete: function () {
+            return confirm('[var.strConfirmDelete]');
+        },
+        confirmSave: function () {
+            return confirm('[var.strConfirmSave]');
+        }
+    }
+</script>
+[var.pageHeader]
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            [var.formInput;protect=no;htmlconv=no]
+        </div>
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-actions">
+                        <div class="pull-right" id="collapse-filter">
+                            <a href="#"
+                               data-toggle="collapse"
+                               data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="panel-title">LIST EXTRA OFF</h3>
+                </div>
+                <div id="list-panel" class="panel-body collapse in">
+                    [var.gridList;protect=no;htmlconv=no]
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
