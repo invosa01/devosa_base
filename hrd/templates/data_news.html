@@ -1,79 +1,78 @@
 [var.pageHeader]
-	<div class="main-content">
-  	<div class="row">
-  		<div class="col-md-12">
-				[var.formInput;protect=no;htmlconv=no]  			
-  		</div>
-  		<div class="col-md-12">
-  			<div class="panel">
-					<div class="panel-heading">
-						<div class="panel-actions">
-							<div class="pull-right" id="collapse-filter">
-						  	<a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
-						  </div>
-						</div>
-						<h3 class="panel-title">NEWS LIST</h3>
-					</div>
-					<div id="list-panel" class="panel-body collapse in">
-						[var.DataGrid;protect=no;htmlconv=no]
-					</div>
-				</div>
-  		</div>
-  	</div>
-  </div>
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            [var.formInput;protect=no;htmlconv=no]
+        </div>
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-actions">
+                        <div class="pull-right" id="collapse-filter">
+                            <a href="#"
+                               data-toggle="collapse"
+                               data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="panel-title">NEWS LIST</h3>
+                </div>
+                <div id="list-panel" class="panel-body collapse in">
+                    [var.DataGrid;protect=no;htmlconv=no]
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
-	var myClient = {
-    editData : function(idx)
-    {
-      $('formMessage').style.visibility = 'hidden';
-      if (idx == 0)
-      { 
-	  //reset data
-	  $('news').value="";
-	  $('date_event').value = "";	  
-	  $('id_company').value = "";
-	  $('place').value = "";
-	  $('active').checked = false;
-      }
-      else if (idx != '')
-      {
-		bolChecked  = ($("detailActive" + idx).value == "t");
-	  
-		$('dataID').value = $F("detailID" + idx);
-        $('date_event').value = $F("detailEventDate" + idx);
-        $('id_company').value = $F("detailCompany" + idx);
-        $('news').value = $F("detailNews" + idx);
-        $('place').value = $F("detailPlace" + idx);
-        $('active').checked = bolChecked;
-        if (bolChecked){
-        	$('active').parentNode.className = 'checked';
-        }else{
-        	$('active').parentNode.className = '';
+    var myClient = {
+        editData: function (idx) {
+            $('formMessage').style.visibility = 'hidden';
+            if (idx == 0) {
+                //reset data
+                $('dataID').value = '';
+                $('news').value = "";
+                $('date_event').value = "";
+                $('id_company').selectedIndex = 0;
+                $('place').value = "";
+                $('active').checked = false;
+            }
+            else if (idx != '') {
+                bolChecked = ($("detailActive" + idx).value == "t");
+
+                $('dataID').value = $F("detailID" + idx);
+                $('date_event').value = $F("detailEventDate" + idx);
+                $('id_company').selectedIndex = 0;
+                $('id_company').value = $F("detailCompany" + idx);
+                $('news').value = $F("detailNews" + idx);
+                $('place').value = $F("detailPlace" + idx);
+                $('active').checked = bolChecked;
+                if (bolChecked) {
+                    $('active').parentNode.className = 'checked';
+                } else {
+                    $('active').parentNode.className = '';
+                }
+            }
+            $('dataID').focus();
+            $('dataID').select();
+
+        },
+
+        confirmDelete: function () {
+            return confirm('[var.strConfirmDelete]');
+        },
+
+        confirmSave: function () {
+            return confirm('[var.strConfirmSave]');
         }
-      }
-      $('dataID').focus();
-      $('dataID').select();
-	  
-    },
-    
-    confirmDelete : function()
-    {
-      return confirm('[var.strConfirmDelete]');
-    },
-    
-    confirmSave : function()
-    {
-      return confirm('[var.strConfirmSave]');
     }
-  }
-  jQuery(function($) {
-  	$('.edit-news').on('click', function(){
-  		//$('#id_company').select2('destroy');
-  		var strID = $(this).attr('id');
-  		var splitID = strID.split('-');
-  		$('#id_company').val($('#detailCompany'+ splitID[1]).val());
-  		$('#id_company').select2('destroy');
-  		$('#id_company').select2();
-  	});
-  })
+    jQuery(function ($) {
+        $('.edit-news').on('click', function () {
+            //$('#id_company').select2('destroy');
+            var strID = $(this).attr('id');
+            var splitID = strID.split('-');
+            $('#id_company').val($('#detailCompany' + splitID[1]).val());
+            $('#id_company').select2('destroy');
+            $('#id_company').select2();
+        });
+    })
 </script>
