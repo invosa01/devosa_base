@@ -12,7 +12,9 @@ function routeMap()
         'division'                       => 'getDivisionData',
         'division-options'               => 'getRenderedDivisionOptions',
         'salaryCompanyCollector'         => 'getSalaryCompanyCollectorData',
-        'salaryCompanyCollector-options' => 'getRenderedSalaryCompanyCollectorOptions'
+        'salaryCompanyCollector-options' => 'getRenderedSalaryCompanyCollectorOptions',
+        'quotaExtraOff'                  => 'getQuotaExtraOffData',
+        'quotaExtraOff-options'          => 'getRenderedQuotaExtraOffOptions'
     ];
 }
 
@@ -237,6 +239,46 @@ function getRenderedSalaryCompanyCollectorOptions()
             . ' - '
             . date('F Y', strtotime($row['salary_date']))
             . ' (' . $row['salary_date'] . ') '
+            . '</option>';
+    }
+    return $result;
+}
+
+function getQuotaExtraOffData()
+{
+    $employeeId = null;
+    $wheres = [];
+    if (array_key_exists('id', $_POST) === true) {
+        $employeeId = $_POST['id'];
+    }
+    $strSQL = 'SELECT
+                    emp."id",
+                    qeo."id" AS qeo_id,
+                    qeo.employee_id,
+                    qeo.date_extra_off,
+                    qeo.date_expaired,
+                    qeo.note
+                FROM
+                    "public".hrd_employee AS emp
+                INNER JOIN "public".hrd_quota_extra_off AS qeo ON qeo.employee_id = emp."id"
+';
+    if ($employeeId !== null) {
+        $wheres[] = 'qeo.employee_id = ' . pgEscape($employeeId);
+    }
+    return pgFetchRows(getQuery($strSQL, $wheres));
+}
+
+function getRenderedQuotaExtraOffOptions()
+{
+    $result = '<option value="">-</option>';
+    $record = getQuotaExtraOffData();
+    foreach ($record as $row) {
+        $result .= '<option value="' . $row['qeo_id'] . '">'
+            . $row['date_extra_off']
+            . ' - '
+            . $row['note']
+            . ' - '
+            . $row['date_expaired']
             . '</option>';
     }
     return $result;

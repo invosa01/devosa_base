@@ -109,6 +109,22 @@ if (function_exists('getBuildForm') === false) {
                             $normalizedFieldProps['labelAttr']
                     );
                     break;
+                case 'select' :
+                    $formObject->addSelect(
+                        getWords($normalizedFieldProps['label']),
+                        $fieldName,
+                        $value,
+                        $normalizedFieldProps['attr'],
+                        $dataType,
+                        $isRequired,
+                        ($isDisabled === false),
+                        ($isHidden === false),
+                        $normalizedFieldProps['before'],
+                        $normalizedFieldProps['after'],
+                        ($noLabel === false),
+                        $normalizedFieldProps['labelAttr']
+                    );
+                    break;
                 case 'input':
                 default:
                     $calendarUpdate = getValueIfExistsOnArray('calendarUpdate', $normalizedFieldProps, SEARCH_ARR_BOTH);
