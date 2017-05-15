@@ -116,16 +116,18 @@ function getGridListContents(array $gridOptions = [])
     return getBuildGrid($gridModel, $gridOptions, $gridDataBinding);
 }
 
-function getValidationInputDate($dataDateEo)
+function getValidationInputDate($dataDateEo, $empId)
 {
     $existDate = true;
     $strSql = 'SELECT
                     "count"(*)
                 FROM
                     "public".hrd_extra_off AS exo
-                WHERE exo.date_extra_off = ' .pgEscape($dataDateEo). '
+                WHERE exo.date_extra_off = ' . pgEscape($dataDateEo) . '
+                AND 
+                    exo.employee_id = ' .pgEscape($empId) .'
                 GROUP BY 
-                    exo.employee_id';
+                    exo.id';
     $validationDate = pgFetchRow($strSql);
     if (($validationDate > 0) === true) {
         $existDate = false;
@@ -154,14 +156,16 @@ function saveData()
         'status'         => $status,
     ];
     # Load service charge model.
-    $validationDate = getValidationInputDate($model['date_extra_off']);
+    $validationDate = getValidationInputDate($model['date_extra_off'], $model['employee_id']);
     # Start to process updating database.
     if ($formObject->isInsertMode() === true) {
         # Insert master data for service charge
         if (($existDate = $validationDate['existDate']) === true) {
             if (($result = $dataHrdExtraOff->insert($model)) === true) {
+                $exoId = $dataHrdExtraOff->getLastInsertId();
                 $absenceTypeCode = 'EO';
                 $detailModel = [
+                    'extra_off_id'      => $exoId,
                     'id_employee'       => $formObject->getValue('dataEmployee'),
                     'date_from'         => $dataDateEo,
                     'absence_type_code' => $absenceTypeCode,
