@@ -31,11 +31,11 @@ define("OVERTIME_WORKDAY", 0);
 define("OVERTIME_HOLIDAY", 1);
 //define Types of partial absenc
 define("PARTIAL_ABSENCE_LATE", 0);
-define("PARTIAL_ABSENCE_MID", 1);
+//define("PARTIAL_ABSENCE_MID", 1);
 define("PARTIAL_ABSENCE_EARLY", 2);
 $ARRAY_PARTIAL_ABSENCE_TYPE = [
     PARTIAL_ABSENCE_LATE  => "late start",
-    PARTIAL_ABSENCE_MID   => "mid leave",
+    //PARTIAL_ABSENCE_MID   => "mid leave",
     PARTIAL_ABSENCE_EARLY => "early finish"
 ];
 define("AUTO_OT_MINIMUM_DURATION", 30);
