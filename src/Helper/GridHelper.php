@@ -21,7 +21,10 @@ if (function_exists('getBuildGrid') === false) {
             'label'     => '',
             'fieldName' => '',
             'titleAttr' => [],
-            'attr'      => []
+            'attr'      => [],
+            'titleFmtr' => null,
+            'itemFmtr'  => null,
+            'dataType'  => 'string'
         ];
         $defaultNormalizedGridElementsKeys = array_keys($defaultNormalizedGridElements);
         $conDb = new CdbClass;
@@ -44,14 +47,33 @@ if (function_exists('getBuildGrid') === false) {
             );
             $type = $normalizedFieldProps['type'];
             $fieldAttributes = $normalizedFieldProps['attr'];
+            $isSortable = getValueIfExistsOnArray('sortable', $fieldAttributes, true, SEARCH_ARR_BOTH);
+            $isSearchable = getValueIfExistsOnArray('searchable', $fieldAttributes, true, SEARCH_ARR_BOTH);
             switch ($type) {
+                case 'chk' :
+                    $gridContents->addColumnCheckbox(
+                        new DataGrid_Column(
+                            $fieldName,
+                            $normalizedFieldProps['titleAttr'],
+                            $normalizedFieldProps['attr'],
+                            ($isSortable === false),
+                            ($isSearchable === false),
+                            $normalizedFieldProps['titleFmtr'],
+                            $normalizedFieldProps['itemFmtr']
+                        )
+                    );
+                    break;
                 case 'no' :
                     $gridContents->addColumnNumbering(
                         new DataGrid_Column(
                             getWords($normalizedFieldProps['label']),
                             $fieldName,
                             $normalizedFieldProps['titleAttr'],
-                            $normalizedFieldProps['attr']
+                            $normalizedFieldProps['attr'],
+                            ($isSortable === false),
+                            ($isSearchable === false),
+                            $normalizedFieldProps['itemFmtr'],
+                            $normalizedFieldProps['dataType']
                         )
                     );
                     break;
@@ -62,7 +84,9 @@ if (function_exists('getBuildGrid') === false) {
                             getWords($normalizedFieldProps['label']),
                             $fieldName,
                             $normalizedFieldProps['titleAttr'],
-                            $normalizedFieldProps['attr']
+                            $normalizedFieldProps['attr'],
+                            ($isSortable === false),
+                            ($isSearchable === false)
                         )
                     );
                     break;

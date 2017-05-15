@@ -8,6 +8,13 @@
 <link href="../css/ac.css"
       rel="stylesheet"
       type="text/css">
+<script>
+    var myClient = {
+        confirmStartCalculation: function () {
+            return confirm('[var.strConfirmStartCalculation]');
+        }
+    }
+</script>
 [var.pageHeader]
 <div class="main-content">
     <div class="row">
@@ -19,7 +26,9 @@
                 <div class="panel-heading">
                     <div class="panel-actions">
                         <div class="pull-right" id="collapse-filter">
-                            <a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                            <a href="#"
+                               data-toggle="collapse"
+                               data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
                         </div>
                     </div>
                     <h3 class="panel-title">LIST SERVICE CHARGE</h3>

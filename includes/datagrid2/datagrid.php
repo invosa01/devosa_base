@@ -683,7 +683,7 @@ class cDataGrid
 
     function _initWorkBook()
     {
-        $this->wkb =& new workbook("-");
+        $this->wkb = new workbook("-");
         //create custom color index 50
         $this->wkb->set_custom_color(50, 200, 200, 200);
         // Add a worksheet to the file, returning an object to add data to

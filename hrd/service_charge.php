@@ -69,28 +69,28 @@ function renderPage()
     }
     # Initialize all global variables.
     $globalVariables = [
-        'privileges'         => $privileges,
-        'strWordsDateFrom'   => getWords("date from"),
-        'strWordsDateThru'   => getWords("date thru"),
-        'strWordsEmployeeID' => getWords("employee id"),
-        'strWordsShow'       => getWords("show"),
-        'strConfirmSave'     => getWords("save"),
-        'strConfirmDelete'   => getWords("delete"),
-        'strDataDetail'      => "",
-        'strHidden'          => "",
-        'intTotalData'       => 0,
-        'strButtons'         => "",
-        'strButtonsTop'      => "",
-        'strConfirmSave'     => getWords("do you want to save this entry?"),
-        'strPageTitle'       => getWords($privileges['menu_name']),
-        'pageIcon'           => "../images/icons/" . $privileges['icon_file'],
-        'strPageDesc'        => getWords("Service Charge management"),
-        'pageHeader'         => '',
-        'strTemplateFile'    => getTemplate(str_replace(".php", ".html", $calledFile)),
-        'formObject'         => null,
-        'formInput'          => '',
-        'gridContents'       => null,
-        'gridList'           => '',
+        'privileges'                 => $privileges,
+        'strWordsDateFrom'           => getWords("date from"),
+        'strWordsDateThru'           => getWords("date thru"),
+        'strWordsEmployeeID'         => getWords("employee id"),
+        'strWordsShow'               => getWords("show"),
+        'strConfirmSave'             => getWords("save"),
+        'strConfirmDelete'           => getWords("delete"),
+        'strDataDetail'              => "",
+        'strHidden'                  => "",
+        'intTotalData'               => 0,
+        'strButtons'                 => "",
+        'strButtonsTop'              => "",
+        'strConfirmStartCalculation' => getWords("do you want to start calculation?"),
+        'strPageTitle'               => getWords($privileges['menu_name']),
+        'pageIcon'                   => "../images/icons/" . $privileges['icon_file'],
+        'strPageDesc'                => getWords("Service Charge management"),
+        'pageHeader'                 => '',
+        'strTemplateFile'            => getTemplate(str_replace(".php", ".html", $calledFile)),
+        'formObject'                 => null,
+        'formInput'                  => '',
+        'gridContents'               => null,
+        'gridList'                   => '',
     ];
     extractToGlobal($globalVariables);
     # Important to given access to our global variables.
@@ -116,14 +116,14 @@ function getFormObject(array $formOptions = [])
 {
     global $strDateWidth;
     $dateFieldAttr = ["style" => "width:$strDateWidth"];
-    $btnSubmitAttr = ["onClick" => "javascript:myClient.confirmSave();"];
+    $btnSaveAttr = ["onClick" => "javascript:myClient.confirmStartCalculation();"];
     $formModel = [
         'dataId'              => ['hidden', '', getPostValue('dataId')],
         'dataDateFrom'        => ['input', 'date from', null, $dateFieldAttr, 'date'],
         'dataDateThru'        => ['input', 'date thru', null, $dateFieldAttr, 'date'],
         'dataCalculationDate' => ['input', 'calculation date', null, array_merge($dateFieldAttr, ['disabled']), 'date'],
         'dataRevenue'         => ['input', 'revenue', null, ['size' => 30, 'maxlength' => 31, 'required']],
-        'btnSave'             => ['submit', 'start calculation', 'saveData()', $btnSubmitAttr]
+        'btnSave'             => ['submit', 'start calculation', 'saveData()', $btnSaveAttr]
     ];
     return getBuildForm($formModel, $formOptions);
 }
@@ -149,13 +149,15 @@ function getDataGrid()
 
 function getGridListContents(array $gridOptions = [])
 {
+    $strTitleAttrWidth = ['width' => '150'];
+    $strAttrWidth = ['nowrap' => ''];
     $gridDataBinding = getDataGrid();
     $gridModel = [
-        'no'               => ['no', 'No.', '', ['width' => '30'], ['nowrap' => '']],
-        'date_calculation' => ['data', 'Calculation Date', 'date_calculation', ['width' => '30'], ['nowrap' => '']],
-        'date_from'        => ['data', 'Date From', 'date_from', ['width' => '150'], ['nowrap' => '']],
-        'date_thru'        => ['data', 'Date Thru', 'date_thru', ['width' => '200'], ['nowrap' => '']],
-        'amount'           => ['data', 'Amount', 'amount', ['width' => '200'], ['nowrap' => '']]
+        'no'               => ['no', 'No.', '', ['width' => '10'], ['nowrap' => '']],
+        'date_calculation' => ['data', 'Calculation Date', 'date_calculation', $strTitleAttrWidth, $strAttrWidth],
+        'date_from'        => ['data', 'Date From', 'date_from', $strTitleAttrWidth, $strAttrWidth],
+        'date_thru'        => ['data', 'Date Thru', 'date_thru', $strTitleAttrWidth, $strAttrWidth],
+        'amount'           => ['data', 'Amount', 'amount', $strTitleAttrWidth, $strAttrWidth]
     ];
     return getBuildGrid($gridModel, $gridOptions, $gridDataBinding);
 }
@@ -193,11 +195,13 @@ function saveData()
     $startDate = \DateTime::createFromFormat('d-m-Y', $startDate)->format('Y-m-d');
     $endDate = $formObject->getValue('dataDateThru');
     $endDate = \DateTime::createFromFormat('d-m-Y', $endDate)->format('Y-m-d');
+    $calculationDate = $formObject->getValue('dataCalculationDate');
+    $calculationDate = \DateTime::createFromFormat('d-m-Y', $calculationDate)->format('Y-m-d');
     $totalRevenue = (float)$formObject->getValue('dataRevenue');
     $model = [
         'date_from'        => $startDate,
         'date_thru'        => $endDate,
-        'date_calculation' => $formObject->getValue('dataCalculationDate'),
+        'date_calculation' => $calculationDate,
         'amount'           => $totalRevenue,
     ];
     # Load service charge model.
