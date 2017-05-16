@@ -1,0 +1,1 @@
+ALTER TABLE hrd_employee ADD COLUMN sync_leave boolean;
