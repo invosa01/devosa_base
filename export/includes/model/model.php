@@ -888,6 +888,7 @@ class cModel
         }
         $strFieldsAndValue = $this->_serializeFieldsAndValue($varData, ", ");
         $strSQL = "UPDATE " . $this->db->formatTableName($this->strTableName) . " \n";
+        debug($strSQL, true);
         $strSQL .= "SET " . $strFieldsAndValue . " \n";
         $strSQL .= $strCriteria . ";";
         //execute save SQL query syntax, and get message to $f->message
