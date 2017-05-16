@@ -15,6 +15,9 @@ print json_encode($return_data);
 exit();
 function getEmployeeData($db, $strSearch)
 {
+    $strKriteriaCompany = '';
+    $strDataFunctional = '';
+    $strDataDivision = '';
     $employeeList = null;
     if ($db->connect()) {
         //global $arrUserInfo;
