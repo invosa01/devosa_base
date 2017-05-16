@@ -125,6 +125,29 @@ function getGridListContents(array $gridOptions = [])
     return getBuildGrid($gridModel, $gridOptions, $gridDataBinding);
 }
 
+function getValidationShiftScheduleEmp($shiftDate, $empId)
+{
+    $existOff = true;
+    $shiftTypeCode = 'OFF';
+    $strSql = 'SELECT
+                    "count"(*)
+                FROM
+                    "public".hrd_shift_schedule_employee AS sse
+                WHERE
+                    sse.shift_code = ' . pgEscape($shiftTypeCode) . '
+                AND sse.shift_date = ' . pgEscape($shiftDate) . '
+                AND sse.id_employee = ' . pgEscape($empId) . '
+                GROUP BY 
+                    sse."id"';
+    $validationDateOff = pgFetchRow($strSql);
+    if (($validationDateOff > 0) === true) {
+        $existOff = false;
+    }
+    return [
+        'existOff' => $existOff
+    ];
+}
+
 function getValidationInputDate($qeoId, $dataDateUseEo)
 {
     $existDate = false;
@@ -132,12 +155,12 @@ function getValidationInputDate($qeoId, $dataDateUseEo)
     $strSqlEmp = 'SELECT
                         "count" (*)
                     FROM
-                        "public".hrd_extra_off_detail AS eod
+                        "public" . hrd_extra_off_detail AS eod
                     WHERE
-                         eod.quota_extra_id = ' . pgEscape($qeoId) . '
-                     AND eod.date_use = ' . pgEscape($dataDateUseEo) . '
+                         eod . quota_extra_id = ' . pgEscape($qeoId) . '
+                         AND eod . date_use = ' . pgEscape($dataDateUseEo) . '
                     GROUP BY
-                        eod."id"';
+                        eod . "id"';
     $validationDate = pgFetchRow($strSqlEmp);
     if (($validationDate > 0) === true) {
         $existEmp = false;
@@ -145,13 +168,13 @@ function getValidationInputDate($qeoId, $dataDateUseEo)
     $strSql = 'SELECT
                     "count" (*)
                 FROM
-                    "public".hrd_quota_extra_off AS qeo
+                    "public" . hrd_quota_extra_off AS qeo
                 WHERE
-                    qeo.date_extra_off <= ' . pgEscape($dataDateUseEo) . '
-                AND qeo.date_expaired >= ' . pgEscape($dataDateUseEo) . '
-                AND qeo."id" = ' . pgEscape($qeoId) . '
+                    qeo . date_extra_off <= ' . pgEscape($dataDateUseEo) . '
+                    AND qeo . date_expaired >= ' . pgEscape($dataDateUseEo) . '
+                    AND qeo . "id" = ' . pgEscape($qeoId) . '
                 GROUP BY
-                    qeo."id"';
+                    qeo . "id"';
     $validationDate = pgFetchRow($strSql);
     if (($validationDate > 0) === true) {
         $existDate = true;
@@ -180,30 +203,33 @@ function saveData()
     ];
     # Load service charge model.
     $validationDate = getValidationInputDate($model['quota_extra_id'], $model['date_use']);
+    $validationDateOff = getValidationShiftScheduleEmp($model['date_use'], $model['employee_id']);
     # Start to process updating database.
     if ($formObject->isInsertMode() === true) {
         # Insert master data for Extra Off Detail
         if (($existDate = $validationDate['existDate']) === true) {
             if (($existEmp = $validationDate['existEmp']) === true) {
-                if (($result = $dataHrdExtraOffDetail->insert($model)) === true) {
-                    $dataEmpId = $formObject->getValue('dataEmployee');
-                    $detailSsEmp = [
-                        'id_employee' => $dataEmpId,
-                        'shift_date'  => $dataDateUseEo
-                    ];
-                    $detailModel = [
-                        'shift_code'  => 'E0',
-                        'start_time'  => '00:00:00',
-                        'finish_time' => '00:00:00'
-                    ];
-                    # Update into detail Shift Schedule Employee
-                    if ($dataHrdShiftScheduleEmp->update($detailSsEmp, $detailModel) === false) {
-                        debug($dataHrdShiftScheduleEmp, true);
-                        $result = false;
+                if (($existOff = $validationDateOff['existOff']) === true) {
+                    if (($result = $dataHrdExtraOffDetail->insert($model)) === true) {
+                        $dataEmpId = $formObject->getValue('dataEmployee');
+                        $detailSsEmp = [
+                            'id_employee' => $dataEmpId,
+                            'shift_date'  => $dataDateUseEo
+                        ];
+                        $detailModel = [
+                            'shift_code'  => 'E0',
+                            'start_time'  => '00:00:00',
+                            'finish_time' => '00:00:00'
+                        ];
+                        # Update into detail Shift Schedule Employee
+                        if ($dataHrdShiftScheduleEmp->update($detailSsEmp, $detailModel) === false) {
+                            $result = false;
+                        } elseif ($dataHrdShiftScheduleEmp->insert(array_merge($detailSsEmp, $detailModel)) === true) {
+                        }
+                        $formObject->message = $dataHrdExtraOffDetail->strMessage;
                     }
                 }
             }
         }
-        $formObject->message = $dataHrdExtraOffDetail->strMessage;
     }
 }
