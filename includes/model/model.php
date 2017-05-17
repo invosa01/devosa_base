@@ -876,6 +876,7 @@ class cModel
 
     function update($varKey, $varData)
     {
+        $strModified = '';
         $strCriteria = $this->_serializeCondition($varKey);
         if (isset($this->db->columns['datetime']['formatter']) && isset($this->db->columns['datetime']['format'])) {
             $formatter = $this->db->columns['datetime']['formatter'];
