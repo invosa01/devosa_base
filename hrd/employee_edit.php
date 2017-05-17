@@ -607,7 +607,7 @@ function saveData($db, &$strDataID, &$strError)
     (isset($_REQUEST['dataBPJS'])) ? $strDataBPJS = $_REQUEST['dataBPJS'] : $strDataBPJS = '';
     (isset($_REQUEST['dataBPJSTK'])) ? $strDataBPJSTK = $_REQUEST['dataBPJSTK'] : $strDataBPJSTK = '';
     (isset($_REQUEST['dataSyncLeave'])) ? $strDataSyncLeave = 't' : $strDataSyncLeave = 'f';
-    $strDataLeaveLevel = (($strDataSyncLeave === 't') && (getSetting('leave_reference') !== '')) ? getLevelCode($db, getSetting('leave_reference'), $strDataID) : $_REQUEST['dataLeaveLevel'];
+    $strDataLeaveLevel = (($bolNew === FALSE) && ($strDataSyncLeave === 't') && (getSetting('leave_reference') !== '')) ? getLevelCode($db, getSetting('leave_reference'), $strDataID) : $_REQUEST['dataLeaveLevel'];
     $strDataIsBirthday = 't';
     // cek validasi -----------------------
     if ($strDataEmployeeID == "") {
@@ -1268,7 +1268,7 @@ if ($db->connect()) {
         $strInputBPJS = "<input type=text name=dataBPJS size=$intDefaultWidth maxlength=127 value=\"" . $arrData['dataBPJS'] . "\"  class=\"form-control string\">";
         $strInputBPJSTK = "<input type=text name=dataBPJSTK size=$intDefaultWidth maxlength=127 value=\"" . $arrData['dataBPJSTK'] . "\"  class=\"form-control string\">";
         $strInputPensionNo = "<input type=text name=dataPensionNo size=$intDefaultWidth maxlength=127 value=\"" . $arrData['dataPensionNo'] . "\"  class=\"form-control string\">";
-        $strInputFingerID = "<input type=text name=dataFingerID size=$intDefaultWidth maxlength=15 value=\"" . $arrData['dataFingerID'] . "\" class=\"form-control\" >";
+        $strInputFingerID = "<input type=text name=dataFingerID size=$intDefaultWidth maxlength=15 value=\"" . $arrData['dataFingerID'] . "\" class=\"form-control\" required=\"true\" >";
         $strInputNick = "<input type=text name=dataNick size=$intDefaultWidth maxlength=15 value=\"" . $arrData['dataNick'] . "\" class=\"form-control\">";
         $strInputLetterCode = "<input type=text name=dataLetterCode size=$intDefaultWidth maxlength=63 value=\"" . $arrData['dataLetterCode'] . "\" class=\"form-control\">";
         $strInputTransport = "<input type=text name=dataTransport size=$intDefaultWidth maxlength=63 value=\"" . $arrData['dataTransport'] . "\" class=\"form-control\">";
