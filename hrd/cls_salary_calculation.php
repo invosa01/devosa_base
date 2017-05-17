@@ -1562,17 +1562,17 @@ class clsSalaryCalculation
         $intResult = 1;
         if ($strID != "" && isset($this->arrEmployee[$strID])) {
             if ($this->arrConf['prorate_method'] == '0' || $this->arrConf['prorate_method'] == '1') {
-                # Get max value between join date and salary start date.
+                # Get max value between join date and salary start date. If join date >= salary start date, the value is join date, else the value is salary start date.
                 $intJoinSalaryStartDate = (dateCompare($this->arrEmployee[$strID]['join_date'], $this->arrData['salary_start_date']) >= 0) ? $this->arrEmployee[$strID]['join_date'] : $this->arrData['salary_start_date'];
-                # Get min value between resign date and salary finish date.
+                # Get min value between resign date and salary finish date. If resign date < salary finish date, the value is resign date, else the value is salary finish date.
                 $intResignSalaryFinishDate = (dateCompare($this->arrEmployee[$strID]['resign_date'], $this->arrData['salary_finish_date']) < 0) ? $this->arrEmployee[$strID]['resign_date'] : $this->arrData['salary_finish_date'];
                 if ($this->arrConf['prorate_method'] == '0') {
-                    # If prorate method is 0, then prorate days is days differences between salary_start_date and salary_finish_date, EXCLUDING weekends and national holiday.
+                    # If prorate method is 0, then prorate days is days differences between $intJoinSalaryDate and $intResignSalaryFinishDate, EXCLUDING weekends and national holiday.
                     $intProrateDays = $this->arrDetail[$strID]['working_day'];
                     $intResult = ($this->objWork->getTotalWorkDay($this->data, $intJoinSalaryStartDate, $intResignSalaryFinishDate))/$intProrateDays;
                 }
                 else if ($this->arrConf['prorate_method'] == '1') {
-                    # If prorate method is 1, then prorate days is days differences between salary_start_date and salary_finish_date, INCLUDING weekends and national holiday.
+                    # If prorate method is 1, then prorate days is days differences between $intJoinSalaryDate and $intResignSalaryFinishDate, INCLUDING weekends and national holiday.
                     $intProrateDays = getIntervalDate($this->arrData['salary_start_date'], $this->arrData['salary_finish_date']) + 1;
                     $intResult = (getIntervalDate($intJoinSalaryStartDate, $intResignSalaryFinishDate) + 1)/$intProrateDays;
                 }
