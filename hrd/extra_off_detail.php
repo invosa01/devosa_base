@@ -222,9 +222,10 @@ function saveData()
                             'finish_time' => '00:00:00'
                         ];
                         # Update into detail Shift Schedule Employee
-                        if ($dataHrdShiftScheduleEmp->update($detailSsEmp, $detailModel) === false) {
+                        if ($dataHrdShiftScheduleEmp->insert(array_merge($detailSsEmp, $detailModel)) === false) {
                             $result = false;
-                        } elseif ($dataHrdShiftScheduleEmp->insert(array_merge($detailSsEmp, $detailModel)) === true) {
+                        } elseif ($dataHrdShiftScheduleEmp->update($detailSsEmp, $detailModel) === true) {
+                            $result = true;
                         }
                         $formObject->message = $dataHrdExtraOffDetail->strMessage;
                     }
