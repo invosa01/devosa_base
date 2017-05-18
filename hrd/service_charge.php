@@ -70,17 +70,6 @@ function renderPage()
     # Initialize all global variables.
     $globalVariables = [
         'privileges'                 => $privileges,
-        'strWordsDateFrom'           => getWords("date from"),
-        'strWordsDateThru'           => getWords("date thru"),
-        'strWordsEmployeeID'         => getWords("employee id"),
-        'strWordsShow'               => getWords("show"),
-        'strConfirmSave'             => getWords("save"),
-        'strConfirmDelete'           => getWords("delete"),
-        'strDataDetail'              => "",
-        'strHidden'                  => "",
-        'intTotalData'               => 0,
-        'strButtons'                 => "",
-        'strButtonsTop'              => "",
         'strConfirmStartCalculation' => getWords("do you want to start calculation?"),
         'strPageTitle'               => getWords($privileges['menu_name']),
         'pageIcon'                   => "../images/icons/" . $privileges['icon_file'],
@@ -99,7 +88,11 @@ function renderPage()
     }
     $pageHeader = pageHeader($pageIcon, $strPageTitle, $strPageDesc);
     # Get form model contents.
-    $formOptions = ['column' => 1, 'caption' => strtoupper($strWordsINPUTDATA), 'references' => ['dataId']];
+    $formOptions = [
+        'column'     => 1,
+        'caption'    => strtoupper($strWordsINPUTDATA),
+        'references' => ['dataId']
+    ];
     $formObject = getFormObject($formOptions);
     $formInput = $formObject->render();
     # Get grid list contents.
@@ -123,7 +116,7 @@ function getFormObject(array $formOptions = [])
         'dataDateThru'        => ['input', 'date thru', null, $dateFieldAttr, 'date'],
         'dataCalculationDate' => ['input', 'calculation date', null, array_merge($dateFieldAttr, ['disabled']), 'date'],
         'dataRevenue'         => ['input', 'revenue', null, ['size' => 30, 'maxlength' => 31, 'required']],
-        'btnSave'             => ['submit', 'start calculation', 'saveData()', $btnSaveAttr]
+        'btnSave'             => ['submit', 'start calculation', 'getSaveData()', $btnSaveAttr]
     ];
     return getBuildForm($formModel, $formOptions);
 }
@@ -131,6 +124,7 @@ function getFormObject(array $formOptions = [])
 function getDataGrid()
 {
     $strSql = 'SELECT
+                    sch."id",
                     sch.date_calculation,
                     sch.date_from,
                     sch.date_thru,
@@ -149,15 +143,18 @@ function getDataGrid()
 
 function getGridListContents(array $gridOptions = [])
 {
-    $strTitleAttrWidth = ['width' => '150'];
+    $strTitleAttrWidth = ['width' => '400'];
     $strAttrWidth = ['nowrap' => ''];
+    $strAttrExport = array_merge($strAttrWidth, ['showInExcel']);
+    $btnSaveAttr = '"onClick" => "javascript:myClient.confirmStartCalculation();"';
     $gridDataBinding = getDataGrid();
     $gridModel = [
-        'no'               => ['no', 'No.', '', ['width' => '10'], ['nowrap' => '']],
+        'no'               => ['no', 'No.', '', ['width' => ''], $strAttrWidth],
         'date_calculation' => ['data', 'Calculation Date', 'date_calculation', $strTitleAttrWidth, $strAttrWidth],
         'date_from'        => ['data', 'Date From', 'date_from', $strTitleAttrWidth, $strAttrWidth],
         'date_thru'        => ['data', 'Date Thru', 'date_thru', $strTitleAttrWidth, $strAttrWidth],
-        'amount'           => ['data', 'Amount', 'amount', $strTitleAttrWidth, $strAttrWidth]
+        'amount'           => ['data', 'Amount', 'amount', ['width' => ''], $strAttrWidth],
+        'detail'           => ['data', '', '', ['width' => ''], $strAttrExport, '', 'getDetailData()'],
     ];
     return getBuildGrid($gridModel, $gridOptions, $gridDataBinding);
 }
@@ -182,7 +179,18 @@ function getValidationInputDate($startDate, $endDate)
     ];
 }
 
-function saveData()
+function getDeleteData()
+{
+    $result = true;
+    return $result;
+}
+
+function getDetailData()
+{
+    return "<a href=''>" . getWords('edit') . "</a>";
+}
+
+function getSaveData()
 {
     /**
      * @var \clsForm $formObject
@@ -220,9 +228,9 @@ function saveData()
     $postfixModel['TOTWD'] = $totalWorkDays;
     # Start to process updating database.
     if ($formObject->isInsertMode() === true) {
-        # Insert master data for service charge
         if (($existDate = $validationDate['existDate']) === true) {
             if (($result = $dataHrdServiceCharge->insert($model)) === true) {
+                # Insert master data for service charge
                 $scId = $dataHrdServiceCharge->getLastInsertId();
                 foreach ($empScData as $row) {
                     $postfixModel['WD'] = $row['workDay'];

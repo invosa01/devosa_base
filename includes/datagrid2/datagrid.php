@@ -1184,7 +1184,7 @@ class cDataGrid
         $maxDeepLevel = $this->_setHeaderDeepLevel();
         if ($this->DATAGRID_RENDER_OUTPUT == DATAGRID_RENDER_EXCEL_BIFF) {
             // buat format excel untuk header row
-            $this->formatTableHeader =& $this->_createExcelFormat(null, 50, null, true, 1, 'center', 'vcenter', 1);
+            $this->formatTableHeader = $this->_createExcelFormat(null, 50, null, true, 1, 'center', 'vcenter', 1);
         }
         if ($this->DATAGRID_RENDER_OUTPUT == DATAGRID_RENDER_NORMAL || $this->DATAGRID_RENDER_OUTPUT == DATAGRID_RENDER_EXCEL_HTML) {
             $strResult .= "

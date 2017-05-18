@@ -22,8 +22,8 @@ if (function_exists('getBuildGrid') === false) {
             'fieldName' => '',
             'titleAttr' => [],
             'attr'      => [],
-            'titleFmtr' => null,
-            'itemFmtr'  => null,
+            'titleFmtr' => '',
+            'itemFmtr'  => '',
             'dataType'  => 'string'
         ];
         $defaultNormalizedGridElementsKeys = array_keys($defaultNormalizedGridElements);
@@ -47,17 +47,42 @@ if (function_exists('getBuildGrid') === false) {
             );
             $type = $normalizedFieldProps['type'];
             $fieldAttributes = $normalizedFieldProps['attr'];
-            $isSortable = getValueIfExistsOnArray('sortable', $fieldAttributes, true, SEARCH_ARR_BOTH);
-            $isSearchable = getValueIfExistsOnArray('searchable', $fieldAttributes, true, SEARCH_ARR_BOTH);
+            $isNotSortable = getValueIfExistsOnArray('sortable', $fieldAttributes, true, SEARCH_ARR_BOTH);
+            $isNotSearchable = getValueIfExistsOnArray('searchable', $fieldAttributes, true, SEARCH_ARR_BOTH);
+            $isHideInExcel = getValueIfExistsOnArray('showInExcel', $fieldAttributes, true, SEARCH_ARR_BOTH);
+            $clientAction = null;
+            $serverAction = null;
+            if (in_array($type, ['submit', 'button']) === true) {
+                $clientAction = $normalizedFieldProps['itemFmtr'];
+                $serverAction = $normalizedFieldProps['titleAttr'];
+                $name = $fieldName;
+            }
             switch ($type) {
-                case 'chk' :
+                case 'exportExl' :
+                    $gridContents->addButtonExportExcel(
+                        $normalizedFieldProps['label'],
+                        $fieldName .'.xls'
+                    );
+                    break;
+                case 'submit'  :
+                    $gridContents->addSpecialButton(
+                        $fieldName,
+                        $name,
+                        $type,
+                        $normalizedFieldProps['label'],
+                        $clientAction,
+                        $serverAction
+                    );
+                    break;
+                case 'checked' :
                     $gridContents->addColumnCheckbox(
                         new DataGrid_Column(
+                            $normalizedFieldProps['label'],
                             $fieldName,
-                            $normalizedFieldProps['titleAttr'],
                             $normalizedFieldProps['attr'],
-                            ($isSortable === false),
-                            ($isSearchable === false),
+                            $normalizedFieldProps['titleAttr'],
+                            ($isNotSortable === false),
+                            ($isNotSearchable === false),
                             $normalizedFieldProps['titleFmtr'],
                             $normalizedFieldProps['itemFmtr']
                         )
@@ -70,8 +95,9 @@ if (function_exists('getBuildGrid') === false) {
                             $fieldName,
                             $normalizedFieldProps['titleAttr'],
                             $normalizedFieldProps['attr'],
-                            ($isSortable === false),
-                            ($isSearchable === false),
+                            ($isNotSortable === false),
+                            ($isNotSearchable === false),
+                            $normalizedFieldProps['titleFmtr'],
                             $normalizedFieldProps['itemFmtr'],
                             $normalizedFieldProps['dataType']
                         )
@@ -85,8 +111,12 @@ if (function_exists('getBuildGrid') === false) {
                             $fieldName,
                             $normalizedFieldProps['titleAttr'],
                             $normalizedFieldProps['attr'],
-                            ($isSortable === false),
-                            ($isSearchable === false)
+                            ($isNotSortable === false),
+                            ($isNotSearchable === false),
+                            $normalizedFieldProps['titleFmtr'],
+                            $normalizedFieldProps['itemFmtr'],
+                            $normalizedFieldProps['dataType'],
+                            ($isHideInExcel === false)
                         )
                     );
                     break;
