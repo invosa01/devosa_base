@@ -31,7 +31,6 @@ function renderPage()
     # Initialize all global variables.
     $globalVariables = [
         'privileges'      => $privileges,
-        'intTotalData'    => 0,
         'strConfirmSave'  => getWords("do you want to save this entry?"),
         'strPageTitle'    => getWords($privileges['menu_name']),
         'pageIcon'        => "../images/icons/" . $privileges['icon_file'],
@@ -50,7 +49,11 @@ function renderPage()
     }
     $pageHeader = pageHeader($pageIcon, $strPageTitle, $strPageDesc);
     # Get form model contents.
-    $formOptions = ['column' => 1, 'caption' => strtoupper($strWordsINPUTDATA), 'references' => ['dataId']];
+    $formOptions = [
+        'column'     => 1,
+        'caption'    => strtoupper($strWordsINPUTDATA),
+        'references' => ['dataId']
+    ];
     $formObject = getFormObject($formOptions);
     $formInput = $formObject->render();
     # Get grid list contents.
@@ -74,7 +77,7 @@ function getFormObject(array $formOptions = [])
         'dataEmployee' => ['input', 'employee', null, ['size' => 30, 'maxlength' => 31, 'required']],
         'dataDateEo'   => ['input', 'date extra off', null, $dateFieldAttr, 'date'],
         'dataNoteEo'   => ['textarea', 'note', null, ["cols" => 97, "rows" => 2]],
-        'btnSave'      => ['submit', 'save', 'saveData()', $btnSaveAttr],
+        'btnSave'      => ['submit', 'save', 'getSaveData()', $btnSaveAttr],
         'btnAdd'       => ['submit', 'add new', '', $btnAddNewAttr]
     ];
     return getBuildForm($formModel, $formOptions);
@@ -125,7 +128,7 @@ function getValidationInputDate($dataDateEo, $empId)
                     "public".hrd_extra_off AS exo
                 WHERE exo.date_extra_off = ' . pgEscape($dataDateEo) . '
                 AND 
-                    exo.employee_id = ' .pgEscape($empId) .'
+                    exo.employee_id = ' . pgEscape($empId) . '
                 GROUP BY 
                     exo.id';
     $validationDate = pgFetchRow($strSql);
@@ -137,7 +140,7 @@ function getValidationInputDate($dataDateEo, $empId)
     ];
 }
 
-function saveData()
+function getSaveData()
 {
     /**
      * @var \clsForm $formObject
