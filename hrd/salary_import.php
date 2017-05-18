@@ -93,6 +93,7 @@ function importProcess($db)
   $data = new Spreadsheet_Excel_Reader($lokasiFile);  // Class excel reader
   // membaca jumlah baris dari data excel yang diupload
   $baris = $data->rowcount($sheet_index = 0);
+  var_dump($baris);exit;
   // variabel awal counter untuk jumlah data yang sukses dan yang gagal diimport
   // Jika dipilh keduanya Maka tolak
   if (($salaryTypeAllowance != "") AND ($salaryTypeDeduction != "")) {
