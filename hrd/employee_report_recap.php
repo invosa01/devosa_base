@@ -33,6 +33,7 @@ $strDivisionName = "";
 $strDepartmentName = "";
 $strSectionName = "";
 $strSubSectionName = "";
+$strManagementName = "";
 $strStyle = "";
 //----------------------------------------------------------------------
 //--- DAFTAR FUNSI------------------------------------------------------

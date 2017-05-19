@@ -52,7 +52,7 @@ if ($bolCanEdit) {
     );
     $f->addLabelAutoComplete("", "id_employee", $employeeName);
     //=================Auto Complete===
-    $f->addInput(getWords("Valid Additional Leave"), "expired_date", date("Y-m-d"), ["style" => "width:80"], "date");
+    $f->addInput(getWords("Valid Additional Leave"), "expired_date", date($_SESSION['sessionDateSetting']['php_format']), ["style" => "width:80"], "date");
     //$f->addSelect(getWords("company"), "id_employee", getDataListCompany($strDataCompany, $bolCompanyEmptyOption, $arrCompanyEmptyData, $strKriteria2), array("style" => "width:200"), "", false);
     $f->addTextArea(
         getWords("note"),
@@ -176,7 +176,13 @@ function saveData()
     $data = [
         "year" => date('Y'),
         "id_employee" => $myrow['id'],
-        "expired_date" => $f->getValue('expired_date'),
+        "expired_date" => standardDateToSQLDateNew(
+            $f->getValue('expired_date'),
+            $_SESSION['sessionDateSetting']['date_sparator'],
+            $_SESSION['sessionDateSetting']['pos_year'],
+            $_SESSION['sessionDateSetting']['pos_month'],
+            $_SESSION['sessionDateSetting']['pos_day']
+        ),
         "note" => $f->getValue('note'),
         "add_quota" => $f->getValue('add_quota')
     ];
