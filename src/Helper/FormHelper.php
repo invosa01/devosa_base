@@ -76,6 +76,10 @@ if (function_exists('getBuildForm') === false) {
                 }
                 $value = getFormPostValue($fieldName, $defaultValue);
             }
+            if (in_array($type, ['select', 'options']) === true){
+                $defaultValue = $normalizedFieldProps['value'];
+                $value = getFormPostValue($fieldName, $defaultValue);
+            }
             # Process all passed field element properties into form object.
             switch ($type) {
                 case 'submit':

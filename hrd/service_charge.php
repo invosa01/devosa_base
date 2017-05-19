@@ -179,12 +179,6 @@ function getValidationInputDate($startDate, $endDate)
     ];
 }
 
-function getDeleteData()
-{
-    $result = true;
-    return $result;
-}
-
 function getDetailData()
 {
     return "<a href=''>" . getWords('edit') . "</a>";

@@ -1,3 +1,15 @@
+<script>
+    jQuery(function ($) {
+        $('#dataEmployee').autocomplete({
+            source: "hrd_ajax_source.php?action=getemployee",
+            minLength: 2,
+            select: function (event, ui) {
+                console.log(ui);
+                $('#employee_name').html(ui.item.label);
+            }
+        });
+    });
+</script>
 [var.pageHeader]
 <div class="main-content">
     <div class="row">
