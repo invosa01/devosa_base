@@ -134,8 +134,7 @@ if (function_exists('getBuildGrid') === false) {
         $strSqlCount = $normalizedFieldProps['strSqlCount'];
         $gridContents->totalData = $gridContents->getTotalData($conDb, $strSqlCount);
         $strSql = $normalizedFieldProps['strSql'];
-        $dataSet = $gridContents->getData($conDb, $strSql);
-        $gridContents->bind($dataSet);
+        $gridContents->bind($strSql);
         return $gridContents;
     }
 }

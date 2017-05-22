@@ -8,6 +8,21 @@
                 $('#employee_name').html(ui.item.label);
             }
         });
+        $("#dataDivision").change(function () {
+            var division_code = $(this).val();
+            var dataString = 'division_code=' + division_code;
+            $.ajax({
+                type: "POST",
+                url: "../ajax.php?m=department-options",
+                data: dataString,
+                dataType: 'text',
+                cache: false,
+                success: function (respone) {
+                    result = JSON.parse(respone);
+                    $("#dataDepartment").html(result.data);
+                }
+            });
+        });
     });
 </script>
 [var.pageHeader]

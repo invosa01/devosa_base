@@ -66,13 +66,14 @@ function getFormObject(array $formOptions = [])
 {
     global $strDateWidth;
     $dateFieldAttr = ["style" => "width:$strDateWidth"];
+    $selectAttr = ["cols" => 97, "rows" => 2];
     $formModel = [
         'dataId'         => ['hidden', '', getPostValue('dataId')],
         'dataDateFrom'   => ['input', 'date from', null, $dateFieldAttr, 'date'],
         'dataDateThru'   => ['input', 'date thru', null, $dateFieldAttr, 'date'],
         'dataEmployee'   => ['input', 'employee id', null, ['size' => 30, 'maxlength' => 31]],
-        'dataDivision'   => ['select', 'division', null, ["cols" => 97, "rows" => 2]],
-        'dataDepartment' => ['select', 'department', null, ["cols" => 97, "rows" => 2]],
+        'dataDivision'   => ['select', 'division', ['hrd_division', 'division_code', 'division_name'], $selectAttr],
+        'dataDepartment' => ['select', 'department', ['hrd_division', 'division_code', 'division_name'], $selectAttr],
         'btnShow'        => ['submit', 'show', 'getRenderGrid()']
     ];
     return getBuildForm($formModel, $formOptions);
@@ -95,12 +96,12 @@ function getRenderGrid()
     return $model;
 }
 
-function getQuery($strSql, array $wheres = [])
+function getQuery($strSQL, array $wheres = [])
 {
     if (count($wheres) > 0) {
-        $strSql .= ' WHERE ' . implodeArray($wheres, ' AND ');
+        $strSQL .= ' WHERE ' . implodeArray($wheres, ' AND ');
     }
-    return $strSql;
+    return $strSQL;
 }
 
 function getDataGrid()
@@ -109,6 +110,7 @@ function getDataGrid()
     $wheres = [];
     $employeeId = null;
     $divisionCode = null;
+    $departmentCode = null;
     $dateFrom = null;
     $dateThru = null;
     $renderGrid = getRenderGrid($model);
@@ -124,14 +126,18 @@ function getDataGrid()
     if (array_key_exists('division_code', $renderGrid) === true) {
         $divisionCode = $renderGrid['division_code'];
     }
+    if (array_key_exists('department_code', $renderGrid) === true) {
+        $deparmentCode = $renderGrid['department_code'];
+    }
     $strSql = 'SELECT
                     emp.employee_id,
                     emp.employee_name,
                     emp.position_code,
                     emp.division_code,
+                    emp.department_code,
                     emp.join_date,
                     sce.date_from,
-	                sce.date_thru,
+                    sce.date_thru,
                     scd."id",
                     scd.workday_employee,
                     scd.cost_employee,
@@ -141,6 +147,12 @@ function getDataGrid()
                 INNER JOIN "public".hrd_service_charge AS sce ON scd.service_charge_id = sce."id"
                 INNER JOIN "public".hrd_employee AS emp ON scd.employee_id = emp."id"
                 INNER JOIN "public".hrd_company AS cpy ON emp.id_company = cpy."id"';
+    $strSqlCount = 'SELECT
+                        COUNT(emp.employee_id) as Total
+                    FROM
+                        "public".hrd_service_charge_detail AS scd
+                    INNER JOIN "public".hrd_service_charge AS sce ON scd.service_charge_id = sce."id"
+                    INNER JOIN "public".hrd_employee AS emp ON scd.employee_id = emp."id"';
     if ($dateFrom !== '' and $dateThru !== '') {
         $wheres[] = 'sce.date_from BETWEEN ' . pgEscape($dateFrom) . ' AND ' . pgEscape($dateThru);
     }
@@ -150,11 +162,11 @@ function getDataGrid()
     if ($divisionCode !== '') {
         $wheres[] = 'emp.division_code = ' . pgEscape($divisionCode);
     }
-    $strSql = getQuery($strSql, $wheres);
-    $strSqlCount = 'SELECT
-                        "count" (*)
-                    FROM
-                         "public".hrd_service_charge_detail AS scd';
+    if ($departmentCode !== null) {
+        $wheres[] = 'emp.department_code = ' . pgEscape($departmentCode);
+    }
+    $strSql = pgFetchRows(getQuery($strSql, $wheres));
+    $strSqlCount = getQuery($strSqlCount, $wheres);
     return [
         'strSql'      => $strSql,
         'strSqlCount' => $strSqlCount
