@@ -54,14 +54,35 @@ if (function_exists('getBuildGrid') === false) {
             $serverAction = null;
             if (in_array($type, ['submit', 'button']) === true) {
                 $clientAction = $normalizedFieldProps['itemFmtr'];
-                $serverAction = $normalizedFieldProps['titleAttr'];
+                $serverAction = $normalizedFieldProps['titleFmtr'];
                 $name = $fieldName;
+            }
+            if (in_array($type, ['role', 'buttons']) === true) {
+                $delete = false;
+                $defaultValue = $normalizedFieldProps['titleAttr'];
+                $buttons = getGenerateRoleButtons($defaultValue);
+                $edit = setButtonRelease('edit', $buttons);
+                $delete = setButtonRelease('delete', $buttons);
+                $check = setButtonRelease('check', $buttons);
+                $approve = setButtonRelease('approve', $buttons);
+                $acknowledge = setButtonRelease('acknowledge', $buttons);
             }
             switch ($type) {
                 case 'exportExl' :
                     $gridContents->addButtonExportExcel(
                         $normalizedFieldProps['label'],
-                        $fieldName .'.xls'
+                        $fieldName . '.xls'
+                    );
+                    break;
+                case 'role' :
+                    generateRoleButtons(
+                        $edit,
+                        $delete,
+                        $check,
+                        $approve,
+                        $acknowledge,
+                        true,
+                        $gridContents
                     );
                     break;
                 case 'submit'  :
@@ -136,6 +157,58 @@ if (function_exists('getBuildGrid') === false) {
         $strSql = $normalizedFieldProps['strSql'];
         $gridContents->bind($strSql);
         return $gridContents;
+    }
+}
+if (function_exists('getGenerateRoleButtons') === false) {
+    function getGenerateRoleButtons(array $defaultValue = [])
+    {
+        $calledFile = basename($_SERVER['PHP_SELF']);
+        $privileges = getDataPrivileges($calledFile);
+        $model = [
+            'edit'        => '',
+            'delete'      => '',
+            'check'       => '',
+            'approve'     => '',
+            'acknowledge' => ''
+        ];
+        $defaultNormalizedRecordKeys = array_keys($model);
+        $normalizedFieldProps = [];
+        foreach ($defaultValue as $item => $value) {
+            if (is_integer($item) === true) {
+                $keyName = $defaultNormalizedRecordKeys[$item];
+                $normalizedFieldProps[$keyName] = $value;
+                continue;
+            }
+            $normalizedFieldProps[$item] = $value;
+        }
+        $normalizedFieldProps = getMergedArrayRecursively(
+            $model,
+            $normalizedFieldProps
+        );
+        $edit = $privileges[$normalizedFieldProps['edit']];
+        $delete = $privileges[$normalizedFieldProps['delete']];
+        $check = $privileges[$normalizedFieldProps['approve']];
+        $edit = $privileges[$normalizedFieldProps['approve']];
+        $acknowledge = $privileges[$normalizedFieldProps['acknowledge']];
+        $modelRole =
+            [
+                'edit'        => $edit,
+                'delete'      => $delete,
+                'check'       => $check,
+                'approve'     => $edit,
+                'acknowledge' => $acknowledge
+            ];
+        return $modelRole;
+    }
+}
+if (function_exists('setButtonRelease') === false) {
+    function setButtonRelease($name, array $modelRole = [])
+    {
+        $normalized = '';
+        if (array_key_exists($name, $modelRole) === true) {
+            $normalized = $modelRole[$name];
+        }
+        return $normalized;
     }
 }
 

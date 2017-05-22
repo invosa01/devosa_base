@@ -26,7 +26,7 @@ function renderPage()
     # Setting up and process the privileges.
     $calledFile = basename($_SERVER['PHP_SELF']);
     $privileges = getDataPrivileges($calledFile);
-    if ($privileges['bolView'] === false) {
+    if ($privileges['bolView'] !== true) {
         die(accessDenied($_SERVER['HTTP_REFERER']));
     }
     # Initialize all global variables.
@@ -114,21 +114,11 @@ function getDataGrid()
     $dateFrom = null;
     $dateThru = null;
     $renderGrid = getRenderGrid($model);
-    if (array_key_exists('date_from', $renderGrid) === true) {
-        $dateFrom = $renderGrid['date_from'];
-    }
-    if (array_key_exists('date_thru', $renderGrid) === true) {
-        $dateThru = $renderGrid['date_thru'];
-    }
-    if (array_key_exists('employee_id', $renderGrid) === true) {
-        $employeeId = $renderGrid['employee_id'];
-    }
-    if (array_key_exists('division_code', $renderGrid) === true) {
-        $divisionCode = $renderGrid['division_code'];
-    }
-    if (array_key_exists('department_code', $renderGrid) === true) {
-        $deparmentCode = $renderGrid['department_code'];
-    }
+    $dateFrom = setReleaseRenderGrid('date_from', $renderGrid);
+    $dateThru = setReleaseRenderGrid('date_thru', $renderGrid);
+    $employeeId = setReleaseRenderGrid('employee_id', $renderGrid);
+    $divisionCode = setReleaseRenderGrid('division_code', $renderGrid);
+    $deparmentCode = setReleaseRenderGrid('department_code', $renderGrid);
     $strSql = 'SELECT
                     emp.employee_id,
                     emp.employee_name,
@@ -189,4 +179,13 @@ function getGridListContents(array $gridOptions = [])
         'ServiceCharge'    => ['exportExl', 'Export Excel']
     ];
     return getBuildGrid($gridModel, $gridOptions, $gridDataBinding);
+}
+
+function setReleaseRenderGrid($name, array $modelRole = [])
+{
+    $normalized = '';
+    if (array_key_exists($name, $modelRole) === true) {
+        $normalized = $modelRole[$name];
+    }
+    return $normalized;
 }
