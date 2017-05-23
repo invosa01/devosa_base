@@ -503,6 +503,7 @@ class clsAnnualLeave
         $intTerm = intval($strYear) - intval(substr($strJoinDate, 0, 4));
         $strToday = date('Y-m-d');
         $intQuota = 0;
+        $intJoinDateCutOff = getSetting('leave_cut_off_join_date');
         # Leave method prorate.
         if ($this->bolProrate) {
             $arrDuration = getDateInterval($strJoinDate, $strToday);
@@ -513,7 +514,7 @@ class clsAnnualLeave
             else if ($intTerm === 0) {
                 # Work period is less than one year in different year.
                 if ($arrDuration['year'] === 1) {
-                    $intQuota = $fltLeaveQuota;
+                    $intQuota = $fltLeaveQuota ;
                 } # Work period is less than one year in the same year.
                 else if ($arrDuration['year'] === 0) {
                     $intQuota = ($fltLeaveQuota / 12) * $arrDuration['month'];
@@ -524,10 +525,14 @@ class clsAnnualLeave
         } # Leave method January cutoff.
         else if ($this->bolCutoff) {
             $arrDuration = getDateInterval($strJoinDate, $strYear . '-01-01');
+
             if ($intTerm > 1) {
                 $intQuota = $fltLeaveQuota;
             } else if ($intTerm === 1) {
-                $intQuota = ($fltLeaveQuota / 12) * ($arrDuration['month'] + 1);
+                if (intval($arrDuration['year']) === 1 && intval($arrDuration['month']) === 0){
+                    $arrDuration['month'] = 11;
+                }
+                $intQuota = ($fltLeaveQuota / 12) * ($arrDuration['month'] + intval($intJoinDateCutOff));
             } else {
                 $intQuota = 0;
             }

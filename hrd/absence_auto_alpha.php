@@ -29,26 +29,30 @@ if ($db->connect()) {
     $strDateUnpaidLeaveFrom = isset($_REQUEST['dataDateUnpaidLeaveFrom']) ? $_REQUEST['dataDateUnpaidLeaveFrom'] : date('Y-m-d');
     $strDateUnpaidLeaveThru = isset($_REQUEST['dataDateUnpaidLeaveThru']) ? $_REQUEST['dataDateUnpaidLeaveThru'] : date('Y-m-d');
     $strDataAbsenceTypeUnpaidLeave = isset($_REQUEST['dataTypeUnpaidLeave']) ? $_REQUEST['dataTypeUnpaidLeave'] : '';
+    $strDataToAbsenceType = isset($_REQUEST['dataTypeToAbsenceType']) ? $_REQUEST['dataTypeToAbsenceType'] : '';
     $strDataAbsenceTypeAutoAlpha = isset($_REQUEST['dataTypeAutoAlpha']) ? $_REQUEST['dataTypeAutoAlpha'] : '';
+    $strDataEmployee = isset($_REQUEST['dataEmployee']) ? $_REQUEST['dataEmployee'] : '';
 
     $successIcon = '<i class="fa fa-exclamation-circle"></i>';
     if (isset($_POST['btnAutoAlpha']) && $bolCanApprove) {
-        $strMsg = setAutoAlpha($db, $strDateAutoAlphaFrom, $strDateAutoAlphaThru, $strDataAbsenceTypeAutoAlpha);
+        $strMsg = setAutoAlpha($db, $strDateAutoAlphaFrom, $strDateAutoAlphaThru, $strDataAbsenceTypeAutoAlpha, $strDataEmployee);
         $strMsgAutoAlpha = '<div class="alert alert-info">' . $successIcon . $strMsg . '</div>';
     }
 
     if (isset($_POST['btnUnpaidLeave']) && $bolCanApprove) {
-        $strMsg = setUnpaidLeave($db, $strDateUnpaidLeaveFrom, $strDateUnpaidLeaveThru, $strDataAbsenceTypeUnpaidLeave);
+        $strMsg = setUnpaidLeave($db, $strDateUnpaidLeaveFrom, $strDateUnpaidLeaveThru, $strDataAbsenceTypeUnpaidLeave, $strDataToAbsenceType);
         $strMsgUnpaidLeave = '<div class="alert alert-info">' . $successIcon . $strMsg . '</div>';
     }
 }
 
+$strInputEmployee = "<input class='form-control' type=text name='dataEmployee' id='dataEmployee' size=25 value=''>";
 $strInputTypeAutoAlpha = getAbsenceTypeList($db,"dataTypeAutoAlpha",$arrData['dataType'],"$strSpecial",""," style=\"width:$strDefaultWidthPx\" onChange=\"onAbsenceTypeChange()\"");
 $strInputDateAutoAlphaFrom = "<input class='form-control datepicker' type=text name='dataDateAutoAlphaFrom' id='dataDateAutoAlphaFrom' value='$strDateAutoAlphaFrom' data-date-format='yyyy-mm-dd'>";
 $strInputDateAutoAlphaThru = "<input class='form-control datepicker' type=text name='dataDateAutoAlphaThru' id='dataDateAutoAlphaThru' value='$strDateAutoAlphaThru' data-date-format='yyyy-mm-dd'>";
 $strBtnAutoAlpha = "<input class='btn btn-small btn-primary' name='btnAutoAlpha' id='btnAutoAlpha' value='Auto Alpha' type='submit'>";
 
 $strInputTypeUnpaidLeave = getAbsenceTypeList($db,"dataTypeUnpaidLeave",$arrData['dataType'],"$strSpecial",""," style=\"width:$strDefaultWidthPx\" onChange=\"onAbsenceTypeChange()\"");
+$strInputToAbsenceType = getAbsenceTypeList($db,"dataTypeToAbsenceType",$arrData['dataType'],"$strSpecial",""," style=\"width:$strDefaultWidthPx\" onChange=\"onAbsenceTypeChange()\"");
 $strInputDateUnpaidLeaveFrom = "<input class='form-control datepicker' type=text name='dataDateUnpaidLeaveFrom' id='dataDateUnpaidLeaveFrom' value='$strDateUnpaidLeaveFrom' data-date-format='yyyy-mm-dd'>";
 $strInputDateUnpaidLeaveThru = "<input class='form-control datepicker' type=text name='dataDateUnpaidLeaveThru' id='dataDateUnpaidLeaveThru' value='$strDateUnpaidLeaveThru' data-date-format='yyyy-mm-dd'>";
 $strBtnUnpaidLeave = "<input class='btn btn-small btn-primary' name='btnUnpaidLeave' id='btnUnpaidLeave' value='Unpaid Leave' type='submit'>";
@@ -75,20 +79,27 @@ $tbsPage->Show();
  *
  * @return string
  */
-function setAutoAlpha($db, $strDateFrom, $strDateThru, $strDataAbsenceType)
+function setAutoAlpha($db, $strDateFrom, $strDateThru, $strDataAbsenceType, $strDataEmployee)
 {
     $date = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
     $strDateNow = date('Y-m-d', $date);
     $strCurDate = $strDateFrom;
     $intCount = 0;
+    if ($strDataEmployee !== ''){
+        $employeeCriteria = "AND emp.employee_id = '".$strDataEmployee."'";
+    }
     while (dateCompare($strCurDate, $strDateThru) <= 0) {
         $strSQL = "SELECT emp.id,shf.shift_code,emp.employee_name, emp.employee_id FROM hrd_employee AS emp
-                   LEFT JOIN (select id_employee,shift_code FROM hrd_shift_schedule_employee where shift_date = '$strCurDate') AS shf ON emp.id=shf.id_employee
-                   WHERE emp.active=1 AND emp.join_date <= '$strCurDate' AND (emp.resign_date is null or emp.resign_date >= '$strCurDate') AND (emp.is_immune_auto_alpha = 0 OR emp.is_immune_auto_alpha IS NULL) AND
+                   LEFT JOIN (select id_employee,shift_code FROM hrd_shift_schedule_employee where shift_date = '$strCurDate')
+                   AS shf ON emp.id=shf.id_employee
+                   WHERE emp.active=1 AND emp.join_date <= '$strCurDate' AND (emp.resign_date is null or emp.resign_date >= '$strCurDate')
+                   AND (emp.is_immune_auto_alpha = 0 OR emp.is_immune_auto_alpha IS NULL) AND
                       emp.id NOT IN (SELECT id_employee FROM hrd_attendance WHERE attendance_date = '$strCurDate')
-                      AND emp.id NOT IN (SELECT id_employee FROM hrd_shift_schedule_employee AS t1 LEFT JOIN hrd_shift_type AS t2 ON t1.shift_code = t2.code WHERE t2.shift_off = TRUE AND t1.shift_date = '$strCurDate')
+                      AND emp.id NOT IN (SELECT id_employee FROM hrd_shift_schedule_employee AS t1
+                      LEFT JOIN hrd_shift_type AS t2 ON t1.shift_code = t2.code WHERE t2.shift_off = TRUE AND t1.shift_date = '$strCurDate')
                       AND emp.id NOT IN (SELECT id_employee FROM hrd_trip WHERE date_from <= '$strCurDate' AND date_thru >= '$strCurDate')
                       AND emp.id NOT IN (SELECT id_employee FROM hrd_absence_detail WHERE absence_date = '$strCurDate')";
+        $strSQL .= $employeeCriteria;
         $resDb = $db->execute($strSQL);
         while ($rowDb = $db->fetchrow($resDb)) {
             $intLastID = 0;
@@ -129,7 +140,7 @@ function setAutoAlpha($db, $strDateFrom, $strDateThru, $strDataAbsenceType)
  *
  * @return string
  */
-function setUnpaidLeave($db, $strDateFrom, $strDateThru, $strDataAbsenceType) {
+function setUnpaidLeave($db, $strDateFrom, $strDateThru, $strDataAbsenceType, $strDataToAbsenceType) {
     $strCurDate = $strDateFrom;
     $strSQLUpdate = '';
     $intCount = 0;
@@ -143,8 +154,8 @@ function setUnpaidLeave($db, $strDateFrom, $strDateThru, $strDataAbsenceType) {
         $res = $db->execute($strSQL);
         while ($row = $db->fetchrow($res)) {
             $strIDAbsence = $row['id_absence'];
-            $strSQLUpdate .= "UPDATE hrd_absence SET absence_type_code = 'UL', status = 2, modified = now(), approved_time = now() WHERE id = '$strIDAbsence';
-                              UPDATE hrd_absence_detail SET absence_type = 'UL', modified = now() WHERE id_absence = '$strIDAbsence';";
+            $strSQLUpdate .= "UPDATE hrd_absence SET absence_type_code = '$strDataToAbsenceType', status = 2, modified = now(), approved_time = now() WHERE id = '$strIDAbsence';
+                              UPDATE hrd_absence_detail SET absence_type = '$strDataToAbsenceType', modified = now() WHERE id_absence = '$strIDAbsence';";
             if (isset($strIDAbsence) && $strIDAbsence !== '') {
                 $intCount++;
             }
