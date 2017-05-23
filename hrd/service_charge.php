@@ -155,9 +155,9 @@ function getGridListContents(array $gridOptions = [])
         'date_from'        => ['data', 'Date From', 'date_from', $strTitleAttrWidth, $strAttrWidth],
         'date_thru'        => ['data', 'Date Thru', 'date_thru', $strTitleAttrWidth, $strAttrWidth],
         'amount'           => ['data', 'Amount', 'amount', ['width' => ''], $strAttrWidth],
-        'detail'           => ['data', '', '', ['width' => ''], $strAttrExport, '', 'getDetailData()'],
+        'id'               => ['data', '', 'id', ['width' => ''], $strAttrExport, '', 'getEditData()'],
     ];
-    return getBuildGrid($gridModel, $gridOptions, $gridDataBinding);
+    return debug(getBuildGrid($gridModel, $gridOptions, $gridDataBinding));
 }
 
 function getValidationInputDate($startDate, $endDate)
@@ -180,7 +180,7 @@ function getValidationInputDate($startDate, $endDate)
     ];
 }
 
-function getDetailData()
+function getEditData()
 {
     return "<a href=''>" . getWords('edit') . "</a>";
 }
