@@ -276,9 +276,9 @@ function getRenderedQuotaExtraOffOptions()
         $result .= '<option value="' . $row['qeo_id'] . '">'
             . $row['date_extra_off']
             . ' - '
-            . $row['note']
-            . ' - '
             . $row['date_expaired']
+            . ' - '
+            . $row['note']
             . '</option>';
     }
     return $result;

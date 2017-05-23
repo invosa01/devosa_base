@@ -77,7 +77,7 @@ function getFormObject(array $formOptions = [])
         'dataId'       => ['hidden', '', getPostValue('dataId')],
         'dataEmployee' => ['input', 'employee', null, ['size' => 30, 'maxlength' => 31, 'required']],
         'dataDateUse'  => ['input', 'date use extra off', null, $dateFieldAttr, 'date'],
-        'dataExtraOff' => ['select', 'extra Off', null, $dateFieldAttrSelect],
+        'dataExtraOff' => ['select', 'extra Off', [], $dateFieldAttrSelect],
         'btnSave'      => ['submit', 'save', 'getSaveData()', $btnSaveAttr],
         'btnAdd'       => ['submit', 'add new', '', $btnAddNewAttr]
     ];
@@ -102,6 +102,7 @@ function getDataGrid()
                     "public".hrd_extra_off_detail AS eod
                 LEFT JOIN "public".hrd_quota_extra_off AS qeo ON eod.quota_extra_id = qeo."id"
                 LEFT JOIN "public".hrd_employee AS emp ON eod.employee_id = emp."id"';
+    $strSql = pgFetchRows($strSql);
     $strSqlCount = 'SELECT
                         "count" (*)
                     FROM
@@ -230,10 +231,10 @@ function getSaveData()
                         } elseif ($dataHrdShiftScheduleEmp->update($detailSsEmp, $detailModel) === true) {
                             $result = true;
                         }
-                        $formObject->message = $dataHrdExtraOffDetail->strMessage;
                     }
                 }
             }
         }
+        $formObject->message = $dataHrdExtraOffDetail->strMessage;
     }
 }

@@ -388,6 +388,7 @@ if ($db->connect()) {
         $strDataEmployee,
         $strDataSubSection,
         $strDataSection,
+        $strDataSubDepartment,
         $strDataDepartment,
         $strDataDivision,
         $_SESSION['sessionUserRole'],

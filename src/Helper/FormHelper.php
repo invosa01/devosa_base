@@ -76,6 +76,11 @@ if (function_exists('getBuildForm') === false) {
                 }
                 $value = getFormPostValue($fieldName, $defaultValue);
             }
+            if (in_array($type, ['select', 'options']) === true) {
+                $value = [];
+                $defaultValue = $normalizedFieldProps['value'];
+                $value = getIntoRecorList($defaultValue);
+            }
             # Process all passed field element properties into form object.
             switch ($type) {
                 case 'submit':
@@ -95,18 +100,18 @@ if (function_exists('getBuildForm') === false) {
                     break;
                 case 'textarea' :
                     $formObject->addTextArea(
-                            getWords($normalizedFieldProps['label']),
-                            $fieldName,
-                            $value,
-                            $normalizedFieldProps['attr'],
-                            $dataType,
-                            $isRequired,
-                            ($isDisabled === false),
-                            ($isHidden === false),
-                            $normalizedFieldProps['before'],
-                            $normalizedFieldProps['after'],
-                            ($noLabel === false),
-                            $normalizedFieldProps['labelAttr']
+                        getWords($normalizedFieldProps['label']),
+                        $fieldName,
+                        $value,
+                        $normalizedFieldProps['attr'],
+                        $dataType,
+                        $isRequired,
+                        ($isDisabled === false),
+                        ($isHidden === false),
+                        $normalizedFieldProps['before'],
+                        $normalizedFieldProps['after'],
+                        ($noLabel === false),
+                        $normalizedFieldProps['labelAttr']
                     );
                     break;
                 case 'select' :
@@ -160,5 +165,49 @@ if (function_exists('getFormPostValue') === false) {
             return $_SESSION[$fieldName];
         }
         return $defaultValue;
+    }
+}
+if (function_exists('getIntoRecorList') === false) {
+    function getIntoRecorList(array $defaultValue = [])
+    {
+        $result = '';
+        $model = [
+            'database' => '',
+            'code'     => '',
+            'name'     => ''
+        ];
+        $defaultNormalizedRecordKeys = array_keys($model);
+        $normalizedFieldProps = [];
+        foreach ($defaultValue as $item => $value) {
+            if (is_integer($item) === true) {
+                $keyName = $defaultNormalizedRecordKeys[$item];
+                $normalizedFieldProps[$keyName] = $value;
+                continue;
+            }
+            $normalizedFieldProps[$item] = $value;
+        }
+        $normalizedFieldProps = getMergedArrayRecursively(
+            $model,
+            $normalizedFieldProps
+        );
+        $database = $normalizedFieldProps['database'];
+        $code = $normalizedFieldProps['code'];
+        $name = $normalizedFieldProps['name'];
+        if ($database !== '') {
+            $result = '<option value="">-</option>';
+            $strSql = "SELECT 
+                         * 
+                       FROM 
+                         $database ";
+            $record = pgFetchRows($strSql);
+            foreach ($record as $row) {
+                $result .= '<option value="' . $row[$code] . '">'
+                    . $row[$code]
+                    . ' - '
+                    . $row[$name]
+                    . '</option>';
+            }
+        }
+        return $result;
     }
 }

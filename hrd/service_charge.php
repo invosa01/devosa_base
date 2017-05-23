@@ -135,6 +135,7 @@ function getDataGrid()
                         "count" (*)
                     FROM
                         "public".hrd_service_charge AS sch';
+    $strSql = pgFetchRows($strSql);
     return [
         'strSql'      => $strSql,
         'strSqlCount' => $strSqlCount
@@ -177,12 +178,6 @@ function getValidationInputDate($startDate, $endDate)
     return [
         'existDate' => $existDate
     ];
-}
-
-function getDeleteData()
-{
-    $result = true;
-    return $result;
 }
 
 function getDetailData()

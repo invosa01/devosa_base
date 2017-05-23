@@ -95,6 +95,7 @@ function getDataGrid()
                 FROM
                     "public".hrd_extra_off AS exo
                 INNER JOIN "public".hrd_employee AS emp ON exo.employee_id = emp."id"';
+    $strSql = pgFetchRows($strSql);
     $strSqlCount = 'SELECT
                         "count" (*)
                     FROM
