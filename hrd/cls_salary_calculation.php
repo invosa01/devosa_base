@@ -368,7 +368,6 @@ class clsSalaryCalculation
             $strIDEmployee = $row['id_employee'];
             $strDeductionCode = $row['deduction_code'];
             $fltAmount = $row['amount'];
-            //echo $strDeductionCode."<br>";
             $funcPDM = "compute_deduction_pdm_" . $row['prorate'] . $row['daily'] . $row['bolmaxlink'];
             //$funcPDM        = "compute_deduction_pdm_".$row['prorate'].$row['daily'].$row['bolmaxlink'];
             $intEffective = $this->getProrateDay($strIDEmployee);
@@ -383,13 +382,7 @@ class clsSalaryCalculation
                     $strIDEmployee,
                     (isset ($arrAbsenceDeduction[$strDeductionCode]) ? $arrAbsenceDeduction[$strDeductionCode] : null)
                 );
-                //echo $row['maxamount']."|".$strIDEmployee."|".$strDeductionCode."|".$tempAmount."|$fltAmount <br>";
                 $this->arrDD[$strDeductionCode][$strIDEmployee]['amount'] = $tempAmount;
-                /*if ($strIDEmployee == 2294 ) echo $strDeductionCode."-".$fltAmount."_".$this->$funcPDM(&$fltAmount, $row['maxamount'], $strIDEmployee, (isset ($arrAbsenceDeduction[$strDeductionCode]) ? $arrAbsenceDeduction[$strDeductionCode] : null))."|";*/
-                //          if ($this->arrMD[$strDeductionCode]['tax'] == 't'){
-                //            $this->arrDetail[$strIDEmployee]['base_tax'] -= $tempAmount; // as base tax
-                //			  if ($strIDEmployee == 1627) echo "<br>".$strDeductionCode." = ".$tempAmount;
-                //          }
                 if ($this->arrMD[$strDeductionCode]['jams'] == 't') {
                     $this->arrDetail[$strIDEmployee]['base_jamsostek'] -= $tempAmount;
                 } // as base jamsostek
@@ -1167,48 +1160,31 @@ class clsSalaryCalculation
         return $fltAmount;
     }
 
-    /* calculateBasic : fungsi untuk mengambil (menghitung) data gaji pokok dan tunjangan tetap
-    */
+    /**
+     * Function to calculate daily deduction related to absence type. The setting is prorate = false, daily = true, maxlink = false.
+     *
+     * @param      $fltAmount
+     * @param      $fltMaxamount
+     * @param null $strIDEmployee
+     * @param null $arrAbsenceDeduction
+     *
+     * @return mixed
+     */
     function compute_deduction_pdm_ftf($fltAmount, $fltMaxamount, $strIDEmployee = null, $arrAbsenceDeduction = null)
     {
         global $db;
         $intEmployeeUnpaidAbsence = 0;
-        $objDt = new clsWorkTime();
         $intStart = $this->arrData['date_from'];
         $intFinish = $this->arrData['date_thru'];
-        $strJoinDate = $this->arrEmployee[$strIDEmployee]['join_date'];
-        $strResignDate = $this->arrEmployee[$strIDEmployee]['resign_date'];
-        if (strtotime($strJoinDate) > strtotime($intStart)) {
-            $intEmployeeUnpaidAbsence = $objDt->getTotalWorkDay($db, $intStart, $strJoinDate);
-        } elseif (strtotime($intFinish) > strtotime($strResignDate)) {
-            $intEmployeeUnpaidAbsence = $objDt->getTotalWorkDay($db, $strResignDate, $intFinish);
-        }
-        /*if (isset($arrAbsenceDeduction) && count($arrAbsenceDeduction) > 0)
+        $objAtt = new clsAbsenceReport($db, $intStart, $intFinish);
+        $objAtt->generateAbsenceReport();
+        if (isset($arrAbsenceDeduction) && count($arrAbsenceDeduction) > 0)
         {
           foreach($arrAbsenceDeduction as $strAbsenceCode)
           {
 
-            $intEmployeeUnpaidAbsence += $this->objAtt->getDataAbsence($strIDEmployee, $strAbsenceCode);
+            $intEmployeeUnpaidAbsence += $objAtt->getDataAbsence($strIDEmployee, $strAbsenceCode);
           }
-        }*/
-        $strSQL = "
-        SELECT SUM((date_part('day',age(absence_date_thru , absence_date_from)))+1) as total FROM
-									(SELECT CASE WHEN EXISTS (SELECT date_from from hrd_absence WHERE date_from between '$intStart'  and '$intFinish' AND id_employee = $strIDEmployee)
-													AND NOT EXISTS (SELECT date_thru from hrd_absence WHERE date_from between '$intStart'  and '$intFinish' AND id_employee = $strIDEmployee)
-													THEN '$intStart' ELSE date_from END as absence_date_from,
-										  CASE WHEN NOT EXISTS (SELECT date_from from hrd_absence WHERE date_from between '$intStart'  and '$intFinish' AND id_employee = $strIDEmployee)
-													AND EXISTS (SELECT date_thru from hrd_absence WHERE date_from between '$intStart'  and '$intFinish' AND id_employee = $strIDEmployee)
-													THEN '$intFinish' ELSE date_thru END as absence_date_thru,
-										id_employee
-							FROM hrd_absence
-							WHERE status=2
-										AND  (date_from between '$intStart' and '$intFinish' or date_thru between '$intStart' and '$intFinish')
-										AND id_employee = $strIDEmployee) as a";
-        $resDb = $db->execute($strSQL);
-        while ($rowDb = $db->fetchrow($resDb)) {
-            if ($rowDb['total'] != "") {
-                $intEmployeeUnpaidAbsence += $rowDb['total'];
-            }
         }
         return ($fltAmount * $intEmployeeUnpaidAbsence);
     }
