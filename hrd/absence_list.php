@@ -316,20 +316,23 @@ function changeStatus($db, $intStatus)
                         $intStatus
                     );
                     $absenceTypeCode = $rowDb['absence_type_code'];
-                    if (($absenceTypeCode === 'EO') === true) {
+                    if (($absenceTypeCode === 'EO' or $absenceTypeCode === 'PH') === true) {
                         if (($intStatus === REQUEST_STATUS_APPROVED) === true) {
                             $startDate = $rowDb['date_from'];
+                            $active = 'f';
                             $expairedDate = date('Y-m-d', strtotime('+1 month', strtotime($startDate)));
                             $modelExtraOff = [
-                                'id' => $rowDb['extra_off_id']
+                                'id' => $rowDb['extra_off_id'],
                             ];
+                            $varDataEo = ['active' => $active];
                             $model = [
                                 'employee_id'    => $rowDb['employee_id'],
                                 'date_extra_off' => $startDate,
                                 'date_expaired'  => $expairedDate,
-                                'note'           => $rowDb['note']
+                                'note'           => $rowDb['note'],
+                                'type'           => $absenceTypeCode
                             ];
-                            getChangeQuotaExtraOff($model, $modelExtraOff);
+                            getChangeQuotaExtraOff($model, $modelExtraOff, $varDataEo);
                         }
                     }
                 }
@@ -567,7 +570,7 @@ if ($db->connect()) {
     $formFilter = $f->render();
     getData($db);
 }
-function getChangeQuotaExtraOff($model, $modelExtraOff)
+function getChangeQuotaExtraOff($model, $modelExtraOff, $varDataEo)
 {
     global $f;
     $dataQuotaExtraOff = new cHrdQuotaExtraOff();
@@ -575,7 +578,7 @@ function getChangeQuotaExtraOff($model, $modelExtraOff)
     # Start to process updating database.
     if ($f->isInsertMode() === true) {
         $dataQuotaExtraOff->insert($model);
-        $dataHrdExtraOff->delete($modelExtraOff);
+        $dataHrdExtraOff->update($modelExtraOff, $varDataEo);
     }
 }
 

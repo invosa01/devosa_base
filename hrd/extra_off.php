@@ -25,7 +25,7 @@ function renderPage()
     # Setting up and process the privileges.
     $calledFile = basename($_SERVER['PHP_SELF']);
     $privileges = getDataPrivileges($calledFile);
-    if ($privileges['bolView'] === false) {
+    if ($privileges['bolView'] !== true) {
         die(accessDenied($_SERVER['HTTP_REFERER']));
     }
     # Initialize all global variables.
@@ -70,6 +70,7 @@ function getFormObject(array $formOptions = [])
 {
     global $strDateWidth;
     $dateFieldAttr = ["style" => "width:$strDateWidth"];
+    $selectAttr = ["cols" => 97, "rows" => 2,"required" => true];
     $btnSaveAttr = ["onClick" => "javascript:myClient.confirmSave();"];
     $btnAddNewAttr = ["onClick" => "javascript:myClient.editData(0);"];
     $formModel = [
@@ -77,6 +78,7 @@ function getFormObject(array $formOptions = [])
         'dataEmployee' => ['input', 'employee', null, ['size' => 30, 'maxlength' => 31, 'required']],
         'dataDateEo'   => ['input', 'date extra off', null, $dateFieldAttr, 'date'],
         'dataNoteEo'   => ['textarea', 'note', null, ["cols" => 97, "rows" => 2]],
+        'dataType'     => ['select', 'type', [], $selectAttr],
         'btnSave'      => ['submit', 'save', 'getSaveData()', $btnSaveAttr],
         'btnAdd'       => ['submit', 'add new', '', $btnAddNewAttr]
     ];
@@ -85,21 +87,25 @@ function getFormObject(array $formOptions = [])
 
 function getDataGrid()
 {
-    $strSql = 'SELECT
-                    exo."id",
+    $strSql = "SELECT
+                    exo.id,
                     exo.employee_id,
                     exo.date_extra_off,
                     exo.note,
+                    exo.type,
+                    exo.active,
                     emp.employee_id AS code,
                     emp.employee_name
                 FROM
-                    "public".hrd_extra_off AS exo
-                INNER JOIN "public".hrd_employee AS emp ON exo.employee_id = emp."id"';
+                    public.hrd_extra_off AS exo
+                INNER JOIN public.hrd_employee AS emp ON exo.employee_id = emp.id
+                WHERE exo.active = 't'";
     $strSql = pgFetchRows($strSql);
-    $strSqlCount = 'SELECT
-                        "count" (*)
+    $strSqlCount = "SELECT
+                        count (*)
                     FROM
-                        "public".hrd_extra_off AS exo';
+                        public.hrd_extra_off AS exo
+                    WHERE exo.active = 't'";
     return [
         'strSql'      => $strSql,
         'strSqlCount' => $strSqlCount
@@ -115,6 +121,7 @@ function getGridListContents(array $gridOptions = [])
         'no'             => ['no', 'No.', '', ['width' => '10'], ['nowrap' => '']],
         'employee_name'  => ['data', 'Employee Name', 'employee_name', $strTitleAttrWidth, $strAttrWidth],
         'date_extra_off' => ['data', 'Date Extra Off', 'date_extra_off', $strTitleAttrWidth, $strAttrWidth],
+        'type'           => ['data', 'Type', 'type', $strTitleAttrWidth, $strAttrWidth],
         'note'           => ['data', 'Note', 'note', $strTitleAttrWidth, $strAttrWidth],
     ];
     return getBuildGrid($gridModel, $gridOptions, $gridDataBinding);
@@ -158,6 +165,8 @@ function getSaveData()
         'date_extra_off' => $dataDateEo,
         'note'           => $formObject->getValue('dataNoteEo'),
         'status'         => $status,
+        'type'           => $formObject->getValue('dataType'),
+        'active'         => 't'
     ];
     # Load service charge model.
     $validationDate = getValidationInputDate($model['date_extra_off'], $model['employee_id']);
@@ -167,12 +176,11 @@ function getSaveData()
         if (($existDate = $validationDate['existDate']) === true) {
             if (($result = $dataHrdExtraOff->insert($model)) === true) {
                 $exoId = $dataHrdExtraOff->getLastInsertId();
-                $absenceTypeCode = 'EO';
                 $detailModel = [
                     'extra_off_id'      => $exoId,
                     'id_employee'       => $formObject->getValue('dataEmployee'),
                     'date_from'         => $dataDateEo,
-                    'absence_type_code' => $absenceTypeCode,
+                    'absence_type_code' => $formObject->getValue('dataType'),
                     'note'              => $formObject->getValue('dataNoteEo'),
                     'status'            => $status
                 ];

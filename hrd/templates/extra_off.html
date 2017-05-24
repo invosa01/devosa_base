@@ -8,6 +8,21 @@
                 $('#employee_name').html(ui.item.label);
             }
         });
+        $("#dataEmployee").change(function () {
+            var id = $(this).val();
+            var dataString = 'id=' + id;
+            $.ajax({
+                type: "POST",
+                url: "../ajax.php?m=conExtraOff-options",
+                data: dataString,
+                dataType: 'text',
+                cache: false,
+                success: function (respone) {
+                    result = JSON.parse(respone);
+                    $("#dataType").html(result.data);
+                }
+            });
+        });
     })
     var myClient = {
         editData: function (idx) {

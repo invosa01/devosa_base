@@ -64,7 +64,7 @@ function renderPage()
     # Setting up and process the privileges.
     $calledFile = basename($_SERVER['PHP_SELF']);
     $privileges = getDataPrivileges($calledFile);
-    if ($privileges['bolView'] === false) {
+    if ($privileges['bolView'] !== true) {
         die(accessDenied($_SERVER['HTTP_REFERER']));
     }
     # Initialize all global variables.
@@ -157,7 +157,7 @@ function getGridListContents(array $gridOptions = [])
         'amount'           => ['data', 'Amount', 'amount', ['width' => ''], $strAttrWidth],
         'id'               => ['data', '', 'id', ['width' => ''], $strAttrExport, '', 'getEditData()'],
     ];
-    return debug(getBuildGrid($gridModel, $gridOptions, $gridDataBinding));
+    return getBuildGrid($gridModel, $gridOptions, $gridDataBinding);
 }
 
 function getValidationInputDate($startDate, $endDate)

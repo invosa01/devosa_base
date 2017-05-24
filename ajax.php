@@ -14,7 +14,9 @@ function routeMap()
         'salaryCompanyCollector'         => 'getSalaryCompanyCollectorData',
         'salaryCompanyCollector-options' => 'getRenderedSalaryCompanyCollectorOptions',
         'quotaExtraOff'                  => 'getQuotaExtraOffData',
-        'quotaExtraOff-options'          => 'getRenderedQuotaExtraOffOptions'
+        'quotaExtraOff-options'          => 'getRenderedQuotaExtraOffOptions',
+        'conExtraOff'                    => 'getConExtraOffData',
+        'conExtraOff-options'            => 'getConExtraOffOptions'
     ];
 }
 
@@ -247,6 +249,7 @@ function getRenderedSalaryCompanyCollectorOptions()
 function getQuotaExtraOffData()
 {
     $employeeId = null;
+    $active = 't';
     $wheres = [];
     if (array_key_exists('id', $_POST) === true) {
         $employeeId = $_POST['id'];
@@ -257,13 +260,14 @@ function getQuotaExtraOffData()
                     qeo.employee_id,
                     qeo.date_extra_off,
                     qeo.date_expaired,
-                    qeo.note
+                    qeo.note,
+                    qeo.active
                 FROM
                     "public".hrd_employee AS emp
-                INNER JOIN "public".hrd_quota_extra_off AS qeo ON qeo.employee_id = emp."id"
-';
+                INNER JOIN "public".hrd_quota_extra_off AS qeo ON qeo.employee_id = emp."id"';
     if ($employeeId !== null) {
         $wheres[] = 'qeo.employee_id = ' . pgEscape($employeeId);
+        $wheres[] = 'qeo.active = ' . pgEscape($active);
     }
     return pgFetchRows(getQuery($strSQL, $wheres));
 }
@@ -279,6 +283,37 @@ function getRenderedQuotaExtraOffOptions()
             . $row['date_expaired']
             . ' - '
             . $row['note']
+            . '</option>';
+    }
+    return $result;
+}
+
+function getConExtraOffData()
+{
+    $employeeId = null;
+    $wheres = [];
+    if (array_key_exists('id', $_POST) === true) {
+        $employeeId = $_POST['id'];
+    }
+    $strSQL = 'SELECT
+                    ceo."id" AS ceo_id,
+                    ceo."type"
+                FROM
+                    "public".hrd_employee AS emp
+                INNER JOIN "public".hrd_con_extra_off AS ceo ON ceo.employee_id = emp."id"';
+    if ($employeeId !== null) {
+        $wheres[] = 'emp.employee_id = ' . pgEscape($employeeId);
+    }
+    return pgFetchRows(getQuery($strSQL, $wheres));
+}
+
+function getConExtraOffOptions()
+{
+    $result = '<option value="">-</option>';
+    $record = getConExtraOffData();
+    foreach ($record as $row) {
+        $result .= '<option value="' . $row['type'] . '">'
+            . $row['type']
             . '</option>';
     }
     return $result;

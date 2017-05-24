@@ -5,6 +5,7 @@ doIncludes(
     [
         'includes/form2/form2.php',
         'includes/datagrid2/datagrid.php',
+        'classes/hrd/hrd_quota_extra_off.php',
         'classes/hrd/hrd_extra_off_detail.php',
         'classes/hrd/hrd_shift_schedule_employee.php',
         'src/Helper/FormHelper.php',
@@ -25,7 +26,7 @@ function renderPage()
     # Setting up and process the privileges.
     $calledFile = basename($_SERVER['PHP_SELF']);
     $privileges = getDataPrivileges($calledFile);
-    if ($privileges['bolView'] === false) {
+    if ($privileges['bolView'] !== true) {
         die(accessDenied($_SERVER['HTTP_REFERER']));
     }
     # Initialize all global variables.
@@ -70,16 +71,16 @@ function getFormObject(array $formOptions = [])
 {
     global $strDateWidth, $strDefaultWidthPx;
     $dateFieldAttr = ["style" => "width:$strDateWidth"];
-    $dateFieldAttrSelect = ["style" => "width:$strDefaultWidthPx"];
+    $selectAttr = ["cols" => 97, "rows" => 2, "required" => true];
     $btnSaveAttr = ["onClick" => "javascript:myClient.confirmSave();"];
     $btnAddNewAttr = ["onClick" => "javascript:myClient.editData(0);"];
     $formModel = [
-        'dataId'       => ['hidden', '', getPostValue('dataId')],
-        'dataEmployee' => ['input', 'employee', null, ['size' => 30, 'maxlength' => 31, 'required']],
-        'dataDateUse'  => ['input', 'date use extra off', null, $dateFieldAttr, 'date'],
-        'dataExtraOff' => ['select', 'extra Off', [], $dateFieldAttrSelect],
-        'btnSave'      => ['submit', 'save', 'getSaveData()', $btnSaveAttr],
-        'btnAdd'       => ['submit', 'add new', '', $btnAddNewAttr]
+        'dataId'            => ['hidden', '', getPostValue('dataId')],
+        'dataEmployee'      => ['input', 'employee', null, ['size' => 30, 'maxlength' => 31, 'required']],
+        'dataDateUse'       => ['input', 'date use extra off', null, $dateFieldAttr, 'date'],
+        'dataQuotaExtraOff' => ['select', 'extra Off', [], $selectAttr],
+        'btnSave'           => ['submit', 'save', 'getSaveData()', $btnSaveAttr],
+        'btnAdd'            => ['submit', 'add new', '', $btnAddNewAttr]
     ];
     return getBuildForm($formModel, $formOptions);
 }
@@ -189,6 +190,23 @@ function getValidationInputDate($qeoId, $dataDateUseEo)
     ];
 }
 
+function checkTypeExtraOff($quotaExtraOff)
+{
+    $strSql = 'SELECT
+                    qeo."type"
+                FROM
+                    "public".hrd_quota_extra_off AS qeo
+                WHERE
+                    qeo."id" = ' . pgEscape($quotaExtraOff) . '
+                GROUP BY
+                    qeo."id"';
+    $typeExtraOff = pgFetchRow($strSql);
+    if (array_key_exists('type', $typeExtraOff) === true) {
+        $typeExtraOff = $typeExtraOff['type'];
+    }
+    return $typeExtraOff;
+}
+
 function getSaveData()
 {
     /**
@@ -196,14 +214,24 @@ function getSaveData()
      */
     global $formObject;
     $result = true;
+    $dataHrdQuotaExtraOff = new cHrdQuotaExtraOff();
     $dataHrdExtraOffDetail = new cHrdExtraOffDetail();
     $dataHrdShiftScheduleEmp = new cHrdShiftScheduleEmployee();
     $dataDateUseEo = $formObject->getValue('dataDateUse');
     $dataDateUseEo = \DateTime::createFromFormat('d-m-Y', $dataDateUseEo)->format('Y-m-d');
+    $quotaExtraOff = $formObject->getValue('dataQuotaExtraOff');
+    $typeExtraOff = checkTypeExtraOff($quotaExtraOff);
     $model = [
         'employee_id'    => $formObject->getValue('dataEmployee'),
-        'quota_extra_id' => $formObject->getValue('dataExtraOff'),
-        'date_use'       => $dataDateUseEo
+        'quota_extra_id' => $quotaExtraOff,
+        'date_use'       => $dataDateUseEo,
+        'type'           => $typeExtraOff
+    ];
+    $varDataEo = [
+        'active' => 'f'
+    ];
+    $modelEo = [
+        'id' => $model['quota_extra_id']
     ];
     # Load service charge model.
     $validationDate = getValidationInputDate($model['quota_extra_id'], $model['date_use']);
@@ -215,13 +243,14 @@ function getSaveData()
             if (($existEmp = $validationDate['existEmp']) === true) {
                 if (($existOff = $validationDateOff['existOff']) === true) {
                     if (($result = $dataHrdExtraOffDetail->insert($model)) === true) {
+                        $dataHrdQuotaExtraOff->update($modelEo, $varDataEo);
                         $dataEmpId = $formObject->getValue('dataEmployee');
                         $detailSsEmp = [
                             'id_employee' => $dataEmpId,
                             'shift_date'  => $dataDateUseEo
                         ];
                         $detailModel = [
-                            'shift_code'  => 'E0',
+                            'shift_code'  => $typeExtraOff,
                             'start_time'  => '00:00:00',
                             'finish_time' => '00:00:00'
                         ];
