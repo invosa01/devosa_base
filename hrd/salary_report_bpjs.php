@@ -310,7 +310,7 @@ function getBPJSKesehatanReport($db, $intYear, $intMonth, $strKriteria = "")
     while ($row = $db->fetchrow($res)) {
         $salaryMasterID = $row['id'];
         $intMaxBPJSBase = getSetting("bpjs_max");
-        $strSQL2 = "SELECT t0.*, \"join_date\", \"resign_date\", t1.\"employee_name\", t2.\"position_name\", t3.functional_name, t1.employee_status, t1.get_bpjs, t1.branch_code
+        $strSQL2 = "SELECT t0.*, t0.\"join_date\", t0.\"resign_date\", t1.\"employee_name\", t2.\"position_name\", t3.functional_name, t1.employee_status, t1.get_bpjs, t1.branch_code
                     FROM \"hrd_salary_detail\" AS t0
                         LEFT JOIN \"hrd_employee\" AS t1 ON t0.\"id_employee\" = t1.id
                         LEFT JOIN \"hrd_position\" AS t2 ON t2.\"position_code\" = t0.\"position_code\"

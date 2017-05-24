@@ -400,7 +400,7 @@ function getOvertimeReport($db, $intYear, $intMonth, $strKriteria = "")
     $intStart = (($intPage - 1) * $intPageLimit);
     while ($row = $db->fetchrow($res)) {
         $salaryMasterID = $row['id'];
-        $strSQL2 = "SELECT t0.*, \"join_date\", \"resign_date\", t1.\"employee_name\", t2.\"position_name\", t3.functional_name, t1.employee_status
+        $strSQL2 = "SELECT t0.*, t0.\"join_date\", t0.\"resign_date\", t1.\"employee_name\", t2.\"position_name\", t3.functional_name, t1.employee_status
                     FROM \"hrd_salary_detail\" AS t0
                         LEFT JOIN \"hrd_employee\" AS t1 ON t0.\"id_employee\" = t1.id
                         LEFT JOIN \"hrd_position\" AS t2 ON t2.\"position_code\" = t0.\"position_code\"
