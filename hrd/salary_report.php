@@ -94,7 +94,7 @@ if ($showReport) {
     //     $strKriteria .= " AND t2.position_group::INTEGER < 2 ";
     //   else $strKriteria .= " AND t2.position_group::INTEGER >= 0 ";
     // }
-    $strKriteria .= " AND t2.position_group::INTEGER >= $intPermissionGroup ";
+    //$strKriteria .= " AND t2.position_group::INTEGER >= $intPermissionGroup ";
 
     $dataMasterSalary = getMasterSalarybyYearAndMonth($intYear, $intMonth, $strCompany);
     if ($dataMasterSalary == 0) {

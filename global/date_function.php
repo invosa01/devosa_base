@@ -312,47 +312,35 @@ function timeCompare($time1, $time2)
     }
     return $intResult;
 }//timeCompare
-function getDateInterval($dateFrom, $dateThru)
-{
-    $arrDur = array(
-        "year" => 0,
-        "month" => 0,
-        "day" => 0,
-    );
+if (function_exists('getDataInterval') === false) {
+    /**
+     * Get date interval date from and date thru.
+     *
+     * @param date $dateFrom input date from
+     * @param date $dateThru input date thru
+     * @return array
+     */
+    function getDateInterval($dateFrom, $dateThru)
+    {
+        $arrInterval = [
+            'year' => 0,
+            'month' => 0,
+            'day' => 0
+        ];
+        if (validStandardDate($dateFrom) && validStandardDate($dateThru)) {
+            $datetime1 = date_create($dateFrom);
+            $datetime2 = date_create($dateThru);
 
-    if (validStandardDate($dateFrom) && validStandardDate($dateThru)) {
-        $arr1 = extractDate($dateFrom);
-        $arr2 = extractDate($dateThru);
-
-        if ($arr1['integer'] > $arr2['integer']) {
-            // tanggal 1 lebih besar, ditukar saja
-            $arr3 = $arr1;
-            $arr1 = $arr2;
-            $arr2 = $arr3;
+            $interval = date_diff($datetime1, $datetime2);
+            $arrInterval = [
+                'year' => $interval->format('%y'),
+                'month' => $interval->format('%m'),
+                'day' => $interval->format('%d')
+            ];
         }
-
-        $arrDur['year'] = ($arr2['year'] - $arr1['year']);
-        if ($arr1['month'] == $arr2['month']) // sama, cek tanggalnya
-        {
-            if (($arr1['day'] > $arr2['day']) && ($arrDur['year'] == 0)) $arrDur['year']--; // belum genap setahun
-        } else if ($arr1['month'] > $arr2['month']) {
-            if ($arrDur['year'] == 0) $arrDur['year']--;
-            $arrDur['month'] = ($arr2['month'] - $arr1['month']) + 12;
-        } else $arrDur['month'] = ($arr2['month'] - $arr1['month']);
-
-        if ($arr1['day'] > $arr2['day']) {
-            $intPrevMon = ($arr2['month'] == 1) ? 12 : $arr2['month'] - 1;
-            $intTmpYear = ($intPrevMon == 1) ? $arr2['year'] - 1 : $arr2['year'];
-            $intMax = lastDay($intPrevMon, $intTmpYear);
-            $arrDur['day'] = $intMax + ($arr2['day'] - $arr1['day']);
-            if ($arrDur['month'] > 0) $arrDur['month']--;
-        } else $arrDur['day'] = $arr2['day'] - $arr1['day'];
-
+        return $arrInterval;
     }
-
-    return $arrDur;
 }
-
 // fungsi yang mengirimkan data selisih tanggal
 // INPUT: tanggal awal  dan tanggal akhir format YYYY-MM-DD, $durasi (optional)
 // OUTPUT: selisih hari

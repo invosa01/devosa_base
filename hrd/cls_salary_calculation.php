@@ -1977,6 +1977,7 @@ class clsSalaryCalculation
                 $this->arrDetail[$intID]['id_employee'] = $intID;
                 $this->arrDetail[$intID]['employee_id'] = $rowEmp['employee_id'];
                 $this->arrDetail[$intID]['employee_name'] = $rowEmp['employee_name'];
+                $this->arrDetail[$intID]['id_company'] = $rowEmp['id_company'];
                 $this->arrDetail[$intID]['npwp'] = $rowEmp['npwp'];
                 $this->arrDetail[$intID]['join_date'] = $rowEmp['join_date'];
                 $this->arrDetail[$intID]['resign_date'] = $rowEmp['resign_date'];
