@@ -52,6 +52,7 @@ class clsAttendanceClass
 
     var $strNormalStart; // jam normal pulang, standard perusahaan : hh:mm:ss
 
+    var $arrData;
     // konstuktor
     function clsAttendanceClass($db)
     {
@@ -270,12 +271,13 @@ class clsAttendanceClass
     }
 
     // fungsi untuk mengambil apakah ada jadwal shift untuk karyawan tersebut
-    function setFilter($strDateFrom, $strDateThru, $strIDEmployee = "", $strKriteria = "")
+    function setFilter($strDateFrom, $strDateThru, $strIDEmployee = "", $strKriteria = "", $arrData = [])
     {
         $this->strDateFrom = $strDateFrom;
         $this->strDateThru = $strDateThru;
         $this->strIDEmployee = $strIDEmployee;
         $this->strKriteria = $strKriteria;
+        $this->arrData = $arrData;
     }
 } // class
 // kelas khusus untuk data kehadiran karyawan tertentu, sekedar menyimpan datanya saja
@@ -314,59 +316,63 @@ class clsAttendanceInfo
 
     var $fltTotalOT;           // jam selesai ot aktual
 
-    var $intAbsenceType;            // total durasi jam masuk dan pulang, dalam menit (yang dianggap aktual jam kerja)
+var $intAbsenceType;
 
-    var $intBreakLate;        // total durasi jam masuk dan pulang, full
+var $intBreakLate;
 
-    var $intEarly;        // apakah perlu hitung keterlambatan
+    var $intEarly;            // total durasi jam masuk dan pulang, dalam menit (yang dianggap aktual jam kerja)
 
-    var $intLate;                     // apakah terlambat
+    var $intLate;        // total durasi jam masuk dan pulang, full
 
-    var $intLateDeduction;                     // jumlah menit keterlambatan
+    var $intLateDeduction;        // apakah perlu hitung keterlambatan
 
-    var $intLateTolerance;  //jumlah menit toleransi telat berdasarkan branch
+    var $intLateTolerance;                     // apakah terlambat
 
-    var $intTotalDuration;                    // jumlah menit pulang awal
+    var $intTotalDuration;                     // jumlah menit keterlambatan
 
-    var $intTotalDurationFull;                // jumlah menit keterlambatan setelah jam istirahat
+    var $intTotalDurationFull;  //jumlah menit toleransi telat berdasarkan branch
 
-    var $intWeekDay;            // potongan keterlambatan, yang akan mengurangi lembur
+    var $intWeekDay;                    // jumlah menit pulang awal
 
-    var $strAbsenceCode;                    // apakah perlu dihitung OTnya atau diabaikan
+    var $strAbsenceCode;                // jumlah menit keterlambatan setelah jam istirahat
 
-    var $strActualBreak;
+        var $strActualBreak;            // potongan keterlambatan, yang akan mengurangi lembur
 
-    var $strAttendanceDate;
+        var $strAttendanceDate;                    // apakah perlu dihitung OTnya atau diabaikan
 
     var $strAttendanceFinish;
 
     var $strAttendanceID;
 
-    var $strAttendanceStart;                      // andai ada
+var $strAttendanceStart;
 
-    var $strBranchCode;                  // total OT, dalam menit
+var $strBranchCode;
 
-    var $strDataSource;                  // total OT, dalam menit
+    var $strDataSource;                      // andai ada
 
-    var $strIDEmployee;      // apakah sedang dianggap absen atau tidak
+    var $strIDEmployee;                  // total OT, dalam menit
 
-    var $strNormalBreak;      // apakah termasuk hari libur, hari libur nasional
+    var $strNormalBreak;                  // total OT, dalam menit
 
-    var $strNormalFinish;     // apakah status shift adalah OFF
+    var $strNormalFinish;      // apakah sedang dianggap absen atau tidak
 
-    var $strNormalStart;   // apakah termasuk shift malam
+    var $strNormalStart;      // apakah termasuk hari libur, hari libur nasional
 
-    var $strNote;  // jenis absen, jika ada
+    var $strNote;     // apakah status shift adalah OFF
 
-    var $strOvertimeFinish;  // kode  absen, jika ada
+    var $strOvertimeFinish;   // apakah termasuk shift malam
 
-    var $strOvertimeFinishEarly;    // kode shift, jika ada -- untuk menentukan kerja siang atau malam
+    var $strOvertimeFinishEarly;  // jenis absen, jika ada
 
-    var $strOvertimeStart;    // apakah ini data kemarin
+    var $strOvertimeStart;  // kode  absen, jika ada
 
-    var $strOvertimeStartEarly;
+        var $strOvertimeStartEarly;    // kode shift, jika ada -- untuk menentukan kerja siang atau malam
 
-    var $strShiftCode;
+        var $strShiftCode;    // apakah ini data kemarin
+
+    var $totOTCalculated;
+
+    var $totOTNormal;
 
     function clsAttendanceInfo($db)
     {

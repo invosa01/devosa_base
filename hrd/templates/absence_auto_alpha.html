@@ -1,3 +1,15 @@
+<script language="Javascript">
+    jQuery(function($) {
+        $('#dataEmployee').autocomplete({
+            source: "hrd_ajax_source.php?action=getemployee",
+            minLength: 2,
+            select: function( event, ui ) {
+                console.log(ui);
+                $('#employee_name').html(ui.item.label);
+            }
+        });
+    });
+</script>
 <div class="main-content">
     <div class="row">
         <div class="col-md-12">
@@ -53,6 +65,21 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-1 control-label" for="dataEmployee">Employee ID</label>
+
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    [var.strInputEmployee]
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label" for="dataEmployee">&nbsp;</label>
+                            <div class="col-sm-2">
+                                <strong id="employee_name"></strong>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-1 control-label">&nbsp;</label>
                             <div class="col-sm-2">
                                 [var.strBtnAutoAlpha]
@@ -70,18 +97,28 @@
                                data-target="#sweeping-unpaid-leave"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
                         </div>
                     </div>
-                    <h3 class="panel-title">Sweeping Unpaid Leave</h3>
+                    <h3 class="panel-title">Sweeping Absence</h3>
                 </div>
                 <div id="sweeping-unpaid-leave" class="panel-body collapse in">
                     [var.strMsgUnpaidLeave]
                     <form class="form-horizontal" action="" method="post" name="formInput" id="formUnpaidLeave">
                         <div class="form-group">
-                            <label class="col-sm-1 control-label" for="dataDateUnpaidLeaveFrom">Absence Type</label>
+                            <label class="col-sm-1 control-label" for="dataDateUnpaidLeaveFrom">From Absence Type</label>
 
                             <div class="col-sm-2">
                                 <div class="input-group has-error">
                                     [var.strInputTypeUnpaidLeave]
-                                    Selected absence type will be treated as Unpaid Leave.
+                                    Selected absence type from.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label" for="dataDateUnpaidLeaveFrom">To Absence Type</label>
+
+                            <div class="col-sm-2">
+                                <div class="input-group has-error">
+                                    [var.strInputTypeUnpaidLeave]
+                                    Selected absence type to.
                                 </div>
                             </div>
                         </div>

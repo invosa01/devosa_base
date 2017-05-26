@@ -29,7 +29,7 @@ if ($bolCanEdit) {
     $f->addSelect(
         getWords("company"),
         "id_company",
-        getDataListCompany($strDataCompany, $bolCompanyEmptyOption, $arrCompanyEmptyData, $strKriteria2),
+        getDataListCompany(getPostValue('id_company')),
         ["style" => "width:200"],
         "",
         false
@@ -155,12 +155,13 @@ function printEditLink($params)
     return "
       <input type=hidden name='detailID$counter' id='detailID$counter' value='" . $record['id'] . "' />
       <input type=hidden name='detailCreated$counter' id='detailCreated$counter' value='" . $record['created'] . "' />
-      <input type=hidden name='detailCompany$counter' id='detailCompany$counter' value='" . $record['id_company'] . "' />
+      <input type=hidden name='detailCompany$counter' id='detailCompany$counter' value='" . $record['company_code'] . "' />
       <input type=hidden name='detailEventDate$counter' id='detailEventDate$counter' value='" . $record['date_event'] . "' />
       <input type=hidden name='detailNews$counter' id='detailNews$counter' value='" . $record['news'] . "' />
 	  <input type=hidden name='detailDuration$counter' id='detailDuration$counter' value='" . $record['duration'] . "' />
+	  <input type=hidden name='detailPlace$counter' id='detailPlace$counter' value='" . $record['place'] . "' />
       <input type=hidden name='detailActive$counter' id='detailActive$counter' value='" . $record['active'] . "' />
-      <a href=\"javascript:myClient.editData($counter)\">" . getWords('edit') . "</a>";
+      <a id=\"editdata-$counter\" class=\"edit-data\" href=\"javascript:myClient.editData($counter)\">" . getWords('edit') . "</a>";
 }
 
 // fungsi untuk menyimpan data

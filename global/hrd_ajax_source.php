@@ -38,6 +38,9 @@ if (isset($_GET['requestAjax'])) {
 exit();
 function getEmployeeData($db, $strSearch)
 {
+    $strDataDivision = '';
+    $strDataFunctional = '';
+    $strKriteriaCompany = '';
     $employeeList = null;
     if ($db->connect()) {
         //global $arrUserInfo;

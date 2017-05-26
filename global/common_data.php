@@ -367,27 +367,36 @@ function getDataListHolidayType($default = null, $isHasEmpty = false, $emptyData
 //TODO: tambahkan validasi untuk mengecek parameter
 function isCompanyHoliday($strDate)
 {
-    //find day of week
-    $arrDate = explode("-", $strDate);
-    $intTimeStamp = mktime(10, 0, 0, intval($arrDate[1]), intval($arrDate[2]), intval($arrDate[0]));
-    $dow = intval(date("w", $intTimeStamp)); //$dow = 0, sunday, 6 = saturday
-    if (!isset($GLOBALS['isSundayHoliday'])) {
-        $GLOBALS['isSundayHoliday'] = isSundayHoliday();
-    }
-    if (!isset($GLOBALS['isSaturdayHoliday'])) {
-        $GLOBALS['isSaturdayHoliday'] = isSaturdayHoliday();
-    }
-    if ($dow == 0 && $GLOBALS['isSundayHoliday']) {
-        return true;
-    }
-    if ($dow == 6 && $GLOBALS['isSaturdayHoliday']) {
-        return true;
-    }
-    $tblCalendar = new cModel("hrd_calendar", "calendar");
-    if ($tblCalendar->findCount("CONVERT(varchar(10), holiday, 120) = '$strDate' AND status = 1") > 0) {
-        return true;
-    }
-    return false;
+  //find day of week
+  $arrDate = explode("-", $strDate);
+  $intTimeStamp = mktime(10, 0, 0, intval($arrDate[1]), intval($arrDate[2]), intval($arrDate[0]));
+  $dow = intval(date("w", $intTimeStamp)); //$dow = 0, sunday, 6 = saturday
+  if (!isset($GLOBALS['isSundayHoliday'])) {
+    $GLOBALS['isSundayHoliday'] = isSundayHoliday();
+  }
+  if (!isset($GLOBALS['isSaturdayHoliday'])) {
+    $GLOBALS['isSaturdayHoliday'] = isSaturdayHoliday();
+  }
+  if ($dow == 0 && $GLOBALS['isSundayHoliday']) {
+    return true;
+  }
+  if ($dow == 6 && $GLOBALS['isSaturdayHoliday']) {
+    return true;
+  }
+  $tblCalendar = new cModel("hrd_calendar", "calendar");
+  if ($tblCalendar->findCount("holiday = '$strDate' AND status = 't'") > 0) {
+    return true;
+  }
+  return false;
+}
+
+function getNoteHoliday($strDate)
+{
+  //find day of week
+  $note ="";
+  $tblCalendar = new cModel("hrd_calendar", "calendar");
+  $note = $tblCalendar->find("holiday = '$strDate'","note");
+  return strtoupper($note['note']);
 }
 
 function getDefaultStartTime()

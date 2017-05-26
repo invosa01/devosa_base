@@ -400,7 +400,7 @@ function resetData($db)
     }
     $objLeave->saveLeaveHistory($strID, $strThisYear - 1);
     $objLeave->saveLeaveHistory($strID, $strThisYear);
-    $objLeave->saveLeaveHistory($strID, $strThisYear + 1);
+    //$objLeave->saveLeaveHistory($strID, $strThisYear + 1);
     //die ("cek dulu");
   }
 }

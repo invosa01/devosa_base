@@ -30,4 +30,15 @@
             return false;
         }
     }
+
+    var myClient = {
+        editData : function(params) {
+            index = params;
+            if (index !== '') {
+                $('dataID').value = $F('detailID' + index);
+                $('dataLeaveLevel').value = $F('detailLeaveLevel' + index);
+                $('dataYearlyQuota').value = $F('detailYearlyQuota' + index);
+            }
+        }
+    }
 </script>

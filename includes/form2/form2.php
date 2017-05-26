@@ -49,7 +49,6 @@ class clsForm
     var $formHidden;
 
     //set CSS file name
-
     var $formName;
 
     var $formObject;
@@ -61,13 +60,11 @@ class clsForm
     var $hasButton = true;
 
     //set caption of the form
-
     var $hasFile = false;
 
     var $hasFormTag = true;
 
     //set help context here
-
     var $hasRequiredControl = false;
 
     var $hasTabPage = false;
@@ -1247,8 +1244,8 @@ class clsForm
             return $htmlBefore . "<span $att>" . nl2br($text) . "</span>" . $htmlAfter;
         } else {
             return $htmlBefore . "<span id=\"" . $name . "\" name=\"" . $name . "\" $att>" . nl2br(
-                $text
-            ) . "</span>" . $htmlAfter;
+                    $text
+                ) . "</span>" . $htmlAfter;
         }
     }
 
@@ -1771,10 +1768,8 @@ class clsForm
             $values = $value;
             if (count($values)) {
                 foreach ($values as $idx => $valData) {
-                    if ($valData['selected']) {
-                        $selectedValue = $valData['value'];
-                        $selectedText = $valData['text'];
-                    }
+                    $selectedValue = $valData['value'];
+                    $selectedText = $valData['text'];
                 }
             }
         } else if ($type == "labelautocomplete") {
@@ -2468,7 +2463,6 @@ class clsForm
     }
 
     //parameter: nama file script yang akan dipanggil ketika AJAX request ke server terjadi
-
     function setFormAction($action)
     {
         $this->action = $action;

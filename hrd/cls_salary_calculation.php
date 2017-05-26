@@ -161,14 +161,12 @@ class clsSalaryCalculation
         $res = $this->data->execute($strSQL);
         while ($row = $this->data->fetchrow($res)) {
             $strIDEmp = $row['id_employee'];
-            $intEffective = $this->getProrateDay($strIDEmp);
-            // if ($strIDEmp == 2637) die($intEffective);
             $this->arrDetail[$strIDEmp]['working_day'] = $objDt->getTotalWorkDay(
                 $db,
                 $this->arrData['salary_start_date'],
                 $this->arrData['salary_finish_date']
             );
-            //echo $this->arrDetail[$strIDEmp]['working_day'];die();
+            $intEffective = $this->getProrateDay($strIDEmp);
             $intInvEffective = 1 - $intEffective;
             $arrEmpProrate[$strIDEmp] = $fltProrate = $intEffective;
             $arrEmpInvProrate[$strIDEmp] = $fltInvProrate = $intInvEffective;
@@ -370,7 +368,6 @@ class clsSalaryCalculation
             $strIDEmployee = $row['id_employee'];
             $strDeductionCode = $row['deduction_code'];
             $fltAmount = $row['amount'];
-            //echo $strDeductionCode."<br>";
             $funcPDM = "compute_deduction_pdm_" . $row['prorate'] . $row['daily'] . $row['bolmaxlink'];
             //$funcPDM        = "compute_deduction_pdm_".$row['prorate'].$row['daily'].$row['bolmaxlink'];
             $intEffective = $this->getProrateDay($strIDEmployee);
@@ -385,13 +382,7 @@ class clsSalaryCalculation
                     $strIDEmployee,
                     (isset ($arrAbsenceDeduction[$strDeductionCode]) ? $arrAbsenceDeduction[$strDeductionCode] : null)
                 );
-                //echo $row['maxamount']."|".$strIDEmployee."|".$strDeductionCode."|".$tempAmount."|$fltAmount <br>";
                 $this->arrDD[$strDeductionCode][$strIDEmployee]['amount'] = $tempAmount;
-                /*if ($strIDEmployee == 2294 ) echo $strDeductionCode."-".$fltAmount."_".$this->$funcPDM(&$fltAmount, $row['maxamount'], $strIDEmployee, (isset ($arrAbsenceDeduction[$strDeductionCode]) ? $arrAbsenceDeduction[$strDeductionCode] : null))."|";*/
-                //          if ($this->arrMD[$strDeductionCode]['tax'] == 't'){
-                //            $this->arrDetail[$strIDEmployee]['base_tax'] -= $tempAmount; // as base tax
-                //			  if ($strIDEmployee == 1627) echo "<br>".$strDeductionCode." = ".$tempAmount;
-                //          }
                 if ($this->arrMD[$strDeductionCode]['jams'] == 't') {
                     $this->arrDetail[$strIDEmployee]['base_jamsostek'] -= $tempAmount;
                 } // as base jamsostek
@@ -1169,48 +1160,31 @@ class clsSalaryCalculation
         return $fltAmount;
     }
 
-    /* calculateBasic : fungsi untuk mengambil (menghitung) data gaji pokok dan tunjangan tetap
-    */
+    /**
+     * Function to calculate daily deduction related to absence type. The setting is prorate = false, daily = true, maxlink = false.
+     *
+     * @param      $fltAmount
+     * @param      $fltMaxamount
+     * @param null $strIDEmployee
+     * @param null $arrAbsenceDeduction
+     *
+     * @return mixed
+     */
     function compute_deduction_pdm_ftf($fltAmount, $fltMaxamount, $strIDEmployee = null, $arrAbsenceDeduction = null)
     {
         global $db;
         $intEmployeeUnpaidAbsence = 0;
-        $objDt = new clsWorkTime();
-        $intStart = $this->arrData['salary_start_date'];
-        $intFinish = $this->arrData['salary_finish_date'];
-        $strJoinDate = $this->arrEmployee[$strIDEmployee]['join_date'];
-        $strResignDate = $this->arrEmployee[$strIDEmployee]['resign_date'];
-        if (strtotime($strJoinDate) > strtotime($intStart)) {
-            $intEmployeeUnpaidAbsence = $objDt->getTotalWorkDay($db, $intStart, $strJoinDate);
-        } elseif (strtotime($intFinish) > strtotime($strResignDate)) {
-            $intEmployeeUnpaidAbsence = $objDt->getTotalWorkDay($db, $strResignDate, $intFinish);
-        }
-        /*if (isset($arrAbsenceDeduction) && count($arrAbsenceDeduction) > 0)
+        $intStart = $this->arrData['date_from'];
+        $intFinish = $this->arrData['date_thru'];
+        $objAtt = new clsAbsenceReport($db, $intStart, $intFinish);
+        $objAtt->generateAbsenceReport();
+        if (isset($arrAbsenceDeduction) && count($arrAbsenceDeduction) > 0)
         {
           foreach($arrAbsenceDeduction as $strAbsenceCode)
           {
 
-            $intEmployeeUnpaidAbsence += $this->objAtt->getDataAbsence($strIDEmployee, $strAbsenceCode);
+            $intEmployeeUnpaidAbsence += $objAtt->getDataAbsence($strIDEmployee, $strAbsenceCode);
           }
-        }*/
-        $strSQL = "
-        SELECT SUM((date_part('day',age(absence_date_thru , absence_date_from)))+1) as total FROM
-									(SELECT CASE WHEN EXISTS (SELECT date_from from hrd_absence WHERE date_from between '$intStart'  and '$intFinish' AND id_employee = $strIDEmployee)
-													AND NOT EXISTS (SELECT date_thru from hrd_absence WHERE date_from between '$intStart'  and '$intFinish' AND id_employee = $strIDEmployee)
-													THEN '$intStart' ELSE date_from END as absence_date_from,
-										  CASE WHEN NOT EXISTS (SELECT date_from from hrd_absence WHERE date_from between '$intStart'  and '$intFinish' AND id_employee = $strIDEmployee)
-													AND EXISTS (SELECT date_thru from hrd_absence WHERE date_from between '$intStart'  and '$intFinish' AND id_employee = $strIDEmployee)
-													THEN '$intFinish' ELSE date_thru END as absence_date_thru,
-										id_employee
-							FROM hrd_absence
-							WHERE status=2
-										AND  (date_from between '$intStart' and '$intFinish' or date_thru between '$intStart' and '$intFinish')
-										AND id_employee = $strIDEmployee) as a";
-        $resDb = $db->execute($strSQL);
-        while ($rowDb = $db->fetchrow($resDb)) {
-            if ($rowDb['total'] != "") {
-                $intEmployeeUnpaidAbsence += $rowDb['total'];
-            }
         }
         return ($fltAmount * $intEmployeeUnpaidAbsence);
     }
@@ -1552,67 +1526,52 @@ class clsSalaryCalculation
         }
     }
 
-    //daily deduction without maxlink
+    /**
+     * Function to get prorate value.
+     *
+     * @param $strID
+     *
+     * @return float|int
+     */
     function getProrateDay($strID)
     {
         $intResult = 1;
         if ($strID != "" && isset($this->arrEmployee[$strID])) {
-            $intStart = $this->arrData['salary_start_date'];
-            $intFinish = $this->arrData['salary_finish_date'];
-            $intProrateDays = (getSetting('prorate_days') == "NULL" || getSetting(
-                    'prorate_days'
-                ) == "") ? 0 : getSetting('prorate_days');
-            $arrDt = explode("-", $intStart);
-            $strStartDateSOM = $arrDt[0] . "-" . $arrDt[1] . "-" . "01";
-            $strStartDateEOM = $arrDt[0] . "-" . $arrDt[1] . "-" . lastday($arrDt[1], $arrDt[0]);
-            $intDaysPerMonthsStart = ($intProrateDays <= 0) ? lastday($arrDt[1], $arrDt[0]) : $intProrateDays;
-            $arrDt = explode("-", $intFinish);
-            $strFinishDateSOM = $arrDt[0] . "-" . $arrDt[1] . "-" . "01";
-            $strFinishDateEOM = $arrDt[0] . "-" . $arrDt[1] . "-" . lastday($arrDt[1], $arrDt[0]);
-            $intDaysPerMonthsFinish = ($intProrateDays <= 0) ? lastday($arrDt[1], $arrDt[0]) : $intProrateDays;
-            $strJoinDate = $this->arrEmployee[$strID]['join_date'];
-            $strResignDate = $this->arrEmployee[$strID]['resign_date'];
-            // untuk sementara, abaikan dulu perbedaan periode prorata gaji antara company
-            if (strtotime($strJoinDate) >= strtotime($intStart)) {
-                // ada kemungkinan prorata, karena baru bergabung
-                if (strtotime($strJoinDate) > strtotime($intFinish)) // belum punya hak sama sekali
-                {
-                    $intResult = 0;
-                } else if (strtotime($strJoinDate) >= strtotime($strFinishDateSOM)) {
-                    $fltprorate = strtotime($strFinishDateEOM) - strtotime($strJoinDate);
-                    $fltprorate = floor($fltprorate / (60 * 60 * 24)) + 1;
-                    $intResult = $fltprorate / $intDaysPerMonthsFinish;
-                } else if (strtotime($strJoinDate) < strtotime($strFinishDateSOM)) {
-                    $fltprorate = strtotime($strStartDateEOM) - strtotime($strJoinDate);
-                    $fltprorate = floor($fltprorate / (60 * 60 * 24)) + 1;
-                    $intResult = ($fltprorate / $intDaysPerMonthsStart) + 1;
-                    if ($this->isPaidLastMonth($strID)) {
-                        $intResult = 1;
-                    }
-                } else {
-                    $intResult = 0;
+            if ($this->arrConf['prorate_method'] == '0' || $this->arrConf['prorate_method'] == '1') {
+                # Get max value between join date and salary start date. If join date >= salary start date, the value is join date, else the value is salary start date.
+                $intJoinSalaryStartDate = (dateCompare($this->arrEmployee[$strID]['join_date'], $this->arrData['salary_start_date']) >= 0) ? $this->arrEmployee[$strID]['join_date'] : $this->arrData['salary_start_date'];
+                # Get min value between resign date and salary finish date. If resign date < salary finish date, the value is resign date, else the value is salary finish date.
+                $intResignSalaryFinishDate = (dateCompare($this->arrEmployee[$strID]['resign_date'], $this->arrData['salary_finish_date']) < 0) ? $this->arrEmployee[$strID]['resign_date'] : $this->arrData['salary_finish_date'];
+                if ($this->arrConf['prorate_method'] == '0') {
+                    # If prorate method is 0, then prorate days is days differences between $intJoinSalaryDate and $intResignSalaryFinishDate, EXCLUDING weekends and national holiday.
+                    $intProrateDays = $this->arrDetail[$strID]['working_day'];
+                    $intResult = ($this->objWork->getTotalWorkDay($this->data, $intJoinSalaryStartDate, $intResignSalaryFinishDate))/$intProrateDays;
+                }
+                else if ($this->arrConf['prorate_method'] == '1') {
+                    # If prorate method is 1, then prorate days is days differences between $intJoinSalaryDate and $intResignSalaryFinishDate, INCLUDING weekends and national holiday.
+                    $intProrateDays = getIntervalDate($this->arrData['salary_start_date'], $this->arrData['salary_finish_date']) + 1;
+                    $intResult = (getIntervalDate($intJoinSalaryStartDate, $intResignSalaryFinishDate) + 1)/$intProrateDays;
                 }
             }
-            // cek apakah resign atau tidak
-            if ($strResignDate != "") {
-                if (strtotime($strResignDate) < strtotime($strFinishDateEOM)) {
-                    if (strtotime($strResignDate) <= strtotime($strFinishDateSOM)) // bulan lalu
-                    {
-                        $intResult = 0;
-                        // if (!$this->isPaidProratedLastMonth($strID)){
-                        //   $fltprorate = strtotime($strStartDateEOM) - strtotime($strResignDate);
-                        //   $fltprorate = floor($fltprorate/(60*60*24));
-                        //   $intResult = $fltprorate/$intDaysPerMonthsStart * -1;
-                        // }
-                    } else {
-                        $fltprorate = strtotime($strResignDate) - strtotime($strFinishDateSOM);
-                        $fltprorate = floor($fltprorate / (60 * 60 * 24)) + 1;
-                        $intResult = $fltprorate / $intDaysPerMonthsFinish;
-                    }
+            else {
+                # If prorate method is 2 or 3, then prorate days is set in general salary setting.
+                $intProrateDays = (getSetting('prorate_days') == "NULL" || getSetting('prorate_days') == "") ? 0 : getSetting('prorate_days');
+                if ($this->arrConf['prorate_method'] == '2') {
+                    # Get day difference between join date and salary start date, EXCLUDING weekends and national holiday.
+                    $intJoinSalaryStartPeriod = isset($this->arrEmployee[$strID]['join_date']) ? $this->objWork->getTotalWorkDay($this->data, $this->arrData['salary_start_date'], $this->arrEmployee[$strID]['join_date']) : 0;
+                    # Get day difference between resign date and salary finish date, EXCLUDING weekends and national holiday.
+                    $intResignSalaryFinishPeriod = isset($this->arrEmployee[$strID]['resign_date']) ? $this->objWork->getTotalWorkDay($this->data, $this->arrEmployee[$strID]['resign_date'], $this->arrData['salary_finish_date']) : 0;
                 }
+                else if ($this->arrConf['prorate_method'] == '3') {
+                    # Get day difference between join date and salary start date, INCLUDING weekends and national holiday.
+                    $intJoinSalaryStartPeriod = isset($this->arrEmployee[$strID]['join_date']) ? getIntervalDate($this->arrData['salary_start_date'], $this->arrEmployee[$strID]['join_date']) : 0;
+                    $intJoinSalaryStartPeriod = ($intJoinSalaryStartPeriod > 0) ? $intJoinSalaryStartPeriod + 1 : $intJoinSalaryStartPeriod;
+                    # Get day difference between resign date and salary finish date, INCLUDING weekends and national holiday.
+                    $intResignSalaryFinishPeriod = isset($this->arrEmployee[$strID]['resign_date']) ? getIntervalDate($this->arrEmployee[$strID]['resign_date'], $this->arrData['salary_finish_date']) : 0;
+                }
+                $intResult = ($intProrateDays-($intJoinSalaryStartPeriod+$intResignSalaryFinishPeriod))/$intProrateDays;
             }
         }
-        // if ($intResult < 0) $intResult = 0;
         return $intResult;
     }
 
@@ -1621,37 +1580,9 @@ class clsSalaryCalculation
         $objDt = new clsCommonDate();
         // hitung periode hari untuk perhingan gaji (bukan untuk kehadiran dan lembur)
         if ($objDt->validDate($this->arrData['salary_date'])) {
-            //Jika dimulai dari tanggal 1 bulan berjalan sampai akhir bulan berjalan
-            /*
             $arrDt = explode("-", $this->arrData['salary_date']);
-            $strTmp = $arrDt[0]."-".$arrDt[1]."-"."01";
-            $this->arrData['salary_start_date'] = $strTmp;
-            $strLast = $objDt->getTotalDayOfMonth($arrDt[1], $arrDt[0]);
-            if ($strLast < 10) $strLast = "0".$strLast;
-            $strTmp = $arrDt[0]."-".$arrDt[1]."-".$strLast;
-            $this->arrData['salary_finish_date'] = $strTmp;
-
-            //Jika dimulai sesuai dengan cut off absen
-            $arrDt = explode("-", $this->arrData['salary_date']);
-            $this->arrData['salary_start_date'] = $arrDt[0]."-".($arrDt[1])."-01";
-            $this->arrData['salary_finish_date'] = $arrDt[0]."-".$arrDt[1]."-".lastday($arrDt[1], $arrDt[0]);
-            */
-            $arrDt = explode("-", $this->arrData['salary_date']);
-            $strDateLastMonth = getNextDateNextMonth($this->arrData['salary_date'], -1);
-            $arrDtLastMonth = explode("-", $strDateLastMonth);
-            //$strTmp = (intval($arrDt[1]) == 1) ? $arrDt[0]."-12-21" : $arrDt[0]."-".(intval($arrDt[1])-1)."-21";
-            $this->arrData['salary_start_date'] = $arrDtLastMonth[0] . "-" . ($arrDtLastMonth[1]) . "-01";
-            // echo $strDateLastMonth;die();
-            //$strTmp = $arrDt[0]."-".$arrDt[1]."-20";
+            $this->arrData['salary_start_date'] = $arrDt[0] . "-" . ($arrDt[1]) . "-01";
             $this->arrData['salary_finish_date'] = $arrDt[0] . "-" . $arrDt[1] . "-" . lastday($arrDt[1], $arrDt[0]);
-            //dimulai dari tanggal 21 bulan sebelum sampai tanggal 20 bulan berjalan
-            //        $arrDt = explode("-", $this->arrData['salary_date']);
-            //        $strTmp = (intval($arrDt[1]) == 1) ? ($arrDt[0]-1)."-12-21" : $arrDt[0]."-".(intval($arrDt[1])-1)."-21";
-            //        $this->arrData['salary_start_date'] = $strTmp;
-            //        $strTmp = $arrDt[0]."-".$arrDt[1]."-20";
-            //        $this->arrData['salary_finish_date'] = $strTmp;
-            // $this->arrData['salary_start_date'] = $arrDt[0]."-".($arrDt[1])."-01";
-            //     $this->arrData['salary_finish_date'] = $arrDt[0]."-".$arrDt[1]."-".lastday($arrDt[1], $arrDt[0]);
         } else {
             $this->arrData['salary_start_date'] = $this->arrData['salary_finish_date'] = "";
         }
@@ -2046,6 +1977,7 @@ class clsSalaryCalculation
                 $this->arrDetail[$intID]['id_employee'] = $intID;
                 $this->arrDetail[$intID]['employee_id'] = $rowEmp['employee_id'];
                 $this->arrDetail[$intID]['employee_name'] = $rowEmp['employee_name'];
+                $this->arrDetail[$intID]['id_company'] = $rowEmp['id_company'];
                 $this->arrDetail[$intID]['npwp'] = $rowEmp['npwp'];
                 $this->arrDetail[$intID]['join_date'] = $rowEmp['join_date'];
                 $this->arrDetail[$intID]['resign_date'] = $rowEmp['resign_date'];
@@ -2126,15 +2058,8 @@ class clsSalaryCalculation
                 $this->arrData['date_thru'] = $row['date_thru'];
                 $this->arrData['salary_date'] = $row['salary_date'];
                 $arrDt = explode("-", $this->arrData['salary_date']);
-                $strDateLastMonth = getNextDateNextMonth($this->arrData['salary_date'], -1);
-                $arrDtLastMonth = explode("-", $strDateLastMonth);
-                //$strTmp = (intval($arrDt[1]) == 1) ? $arrDt[0]."-12-21" : $arrDt[0]."-".(intval($arrDt[1])-1)."-21";
-                $this->arrData['salary_start_date'] = $strDateLastMonth[0] . "-" . ($strDateLastMonth[1]) . "-01";
-                //$strTmp = $arrDt[0]."-".$arrDt[1]."-20";
-                $this->arrData['salary_finish_date'] = $arrDt[0] . "-" . $arrDt[1] . "-" . lastday(
-                        $arrDt[1],
-                        $arrDt[0]
-                    );
+                $this->arrData['salary_start_date'] = $arrDt[0] . "-" . ($arrDt[1]) . "-01";
+                $this->arrData['salary_finish_date'] = $arrDt[0] . "-" . $arrDt[1] . "-" . lastday($arrDt[1], $arrDt[0]);
                 $this->arrData['date_from_thr'] = $row['date_from_thr'];
                 $this->arrData['date_thru_thr'] = $row['date_thru_thr'];
                 $this->arrData['id_company'] = $row['id_company'];

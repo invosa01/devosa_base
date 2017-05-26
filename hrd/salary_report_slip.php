@@ -135,7 +135,7 @@ if ($showReport) {
     $myDataGrid->disableFormTag();
     $intPageLimit = $myDataGrid->getPageLimit();
     $intPageNumber = $myDataGrid->getPageNumber();
-    $arrSlip = getSlipReport($db, $intYear, $intMonth, $strKriteria);
+    $arrSlip = getSlipReport($db, $intYear, $intMonth, $strCompany, $strKriteria);
     $myDataGrid->setCaption("Slip - $intYear - $intMonth");
     $myDataGrid->pageSortBy = "";
     $myDataGrid->addColumnCheckbox(
@@ -257,7 +257,7 @@ function printNumeric($params)
 // fungsi untuk mengambil data total pajak tahunan karyawan, jika ada
 //  jika tidak ada, maka akan dilakukan perhitungan
 // output berupa array
-function getSlipReport($db, $intYear, $intMonth, $strKriteria = "")
+function getSlipReport($db, $intYear, $intMonth, $strCompany, $strKriteria = "")
 {
   global $_POST;
   $arrResult = [];
@@ -270,12 +270,13 @@ function getSlipReport($db, $intYear, $intMonth, $strKriteria = "")
   global $totalData;
   global $strDataID;
   $intPage = $intPageNumber;
-  $strSQL = "SELECT id FROM \"hrd_salary_master\" WHERE EXTRACT(YEAR FROM \"salary_date\") = '$intYear' AND EXTRACT(MONTH FROM \"salary_date\") = '$intMonth' AND status=" . REQUEST_STATUS_APPROVED;
+  $strSQL = "SELECT id FROM \"hrd_salary_master\" WHERE EXTRACT(YEAR FROM \"salary_date\") = '$intYear' AND EXTRACT(MONTH FROM \"salary_date\") = '$intMonth'
+AND status=" . REQUEST_STATUS_APPROVED. " AND id_company = $strCompany ";
   $res = $db->execute($strSQL);
   $intStart = (($intPage - 1) * $intPageLimit);
   while ($row = $db->fetchrow($res)) {
     $salaryMasterID = $row['id'];
-    $strSQL2 = "SELECT t0.*, \"join_date\", \"resign_date\", t1.\"employee_name\", t2.\"position_name\", t3.functional_name, t1.employee_status, t1.get_bpjs, t1.branch_code
+    $strSQL2 = "SELECT t0.*, t0.\"join_date\", t0.\"resign_date\", t1.\"employee_name\", t2.\"position_name\", t3.functional_name, t1.employee_status, t1.get_bpjs, t1.branch_code
                     FROM \"hrd_salary_detail\" AS t0
                         LEFT JOIN \"hrd_employee\" AS t1 ON t0.\"id_employee\" = t1.id
                         LEFT JOIN \"hrd_position\" AS t2 ON t2.\"position_code\" = t0.\"position_code\"

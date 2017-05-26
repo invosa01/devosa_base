@@ -13,8 +13,10 @@ function routeMap()
         'division-options'               => 'getRenderedDivisionOptions',
         'salaryCompanyCollector'         => 'getSalaryCompanyCollectorData',
         'salaryCompanyCollector-options' => 'getRenderedSalaryCompanyCollectorOptions',
-        'sourceSet'                      => 'getSourceSetData',
-        'sourceSet-options'              => 'getRenderedSourceSetOptions'
+        'quotaExtraOff'                  => 'getQuotaExtraOffData',
+        'quotaExtraOff-options'          => 'getRenderedQuotaExtraOffOptions',
+        'conExtraOff'                    => 'getConExtraOffData',
+        'conExtraOff-options'            => 'getConExtraOffOptions'
     ];
 }
 
@@ -244,39 +246,74 @@ function getRenderedSalaryCompanyCollectorOptions()
     return $result;
 }
 
-function getSourceSetData()
+function getQuotaExtraOffData()
 {
-    $companyCode = null;
+    $employeeId = null;
+    $active = 't';
     $wheres = [];
     if (array_key_exists('id', $_POST) === true) {
-        $companyCode = $_POST['id'];
+        $employeeId = $_POST['id'];
     }
     $strSQL = 'SELECT
-                    cpy."id",
-                    cpy.company_code,
-                    cpy.company_name,
-                    bss."id",
-                    bss.id_company,
-                    bss.id_salary_set_source,
-                    bss.start_date
+                    emp."id",
+                    qeo."id" AS qeo_id,
+                    qeo.employee_id,
+                    qeo.date_extra_off,
+                    qeo.date_expaired,
+                    qeo.note,
+                    qeo.active
                 FROM
-                    "public".hrd_company AS cpy
-                INNER JOIN "public".hrd_basic_salary_set AS bss ON cpy."id" = bss.id_company';
-    if ($companyCode !== null) {
-        $wheres[] = 'cpy."id" = ' . pgEscape($companyCode);
+                    "public".hrd_employee AS emp
+                INNER JOIN "public".hrd_quota_extra_off AS qeo ON qeo.employee_id = emp."id"';
+    if ($employeeId !== null) {
+        $wheres[] = 'qeo.employee_id = ' . pgEscape($employeeId);
+        $wheres[] = 'qeo.active = ' . pgEscape($active);
     }
     return pgFetchRows(getQuery($strSQL, $wheres));
 }
 
-function getRenderedSourceSetOptions()
+function getRenderedQuotaExtraOffOptions()
 {
     $result = '<option value="">-</option>';
-    $record = getSourceSetData();
+    $record = getQuotaExtraOffData();
     foreach ($record as $row) {
-        $result .= '<option value="' . $row['id_salary_set_source'] . '">'
-            . $row['start_date']
+        $result .= '<option value="' . $row['qeo_id'] . '">'
+            . $row['date_extra_off']
             . ' - '
-            . $row['company_name']
+            . $row['date_expaired']
+            . ' - '
+            . $row['note']
+            . '</option>';
+    }
+    return $result;
+}
+
+function getConExtraOffData()
+{
+    $employeeId = null;
+    $wheres = [];
+    if (array_key_exists('id', $_POST) === true) {
+        $employeeId = $_POST['id'];
+    }
+    $strSQL = 'SELECT
+                    ceo."id" AS ceo_id,
+                    ceo."type"
+                FROM
+                    "public".hrd_employee AS emp
+                INNER JOIN "public".hrd_con_extra_off AS ceo ON ceo.employee_id = emp."id"';
+    if ($employeeId !== null) {
+        $wheres[] = 'emp.employee_id = ' . pgEscape($employeeId);
+    }
+    return pgFetchRows(getQuery($strSQL, $wheres));
+}
+
+function getConExtraOffOptions()
+{
+    $result = '<option value="">-</option>';
+    $record = getConExtraOffData();
+    foreach ($record as $row) {
+        $result .= '<option value="' . $row['type'] . '">'
+            . $row['type']
             . '</option>';
     }
     return $result;

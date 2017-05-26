@@ -8,6 +8,8 @@ include_once('../includes/form2/form2.php');
 include_once('../classes/hrd/hrd_absence_type.php');
 include_once('../classes/hrd/hrd_absence.php');
 include_once('../classes/hrd/hrd_absence_detail.php');
+include_once('../classes/hrd/hrd_quota_extra_off.php');
+include_once('../classes/hrd/hrd_extra_off.php');
 $dataPrivilege = getDataPrivileges(
     basename($_SERVER['PHP_SELF']),
     $bolCanView,
@@ -42,8 +44,20 @@ function getData($db)
     //$strDateFrom = $splitDateFrom[2] . '-' . $splitDateFrom[1] . '-' . $splitDateFrom[0];
     //$splitDateThru = explode('-', $arrData['dataDateThru']);
     //$strDateThru = $splitDateThru[2] . '-' . $splitDateThru[1] . '-' . $splitDateThru[0];
-    $strDateFrom = standardDateToSQLDateNew($arrData['dataDateFrom'], $_SESSION['sessionDateSetting']['date_sparator'], $_SESSION['sessionDateSetting']['pos_year'],$_SESSION['sessionDateSetting']['pos_month'], $_SESSION['sessionDateSetting']['pos_day']);
-    $strDateThru = standardDateToSQLDateNew($arrData['dataDateThru'], $_SESSION['sessionDateSetting']['date_sparator'], $_SESSION['sessionDateSetting']['pos_year'],$_SESSION['sessionDateSetting']['pos_month'], $_SESSION['sessionDateSetting']['pos_day']);
+    $strDateFrom = standardDateToSQLDateNew(
+        $arrData['dataDateFrom'],
+        $_SESSION['sessionDateSetting']['date_sparator'],
+        $_SESSION['sessionDateSetting']['pos_year'],
+        $_SESSION['sessionDateSetting']['pos_month'],
+        $_SESSION['sessionDateSetting']['pos_day']
+    );
+    $strDateThru = standardDateToSQLDateNew(
+        $arrData['dataDateThru'],
+        $_SESSION['sessionDateSetting']['date_sparator'],
+        $_SESSION['sessionDateSetting']['pos_year'],
+        $_SESSION['sessionDateSetting']['pos_month'],
+        $_SESSION['sessionDateSetting']['pos_day']
+    );
     $strKriteria = "";
     // GENERATE CRITERIA
     if ($arrData['dataAbsenceType'] != "") {
@@ -274,10 +288,20 @@ function changeStatus($db, $intStatus)
     }
     foreach ($_REQUEST as $strIndex => $strValue) {
         if (substr($strIndex, 0, 15) == 'DataGrid1_chkID') {
-            $strSQLx = "SELECT status, employee_name, t1.created, absence_type_code
-                    FROM hrd_absence AS t1
-                    LEFT JOIN hrd_employee AS t2 ON t1.id_employee = t2.id
-                    WHERE t1.id = '$strValue' ";
+            $strSQLx = "SELECT
+                            status,
+                            t2.id AS employee_id,
+                            employee_name,
+                            t1.created,
+                            date_from,
+                            absence_type_code,
+                            t1.note,
+                            t1.extra_off_id
+                        FROM
+                            hrd_absence AS t1
+                        LEFT JOIN hrd_employee AS t2 ON t1.id_employee = t2.id
+                        WHERE
+                            t1.id = '$strValue'";
             $resDb = $db->execute($strSQLx);
             if ($rowDb = $db->fetchrow($resDb)) {
                 //the status should be increasing
@@ -291,6 +315,26 @@ function changeStatus($db, $intStatus)
                         $rowDb['employee_name'] . " - " . $rowDb['created'] . " - " . $rowDb['absence_type_code'],
                         $intStatus
                     );
+                    $absenceTypeCode = $rowDb['absence_type_code'];
+                    if (($absenceTypeCode === 'EO' or $absenceTypeCode === 'PH') === true) {
+                        if (($intStatus === REQUEST_STATUS_APPROVED) === true) {
+                            $startDate = $rowDb['date_from'];
+                            $active = 'f';
+                            $expairedDate = date('Y-m-d', strtotime('+1 month', strtotime($startDate)));
+                            $modelExtraOff = [
+                                'id' => $rowDb['extra_off_id'],
+                            ];
+                            $varDataEo = ['active' => $active];
+                            $model = [
+                                'employee_id'    => $rowDb['employee_id'],
+                                'date_extra_off' => $startDate,
+                                'date_expaired'  => $expairedDate,
+                                'note'           => $rowDb['note'],
+                                'type'           => $absenceTypeCode
+                            ];
+                            getChangeQuotaExtraOff($model, $modelExtraOff, $varDataEo);
+                        }
+                    }
                 }
             }
         }
@@ -321,7 +365,11 @@ if ($db->connect()) {
     if (isset($_POST['btnShowAlert']) && $_POST['btnShowAlert'] == 1) {
         $dtFrom = getNextYear(date("Y-m-d"), -1);
         //$arrDate = explode("-", $dtFrom);
-        $dtFrom = sqlToStandarDateNew($dtFrom, $_SESSION['sessionDateSetting']['date_sparator'], $_SESSION['sessionDateFormat']);
+        $dtFrom = sqlToStandarDateNew(
+            $dtFrom,
+            $_SESSION['sessionDateSetting']['date_sparator'],
+            $_SESSION['sessionDateFormat']
+        );
         $reqStatus = null;
         $_SESSION["sessiondataEmployee"] = "";
         $_SESSION["sessiondataPosition"] = "";
@@ -330,8 +378,12 @@ if ($db->connect()) {
         //$_REQUEST["sessiondataEmployeeStatus"] = "";
         //echo       $_SESSION["sessiondataEmployeeStatus"];
     } else {
-        $dtFrom = date("Y-m-")."01";
-        $dtFrom = sqlToStandarDateNew($dtFrom, $_SESSION['sessionDateSetting']['date_sparator'], $_SESSION['sessionDateFormat']);
+        $dtFrom = date("Y-m-") . "01";
+        $dtFrom = sqlToStandarDateNew(
+            $dtFrom,
+            $_SESSION['sessionDateSetting']['date_sparator'],
+            $_SESSION['sessionDateFormat']
+        );
         $reqStatus = null;
     }
     $strDataID = getPostValue('dataID');
@@ -339,6 +391,7 @@ if ($db->connect()) {
         $strDataEmployee,
         $strDataSubSection,
         $strDataSection,
+        $strDataSubDepartment,
         $strDataDepartment,
         $strDataDivision,
         $_SESSION['sessionUserRole'],
@@ -517,6 +570,18 @@ if ($db->connect()) {
     $formFilter = $f->render();
     getData($db);
 }
+function getChangeQuotaExtraOff($model, $modelExtraOff, $varDataEo)
+{
+    global $f;
+    $dataQuotaExtraOff = new cHrdQuotaExtraOff();
+    $dataHrdExtraOff = new cHrdExtraOff();
+    # Start to process updating database.
+    if ($f->isInsertMode() === true) {
+        $dataQuotaExtraOff->insert($model);
+        $dataHrdExtraOff->update($modelExtraOff, $varDataEo);
+    }
+}
+
 $tbsPage = new clsTinyButStrong;
 //write this variable in every page
 $strPageTitle = getWords($dataPrivilege['menu_name']);
