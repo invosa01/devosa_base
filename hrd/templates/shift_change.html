@@ -1,0 +1,53 @@
+<script>
+    jQuery(function ($) {
+        $('#dataEmployee').autocomplete({
+            source: "hrd_ajax_source.php?action=getemployee",
+            minLength: 2,
+            select: function (event, ui) {
+                console.log(ui);
+                $('#employee_name').html(ui.item.label);
+            }
+        });
+        $("#dataEmployee").change(function () {
+            var id = $(this).val();
+            var dataString = 'id=' + id;
+            $.ajax({
+                type: "POST",
+                url: "../ajax.php?m=conExtraOff-options",
+                data: dataString,
+                dataType: 'text',
+                cache: false,
+                success: function (respone) {
+                    result = JSON.parse(respone);
+                    $("#dataType").html(result.data);
+                }
+            });
+        });
+    })
+    var myClient = {
+        editData: function (idx) {
+            $('formMessage').style.visibility = 'hidden';
+            if (idx == 0) {
+                $('dataId').value = "";
+                $('dataEmployee').value = "";
+                $('dataNoteEo').value = "";
+            }
+            $('dataEmployee').focus();
+            $('dataEmployee').select();
+        },
+        confirmDelete: function () {
+            return confirm('[var.strConfirmDelete]');
+        },
+        confirmSave: function () {
+            return confirm('[var.strConfirmSave]');
+        }
+    }
+</script>
+[var.pageHeader]
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            [var.formInput;protect=no;htmlconv=no]
+        </div>
+    </div>
+</div>
