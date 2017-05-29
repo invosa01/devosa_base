@@ -277,9 +277,13 @@ function saveData()
   global $isNew;
   $strmodified_byID = $_SESSION['sessionUserID'];
   $strIDEmployee = getIDEmployee($db, $f->getValue('dataEmployee'));
-  $arrDate = explode("/", $f->getValue('dataDate'));
-  $strDate = $arrDate[2] . "-" . $arrDate[0] . "-" . $arrDate[1];
-  //$strDate = $f->getValue('dataDate');
+  $strDate = standardDateToSQLDateNew(
+      $f->getValue('dataDate'),
+      $_SESSION['sessionDateSetting']['date_sparator'],
+      $_SESSION['sessionDateSetting']['pos_year'],
+      $_SESSION['sessionDateSetting']['pos_month'],
+      $_SESSION['sessionDateSetting']['pos_day']
+  );
   $strType = $f->getValue('dataType');
   $dataAbsencePartial = new cHrdAbsencePartial();
   $data = [
@@ -292,6 +296,7 @@ function saveData()
       "approved_duration"    => getIntervalHour("00:00", $f->getValue('dataApprovedDuration')),
       "note"                 => pg_escape_string($f->getValue('dataNote'))
   ];
+  //var_dump($data);exit;
   // simpan data -----------------------
   $bolSuccess = false;
   if ($isNew) {
