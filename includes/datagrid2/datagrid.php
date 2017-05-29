@@ -179,6 +179,8 @@ class cDataGrid
 
     var $wkb = null;
 
+    var $reportFooter = false;
+
     //---------------------------------------
     // Class constructor
     function cDataGrid(
@@ -1093,6 +1095,9 @@ class cDataGrid
                     $counter++;
                 }
             }//end of foreach($this->columnSet as $idx => &$value)
+            if ($this->DATAGRID_RENDER_OUTPUT == DATAGRID_RENDER_EXCEL_HTML){
+                $this->sheet->write_string(2, 1, 'Prepared By', 'test');
+            }
             if ($this->DATAGRID_RENDER_OUTPUT == DATAGRID_RENDER_NORMAL || $this->DATAGRID_RENDER_OUTPUT == DATAGRID_RENDER_EXCEL_HTML) {
                 $strResult .= "
             </tr>";
@@ -1105,6 +1110,15 @@ class cDataGrid
                 }
             }
         } //foreach ($this->dataset as &$rowDb)
+        if ($this->DATAGRID_RENDER_OUTPUT == DATAGRID_RENDER_EXCEL_BIFF && $this->reportFooter === true) {
+            $this->sheet->write_string($this->intExcelRows+3, 2, 'Prepared By');
+            $this->sheet->write_string($this->intExcelRows+3, 5, 'Validated By');
+            $this->sheet->write_string($this->intExcelRows+3, 9, 'Approved By');
+            $this->sheet->write_string($this->intExcelRows+8, 2, 'HRM');
+            $this->sheet->write_string($this->intExcelRows+8, 5, 'FC');
+            $this->sheet->write_string($this->intExcelRows+8, 8, 'GM');
+            $this->sheet->write_string($this->intExcelRows+8, 10, 'Owner');
+        }
         if ($this->hasGroupBy) {
             //if not yet rendered for the subtotal
             if (!$isFirst) {
