@@ -1066,6 +1066,10 @@ if ($bolPrint) {
 } else {
     $strTemplateFile = getTemplate(str_replace(".php", ".html", basename($_SERVER['PHP_SELF'])));
 }
+$getTemplateFooter = '';
+if ($bolPrint && SET_REPORT_FOOTER === true){
+    $getTemplateFooter = file_get_contents(getTemplate("report_footer.html"));
+}
 //------------------------------------------------
 //Load Master Template
 $tbsPage->LoadTemplate($strMainTemplate);
