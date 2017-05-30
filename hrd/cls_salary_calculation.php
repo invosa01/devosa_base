@@ -1565,7 +1565,6 @@ class clsSalaryCalculation
                 else if ($this->arrConf['prorate_method'] == '3') {
                     # Get day difference between join date and salary start date, INCLUDING weekends and national holiday.
                     $intJoinSalaryStartPeriod = isset($this->arrEmployee[$strID]['join_date']) ? getIntervalDate($this->arrData['salary_start_date'], $this->arrEmployee[$strID]['join_date']) : 0;
-                    $intJoinSalaryStartPeriod = ($intJoinSalaryStartPeriod > 0) ? $intJoinSalaryStartPeriod + 1 : $intJoinSalaryStartPeriod;
                     # Get day difference between resign date and salary finish date, INCLUDING weekends and national holiday.
                     $intResignSalaryFinishPeriod = isset($this->arrEmployee[$strID]['resign_date']) ? getIntervalDate($this->arrEmployee[$strID]['resign_date'], $this->arrData['salary_finish_date']) : 0;
                 }

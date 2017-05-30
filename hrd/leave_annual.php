@@ -814,9 +814,12 @@ $pageHeader = pageHeader($pageIcon, $strPageTitle, $strPageDesc);
 $pageSubMenu = dataAbsenceSubmenu($strWordsAnnualLeave);
 if ($bolPrint) {
   $strMainTemplate = getTemplate("leave_annual_print.html");
-  $getTemplateFooter = file_get_contents(getTemplate("report_footer.html"));
 } else {
   $strTemplateFile = getTemplate(str_replace(".php", ".html", basename($_SERVER['PHP_SELF'])));
+}
+$getTemplateFooter = '';
+if ($bolPrint && SET_REPORT_FOOTER === true){
+  $getTemplateFooter = file_get_contents(getTemplate("report_footer.html"));
 }
 //------------------------------------------------
 //Load Master Template

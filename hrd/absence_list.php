@@ -225,7 +225,9 @@ function getData($db)
             getWords($dataPrivilege['menu_name'])
         );
         $myDataGrid->getRequest();
-        //$myDataGrid->textApprove = true;
+        if (SET_REPORT_FOOTER === true){
+            $myDataGrid->reportFooter = true;
+        }
         $strSQLCOUNT = "SELECT COUNT(*) AS total FROM hrd_absence AS t1 LEFT JOIN hrd_employee  AS t2 ON t1.id_employee = t2.id";
         $strSQL = "select *, created_date, date_from, date_thru
               from (SELECT t1.*, t1.created::date as created_date, t3.deduct_leave, t3.leave_weight, t2.id AS idemployee, t2.employee_id, t2.employee_name, t2.id_company, t2.active, t2.employee_status, t2.grade_code, t2.branch_code, ";
