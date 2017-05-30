@@ -71,8 +71,11 @@ function getFormObject(array $formOptions = [])
     $dateFieldAttr = ["style" => "width:$strDateWidth"];
     $selectAttr = ["cols" => 97, "rows" => 2];
     $formModel = [
-        'dataId'  => ['hidden', '', getPostValue('dataId')],
-        'btnShow' => ['submit', 'show', 'getRenderGrid()']
+        'dataId'         => ['hidden', '', getPostValue('dataId')],
+        'dataDateFrom'   => ['input', 'date from', null, $dateFieldAttr, 'date'],
+        'dataDivision'   => ['select', 'division', ['hrd_division', 'division_code', 'division_name'], $selectAttr],
+        'dataDepartment' => ['select', 'department', ['hrd_division', 'division_code', 'division_name'], $selectAttr],
+        'btnShow'        => ['submit', 'show', 'getRenderGrid()']
     ];
     return getBuildForm($formModel, $formOptions);
 }
@@ -97,8 +100,21 @@ function getDataGrid()
 {
     $model = [];
     $wheres = [];
-    $strSql = '';
-    $strSqlCount = '';
+    $strSql = 'SELECT
+                    shc."id",
+                    shc.shift_date,
+                    sht.code AS code1,
+                    sht1.code AS code2,
+                    shc.status,
+                    shc.note
+                FROM
+                    "public".hrd_shift_change AS shc
+                LEFT JOIN "public".hrd_shift_type AS sht ON shc.current_shift = sht."id"
+                LEFT JOIN "public".hrd_shift_type AS sht1 ON shc.proposed_shift = sht1."id"';
+    $strSqlCount = 'SELECT
+                        COUNT(shc."id") AS total
+                    FROM
+                        "public".hrd_shift_change AS shc';
     $strSql = pgFetchRows(getQuery($strSql, $wheres));
     $strSqlCount = getQuery($strSqlCount, $wheres);
     return [
@@ -113,7 +129,15 @@ function getGridListContents(array $gridOptions = [])
     $strAttrWidth = ['nowrap' => ''];
     $gridDataBinding = getDataGrid();
     $gridModel = [
-        'no' => ['no', 'No.', '', ['width' => '10'], ['nowrap' => '']]
+        'id'            => ['checked', '', 'id', ['width' => '10'], ['nowrap' => '']],
+        'no'            => ['no', 'No.', '', ['width' => '10'], ['nowrap' => '']],
+        'shift_date'    => ['data', 'Shift Date', 'shift_date', $strTitleAttrWidth, $strAttrWidth],
+        'code1'         => ['data', 'Current Shift', 'code1', $strTitleAttrWidth, $strAttrWidth],
+        'code2'         => ['data', 'Proposed Shift', 'code2', $strTitleAttrWidth, $strAttrWidth],
+        'status'        => ['data', 'Status', 'status', $strTitleAttrWidth, $strAttrWidth],
+        'note'          => ['data', 'Note', 'note', $strTitleAttrWidth, $strAttrWidth],
+        'role'          => ['role', 'Button', '', ['edit', 'delete', false, 'approve', false]],
+        'ServiceCharge' => ['exportExl', 'Export Excel']
     ];
     return getBuildGrid($gridModel, $gridOptions, $gridDataBinding);
 }
@@ -125,4 +149,12 @@ function setReleaseRenderGrid($name, array $modelRole = [])
         $normalized = $modelRole[$name];
     }
     return $normalized;
+}
+
+function changeStatus()
+{
+}
+
+function deleteData()
+{
 }

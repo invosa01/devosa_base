@@ -61,11 +61,11 @@ if (function_exists('getBuildGrid') === false) {
                 $delete = false;
                 $defaultValue = $normalizedFieldProps['titleAttr'];
                 $buttons = getGenerateRoleButtons($defaultValue);
-                $edit = setButtonRelease('edit', $buttons);
-                $delete = setButtonRelease('delete', $buttons);
-                $check = setButtonRelease('check', $buttons);
-                $approve = setButtonRelease('approve', $buttons);
-                $acknowledge = setButtonRelease('acknowledge', $buttons);
+                $edit = setReleaseModel('edit', $buttons);
+                $delete = setReleaseModel('delete', $buttons);
+                $check = setReleaseModel('check', $buttons);
+                $approve = setReleaseModel('approve', $buttons);
+                $acknowledge = setReleaseModel('acknowledge', $buttons);
             }
             switch ($type) {
                 case 'exportExl' :
@@ -185,11 +185,31 @@ if (function_exists('getGenerateRoleButtons') === false) {
             $model,
             $normalizedFieldProps
         );
-        $edit = $privileges[$normalizedFieldProps['edit']];
-        $delete = $privileges[$normalizedFieldProps['delete']];
-        $check = $privileges[$normalizedFieldProps['approve']];
-        $edit = $privileges[$normalizedFieldProps['approve']];
-        $acknowledge = $privileges[$normalizedFieldProps['acknowledge']];
+        if (($edit = $normalizedFieldProps['edit']) === 'edit') {
+            $edit = $privileges[$normalizedFieldProps['edit']];
+        } else {
+            $edit = false;
+        }
+        if (($delete = $normalizedFieldProps['delete']) === 'delete') {
+            $delete = $privileges[$normalizedFieldProps['delete']];
+        } else {
+            $delete = false;
+        }
+        if (($check = $normalizedFieldProps['check']) === 'check') {
+            $check = $privileges[$normalizedFieldProps['check']];
+        } else {
+            $check = false;
+        }
+        if (($approve = $normalizedFieldProps['approve']) === 'approve') {
+            $approve = $privileges[$normalizedFieldProps['approve']];
+        } else {
+            $approve = false;
+        }
+        if (($acknowledge = $normalizedFieldProps['acknowledge']) === 'acknowledge') {
+            $acknowledge = $privileges[$normalizedFieldProps['acknowledge']];
+        } else {
+            $acknowledge = false;
+        }
         $modelRole =
             [
                 'edit'        => $edit,
@@ -201,8 +221,8 @@ if (function_exists('getGenerateRoleButtons') === false) {
         return $modelRole;
     }
 }
-if (function_exists('setButtonRelease') === false) {
-    function setButtonRelease($name, array $modelRole = [])
+if (function_exists('setReleaseModel') === false) {
+    function setReleaseModel($name, array $modelRole = [])
     {
         $normalized = '';
         if (array_key_exists($name, $modelRole) === true) {

@@ -49,16 +49,12 @@ function renderPage()
     $pageHeader = pageHeader($pageIcon, $strPageTitle, $strPageDesc);
     # Get form model contents.
     $formOptions = [
-        'column'     => 1,
+        'column'     => 2,
         'caption'    => strtoupper($strWordsINPUTDATA),
         'references' => ['dataId']
     ];
     $formObject = getFormObject($formOptions);
     $formInput = $formObject->render();
-    # Get grid list contents.
-    $gridOptions = ['caption' => strtoupper($strWordsLISTOF . " " . getWords($privileges['menu_name']))];
-    $gridContents = getGridListContents($gridOptions);
-    $gridList = $gridContents->render();
     # Start to render using tiny but strong class.
     $tbsPage = new clsTinyButStrong;
     $tbsPage->LoadTemplate($strMainTemplate);
@@ -73,6 +69,13 @@ function getFormObject(array $formOptions = [])
     $btnSaveAttr = ["onClick" => "javascript:myClient.confirmSave();"];
     $btnAddNewAttr = ["onClick" => "javascript:myClient.editData(0);"];
     $formModel = [
+        'dataId'            => ['hidden', '', getPostValue('dataId')],
+        'dataShiftDate'     => ['input', 'shift date', null, array_merge($dateFieldAttr, ['required']), 'date'],
+        'dataCurrentShift'  => ['select', 'current shift', ['hrd_shift_type', 'id', 'code'], $selectAttr],
+        'dataProposedShift' => ['select', 'proposed shift', ['hrd_shift_type', 'id', 'code'], $selectAttr],
+        'dataNote'          => ['textarea', 'note', null, ["cols" => 97, "rows" => 2]],
+        'btnSave'           => ['submit', 'save', 'getSaveData()', $btnSaveAttr],
+        'btnAdd'            => ['submit', 'add new', '', $btnAddNewAttr]
     ];
     return getBuildForm($formModel, $formOptions);
 }
@@ -85,17 +88,23 @@ function getSaveData()
     global $formObject;
     $result = true;
     $dataHrdShiftChange = new cHrdShiftChange();
+    $shiftDate = $formObject->getValue('dataShiftDate');
+    $shiftDate = \DateTime::createFromFormat('d-m-Y', $shiftDate)->format('Y-m-d');
+    $status = REQUEST_STATUS_NEW;
     $model = [
-
+        'shift_date'     => $shiftDate,
+        'current_shift'  => $formObject->getValue('dataCurrentShift'),
+        'proposed_shift' => $formObject->getValue('dataProposedShift'),
+        'status'         => $status,
+        'note'           => $formObject->getValue('dataNote')
     ];
-    # Load service charge model.
     # Start to process updating database.
     if ($formObject->isInsertMode() === true) {
-        # Insert master data for service charge
+        # Insert master data for shift charge
         if (($result = $dataHrdShiftChange->insert($model)) === true) {
+            $formObject->message = $dataHrdShiftChange->strMessage;
         } else {
             $result = false;
         }
-        $formObject->message = $dataHrdShiftChange->strMessage;
     }
 }

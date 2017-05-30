@@ -29,11 +29,13 @@
             $('formMessage').style.visibility = 'hidden';
             if (idx == 0) {
                 $('dataId').value = "";
-                $('dataEmployee').value = "";
-                $('dataNoteEo').value = "";
+                $('dataShiftDate').value = "";
+                $('dataCurrentShift').value = "";
+                $('dataProposedShift').value = "";
+                $('dataNote').value = "";
             }
-            $('dataEmployee').focus();
-            $('dataEmployee').select();
+            $('dataShiftDate').focus();
+            $('dataShiftDate').select();
         },
         confirmDelete: function () {
             return confirm('[var.strConfirmDelete]');
