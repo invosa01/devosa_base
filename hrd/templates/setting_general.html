@@ -274,7 +274,7 @@
 							<div class="pull-right" id="collapse-filter">
 								<a href="#"
 								   data-toggle="collapse"
-								   data-target="#tax-method"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+								   data-target="#tax-calculation"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
 							</div>
 						</div>
 						<h3 class="panel-title">Salary Tax Setting</h3>
@@ -307,6 +307,92 @@
 										document.getElementsByName("strTaxCalculation")[1].checked = true;
 									}
 								</script>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+								<a href="#"
+								   data-toggle="collapse"
+								   data-target="#overtime-setting"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+							</div>
+						</div>
+						<h3 class="panel-title">Overtime Round Up/Down Setting</h3>
+					</div>
+					<div id="overtime-setting" class="panel-body collpase-in">
+						<div class="col-md-12">
+							Overtime In
+							<div class="form-group">
+								<div class="radiobox col-sm-3 no-margin"><label><input name="strOvertimeIn"
+																					   type="radio"
+																					   id="strOvertimeIn"
+																					   value="0"
+																					   style="padding-top: 0 !important;">Round Up By</label>
+								</div>
+								<div class="col-sm-2">
+									<label><input class="form-control"
+										   name=""
+										   type="text"
+										   id=""
+										   value="0"
+										   maxlength="10"
+										   class="numeric">
+									<input name="" type="hidden" id="" value="0">minutes</label>
+								</div>
+								<div class="radiobox col-sm-3 no-margin"><label><input name="strOvertimeIn"
+																					   type="radio"
+																					   id="strOvertimeIn"
+																					   value="1"
+																					   style="padding-top: 0 !important;">Round Down By</label>
+								</div>
+								<div class='col-sm-2'>
+									<label><input class="form-control"
+										   name=""
+										   type="text"
+										   id=""
+										   value="0"
+										   maxlength="10"
+										   class="numeric">
+									<input name="" type="hidden" id="" value="0">minutes</label>
+								</div>
+							</div>
+							Overtime Out
+							<div class="form-group">
+								<div class="radiobox col-sm-3 no-margin"><label><input name="strOvertimeOut"
+																					   type="radio"
+																					   id="strOvertimeOut"
+																					   value="0"
+																					   style="padding-top: 0 !important;">Round Up By</label>
+								</div>
+								<div class="col-sm-2">
+									<label><input class="form-control"
+										   name=""
+										   type="text"
+										   id=""
+										   value="0"
+										   maxlength="10"
+										   class="numeric">
+									<input name="" type="hidden" id="" value="0">minutes</label>
+								</div>
+								<div class="radiobox col-sm-3 no-margin"><label><input name="strOvertimeOut"
+																					   type="radio"
+																					   id="strOvertimeOut"
+																					   value="1"
+																					   style="padding-top: 0 !important;">Round Down By</label>
+								</div>
+								<div class='col-sm-2'>
+									<label><input class="form-control"
+										   name=""
+										   type="text"
+										   id=""
+										   value="0"
+										   maxlength="10"
+										   class="numeric">
+									<input name="" type="hidden" id="" value="0">minutes</label>
+								</div>
 							</div>
 						</div>
 					</div>
