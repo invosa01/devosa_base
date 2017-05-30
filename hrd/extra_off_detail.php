@@ -261,9 +261,22 @@ function getSaveData()
                             $result = true;
                         }
                     }
+                    $formObject->message = $dataHrdExtraOffDetail->strMessage;
+                } else {
+                    $formObject->message = 'Date Use EO / PH where DayOff';
+                    $formObject->msgClass = "bgError";
                 }
+            } else {
+                $formObject->message = 'Employee : '
+                    . $model['employee_id']
+                    . ' And Date  : '
+                    . $model['date_use']
+                    . ' Exist';
+                $formObject->msgClass = "bgError";
             }
+        } else {
+            $formObject->message = 'Date Use More Date Expaired';
+            $formObject->msgClass = "bgError";
         }
-        $formObject->message = $dataHrdExtraOffDetail->strMessage;
     }
 }

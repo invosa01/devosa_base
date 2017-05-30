@@ -70,7 +70,7 @@ function getFormObject(array $formOptions = [])
 {
     global $strDateWidth;
     $dateFieldAttr = ["style" => "width:$strDateWidth"];
-    $selectAttr = ["cols" => 97, "rows" => 2,"required" => true];
+    $selectAttr = ["cols" => 97, "rows" => 2, "required" => true];
     $btnSaveAttr = ["onClick" => "javascript:myClient.confirmSave();"];
     $btnAddNewAttr = ["onClick" => "javascript:myClient.editData(0);"];
     $formModel = [
@@ -172,7 +172,7 @@ function getSaveData()
     $validationDate = getValidationInputDate($model['date_extra_off'], $model['employee_id']);
     # Start to process updating database.
     if ($formObject->isInsertMode() === true) {
-        # Insert master data for service charge
+        # Insert master data for extra off.
         if (($existDate = $validationDate['existDate']) === true) {
             if (($result = $dataHrdExtraOff->insert($model)) === true) {
                 $exoId = $dataHrdExtraOff->getLastInsertId();
@@ -184,12 +184,19 @@ function getSaveData()
                     'note'              => $formObject->getValue('dataNoteEo'),
                     'status'            => $status
                 ];
-                # Insert into detail service charge.
+                # Insert into absence.
                 if ($dataHrdAbsence->insert($detailModel) === false) {
                     $result = false;
                 }
             }
+            $formObject->message = $dataHrdExtraOff->strMessage;
+        } else {
+            $formObject->message = 'Employee : '
+                . $model['employee_id']
+                . ' And Date  : '
+                . $model['date_extra_off']
+                . ' Exist';
+            $formObject->msgClass = "bgError";
         }
-        $formObject->message = $dataHrdExtraOff->strMessage;
     }
 }
