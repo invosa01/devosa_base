@@ -375,7 +375,18 @@ function saveData($db, &$strError)
     $resExec = $db->execute($strSQL2);
     $strSQL3 = "UPDATE date_setting SET active = TRUE WHERE id = '$strIDDateSetting' ";
     $resExec = $db->execute($strSQL3);
-
+    # If overtime in is round up, then true else false.
+    $strOTIn = (isset($_REQUEST['strOvertimeIn']) && $_REQUEST['strOvertimeIn'] == '1') ? 't' : 'f';
+    # Overtime in round up/down value. It will no have any effect if value is zero.
+    $strOTInValue = $_REQUEST['strOTInRoundValue'];
+    # If overtime out is round up, then true else false.
+    $strOTOut = (isset($_REQUEST['strOvertimeOut']) && $_REQUEST['strOvertimeOut'] == '1') ? 't' : 'f';
+    # Overtime out round up/down value. It will no have any effect if value is zero.
+    $strOTOutValue = $_REQUEST['strOTOutRoundValue'];
+    # Save overtime round in/out to table setting_overtime.
+    $strSQL = "UPDATE setting_overtime SET round_up = '$strOTIn', value = $strOTInValue WHERE code = 'ot_in_round_up';
+               UPDATE setting_overtime SET round_up = '$strOTOut', value = $strOTOutValue WHERE code = 'ot_out_round_up';";
+    $res = $db->execute($strSQL);
     // simpan dta libur hari sabtu
     $strKode = (isset($_REQUEST['strSaturday'])) ? "t" : "f";
     $strSQL = "UPDATE all_setting SET modified_by = '" . $_SESSION['sessionUserID'] . "', ";
