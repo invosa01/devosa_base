@@ -81,6 +81,9 @@ function getFormObject(array $formOptions = [])
 
 function getRenderGrid()
 {
+    /**
+     * @var \clsForm $formObject
+     */
     global $formObject;
     $startDate = $formObject->getValue('dataDateFrom');
     $startDate = \DateTime::createFromFormat('d-m-Y', $startDate)->format('Y-m-d');

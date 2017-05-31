@@ -129,7 +129,7 @@ function getGridListContents(array $gridOptions = [])
     $strAttrWidth = ['nowrap' => ''];
     $gridDataBinding = getDataGrid();
     $gridModel = [
-        'id'            => ['checked', '', 'id', ['width' => '10'], ['nowrap' => '']],
+        'id'            => ['checked', 'id', 'id', ['width' => '10'], ['nowrap' => '']],
         'no'            => ['no', 'No.', '', ['width' => '10'], ['nowrap' => '']],
         'shift_date'    => ['data', 'Shift Date', 'shift_date', $strTitleAttrWidth, $strAttrWidth],
         'code1'         => ['data', 'Current Shift', 'code1', $strTitleAttrWidth, $strAttrWidth],
@@ -142,19 +142,14 @@ function getGridListContents(array $gridOptions = [])
     return getBuildGrid($gridModel, $gridOptions, $gridDataBinding);
 }
 
-function setReleaseRenderGrid($name, array $modelRole = [])
-{
-    $normalized = '';
-    if (array_key_exists($name, $modelRole) === true) {
-        $normalized = $modelRole[$name];
-    }
-    return $normalized;
-}
-
-function changeStatus()
-{
-}
-
 function deleteData()
 {
+    /**
+     * @var \cDataGrid $gridContents
+     */
+    global $gridContents;
+    $arrId = [];
+    foreach ($gridContents->checkboxes as $value) {
+        $arrId['id'][] = $value;
+    }
 }

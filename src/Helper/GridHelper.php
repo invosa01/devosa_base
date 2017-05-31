@@ -50,13 +50,8 @@ if (function_exists('getBuildGrid') === false) {
             $isNotSortable = getValueIfExistsOnArray('sortable', $fieldAttributes, true, SEARCH_ARR_BOTH);
             $isNotSearchable = getValueIfExistsOnArray('searchable', $fieldAttributes, true, SEARCH_ARR_BOTH);
             $isHideInExcel = getValueIfExistsOnArray('showInExcel', $fieldAttributes, true, SEARCH_ARR_BOTH);
-            $clientAction = null;
             $serverAction = null;
-            if (in_array($type, ['submit', 'button']) === true) {
-                $clientAction = $normalizedFieldProps['itemFmtr'];
-                $serverAction = $normalizedFieldProps['titleFmtr'];
-                $name = $fieldName;
-            }
+            $clientAction = null;
             if (in_array($type, ['role', 'buttons']) === true) {
                 $delete = false;
                 $defaultValue = $normalizedFieldProps['titleAttr'];
@@ -83,16 +78,6 @@ if (function_exists('getBuildGrid') === false) {
                         $acknowledge,
                         true,
                         $gridContents
-                    );
-                    break;
-                case 'submit'  :
-                    $gridContents->addSpecialButton(
-                        $fieldName,
-                        $name,
-                        $type,
-                        $normalizedFieldProps['label'],
-                        $clientAction,
-                        $serverAction
                     );
                     break;
                 case 'checked' :
@@ -231,4 +216,3 @@ if (function_exists('setReleaseModel') === false) {
         return $normalized;
     }
 }
-
