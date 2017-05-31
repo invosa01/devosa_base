@@ -968,7 +968,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
                 ) {
                     $strOvertimeFinish = $arrOTRow['finish_plan'];
                 } else if (timeCompare($arrAttRow['attendance_finish'], $arrOTRow['start_plan']) > 0) {
-                    $strOvertimeFinish = $arrAttRow['attendance_finish'];
+                    $strOvertimeFinish = roundOvertimeInOut($arrAttRow['attendance_finish'], 0);//
                 } else {
                     $strOvertimeStart = $strOvertimeFinish = "";
                 }
@@ -1431,4 +1431,42 @@ function getSpvOvertime(
     return $arrResult;
 }
 
+/**
+ * @param $strTime
+ * @param $intFlagInOut
+ *
+ * @return mixed
+ */
+function roundOvertimeInOut($strTime, $intFlagInOut) {
+    global $db;
+    $strResult = $strTime;
+    $arrOvertimeSetting = array();
+    if ($db->connect()) {
+        $strSQL = "SELECT code, value, round_up FROM setting_overtime;";
+        $res = $db->execute($strSQL);
+        while ($row = $db->fetchrow($res)) {
+            $arrOvertimeSetting[$row['code']] = $row;
+        }
+    }
+    if (isset($strTime) && $strTime !== '') {
+        # start time
+        if ($intFlagInOut === 1) {
+            # ot_in_round_up === true => strtime + value
+            # ot_in_round_down === false => strtime - value
+            $strResult = ($arrOvertimeSetting['ot_in_round_up']['round_up'] == 't') ?
+                date('G:i:s', strtotime($strTime) + ($arrOvertimeSetting['ot_in_round_up']['value']*60) - ((date('i', strtotime($strTime)) % $arrOvertimeSetting['ot_in_round_up']['value'])*60)) :
+                date('G:i:s', strtotime($strTime) - ((date('i', strtotime($strTime)) % $arrOvertimeSetting['ot_in_round_up']['value'])*60));
+        }
+        # finish time
+        else if ($intFlagInOut === 0) {
+            # ot_out_round_up === true => strtime + value - (minute % value)
+            # ot_out_round_down === false => strtime - (minute % value)
+            $strResult = ($arrOvertimeSetting['ot_out_round_up']['round_up'] == 't') ?
+                date('G:i:s', strtotime($strTime) + ($arrOvertimeSetting['ot_out_round_up']['value']*60) - ((date('i', strtotime($strTime)) % $arrOvertimeSetting['ot_out_round_up']['value'])*60)) :
+                date('G:i:s', strtotime($strTime) - ((date('i', strtotime($strTime)) % $arrOvertimeSetting['ot_out_round_up']['value'])*60));
+        }
+    }
+    //echo $strTime.' => '.$strResult;
+    return $strResult;
+}
 ?>
