@@ -196,7 +196,8 @@ if (function_exists('getIntoRecorList') === false) {
         if ($database !== '') {
             $result = '<option value="">-</option>';
             $strSql = "SELECT 
-                         * 
+                         $code,
+                         $name
                        FROM 
                          $database ";
             $record = pgFetchRows($strSql);

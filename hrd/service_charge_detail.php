@@ -114,11 +114,11 @@ function getDataGrid()
     $dateFrom = null;
     $dateThru = null;
     $renderGrid = getRenderGrid($model);
-    $dateFrom = setReleaseRenderGrid('date_from', $renderGrid);
-    $dateThru = setReleaseRenderGrid('date_thru', $renderGrid);
-    $employeeId = setReleaseRenderGrid('employee_id', $renderGrid);
-    $divisionCode = setReleaseRenderGrid('division_code', $renderGrid);
-    $deparmentCode = setReleaseRenderGrid('department_code', $renderGrid);
+    $dateFrom = setReleaseModel('date_from', $renderGrid);
+    $dateThru = setReleaseModel('date_thru', $renderGrid);
+    $employeeId = setReleaseModel('employee_id', $renderGrid);
+    $divisionCode = setReleaseModel('division_code', $renderGrid);
+    $deparmentCode = setReleaseModel('department_code', $renderGrid);
     $strSql = 'SELECT
                     emp.employee_id,
                     emp.employee_name,
