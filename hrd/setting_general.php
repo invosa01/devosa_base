@@ -282,6 +282,9 @@ function getData($db)
             }
         }
     }
+    $tblOvertimeSetting = new cModel('setting_overtime');
+    $arrSetting['ot_in_round_up'] = $tblOvertimeSetting->findByCode('ot_in_round_up');
+    $arrSetting['ot_out_round_up'] = $tblOvertimeSetting->findByCode('ot_out_round_up');
     writeLog(ACTIVITY_VIEW, MODULE_PAYROLL, "", 0);
     return true;
 } // showData
@@ -540,7 +543,14 @@ if ($arrSetting['strSaturday']['value'] == 't') {
 $strSignature = $arrSetting['strSignature']['value'];
 $strTaxCalculation = $arrSetting['strTaxCalculation']['value'];
 $oldTaxCalculation = $arrSetting['strTaxCalculation']['value'];
-
+# Boolean value of overtime in round up/down. True if round up, false if round down.
+$oldOvertimeIn = $arrSetting['ot_in_round_up']['round_up'];
+# Boolean value of overtime out round up/down. True if round up, false if round down.
+$oldOvertimeOut = $arrSetting['ot_out_round_up']['round_up'];
+# Overtime in round up/down value in minutes.
+$strOTInRoundValue = $arrSetting['ot_in_round_up']['value'];
+# Overtime out round up/down value in minutes.
+$strOTOutRoundValue = $arrSetting['ot_out_round_up']['value'];
 $inputDateSettingList = getDateSettingList($db,"dateSettingFormat",$_SESSION['sessionDateSetting']['id'],"","");
 //var_dump($inputDateSettingList);
 $tbsPage = new clsTinyButStrong;

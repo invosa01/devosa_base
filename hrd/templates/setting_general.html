@@ -343,11 +343,21 @@
 												  name="strOTInRoundValue"
 												  type="text"
 												  id="strOTInRoundValue"
-												  value="0"
+												  value=[var.strOTInRoundValue]
 												  maxlength="10"
 												  class="numeric">minutes
 									</label>
 								</div>
+								<input id="oldOvertimeIn" name="oldOvertimeIn" type="hidden" value="[var.oldOvertimeIn]">
+								<script>
+									var oldOvertimeIn = document.getElementById('oldOvertimeIn').value;
+									if (oldOvertimeIn == 't') {
+										document.getElementsByName('strOvertimeIn')[1].checked = true;
+									}
+									else if (oldOvertimeIn == 'f') {
+										document.getElementsByName('strOvertimeIn')[0].checked = true;
+									}
+								</script>
 							</div>
 							Overtime Out
 							<div class="form-group">
@@ -368,11 +378,21 @@
 										   name="strOTOutRoundValue"
 										   type="text"
 										   id="strOTOutRoundValue"
-										   value="0"
+										   value=[var.strOTOutRoundValue]
 										   maxlength="10"
 										   class="numeric">minutes
 									</label>
 								</div>
+								<input id="oldOvertimeOut" name="oldOvertimeOut" type="hidden" value="[var.oldOvertimeOut]">
+								<script>
+									var oldOvertimeOut = document.getElementById('oldOvertimeOut').value;
+									if (oldOvertimeOut == 't') {
+										document.getElementsByName('strOvertimeOut')[1].checked = true;
+									}
+									else if (oldOvertimeOut == 'f') {
+										document.getElementsByName('strOvertimeOut')[0].checked = true;
+									}
+								</script>
 							</div>
 						</div>
 					</div>
