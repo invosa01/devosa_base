@@ -282,6 +282,9 @@ function getData($db)
             }
         }
     }
+    $tblOvertimeSetting = new cModel('setting_overtime');
+    $arrSetting['ot_in_round_up'] = $tblOvertimeSetting->findByCode('ot_in_round_up');
+    $arrSetting['ot_out_round_up'] = $tblOvertimeSetting->findByCode('ot_out_round_up');
     writeLog(ACTIVITY_VIEW, MODULE_PAYROLL, "", 0);
     return true;
 } // showData
@@ -375,7 +378,18 @@ function saveData($db, &$strError)
     $resExec = $db->execute($strSQL2);
     $strSQL3 = "UPDATE date_setting SET active = TRUE WHERE id = '$strIDDateSetting' ";
     $resExec = $db->execute($strSQL3);
-
+    # If overtime in is round up, then true else false.
+    $strOTIn = (isset($_REQUEST['strOvertimeIn']) && $_REQUEST['strOvertimeIn'] == '1') ? 't' : 'f';
+    # Overtime in round up/down value. It will no have any effect if value is zero.
+    $strOTInValue = $_REQUEST['strOTInRoundValue'];
+    # If overtime out is round up, then true else false.
+    $strOTOut = (isset($_REQUEST['strOvertimeOut']) && $_REQUEST['strOvertimeOut'] == '1') ? 't' : 'f';
+    # Overtime out round up/down value. It will no have any effect if value is zero.
+    $strOTOutValue = $_REQUEST['strOTOutRoundValue'];
+    # Save overtime round in/out to table setting_overtime.
+    $strSQL = "UPDATE setting_overtime SET round_up = '$strOTIn', value = $strOTInValue WHERE code = 'ot_in_round_up';
+               UPDATE setting_overtime SET round_up = '$strOTOut', value = $strOTOutValue WHERE code = 'ot_out_round_up';";
+    $res = $db->execute($strSQL);
     // simpan dta libur hari sabtu
     $strKode = (isset($_REQUEST['strSaturday'])) ? "t" : "f";
     $strSQL = "UPDATE all_setting SET modified_by = '" . $_SESSION['sessionUserID'] . "', ";
@@ -529,7 +543,14 @@ if ($arrSetting['strSaturday']['value'] == 't') {
 $strSignature = $arrSetting['strSignature']['value'];
 $strTaxCalculation = $arrSetting['strTaxCalculation']['value'];
 $oldTaxCalculation = $arrSetting['strTaxCalculation']['value'];
-
+# Boolean value of overtime in round up/down. True if round up, false if round down.
+$oldOvertimeIn = $arrSetting['ot_in_round_up']['round_up'];
+# Boolean value of overtime out round up/down. True if round up, false if round down.
+$oldOvertimeOut = $arrSetting['ot_out_round_up']['round_up'];
+# Overtime in round up/down value in minutes.
+$strOTInRoundValue = $arrSetting['ot_in_round_up']['value'];
+# Overtime out round up/down value in minutes.
+$strOTOutRoundValue = $arrSetting['ot_out_round_up']['value'];
 $inputDateSettingList = getDateSettingList($db,"dateSettingFormat",$_SESSION['sessionDateSetting']['id'],"","");
 //var_dump($inputDateSettingList);
 $tbsPage = new clsTinyButStrong;

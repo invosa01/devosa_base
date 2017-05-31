@@ -274,7 +274,7 @@
 							<div class="pull-right" id="collapse-filter">
 								<a href="#"
 								   data-toggle="collapse"
-								   data-target="#tax-method"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+								   data-target="#tax-calculation"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
 							</div>
 						</div>
 						<h3 class="panel-title">Salary Tax Setting</h3>
@@ -305,6 +305,92 @@
 										document.getElementsByName("strTaxCalculation")[0].checked = true;
 									} else if (TaxCalculation == 1) {
 										document.getElementsByName("strTaxCalculation")[1].checked = true;
+									}
+								</script>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="panel-actions">
+							<div class="pull-right" id="collapse-filter">
+								<a href="#"
+								   data-toggle="collapse"
+								   data-target="#overtime-setting"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+							</div>
+						</div>
+						<h3 class="panel-title">Overtime Round Up/Down Setting</h3>
+					</div>
+					<div id="overtime-setting" class="panel-body collpase-in">
+						<div class="col-md-12">
+							Overtime In
+							<div class="form-group">
+								<div class="radiobox col-sm-3 no-margin"><label><input name="strOvertimeIn"
+																					   type="radio"
+																					   id="strOvertimeIn"
+																					   value="0"
+																					   style="padding-top: 0 !important;">Round Down</label>
+								</div>
+								<div class="radiobox col-sm-3 no-margin"><label><input name="strOvertimeIn"
+																					   type="radio"
+																					   id="strOvertimeIn"
+																					   value="1"
+																					   style="padding-top: 0 !important;">Round Up</label>
+								</div>
+								<div class="col-sm-2">
+									<label><input class="form-control"
+												  name="strOTInRoundValue"
+												  type="text"
+												  id="strOTInRoundValue"
+												  value=[var.strOTInRoundValue]
+												  maxlength="10"
+												  class="numeric">minutes
+									</label>
+								</div>
+								<input id="oldOvertimeIn" name="oldOvertimeIn" type="hidden" value="[var.oldOvertimeIn]">
+								<script>
+									var oldOvertimeIn = document.getElementById('oldOvertimeIn').value;
+									if (oldOvertimeIn == 't') {
+										document.getElementsByName('strOvertimeIn')[1].checked = true;
+									}
+									else if (oldOvertimeIn == 'f') {
+										document.getElementsByName('strOvertimeIn')[0].checked = true;
+									}
+								</script>
+							</div>
+							Overtime Out
+							<div class="form-group">
+								<div class="radiobox col-sm-3 no-margin"><label><input name="strOvertimeOut"
+																					   type="radio"
+																					   id="strOvertimeOut"
+																					   value="0"
+																					   style="padding-top: 0 !important;">Round Down</label>
+								</div>
+								<div class="radiobox col-sm-3 no-margin"><label><input name="strOvertimeOut"
+																					   type="radio"
+																					   id="strOvertimeOut"
+																					   value="1"
+																					   style="padding-top: 0 !important;">Round Up</label>
+								</div>
+								<div class='col-sm-2'>
+									<label><input class="form-control"
+										   name="strOTOutRoundValue"
+										   type="text"
+										   id="strOTOutRoundValue"
+										   value=[var.strOTOutRoundValue]
+										   maxlength="10"
+										   class="numeric">minutes
+									</label>
+								</div>
+								<input id="oldOvertimeOut" name="oldOvertimeOut" type="hidden" value="[var.oldOvertimeOut]">
+								<script>
+									var oldOvertimeOut = document.getElementById('oldOvertimeOut').value;
+									if (oldOvertimeOut == 't') {
+										document.getElementsByName('strOvertimeOut')[1].checked = true;
+									}
+									else if (oldOvertimeOut == 'f') {
+										document.getElementsByName('strOvertimeOut')[0].checked = true;
 									}
 								</script>
 							</div>
