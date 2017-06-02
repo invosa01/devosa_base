@@ -12,7 +12,6 @@ include_once('activity.php');
 include_once('form_object.php');
 include_once('attendance_functions.php');
 
-//include_once("../includes/krumo/class.krumo.php");
 $dataPrivilege = getDataPrivileges(
     basename($_SERVER['PHP_SELF']),
     $bolCanView,
@@ -70,10 +69,6 @@ function getData($db, $bolSync = false)
         $arrData = $f->getObjectValues();
         $strKriteria = "";
         $strKriteriaDiv = "";
-        //$splitDateFrom = explode('/', $arrData['dataDateFrom']);
-        //$strDateFrom = $splitDateFrom[2] . '-' . $splitDateFrom[0] . '-' . $splitDateFrom[1];
-        //$splitDateThru = explode('/', $arrData['dataDateThru']);
-        //$strDateThru = $splitDateThru[2] . '-' . $splitDateThru[0] . '-' . $splitDateThru[1];
         $strDateFrom = standardDateToSQLDateNew(
             $arrData['dataDateFrom'],
             $_SESSION['sessionDateSetting']['date_sparator'],
@@ -95,16 +90,6 @@ function getData($db, $bolSync = false)
         }
         if ($arrData['dataPosition'] != "") {
             $strKriteria .= "AND position_code = '" . $arrData['dataPosition'] . "' ";
-            /*
-            ini hanya work-around
-            akan di-refer 2x oleh 2 SQL:
-            ->
-            SELECT .... FROM hrd_employee AS t0 LEFT JOIN hrd_position AS t1 .... //error di query ini
-            ->
-            SELECT .... FROM hrd_employee AS t1 ....
-            ->
-            karena position_code ada di baik hrd_employee & hrd_position, maka di work-around dengan menambah t1.
-            */
         }
         if ($arrData['dataBranch'] != "") {
             $strKriteria .= "AND branch_code = '" . $arrData['dataBranch'] . "' ";
@@ -118,24 +103,10 @@ function getData($db, $bolSync = false)
         if ($arrData['dataActive'] != "") {
             $strKriteria .= "AND active = '" . $arrData['dataActive'] . "' ";
         }
-        /*if ($arrData['dataRequestStatus']!= "") {
-          $strKriteria .= "AND status = '".$arrData['dataRequestStatus']."' ";
-        }*/
         if ($arrData['dataDivision'] != "") {
             $strKriteria .= "AND division_code = '" . $arrData['dataDivision'] . "' ";
             $strKriteriaDiv = " where division_code= '" . $arrData['dataDivision'] . "' ";
         }
-        /*
-        if ($arrData['dataDepartment']!= "") {
-          $strKriteria .= "AND department_code = '".$arrData['dataDepartment']."' ";
-        }
-        if ($arrData['dataSection']!= "") {
-          $strKriteria .= "AND section_code = '".$arrData['dataSection']."' ";
-        }
-        if ($arrData['dataSubSection']!= "") {
-          $strKriteria .= "AND sub_section_code = '".$arrData['dataSubSection']."' ";
-        }
-        */
         //uddin: tambah kriteria jika employee maka yg muncul employee yg functional dia dan dibawahnya
         $strDataUserRole = $_SESSION['sessionUserRole'];
         if ($strDataUserRole == ROLE_EMPLOYEE or $strDataUserRole == ROLE_SUPERVISOR) {
@@ -248,9 +219,6 @@ function getData($db, $bolSync = false)
                         $intApprovedEarly = "";
                     }
                 }
-                /*$arrDate = explode("-", $strCurrDate);
-                $strCurrDate_ = $arrDate[1] . "/" . $arrDate[2] . "/" . $arrDate[0];*/
-                //$strCurrDate_ = $strCurrDate;
                 $strCurrDate_ = standardDateToSQLDateNew(
                     $strCurrDate,
                     $_SESSION['sessionDateSetting']['date_sparator'],
@@ -258,42 +226,6 @@ function getData($db, $bolSync = false)
                     $_SESSION['sessionDateSetting']['pos_month'],
                     $_SESSION['sessionDateSetting']['pos_day']
                 );
-                /*if ($arrData['dataEarlyLate'] !== '0') {
-                    if (isset($objAttendanceClass->arrAttendance[$strCurrDate_][$strIDEmployee])) {
-                        $dataset[] = [
-                            "attendance_date_" => $strCurrDate_,
-                            "attendance_date" => $strCurrDate,
-                            "id_employee" => $strIDEmployee,
-                            "employee_id" => $arrEmployee['employee_id'],
-                            "employee_name" => $arrEmployee['employee_name'],
-                            "division_code" => $arrEmployee['division_code'],
-                            "division_name" => $arrEmployee['division_name'],
-                            "department_code" => $arrEmployee['department_code'],
-                            "department_name" => $arrEmployee['department_name'],
-                            "section_code" => $arrEmployee['section_code'],
-                            "section_name" => $arrEmployee['section_name'],
-                            "absence_code" => $objToday->strAbsenceCode,
-                            "shift_code" => $objToday->strShiftCode,
-                            "attendance_start" => $objToday->strAttendanceStart,
-                            "attendance_finish" => $objToday->strAttendanceFinish,
-                            "normal_start" => $objToday->strNormalStart,
-                            "normal_finish" => $objToday->strNormalFinish,
-                            "late" => $intLate,
-                            "early" => $intEarly,
-                            "approved_late" => $intApprovedLate,
-                            "approved_early" => $intApprovedEarly,
-                            "overtime_start_early" => $objToday->strOvertimeStartEarly,
-                            "overtime_finish_early" => $objToday->strOvertimeFinishEarly,
-                            "overtime_start" => $objToday->strOvertimeStart,
-                            "overtime_finish" => $objToday->strOvertimeFinish,
-                            "normal_finish" => $objToday->strNormalFinish,
-                            //"ot"                    => $objToday->fltTotalOT,
-                            "ot" => $objToday->totOTNormal,
-                            "calculated_ot" => $objToday->totOTCalculated,
-                            "data_source" => $objToday->strDataSource
-                        ];
-                    }
-                } else {*/
                     $dataset[] = [
                         "attendance_date_" => $strCurrDate_,
                         "attendance_date" => $strCurrDate,
@@ -569,9 +501,6 @@ function getData($db, $bolSync = false)
                 "formatTime()"
             )
         );
-        /*$myDataGrid->addColumn(
-            new DataGrid_Column(getWords("source"), "data_source", ['rowspan' => '2'], ['nowrap' => ''])
-        );*/
         $myDataGrid->addColumn(
             new DataGrid_Column(
                 getWords("note"),
@@ -584,13 +513,11 @@ function getData($db, $bolSync = false)
                 "printNote()"
             )
         );
-        //$myDataGrid->addButtonExportExcel("Export Excel", $dataPrivilege['menu_name'].".xls", getWords($dataPrivilege['menu_name']));
         $myDataGrid->addButtonExportExcel(
             getWords("export excel"),
             str_replace(" ", "_", $dataPrivilege['menu_name'] . ".xls"),
             getWords($dataPrivilege['menu_name'])
         );
-        //$myDataGrid->setPageLimit("all");
         $myDataGrid->getRequest();
         $myDataGrid->hasGrandTotal = true;
         $intTotalData = $myDataGrid->totalData = count($dataset);
@@ -685,7 +612,6 @@ function printWDay($params)
     if ($value != "") {
         $bolHoliday = isCompanyHoliday($value);
     }
-    //return (($strDay == "Sat" || $strDay == "Sun" || $strDay == "Sab" || $strDay == "Min" ) && !$bolPrint) ? "<strong><font color=red size=-1>$strDay</font></strong>" : $strDay;
     return ($bolHoliday == true && !$bolPrint) ? "<strong><font color=red size=-1>$strDay</font></strong>" : $strDay;
 }
 
@@ -697,7 +623,6 @@ function printNote($params)
     if ($value != "") {
         $strNoteHoliday = getNoteHoliday($value);
     }
-    //return (($strDay == "Sat" || $strDay == "Sun" || $strDay == "Sab" || $strDay == "Min" ) && !$bolPrint) ? "<strong><font color=red size=-1>$strDay</font></strong>" : $strDay;
     return ($strNoteHoliday != "" && !$bolPrint) ? "<font color=red size=-8>$strNoteHoliday</font>" : $strNoteHoliday;
 }
 
@@ -868,10 +793,6 @@ if ($db->connect()) {
         $f->addSubmit("btnSync", getWords("sync"), "", true, true, "", "", "");
     }
     $formFilter = $f->render();
-    //$splitDateFrom = explode('/', $strDateFrom);
-    //$strDateFrom = $splitDateFrom[2] . '-' . $splitDateFrom[0] . '-' . $splitDateFrom[1];
-    //$splitDateThru = explode('/', $strDateThru);
-    //$strDateThru = $splitDateThru[2] . '-' . $splitDateThru[0] . '-' . $splitDateThru[1];
     $strDateFrom = standardDateToSQLDateNew(
         $strDateFrom,
         $_SESSION['sessionDateSetting']['date_sparator'],
@@ -898,7 +819,6 @@ if ($db->connect()) {
     } else if (isset($_REQUEST['datagridajax']) && $_REQUEST['datagridajax'] == 1) {
         $myDataGrid = new cDataGrid("formData", "DataGrid", "100%", "100%", false, false, false);
         $myDataGrid->caption = $dataPrivilege['menu_name'];
-        //	  $myDataGrid->pageSortBy = "employee_id";
         $DataGrid = getData($db, true);
     }
 }
