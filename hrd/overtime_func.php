@@ -906,7 +906,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
             if (timeCompare($arrAttRow['attendance_start'], $arrOTRow['start_plan']) < 0) {
                 $strOvertimeStart = $arrOTRow['start_plan'];
             } else if (timeCompare($arrAttRow['attendance_start'], $arrOTRow['finish_plan']) < 0) {
-                $strOvertimeStart = $arrAttRow['attendance_start'];
+                $strOvertimeStart = roundOvertimeInOut($arrAttRow['attendance_start'], 1);
             } else {
                 $strOvertimeStart = $strOvertimeFinish = "";
             }
@@ -926,7 +926,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
                     $strOvertimeStart = $arrOTRow['start_plan'];
                 }
             } else {
-                $strOvertimeStart = $arrAttRow['attendance_start'];
+                $strOvertimeStart = roundOvertimeInOut($arrAttRow['attendance_start'], 1);
             }
         }
     }
@@ -956,7 +956,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
                 ) {
                     $strOvertimeStart = $strOvertimeFinish = "";
                 } else if (timeCompare($arrAttRow['attendance_finish'], $arrOTRow['finish_plan']) < 0) {
-                    $strOvertimeFinish = $arrAttRow['attendance_finish'];
+                    $strOvertimeFinish = roundOvertimeInOut($arrAttRow['attendance_finish'], 0);
                 } else {
                     $strOvertimeFinish = $arrOTRow['finish_plan'];
                 }
@@ -979,7 +979,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
                     $arrOTRow['finish_plan']
                 ) < 0
             ) {
-                $strOvertimeFinish = $arrAttRow['attendance_finish'];
+                $strOvertimeFinish = roundOvertimeInOut($arrAttRow['attendance_finish'], 0);
             } else if (timeCompare($arrAttRow['attendance_finish'], $arrAttRow['normal_start']) > 0) {
                 $strOvertimeStart = $strOvertimeFinish = "";
             } else {
@@ -1017,7 +1017,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
                 ) {
                     $strOvertimeStartEarly = $strOvertimeFinishEarly = "";
                 } else if (timeCompare($arrAttRow['attendance_start'], $arrOTRow['start_early_plan']) > 0) {
-                    $strOvertimeStartEarly = $arrAttRow['attendance_start'];
+                    $strOvertimeStartEarly = roundOvertimeInOut($arrAttRow['attendance_start'], 1);
                 } else {
                     $strOvertimeStartEarly = $arrOTRow['start_early_plan'];
                 }
@@ -1029,7 +1029,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
                 ) {
                     $strOvertimeStartEarly = $arrOTRow['start_early_plan'];
                 } else if (timeCompare($arrAttRow['attendance_start'], $arrAttRow['normal_start']) < 0) {
-                    $strOvertimeStartEarly = $arrAttRow['attendance_start'];
+                    $strOvertimeStartEarly = roundOvertimeInOut($arrAttRow['attendance_start'], 1);
                 } else {
                     $strOvertimeStartEarly = $strOvertimeFinishEarly = "";
                 }
@@ -1040,7 +1040,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
                     $arrOTRow['finish_early_plan']
                 ) < 0
             ) {
-                $strOvertimeStartEarly = $arrAttRow['attendance_start'];
+                $strOvertimeStartEarly = roundOvertimeInOut($arrAttRow['attendance_start'], 1);
             } else if (timeCompare($arrAttRow['attendance_start'], $arrAttRow['normal_finish']) > 0) {
                 $strOvertimeStartEarly = $strOvertimeFinishEarly = "";
             } else {
