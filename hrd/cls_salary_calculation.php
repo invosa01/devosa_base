@@ -385,7 +385,10 @@ class clsSalaryCalculation
                 $this->arrDD[$strDeductionCode][$strIDEmployee]['amount'] = $tempAmount;
                 if ($this->arrMD[$strDeductionCode]['jams'] == 't') {
                     $this->arrDetail[$strIDEmployee]['base_jamsostek'] -= $tempAmount;
-                } // as base jamsostek
+                }// as base jamsostek
+                if ($this->arrMD[$strDeductionCode]['tax'] == 't') {
+                    $this->arrDetail[$strIDEmployee]['base_tax'] -= $tempAmount;
+                }
             }
         }
         // ambil data pinjaman yang perlu dibayar
