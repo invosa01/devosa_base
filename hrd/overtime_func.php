@@ -19,7 +19,6 @@ function isShift($db, $strIDEmployee, $strDate, &$strStartTime = "", &$strFinish
     // cari di schedule shift untuk perorangan
     $strSQL = "SELECT * FROM hrd_shift_schedule_employee  ";
     $strSQL .= "WHERE id_employee = '$strIDEmployee' AND shift_date = '$strDate' AND group_type = '" . $intGroupType . "'";
-    //echo $strSQL;
     $resDb = $db->execute($strSQL);
     if ($rowDb = $db->fetchrow($resDb)) {
         // ada jadwal shift perorangan
@@ -43,7 +42,6 @@ function getShiftTypeData($db, $strIDEmployee, $strDate)
     // cari di schedule shift untuk perorangan
     $strSQL = "SELECT b.start_time, b.finish_time, b.additional_ot FROM hrd_shift_schedule_employee AS a, hrd_shift_type AS b  ";
     $strSQL .= "WHERE a.shift_code = b.code AND a.id_employee = '$strIDEmployee' AND a.shift_date = '$strDate' AND a.group_type = '" . $intGroupType . "'";
-    //echo $strSQL;
     $resDb = $db->execute($strSQL);
     $shiftype = null;
     if ($rowDb = $db->fetchrow($resDb)) {
@@ -85,7 +83,6 @@ function getTotalWorkingHour(
         }
         $resDb = $db->execute($strSQL);
         while ($rowDb = $db->fetchrow($resDb)) {
-            //$intResult += getIntervalHour($currTime,$rowDb['startTime']);
             $currTime = getNextMinute($rowDb['start_time'], $rowDb['duration']);
             if ($currTime > $currFinish) {
                 $intResult -= getIntervalHour($rowDb['start_time'], $currFinish); //dikurangi selisihnya
@@ -122,7 +119,6 @@ function getTotalWorkingHour(
         }
         $resDb = $db->execute($strSQL);
         while ($rowDb = $db->fetchrow($resDb)) {
-            //$intResult += getIntervalHour($currTime,$rowDb['startTime']);
             $currTime = getNextMinute($rowDb['start_time'], $rowDb['duration']);
             if ($currTime > $strFinish) {
                 $intResult -= getIntervalHour($rowDb['start_time'], $strFinish); //dikurangi selisihnya
@@ -142,7 +138,6 @@ function getTotalWorkingHour(
         }
         $resDb = $db->execute($strSQL);
         while ($rowDb = $db->fetchrow($resDb)) {
-            //$intResult += getIntervalHour($currTime,$rowDb['startTime']);
             $currTime = getNextMinute($rowDb['start_time'], $rowDb['duration']);
             if ($currTime > $strFinish) {
                 $intResult -= getIntervalHour($rowDb['start_time'], $strFinish); //dikurangi selisihnya
@@ -295,8 +290,6 @@ function calculateOvertime(
     // jika jumat, tipenya 1, selain itu 0 = hari biasa
     $intTipe = ($intWDay == 5) ? 1 : 0;
     $intTipe = ($bolHoliday) ? 2 : $intTipe;
-    /*echo "Normal: $strNormalStart-$strNormalFinish , Att: $strAttendanceStart-$strAttendanceFinish<BR>";
-    echo "Overtime: $strOvertimeStart-$strOvertimeFinish<br>";*/
     // CARI INFO TERLAMBAT ATAU LEMBUR PAGI ----
     if (validTime($strAttendanceStart)) {
         if ($strNormalStart == $strAttendanceStart) {
@@ -438,11 +431,6 @@ function calculateOvertime(
             $intTotal = getTotalHour($strOvertimeStart, $strOvertimeFinish);
         }
         //Aturan Pembulatan
-        //$intMain   = (floor($intTotal / 30)) * 30;
-        //$intResidu = ($intTotal % 60);
-        //if ($intResidu > 45) $intTotal = $intMain + 60;
-        //if($intResidu > 15) $intTotal = $intMain + 30;
-        //else $intTotal = $intMain;
         $arrResult['total'] = $intTotal;
         if ($bolHoliday) {
             // cek L2
@@ -522,7 +510,6 @@ function calculateOvertimeByOTSchedule(
     $breakFlag = 0,
     $breakLinkID = ""
 ) {
-    //  echo "start = $strOvertimeStart, finish = $strOvertimeFinish";
     $arrResult = ["total" => 0, "l1" => 0, "l2" => 0, "l3" => 0, "l4" => 0, "l5" => 0];
     $bol5WorkDay = false;
     $intWDay = getWDay($strDate);
@@ -547,16 +534,6 @@ function calculateOvertimeByOTSchedule(
     );
     //jumlahkan dengan total early overtime
     $intTotal += $intEarlyOvertime;
-    //pembulatan 0-15    ==> 0
-    //           15 - 45 ==> 30
-    //           >45     ==>45
-    //$intMain   = (floor($intTotal / 60)) * 60;
-    //$intResidu = ($intTotal % 60);
-    //if ($intResidu > 45) $intTotal = $intMain + 60;
-    //else if($intResidu > 15) $intTotal = $intMain + 30;
-    //else $intTotal = $intMain;
-    //pembulatan 30 menit ke bawah
-    //$intTotal = (floor($intTotal / 30)) * 30;
     $arrResult['total'] = $intTotal;
     if ($bolHoliday) {
         // cek L2
@@ -741,7 +718,6 @@ function calculateOTCompensation($db, $strDate, $strIDEmployee, $strStart, $strF
             $bolGetMeal = false;
         }
         //--------------------------------------------------------------------------
-        //echo $fltMeal;
         // hitung jatah makan
         if ($bolGetMeal) {
             if ($intDuration >= ($intLimitMeal1 + $intLimitMeal2 + $intLimitMeal3)) {
@@ -815,7 +791,6 @@ function syncOvertimeApplication($db, $strDateFrom, $strDateThru, $strIDEmployee
     $arrAutoOT = [];
     $strSQL = "SELECT t1.id, get_auto_ot FROM hrd_employee AS t1 LEFT JOIN hrd_position AS t2 ";
     $strSQL .= "ON t1.position_code = t2.position_code ";
-    //  $strSQL .= "WHERE active = 1 ";
     if ($strIDEmployee != "") {
         $strSQL .= "AND id ='$strIDEmployee' ";
     }
@@ -862,14 +837,11 @@ function syncOvertimeApplication($db, $strDateFrom, $strDateThru, $strIDEmployee
             }
         }
     }
-    //exit();
     $strSQL = str_replace("''", "null", $strSQL);
     $resExec = $db->execute($strSQL);
 }//syncOvertimeApplicaton
 function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow, $bolAutoOT = false)
 {
-    //var_dump($arrOTRow);
-    //echo "<br/>------".$arrOTRow['start_plan']."-----------";
     //cek finish actual utk regular overtime
     //jika ambil yang lebih awal (antara attendance finish dengan finish plan)
     global $db;
@@ -906,7 +878,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
             if (timeCompare($arrAttRow['attendance_start'], $arrOTRow['start_plan']) < 0) {
                 $strOvertimeStart = $arrOTRow['start_plan'];
             } else if (timeCompare($arrAttRow['attendance_start'], $arrOTRow['finish_plan']) < 0) {
-                $strOvertimeStart = $arrAttRow['attendance_start'];
+                $strOvertimeStart = roundOvertimeInOut($arrAttRow['attendance_start'], 1);
             } else {
                 $strOvertimeStart = $strOvertimeFinish = "";
             }
@@ -926,7 +898,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
                     $strOvertimeStart = $arrOTRow['start_plan'];
                 }
             } else {
-                $strOvertimeStart = $arrAttRow['attendance_start'];
+                $strOvertimeStart = roundOvertimeInOut($arrAttRow['attendance_start'], 1);
             }
         }
     }
@@ -956,7 +928,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
                 ) {
                     $strOvertimeStart = $strOvertimeFinish = "";
                 } else if (timeCompare($arrAttRow['attendance_finish'], $arrOTRow['finish_plan']) < 0) {
-                    $strOvertimeFinish = $arrAttRow['attendance_finish'];
+                    $strOvertimeFinish = roundOvertimeInOut($arrAttRow['attendance_finish'], 0);
                 } else {
                     $strOvertimeFinish = $arrOTRow['finish_plan'];
                 }
@@ -968,7 +940,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
                 ) {
                     $strOvertimeFinish = $arrOTRow['finish_plan'];
                 } else if (timeCompare($arrAttRow['attendance_finish'], $arrOTRow['start_plan']) > 0) {
-                    $strOvertimeFinish = $arrAttRow['attendance_finish'];
+                    $strOvertimeFinish = roundOvertimeInOut($arrAttRow['attendance_finish'], 0);//
                 } else {
                     $strOvertimeStart = $strOvertimeFinish = "";
                 }
@@ -979,7 +951,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
                     $arrOTRow['finish_plan']
                 ) < 0
             ) {
-                $strOvertimeFinish = $arrAttRow['attendance_finish'];
+                $strOvertimeFinish = roundOvertimeInOut($arrAttRow['attendance_finish'], 0);
             } else if (timeCompare($arrAttRow['attendance_finish'], $arrAttRow['normal_start']) > 0) {
                 $strOvertimeStart = $strOvertimeFinish = "";
             } else {
@@ -1017,7 +989,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
                 ) {
                     $strOvertimeStartEarly = $strOvertimeFinishEarly = "";
                 } else if (timeCompare($arrAttRow['attendance_start'], $arrOTRow['start_early_plan']) > 0) {
-                    $strOvertimeStartEarly = $arrAttRow['attendance_start'];
+                    $strOvertimeStartEarly = roundOvertimeInOut($arrAttRow['attendance_start'], 1);
                 } else {
                     $strOvertimeStartEarly = $arrOTRow['start_early_plan'];
                 }
@@ -1029,7 +1001,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
                 ) {
                     $strOvertimeStartEarly = $arrOTRow['start_early_plan'];
                 } else if (timeCompare($arrAttRow['attendance_start'], $arrAttRow['normal_start']) < 0) {
-                    $strOvertimeStartEarly = $arrAttRow['attendance_start'];
+                    $strOvertimeStartEarly = roundOvertimeInOut($arrAttRow['attendance_start'], 1);
                 } else {
                     $strOvertimeStartEarly = $strOvertimeFinishEarly = "";
                 }
@@ -1040,7 +1012,7 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
                     $arrOTRow['finish_early_plan']
                 ) < 0
             ) {
-                $strOvertimeStartEarly = $arrAttRow['attendance_start'];
+                $strOvertimeStartEarly = roundOvertimeInOut($arrAttRow['attendance_start'], 1);
             } else if (timeCompare($arrAttRow['attendance_start'], $arrAttRow['normal_finish']) > 0) {
                 $strOvertimeStartEarly = $strOvertimeFinishEarly = "";
             } else {
@@ -1118,14 +1090,10 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
         /* Nilai total ditambah dengan nilai additional_ot */
         $arrOT['total'] = $arrOT['total'] + $arrOT['l5'];
     }
-    //if (isDataExists("hrd_overtime_application_employee", "id_employee", $strIDEmployee, "overtime_date = '".$strDate."'"))
-    //{
     //Update Overtime
     $strSQL = "UPDATE hrd_overtime_application_employee ";
     $strSQL .= "SET start_actual = '$strOvertimeStart', ";
     $strSQL .= "finish_actual = '$strOvertimeFinish', ";
-    // $strSQL .= "start_early_actual = '$strOvertimeStartEarly', ";
-    // $strSQL .= "finish_early_actual = '$strOvertimeFinishEarly', ";
     $strSQL .= "l1 = '" . $arrOT['l1'] . "', ";
     $strSQL .= "l2 = '" . $arrOT['l2'] . "', ";
     $strSQL .= "l3 = '" . $arrOT['l3'] . "', ";
@@ -1133,13 +1101,6 @@ function generateOTAttendanceSQL($strIDEmployee, $strDate, $arrAttRow, $arrOTRow
     $strSQL .= "l5 = '" . $arrOT['l5'] . "', ";
     $strSQL .= "total_time = '" . $arrOT['total'] . "' ";
     $strSQL .= "WHERE id_employee = '$strIDEmployee' AND  overtime_date = '$strDate'; ";
-    /*}
-    else
-    {
-      $strSQL .= "INSERT INTO hrd_overtime_application
-                  (overtime_date, include_early_ot, start_time, finish_time, start_time_early, finish_time_early, entry_date)
-                  VALUES ('$strDate', '".$arrOTRow['include_early_ot']."', '$strOvertimeStart', '$strOvertimeFinish', '$strOvertimeStartEarly', '$strOvertimeFinishEarly', now()::DATE); ";
-    }*/
     //Update Attendance
     $strSQL .= "UPDATE hrd_attendance SET ";
     $strSQL .= "overtime_start = '$strOvertimeStart', overtime_finish = '$strOvertimeFinish', ";
@@ -1423,12 +1384,44 @@ function getSpvOvertime(
     $arrResult['total_ot_3'] = $intL3Min;
     $arrResult['total_ot_4'] = $intL4Min;
     $arrResult['total_ot_day'] = $intOTDay;
-    //$arrResult['fltOTMin']       = $fltOTMin;
-    //$arrResult['fltOTXMin']      = $fltOTXMin;
-    //$arrResult['fltOvertime']    = $fltOvertime;
-    //$arrResult['fltOTMinSpv']    = $fltOTMinSpv;
-    //$arrResult['fltOvertimeSpv'] = $fltOvertimeSpv;
     return $arrResult;
 }
 
+/**
+ * @param $strTime
+ * @param $intFlagInOut
+ *
+ * @return mixed
+ */
+function roundOvertimeInOut($strTime, $intFlagInOut) {
+    global $db;
+    $strResult = $strTime;
+    $arrOvertimeSetting = array();
+    if ($db->connect()) {
+        $strSQL = "SELECT code, value, round_up FROM setting_overtime;";
+        $res = $db->execute($strSQL);
+        while ($row = $db->fetchrow($res)) {
+            $arrOvertimeSetting[$row['code']] = $row;
+        }
+    }
+    if (isset($strTime) && $strTime !== '') {
+        # start time
+        if ($intFlagInOut === 1) {
+            # ot_in_round_up === true => strtime + value
+            # ot_in_round_down === false => strtime - value
+            $strResult = ($arrOvertimeSetting['ot_in_round_up']['round_up'] == 't') ?
+                date('H:i', strtotime($strTime) + ($arrOvertimeSetting['ot_in_round_up']['value']*60) - ((date('i', strtotime($strTime)) % $arrOvertimeSetting['ot_in_round_up']['value'])*60)) :
+                date('H:i', strtotime($strTime) - ((date('i', strtotime($strTime)) % $arrOvertimeSetting['ot_in_round_up']['value'])*60));
+        }
+        # finish time
+        else if ($intFlagInOut === 0) {
+            # ot_out_round_up === true => strtime + value - (minute % value)
+            # ot_out_round_down === false => strtime - (minute % value)
+            $strResult = ($arrOvertimeSetting['ot_out_round_up']['round_up'] == 't') ?
+                date('H:i', strtotime($strTime) + ($arrOvertimeSetting['ot_out_round_up']['value']*60) - ((date('i', strtotime($strTime)) % $arrOvertimeSetting['ot_out_round_up']['value'])*60)) :
+                date('H:i', strtotime($strTime) - ((date('i', strtotime($strTime)) % $arrOvertimeSetting['ot_out_round_up']['value'])*60));
+        }
+    }
+    return $strResult;
+}
 ?>
