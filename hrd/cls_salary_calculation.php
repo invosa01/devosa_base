@@ -385,7 +385,10 @@ class clsSalaryCalculation
                 $this->arrDD[$strDeductionCode][$strIDEmployee]['amount'] = $tempAmount;
                 if ($this->arrMD[$strDeductionCode]['jams'] == 't') {
                     $this->arrDetail[$strIDEmployee]['base_jamsostek'] -= $tempAmount;
-                } // as base jamsostek
+                }// as base jamsostek
+                if ($this->arrMD[$strDeductionCode]['tax'] == 't') {
+                    $this->arrDetail[$strIDEmployee]['base_tax'] -= $tempAmount;
+                }
             }
         }
         // ambil data pinjaman yang perlu dibayar
@@ -503,7 +506,7 @@ class clsSalaryCalculation
             }
             if (($this->isResignLastMonth($strID) && $this->isPaidProratedLastMonth(
                         $strID
-                    )) || $this->irregular == 't'
+                    ))
             ) {
                 $this->arrDetail[$strID]['jkk_allowance'] = 0;
                 $this->arrDetail[$strID]['jkm_allowance'] = 0;
@@ -950,7 +953,7 @@ class clsSalaryCalculation
             //proses nilai thr_allowance sesuai parameter salary setting
             if (isset($this->arrMA['thr_allowance']['irregular']) && $this->arrMA['thr_allowance']['irregular'] == 't') {
                 $this->arrDetail[$strIDEmp]['base_irregular_tax'] += $this->arrDetail[$strIDEmp]['thr_allowance'];
-                $this->arrDetail[$strIDEmp]['base_tax'] = 0;
+                //$this->arrDetail[$strIDEmp]['base_tax'] = 0;
             } else {
                 if (isset($this->arrMA['thr_allowance']['tax']) && $this->arrMA['thr_allowance']['tax'] == 't') {
                     $this->arrDetail[$strIDEmp]['base_tax'] = $this->arrDetail[$strIDEmp]['thr_allowance'];
@@ -2260,7 +2263,7 @@ class clsSalaryCalculation
         // save data detail salary
         // ambil data terlebih dahulu
         $this->calculateBasic($this->strKriteria);
-        if (isset($this->arrMA['thr_allowance']['active']) && $this->arrMA['thr_allowance']['active'] == 't') {
+        if (isset($this->arrConf['thr_allowance_active']) && $this->arrConf['thr_allowance_active'] == 't') {
             $this->calculateTHR();
         }
         // if(false)
