@@ -97,7 +97,7 @@ function renderPage()
     $formInput = $formObject->render();
     # Get grid list contents.
     $gridOptions = ['caption' => strtoupper($strWordsLISTOF . " " . getWords($privileges['menu_name']))];
-    $gridContents = getGridListContents($gridOptions);
+    $gridContents = getGridObject($gridOptions);
     $gridList = $gridContents->render();
     # Start to render using tiny but strong class.
     $tbsPage = new clsTinyButStrong;
@@ -157,7 +157,7 @@ function getGridListContents(array $gridOptions = [])
         'amount'           => ['data', 'Amount', 'amount', ['width' => ''], $strAttrWidth],
         'id'               => ['data', '', 'id', ['width' => ''], $strAttrExport, '', 'getEditData()'],
     ];
-    return getBuildGrid($gridModel, $gridOptions, $gridDataBinding);
+    return getGridObject($gridModel, $gridOptions, $gridDataBinding);
 }
 
 function getValidationInputDate($startDate, $endDate)

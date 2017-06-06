@@ -296,13 +296,14 @@ function getConExtraOffData()
         $employeeId = $_POST['id'];
     }
     $strSQL = 'SELECT
-                    ceo."id" AS ceo_id,
-                    ceo."type"
+                    eoc."id",
+                    stp.code
                 FROM
-                    "public".hrd_employee AS emp
-                INNER JOIN "public".hrd_con_extra_off AS ceo ON ceo.employee_id = emp."id"';
+                    "public".hrd_eo_conf AS eoc
+                INNER JOIN "public".hrd_employee AS emp ON emp.eo_level_code = eoc.eo_level_code
+                INNER JOIN "public".hrd_shift_type AS stp ON eoc.shift_type_id = stp."id"';
     if ($employeeId !== null) {
-        $wheres[] = 'emp.employee_id = ' . pgEscape($employeeId);
+        $wheres[] = ' emp.employee_id = ' . pgEscape($employeeId);
     }
     return pgFetchRows(getQuery($strSQL, $wheres));
 }
@@ -312,8 +313,10 @@ function getConExtraOffOptions()
     $result = '<option value="">-</option>';
     $record = getConExtraOffData();
     foreach ($record as $row) {
-        $result .= '<option value="' . $row['type'] . '">'
-            . $row['type']
+        $result .= '<option value="' . $row['id'] . '">'
+            . $row['id']
+            . ' - '
+            . $row['code']
             . '</option>';
     }
     return $result;

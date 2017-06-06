@@ -12,7 +12,7 @@ doIncludes(
     ]
 );
 setActiveDbConnection('dbConnection', getPgConnection(DB_NAME, DB_USER, DB_PWD, DB_SERVER, DB_PORT));
-renderPage();
+main();
 function extractToGlobal(array $globalVars = [])
 {
     foreach ($globalVars as $var => $value) {
@@ -20,7 +20,7 @@ function extractToGlobal(array $globalVars = [])
     }
 }
 
-function renderPage()
+function main()
 {
     # Setting up and process the privileges.
     $calledFile = basename($_SERVER['PHP_SELF']);
@@ -37,9 +37,10 @@ function renderPage()
         'pageHeader'      => '',
         'strTemplateFile' => getTemplate(str_replace(".php", ".html", $calledFile)),
         'formObject'      => null,
-        'formInput'       => '',
-        'gridContents'    => null,
-        'gridList'        => ''
+        'formContents'    => '',
+        'gridObject'      => null,
+        'gridContents'    => '',
+        'gridTitle'       => getWords('LIST SHIFT CHANGE')
     ];
     extractToGlobal($globalVariables);
     # Important to given access to our global variables.
@@ -54,11 +55,11 @@ function renderPage()
         'references' => ['dataId']
     ];
     $formObject = getFormObject($formOptions);
-    $formInput = $formObject->render();
-    # Get grid list contents.
+    $formContents = $formObject->render();
+    # Get grid object contents.
     $gridOptions = ['caption' => strtoupper($strWordsLISTOF . " " . getWords($privileges['menu_name']))];
-    $gridContents = getGridListContents($gridOptions);
-    $gridList = $gridContents->render();
+    $gridObject = getGridObject($gridOptions);
+    $gridContents = $gridObject->render();
     # Start to render using tiny but strong class.
     $tbsPage = new clsTinyButStrong;
     $tbsPage->LoadTemplate($strMainTemplate);
@@ -88,18 +89,8 @@ function getRenderGrid()
     return $model;
 }
 
-function getQuery($strSQL, array $wheres = [])
+function getShiftChangeListQuery(array $wheres = [])
 {
-    if (count($wheres) > 0) {
-        $strSQL .= ' WHERE ' . implodeArray($wheres, ' AND ');
-    }
-    return $strSQL;
-}
-
-function getDataGrid()
-{
-    $model = [];
-    $wheres = [];
     $strSql = 'SELECT
                     shc."id",
                     shc.shift_date,
@@ -111,45 +102,97 @@ function getDataGrid()
                     "public".hrd_shift_change AS shc
                 LEFT JOIN "public".hrd_shift_type AS sht ON shc.current_shift = sht."id"
                 LEFT JOIN "public".hrd_shift_type AS sht1 ON shc.proposed_shift = sht1."id"';
-    $strSqlCount = 'SELECT
-                        COUNT(shc."id") AS total
-                    FROM
-                        "public".hrd_shift_change AS shc';
-    $strSql = pgFetchRows(getQuery($strSql, $wheres));
-    $strSqlCount = getQuery($strSqlCount, $wheres);
-    return [
-        'strSql'      => $strSql,
-        'strSqlCount' => $strSqlCount
-    ];
+    return getQuery($strSql, $wheres);
 }
 
-function getGridListContents(array $gridOptions = [])
+function getQuery($strSQL, array $wheres = [])
 {
-    $strTitleAttrWidth = ['width' => '400'];
-    $strAttrWidth = ['nowrap' => ''];
-    $gridDataBinding = getDataGrid();
-    $gridModel = [
-        'id'            => ['checked', 'id', 'id', ['width' => '10'], ['nowrap' => '']],
-        'no'            => ['no', 'No.', '', ['width' => '10'], ['nowrap' => '']],
-        'shift_date'    => ['data', 'Shift Date', 'shift_date', $strTitleAttrWidth, $strAttrWidth],
-        'code1'         => ['data', 'Current Shift', 'code1', $strTitleAttrWidth, $strAttrWidth],
-        'code2'         => ['data', 'Proposed Shift', 'code2', $strTitleAttrWidth, $strAttrWidth],
-        'status'        => ['data', 'Status', 'status', $strTitleAttrWidth, $strAttrWidth],
-        'note'          => ['data', 'Note', 'note', $strTitleAttrWidth, $strAttrWidth],
-        'role'          => ['role', 'Button', '', ['edit', 'delete', false, 'approve', false]],
-        'ServiceCharge' => ['exportExl', 'Export Excel']
+    if (count($wheres) > 0) {
+        $strSQL .= ' WHERE ' . implodeArray($wheres, ' AND ');
+    }
+    return $strSQL;
+}
+
+function getGridModelData()
+{
+    $wheres = [];
+    return pgFetchRows(getShiftChangeListQuery(), $wheres);
+}
+
+function getGridObject(array $gridOptions = [])
+{
+    $defaultColHeadAttr = ['width' => '400'];
+    $defaultColContentAttr = ['nowrap' => ''];
+    $gridButtons = [
+        'btnDelete'   => ['delete', 'Delete', 'onClick="javascript:return myClient.confirmDelete();"', 'deleteData()'],
+        'btnApproved' => ['approve', 'Approve', 'onClick="javascript:return myClient.confirmAppoved();"', 'changeStatus()']
     ];
-    return getBuildGrid($gridModel, $gridOptions, $gridDataBinding);
+    $defaultGridOptions = [
+        'formName'          => 'frmShiftChangeGrid',
+        'gridName'          => 'shiftChangeGrid',
+        'gridWidth'         => '100%',
+        'gridHeight'        => '100%',
+        'showPageLimit'     => true,
+        'showSearch'        => true,
+        'showSort'          => true,
+        'showPageNumbering' => true,
+        'path'              => null,
+        'buttons'           => $gridButtons,
+        'calledFile'        => basename($_SERVER['PHP_SELF'])
+    ];
+    $modelData = getGridModelData();
+    $columnHeader = [
+        'id'         => ['ID', ['width' => '10']],
+        'no'         => ['No.', ['width' => '10']],
+        'shift_date' => ['Shift Date', $defaultColHeadAttr],
+        'code1'      => ['Current Shift', $defaultColHeadAttr],
+        'code2'      => ['Proposed Shift', $defaultColHeadAttr],
+        'status'     => ['Status', $defaultColHeadAttr],
+        'note'       => ['Note', $defaultColHeadAttr],
+    ];
+    $columnContent = [
+        'id'         => ['id', $defaultColContentAttr, 'checkbox'],
+        'no'         => ['no', ['nowrap' => ''], 'auto'],
+        'shift_date' => ['shift_date', $defaultColContentAttr],
+        'code1'      => ['code1', $defaultColContentAttr],
+        'code2'      => ['code2', $defaultColContentAttr],
+        'status'     => ['status', $defaultColContentAttr],
+        'note'       => ['note', $defaultColContentAttr],
+    ];
+    $columnSet = ['head' => $columnHeader, 'content' => $columnContent];
+    return getBuildDataGrid($modelData, $columnSet, getMergedArrayRecursively($defaultGridOptions, $gridOptions));
 }
 
 function deleteData()
 {
     /**
-     * @var \cDataGrid $gridContents
+     * @var \cDataGrid $dataGridObj
      */
-    global $gridContents;
+    global $dataGridObj;
+    //$gridObject = unserialize(getFlashMessage('shiftChangeGrid'), true);
     $arrId = [];
-    foreach ($gridContents->checkboxes as $value) {
+    foreach ($dataGridObj->checkboxes as $value) {
         $arrId['id'][] = $value;
     }
+    $dataHrdShiftChange = new cHrdShiftChange();
+    $dataHrdShiftChange->deleteMultiple($arrId);
+    $dataGridObj->message = $dataHrdShiftChange->strMessage;
+    //setFlashMessage($gridName, serialize($dataGridObj));
+}
+
+function changeStatus()
+{
+    /**
+     * @var \cDataGrid $dataGridObj
+     */
+    //$gridObject = unserialize(getFlashMessage('shiftChangeGrid'), true);
+    global $dataGridObj;
+    $schId = [];
+    foreach ($dataGridObj->checkboxes as $value) {
+        $schId = ['id' => $value];
+    }
+    $varDataStatus = ['status' => REQUEST_STATUS_APPROVED];
+    $dataHrdShiftChange = new cHrdShiftChange();
+    $dataHrdShiftChange->update($schId, $varDataStatus);
+    $dataGridObj->message = $dataHrdShiftChange->strMessage;
 }

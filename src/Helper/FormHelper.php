@@ -13,6 +13,14 @@
 defined('STANDARD_FUNCTION_LOADED') === true or die('STANDARD FUNCTION IS NOT LOADED YET');
 doInclude('includes/form2/form2.php');
 if (function_exists('getBuildForm') === false) {
+    /**
+     * Get form object.
+     *
+     * @param array $formModel   Form model data collection parameter.
+     * @param array $formOptions Configuration data collection parameter.
+     *
+     * @return \clsForm
+     */
     function getBuildForm(array $formModel = [], array $formOptions = [])
     {
         $columnNo = (integer)getValue(getValueIfExistsOnArray('column', $formOptions), 1);
@@ -79,7 +87,7 @@ if (function_exists('getBuildForm') === false) {
             if (in_array($type, ['select', 'options']) === true) {
                 $value = [];
                 $defaultValue = $normalizedFieldProps['value'];
-                $value = getIntoRecorList($defaultValue);
+                $value = getIntoRecordList($defaultValue);
             }
             # Process all passed field element properties into form object.
             switch ($type) {
@@ -167,14 +175,13 @@ if (function_exists('getFormPostValue') === false) {
         return $defaultValue;
     }
 }
-if (function_exists('getIntoRecorList') === false) {
-    function getIntoRecorList(array $defaultValue = [])
+if (function_exists('getIntoRecordList') === false) {
+    function getIntoRecordList(array $defaultValue = [])
     {
-        $result = '';
         $model = [
-            'database' => '',
-            'code'     => '',
-            'name'     => ''
+            'source' => '',
+            'item'   => '',
+            'value'  => ''
         ];
         $defaultNormalizedRecordKeys = array_keys($model);
         $normalizedFieldProps = [];
@@ -190,25 +197,22 @@ if (function_exists('getIntoRecorList') === false) {
             $model,
             $normalizedFieldProps
         );
-        $database = $normalizedFieldProps['database'];
-        $code = $normalizedFieldProps['code'];
-        $name = $normalizedFieldProps['name'];
-        if ($database !== '') {
-            $result = '<option value="">-</option>';
-            $strSql = "SELECT 
-                         $code,
-                         $name
-                       FROM 
-                         $database ";
-            $record = pgFetchRows($strSql);
-            foreach ($record as $row) {
-                $result .= '<option value="' . $row[$code] . '">'
-                    . $row[$code]
-                    . ' - '
-                    . $row[$name]
-                    . '</option>';
-            }
+        $source = $normalizedFieldProps['source'];
+        $item = $normalizedFieldProps['item'];
+        $value = $normalizedFieldProps['value'];
+        $modelList = [];
+        $strSql = "SELECT 
+                            $item, 
+                            $value 
+                        FROM 
+                            $source";
+        $record = pgFetchRows($strSql);
+        foreach ($record as $row) {
+            $modelList [] = [
+                'value' => $row[$item],
+                'text'  => $row[$item] . ' - ' . $row[$value]
+            ];
         }
-        return $result;
+        return $modelList;
     }
 }

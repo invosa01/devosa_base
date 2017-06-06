@@ -59,7 +59,7 @@ function renderPage()
     $formInput = $formObject->render();
     # Get grid list contents.
     $gridOptions = ['caption' => strtoupper($strWordsLISTOF . " " . getWords($privileges['menu_name']))];
-    $gridContents = getGridListContents($gridOptions);
+    $gridContents = getGridObject($gridOptions);
     $gridList = $gridContents->render();
     # Start to render using tiny but strong class.
     $tbsPage = new clsTinyButStrong;
@@ -127,7 +127,7 @@ function getGridListContents(array $gridOptions = [])
         'nt'            => ['data', 'Note', 'nt', $strTitleAttrWidth, $strAttrWidth],
         'exp'           => ['data', 'Date Expared', 'exp', $strTitleAttrWidth, $strAttrWidth]
     ];
-    return getBuildGrid($gridModel, $gridOptions, $gridDataBinding);
+    return getGridObject($gridModel, $gridOptions, $gridDataBinding);
 }
 
 function getValidationShiftScheduleEmp($shiftDate, $empId)

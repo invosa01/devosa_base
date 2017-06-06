@@ -54,7 +54,7 @@ function renderPage()
     $formInput = $formObject->render();
     # Get grid list contents.
     $gridOptions = ['caption' => strtoupper($strWordsLISTOF . " " . getWords($privileges['menu_name']))];
-    $gridContents = getGridListContents($gridOptions);
+    $gridContents = getGridObject($gridOptions);
     $gridList = $gridContents->render();
     # Start to render using tiny but strong class.
     $tbsPage = new clsTinyButStrong;
@@ -181,7 +181,7 @@ function getGridListContents(array $gridOptions = [])
         'cost_employee'    => ['data', 'Nett / Employee', 'cost_employee', $strTitleAttrWidth, $strAttrWidth],
         'ServiceCharge'    => ['exportExl', 'Export Excel']
     ];
-    return getBuildGrid($gridModel, $gridOptions, $gridDataBinding);
+    return getGridObject($gridModel, $gridOptions, $gridDataBinding);
 }
 
 function setReleaseRenderGrid($name, array $modelRole = [])

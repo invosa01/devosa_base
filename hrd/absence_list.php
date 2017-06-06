@@ -225,7 +225,7 @@ function getData($db)
             getWords($dataPrivilege['menu_name'])
         );
         $myDataGrid->getRequest();
-        if (SET_REPORT_FOOTER === true){
+        if (SET_REPORT_FOOTER === true) {
             $myDataGrid->reportFooter = true;
         }
         $strSQLCOUNT = "SELECT COUNT(*) AS total FROM hrd_absence AS t1 LEFT JOIN hrd_employee  AS t2 ON t1.id_employee = t2.id";
@@ -317,26 +317,6 @@ function changeStatus($db, $intStatus)
                         $rowDb['employee_name'] . " - " . $rowDb['created'] . " - " . $rowDb['absence_type_code'],
                         $intStatus
                     );
-                    $absenceTypeCode = $rowDb['absence_type_code'];
-                    if (($absenceTypeCode === 'EO' or $absenceTypeCode === 'PH') === true) {
-                        if (($intStatus === REQUEST_STATUS_APPROVED) === true) {
-                            $startDate = $rowDb['date_from'];
-                            $active = 'f';
-                            $expairedDate = date('Y-m-d', strtotime('+1 month', strtotime($startDate)));
-                            $modelExtraOff = [
-                                'id' => $rowDb['extra_off_id'],
-                            ];
-                            $varDataEo = ['active' => $active];
-                            $model = [
-                                'employee_id'    => $rowDb['employee_id'],
-                                'date_extra_off' => $startDate,
-                                'date_expaired'  => $expairedDate,
-                                'note'           => $rowDb['note'],
-                                'type'           => $absenceTypeCode
-                            ];
-                            getChangeQuotaExtraOff($model, $modelExtraOff, $varDataEo);
-                        }
-                    }
                 }
             }
         }
@@ -572,18 +552,6 @@ if ($db->connect()) {
     $formFilter = $f->render();
     getData($db);
 }
-function getChangeQuotaExtraOff($model, $modelExtraOff, $varDataEo)
-{
-    global $f;
-    $dataQuotaExtraOff = new cHrdQuotaExtraOff();
-    $dataHrdExtraOff = new cHrdExtraOff();
-    # Start to process updating database.
-    if ($f->isInsertMode() === true) {
-        $dataQuotaExtraOff->insert($model);
-        $dataHrdExtraOff->update($modelExtraOff, $varDataEo);
-    }
-}
-
 $tbsPage = new clsTinyButStrong;
 //write this variable in every page
 $strPageTitle = getWords($dataPrivilege['menu_name']);
