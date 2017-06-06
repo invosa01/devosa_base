@@ -1407,20 +1407,17 @@ function roundOvertimeInOut($strTime, $intFlagInOut) {
     if (isset($strTime) && $strTime !== '') {
         # start time
         if ($intFlagInOut === 1) {
-            # ot_in_round_up === true => strtime + value
-            # ot_in_round_down === false => strtime - value
-            $strResult = ($arrOvertimeSetting['ot_in_round_up']['round_up'] == 't') ?
-                date('H:i', strtotime($strTime) + ($arrOvertimeSetting['ot_in_round_up']['value']*60) - ((date('i', strtotime($strTime)) % $arrOvertimeSetting['ot_in_round_up']['value'])*60)) :
-                date('H:i', strtotime($strTime) - ((date('i', strtotime($strTime)) % $arrOvertimeSetting['ot_in_round_up']['value'])*60));
+            $strInOutCode = 'ot_in_round_up';
         }
         # finish time
         else if ($intFlagInOut === 0) {
-            # ot_out_round_up === true => strtime + value - (minute % value)
-            # ot_out_round_down === false => strtime - (minute % value)
-            $strResult = ($arrOvertimeSetting['ot_out_round_up']['round_up'] == 't') ?
-                date('H:i', strtotime($strTime) + ($arrOvertimeSetting['ot_out_round_up']['value']*60) - ((date('i', strtotime($strTime)) % $arrOvertimeSetting['ot_out_round_up']['value'])*60)) :
-                date('H:i', strtotime($strTime) - ((date('i', strtotime($strTime)) % $arrOvertimeSetting['ot_out_round_up']['value'])*60));
+            $strInOutCode = 'ot_out_round_up';
         }
+        # round_up === true => strtime + value - (minute % value)
+        # round_down === false => strtime - (minute % value)
+        $strResult = ($arrOvertimeSetting[$strInOutCode]['round_up'] == 't') ?
+            date('H:i', strtotime($strTime) + ($arrOvertimeSetting[$strInOutCode]['value']*60) - ((date('i', strtotime($strTime)) % $arrOvertimeSetting[$strInOutCode]['value'])*60)) :
+            date('H:i', strtotime($strTime) - ((date('i', strtotime($strTime)) % $arrOvertimeSetting[$strInOutCode]['value'])*60));
     }
     return $strResult;
 }
