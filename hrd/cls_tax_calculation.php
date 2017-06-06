@@ -168,7 +168,6 @@ var $strFamilyStatus;
 
     /**
      * Function to calculate pph21 flat gross up method.
-     * TODO: 2. Add irregular tax.
      *
      * @param $fltNetIncome
      * @param $fltIrrIncome
@@ -262,7 +261,6 @@ var $strFamilyStatus;
 
     function calculatePph21AnnualNet(
         $fltNetIncome,
-        $fltIrrIncome,
         $bolNPWP,
         $fltPTKP,
         $fltJamsostekDeduction,
@@ -273,12 +271,12 @@ var $strFamilyStatus;
         $currentTaxableMonth
     ) {
         $countpph21 = new countPPH21(12, $this->arrPTKP);
-        $netincomeannualize = (($fltNetIncome * $taxableMonth) + $fltIrrIncome);                    //total income kena pajak disetahunkan
+        $netincomeannualize = ($fltNetIncome);                    //total income kena pajak disetahunkan
         $functionalCost = $this->calculateFunctionalCost(
             $netincomeannualize
         );                                                        //tunjangan jabatan
-        $jamsostekDeduction = $fltJamsostekDeduction * $taxableMonth;    //potongan jamsostek setahun
-        $pensionDeduction = $fltPensionDeduction * $taxableMonth;    //potongan jamsostek setahun
+        $jamsostekDeduction = $fltJamsostekDeduction;    //potongan jamsostek setahun
+        $pensionDeduction = $fltPensionDeduction;    //potongan jamsostek setahun
         $taxablenetincome = $countpph21->roundDown(
             ($netincomeannualize - $functionalCost - $jamsostekDeduction - $pensionDeduction - $fltPTKP),
             3
