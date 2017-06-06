@@ -200,53 +200,48 @@ var $strFamilyStatus;
         $fltTaxIrregularAllowance = 0;
         $bolLoop = true;
         $fltDelta = 0.01;
-        $fltNetIncome = $fltNetIncome + $fltIrrIncome;
         $countpph21 = new countPPH21($taxableMonth, $this->arrPTKP);
 
         while ($bolLoop) {
             # Total income kena pajak disetahunkan.
-            $netincomeannualize = ($fltNetIncome + $fltTaxAllowance) * $taxableMonth;
-            $functionalCost = $this->calculateFunctionalCost($netincomeannualize);                                                        //tunjangan jabatan
-            $jamsostekDeduction = $fltJamsostekDeduction * $taxableMonth;    //potongan jamsostek setahun
-            $pensionDeduction = $fltPensionDeduction * $taxableMonth;    //potongan jamsostek setahun
+            $netincomeannualize = (($fltNetIncome + $fltTaxAllowance) * $taxableMonth);
+            # Tunjangan jabatan.
+            $functionalCost = $this->calculateFunctionalCost($netincomeannualize);
+            # Potongan jamsostek setahun.
+            $jamsostekDeduction = $fltJamsostekDeduction * $taxableMonth;
+            # Potongan jamsostek setahun.
+            $pensionDeduction = $fltPensionDeduction * $taxableMonth;
+            # PKP.
             $taxablenetincome = $countpph21->roundDown(
                 ($netincomeannualize - $functionalCost - $jamsostekDeduction - $pensionDeduction - $fltPTKP),
                 3
-            );                                    //total pendapatan kena pajak bersih
+            );
             if ($taxablenetincome <= 0) {
                 $taxablenetincome = 0;
             }
+            # Pajak setahun, hitung per layer.
             $annualizetaxincome = $countpph21->calculateIncomeTaxAnnualized(
                 $taxablenetincome,
                 $bolNPWP
-            );                                //Pph Terhutang setahun
-            $annualizetaxincomeNet = $this->calculatePph21AnnualNet(
-                $fltNetIncome,
-                $bolNPWP,
-                $fltPTKP,
-                $fltJamsostekDeduction,
-                $fltPensionDeduction,
-                $taxableDayUpToEndOfYear,
-                $taxableDayUpToCurrent,
-                $taxableMonth,
-                $currentTaxableMonth
             );
-            //$taxUntilCurrentPeriod = ($annualizetaxincome - $taxIrregular);        //PPh terhutang sampai bulan ini
+            # Pajak sebulan.
             $taxUntilCurrentPeriod = $annualizetaxincome/$taxableMonth;
-            //$taxIrregular = ($annualizetaxincome - $annualizetaxincomeNet) + $taxUntilCurrentPeriod;
-            $yearlytax = $countpph21->roundDown(($taxUntilCurrentPeriod), 0);
-            //$yearlytaxIrregular = $countpph21->roundDown(($taxIrregular), 0);            //die()
-            if ((abs($yearlytax - $fltTaxAllowance) >= $fltDelta)) {
-                $fltTaxAllowance = ($fltTaxAllowance + $yearlytax) / 2;
-                //$fltTaxIrregularAllowance = ($fltTaxIrregularAllowance + $yearlytaxIrregular) / 2;
+            echo $netincomeannualize.' X '.$fltIrrIncome.' X '.$taxUntilCurrentPeriod.' X '.$fltTaxIrregularAllowance.'<br>';
+            # Pajak sebulan dengan pembulatan.
+            $monthlyTax = $countpph21->roundDown(($taxUntilCurrentPeriod), 0);
+            # Cek tunjangan pajak di loop sebelumnya dengan pajak sebulan di loop yang sekarang,
+            # jika selisih lebih dari $fltDelta, ambil rata-rata nya sebagai tunjangan pajak yang baru, lalu loop lagi.
+            if ((abs($monthlyTax - $fltTaxAllowance) >= $fltDelta)) {
+                $fltTaxAllowance = ($fltTaxAllowance + $monthlyTax) / 2;
             }
             else {
                 $bolLoop = false;
             }
         }
+        die();
         if ($bolRegular) {
-            $this->fltTaxRegular = $yearlytax;
-            return $yearlytax;
+            $this->fltTaxRegular = $monthlyTax;
+            return $monthlyTax;
         } else {
             $this->fltTaxIrregular = $yearlytaxIrregular;
             return $yearlytaxIrregular;
