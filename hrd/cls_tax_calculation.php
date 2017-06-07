@@ -261,8 +261,8 @@ var $strFamilyStatus;
         }
         # Penghasilan irregular di gross jika setting irregular tax method di general salary setting TIDAK dicentang.
         if ($this->intTaxIrregularMethod === 0) {
-            # Pajak setahun irregular.
-            $annualizeTaxIncomeIrregular = $this->calculatePph21AnnualNet((($fltNetIncome * $taxableMonth) + $fltIrrIncome),
+            # Pajak setahun irregular, income yang dipakai adalah pendapatan setahun + pendapatan irregular + pajak setahun regular GROSS UP.
+            $annualizeTaxIncomeIrregular = $this->calculatePph21AnnualNet((($fltNetIncome * $taxableMonth) + $fltIrrIncome + $annualizetaxincome),
                                                                           $bolNPWP,
                                                                           $fltPTKP,
                                                                           $jamsostekDeduction,
