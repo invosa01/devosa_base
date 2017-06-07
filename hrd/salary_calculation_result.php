@@ -722,7 +722,7 @@ function getDataGrid($db, $strCriteria, $bolLimit = true, $isFullView = false, $
     //ALLOWANCE & DEDUCTION REGULER
     if (!$bolIrregular) {
         $totalAllowanceNonBenefitNonTax = count($newArrayAllowance['first_view_allowance']);
-        $myDataGrid->addSpannedColumn(getWords("income"), $totalAllowanceNonBenefitNonTax + 1);
+        $myDataGrid->addSpannedColumn(getWords("income"), $totalAllowanceNonBenefitNonTax + 2);
         for ($i = 0; $i < count($newArrayAllowance['other_allowance']); $i++) {
             $allowanceData = $newArrayAllowance['other_allowance'][$i];
             $myDataGrid->addColumn(
@@ -766,7 +766,7 @@ function getDataGrid($db, $strCriteria, $bolLimit = true, $isFullView = false, $
         $myDataGrid->addColumn(
             new DataGrid_Column(
                 getWords("tax allowance"),
-                "allowance_tax",
+                "tax_allowance",
                 ["rowspan" => 1, "width" => 70],
                 ["nowrap" => "nowrap", "align" => "right"],
                 false,
@@ -777,7 +777,24 @@ function getDataGrid($db, $strCriteria, $bolLimit = true, $isFullView = false, $
                 true,
                 15,
                 true,
-                "allowance_tax"
+                "tax_allowance"
+            )
+        );
+        $myDataGrid->addColumn(
+            new DataGrid_Column(
+                getWords("irregular tax allowance"),
+                "irregular_tax_allowance",
+                ["rowspan" => 1, "width" => 70],
+                ["nowrap" => "nowrap", "align" => "right"],
+                false,
+                true,
+                "",
+                "formatNumeric()",
+                "numeric",
+                true,
+                15,
+                true,
+                "irregular_tax_allowance"
             )
         );
         $totalBenefitTax = count($newArrayAllowance['benefit_tax']);
@@ -1262,7 +1279,7 @@ function getDataGrid($db, $strCriteria, $bolLimit = true, $isFullView = false, $
     while ($rowDb = $db->fetchrow($resDb)) {
         //$rowDb['total_ot_min'] = (1.5 * $rowDb['ot1_min']) * (2 * $rowDb['ot2_min']) * (3 * $rowDb['ot3_min']) * (4 * $rowDb['ot4_min']); // hardcode
         //$rowDb['allowance_tax'] = $rowDb['tax_allowance'] + $rowDb['irregular_tax_allowance'];
-        $rowDb['allowance_tax'] = $rowDb['tax_allowance'];
+        //$rowDb['allowance_tax'] = $rowDb['tax_allowance'];
         //$rowDb['deduction_tax'] = $rowDb['tax'] + $rowDb['irregular_tax'];
         $rowDb['deduction_tax'] = $rowDb['tax'];
         $rowDb['deduction_tax_irregular'] = $rowDb['irregular_tax'];
