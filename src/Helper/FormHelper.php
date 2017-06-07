@@ -178,6 +178,7 @@ if (function_exists('getFormPostValue') === false) {
 if (function_exists('getIntoRecordList') === false) {
     function getIntoRecordList(array $defaultValue = [])
     {
+        $modelList = [];
         $model = [
             'source' => '',
             'item'   => '',
@@ -198,20 +199,21 @@ if (function_exists('getIntoRecordList') === false) {
             $normalizedFieldProps
         );
         $source = $normalizedFieldProps['source'];
-        $item = $normalizedFieldProps['item'];
-        $value = $normalizedFieldProps['value'];
-        $modelList = [];
-        $strSql = "SELECT 
+        if ($source !== '' AND $source !== null) {
+            $item = $normalizedFieldProps['item'];
+            $value = $normalizedFieldProps['value'];
+            $strSql = "SELECT 
                             $item, 
                             $value 
                         FROM 
                             $source";
-        $record = pgFetchRows($strSql);
-        foreach ($record as $row) {
-            $modelList [] = [
-                'value' => $row[$item],
-                'text'  => $row[$item] . ' - ' . $row[$value]
-            ];
+            $record = pgFetchRows($strSql);
+            foreach ($record as $row) {
+                $modelList [] = [
+                    'value' => $row[$item],
+                    'text'  => $row[$item] . ' - ' . $row[$value]
+                ];
+            }
         }
         return $modelList;
     }

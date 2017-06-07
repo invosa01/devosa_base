@@ -77,9 +77,9 @@ function getFormObject(array $formOptions = [])
     $formModel = [
         'dataId'       => ['hidden', '', getPostValue('dataId')],
         'dataEmployee' => ['input', 'employee', null, ['size' => 30, 'maxlength' => 31, 'required']],
-        'dataDateEo'   => ['input', 'date extra off', null, $dateFieldAttr, 'date'],
+        'dataDateEo'   => ['input', 'date extra off', null, array_merge($dateFieldAttr, ['required']), 'date'],
         'dataType'     => ['select', 'type', [], $selectAttr],
-        'dataNoteEo'   => ['textarea', 'note', null, ["cols" => 97, "rows" => 2]],
+        'dataNoteEo'   => ['textarea', 'note', null, ["cols" => 97, "rows" => 2, 'required']],
         'btnSave'      => ['submit', 'save', 'getSaveData()', $btnSaveAttr],
         'btnAdd'       => ['submit', 'add new', '', $btnAddNewAttr]
     ];
@@ -96,7 +96,6 @@ function getQuery($strSQL, array $wheres = [])
 
 function getExtraOffListQuery(array $wheres = [])
 {
-    $active = 't';
     $strSql = 'SELECT
                     eoa."id",
                     eoa.employee_id,
@@ -106,11 +105,14 @@ function getExtraOffListQuery(array $wheres = [])
                     eoa."type",
                     eoa.note,
                     emp.employee_name,
-                    bst.name AS name_status
+                    bst."name" AS name_status,
+                    stp.code
                 FROM
                     "public".hrd_eo_application AS eoa
                 INNER JOIN "public".hrd_employee AS emp ON eoa.employee_id = emp."id"
-                INNER JOIN "public".base_status AS bst ON eoa.status = bst."id"';
+                INNER JOIN "public".base_status AS bst ON eoa.status = bst."id"
+                INNER JOIN "public".hrd_eo_conf AS eoc ON eoa."type" = eoc."id"
+                INNER JOIN "public".hrd_shift_type AS stp ON eoc.shift_type_id = stp."id"';
     return getQuery($strSql, $wheres);
 }
 
@@ -119,7 +121,7 @@ function getGridModelData()
     $wheres = [];
     $active = 't';
     $wheres[] = 'eoa.active = ' . pgEscape($active);
-    return pgFetchRows(getExtraOffListQuery(), $wheres);
+    return pgFetchRows(getExtraOffListQuery($wheres));
 }
 
 function getGridObject(array $gridOptions = [])
@@ -169,7 +171,7 @@ function getGridObject(array $gridOptions = [])
         'employee_name' => ['employee_name', $defaultColContentAttr],
         'date_eo'       => ['date_eo', $defaultColContentAttr],
         'status'        => ['name_status', $defaultColContentAttr],
-        'type'          => ['type', $defaultColContentAttr],
+        'type'          => ['code', $defaultColContentAttr],
         'note'          => ['note', $defaultColContentAttr],
     ];
     $columnSet = ['head' => $columnHeader, 'content' => $columnContent];
@@ -193,6 +195,26 @@ function getValidationInputDate($dataDateEo, $empId)
     }
     return [
         'existDate' => $existDate
+    ];
+}
+
+function getValidationInputAttend($dataDateEo, $empId)
+{
+    $existAttend = false;
+    $strSql = 'SELECT
+                    "count" (*)
+                FROM
+                    "public".hrd_attendance AS atd
+                WHERE
+                    atd.id_employee = ' . pgEscape($empId) . '
+                AND atd.attendance_date = ' . pgEscape($dataDateEo) . '
+                GROUP BY atd."id"';
+    $validationAttend = pgFetchRow($strSql);
+    if (($validationAttend > 0) === true) {
+        $existAttend = true;
+    }
+    return [
+        'existAttend' => $existAttend
     ];
 }
 
@@ -234,12 +256,22 @@ function getSaveData()
         'note'        => $formObject->getValue('dataNoteEo'),
     ];
     $validationDate = getValidationInputDate($model['date_eo'], $model['employee_id']);
+    $validationAttend = getValidationInputAttend($model['date_eo'], $model['employee_id']);
     # Start to process updating database.
     if ($formObject->isInsertMode() === true) {
         # Insert master data for extra off quota.
         if (($existDate = $validationDate['existDate']) === true) {
-            if (($result = $dataHrdExtraOffApplication->insert($model)) === true) {
-                $formObject->message = $dataHrdExtraOffApplication->strMessage;
+            if (($existAttend = $validationAttend['existAttend']) === true) {
+                if (($result = $dataHrdExtraOffApplication->insert($model)) === true) {
+                    $formObject->message = $dataHrdExtraOffApplication->strMessage;
+                }
+            } else {
+                $formObject->message = 'Employee : '
+                    . $model['employee_id']
+                    . ' And Date  : '
+                    . $model['date_eo']
+                    . ' Attendance Not Exist';
+                $formObject->msgClass = "bgError";
             }
         } else {
             $formObject->message = 'Employee : '
@@ -257,15 +289,25 @@ function deleteData()
     /**
      * @var \cDataGrid $dataGridObj
      */
-    global $dataGridObj;
     //$gridObject = unserialize(getFlashMessage('shiftChangeGrid'), true);
+    global $dataGridObj;
+    $result = false;
     $arrId = [];
+    $dataHrdExtraOffApplication = new cHrdExtraOffApplication();
     foreach ($dataGridObj->checkboxes as $value) {
         $arrId['id'][] = $value;
     }
-    $dataHrdExtraOffApplication = new cHrdExtraOffApplication();
-    $dataHrdExtraOffApplication->deleteMultiple($arrId);
-    $dataGridObj->message = $dataHrdExtraOffApplication->strMessage;
+    $new = checkStatus('NEW');
+    $disable = ['active' => 'f',];
+    $wheres[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($new);
+    $approvedExist = pgFetchRows(getExtraOffListQuery($wheres));
+    if (($result = count($approvedExist) > 0) === true) {
+        $dataHrdExtraOffApplication->deleteMultiple($arrId);
+    } else {
+        $arr2Id = ['id' => $value];
+        $dataHrdExtraOffApplication->update($arr2Id, $disable);
+    }
+    $dataGridObj->message = 'Data Deleted';
     //setFlashMessage($gridName, serialize($dataGridObj));
 }
 
@@ -286,8 +328,9 @@ function getDataExtraOff($eoaId)
     return $setDataExtraOff;
 }
 
-function getConfExtraOff($type)
+function getConfExtraOff($type, array $wheres = [])
 {
+    $wheres = [];
     $strSql = 'SELECT
                     eoc.eo_level_code,
                     eoc.shift_type_id,
@@ -298,7 +341,7 @@ function getConfExtraOff($type)
                 INNER JOIN "public".hrd_eo_application AS eoa ON eoc."id" = eoa."type"
                 WHERE eoa."type" = ' . pgEscape($type) . '
                 GROUP BY eoc."id"';
-    $setConfExtraOff = pgFetchRow($strSql);
+    $setConfExtraOff = pgFetchRow(getQuery($strSql, $wheres));
     return $setConfExtraOff;
 }
 
@@ -311,23 +354,24 @@ function changeStatus()
     global $dataGridObj;
     $result = false;
     $arrId = [];
+    $dataHrdExtraOffApplication = new cHrdExtraOffApplication();
+    $dataHrdExtraOffQuota = new cHrdExtraOffQuota();
     foreach ($dataGridObj->checkboxes as $value) {
         $arrId = ['id' => $value];
     }
     $approved = ['status' => checkStatus('APPROVED')];
     $new = checkStatus('NEW');
-    $dataHrdExtraOffApplication = new cHrdExtraOffApplication();
-    $dataHrdExtraOffQuota = new cHrdExtraOffQuota();
-    $strId = implode('', array_values($arrId));
-    $wheres[] = 'eoa."id" = ' . pgEscape($strId) . 'AND eoa.status = ' . pgEscape($new);
-    $approvedExist = pgFetchRows(getExtraOffListQuery($wheres));
+    $eoIdAndNew[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($new);
+    $approvedExist = pgFetchRows(getExtraOffListQuery($eoIdAndNew));
     $setModel = getDataExtraOff($arrId['id']);
     $date_eo = $setModel['date_eo'];
     $type = $setModel['type'];
-    $setModelConfEo = getConfExtraOff($type);
+    $eoConfType[] = 'eoa."type" = ' . pgEscape($type);
+    $setModelConfEo = getConfExtraOff($type, $eoConfType);
     $expaired_day = $setModelConfEo['expaired_day'];
     $expaired = date('Y-m-d', strtotime('+' . $expaired_day . 'days', strtotime($date_eo)));
     $active = 't';
+    # model data quota extra off
     $modelEoQuota = [
         'employee_id'       => $setModel['employee_id'],
         'eo_application_id' => $setModel['id'],
@@ -338,8 +382,10 @@ function changeStatus()
         'note'              => $setModel['note']
     ];
     if (($result = count($approvedExist) > 0) === true) {
-        $dataHrdExtraOffApplication->update($arrId, $approved);
+        #duration conf extra off
+        $duration = $setModelConfEo['duration'];
         $dataHrdExtraOffQuota->insert($modelEoQuota);
+        $dataHrdExtraOffApplication->update($arrId, $approved);;
         $dataGridObj->message = $dataHrdExtraOffApplication->strMessage;
     } else {
         $dataGridObj->message = 'Employee : '
