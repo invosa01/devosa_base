@@ -232,20 +232,23 @@ var $strFamilyStatus;
             );
             # Pajak sebulan regular.
             $monthlyTax = $countpph21->roundDown(($annualizetaxincome/$taxableMonth), 0);
-            # Income kena pajak disetahunkan + irregular.
-            $netIncomeAnnualizeIrregular = $netincomeannualize + $fltIrrIncome + $fltTaxIrregularAllowance;
-            # Pajak setahun irregular.
-            $annualizeTaxIncomeIrregular = $this->calculatePph21AnnualNet($netIncomeAnnualizeIrregular,
-                                                                          $bolNPWP,
-                                                                          $fltPTKP,
-                                                                          $jamsostekDeduction,
-                                                                          $pensionDeduction,
-                                                                          $taxableDayUpToEndOfYear,
-                                                                          $taxableDayUpToCurrent,
-                                                                          $taxableMonth,
-                                                                          $currentTaxableMonth);
-            # Selisih pajak tahunan irregular dan pajak tahunan regular, dianggap sebagai irregular tax.
-            $monthlyTaxIrregular = $annualizeTaxIncomeIrregular - $annualizetaxincome;
+            # Penghasilan irregular di gross up jika setting irregular tax method di general salary setting dicentang.
+            if ($this->intTaxIrregularMethod === 1) {
+                # Income kena pajak disetahunkan + irregular.
+                $netIncomeAnnualizeIrregular = $netincomeannualize + $fltIrrIncome + $fltTaxIrregularAllowance;
+                # Pajak setahun irregular.
+                $annualizeTaxIncomeIrregular = $this->calculatePph21AnnualNet($netIncomeAnnualizeIrregular,
+                                                                              $bolNPWP,
+                                                                              $fltPTKP,
+                                                                              $jamsostekDeduction,
+                                                                              $pensionDeduction,
+                                                                              $taxableDayUpToEndOfYear,
+                                                                              $taxableDayUpToCurrent,
+                                                                              $taxableMonth,
+                                                                              $currentTaxableMonth);
+                # Selisih pajak tahunan irregular dan pajak tahunan regular, dianggap sebagai irregular tax.
+                $monthlyTaxIrregular = $annualizeTaxIncomeIrregular - $annualizetaxincome;
+            }
             # Cek tunjangan pajak di loop sebelumnya dengan pajak sebulan di loop yang sekarang,
             # jika selisih lebih dari $fltDelta, ambil rata-rata nya sebagai tunjangan pajak yang baru, lalu loop lagi.
             if ((abs($monthlyTax - $fltTaxAllowance) >= $fltDelta)) {
@@ -255,6 +258,21 @@ var $strFamilyStatus;
             else {
                 $bolLoop = false;
             }
+        }
+        # Penghasilan irregular di gross jika setting irregular tax method di general salary setting TIDAK dicentang.
+        if ($this->intTaxIrregularMethod === 0) {
+            # Pajak setahun irregular.
+            $annualizeTaxIncomeIrregular = $this->calculatePph21AnnualNet((($fltNetIncome * $taxableMonth) + $fltIrrIncome),
+                                                                          $bolNPWP,
+                                                                          $fltPTKP,
+                                                                          $jamsostekDeduction,
+                                                                          $pensionDeduction,
+                                                                          $taxableDayUpToEndOfYear,
+                                                                          $taxableDayUpToCurrent,
+                                                                          $taxableMonth,
+                                                                          $currentTaxableMonth);
+            # Selisih pajak tahunan irregular GROSS dan pajak tahunan regular GROSS UP, dianggap sebagai irregular tax.
+            $fltTaxIrregularAllowance = $annualizeTaxIncomeIrregular - $annualizetaxincome;
         }
         if ($bolRegular) {
             $this->fltTaxRegular = $monthlyTax;
