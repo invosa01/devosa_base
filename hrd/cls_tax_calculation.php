@@ -467,7 +467,7 @@ var $strFamilyStatus;
         $fltIrrIncome = $fltIrrIncome + $this->baseIrrTaxBefore;
         # Total pajak irregular bulan - bulan sebelumnya.
         $taxIrregularUntilLastPeriod = $this->irrTaxBefore;
-        # Pajak setahun regular bulan berjalan.
+        # Pajak setahun regular bulan berjalan, ditambah dengan base tax bulan sebelumnya di dalam fungsi calculatePph21GrossUpAnnualizedNet.
         $annualizetaxincomeNet = $this->calculatePph21GrossUpAnnualizedNet(
             $this->fltPKP,
             $this->bolNPWP,
@@ -479,7 +479,6 @@ var $strFamilyStatus;
             $this->taxableMonth,
             $this->currentTaxableMonth
         );
-        //echo $taxIrregularUntilLastPeriod; echo '<pre>'; print_r($this->arrEmpBaseTaxPaidTaxBefore); echo '</pre>'; die();
         while ($bolPuter) {
             # Total pendapatan sampai bulan berjalan ditambah tunjangan pajak.
             $fltNetIncome = $fltNetIncome0 + $taxAllowance;
@@ -496,8 +495,8 @@ var $strFamilyStatus;
             );
             # Tunjangan jamsostek dan pension sampai bulan berjalan disetahunkan.
             if ($currentTaxableMonth > 0) {
-                $jamsostekDeduction = ($fltJamsostekDeduction + $this->JamsostekDeductionBefore) * $taxableMonth / $currentTaxableMonth;    //potongan jamsostek setahun
-                $pensionDeduction = ($fltPensionDeduction + $this->PensionDeductionBefore) * $taxableMonth / $currentTaxableMonth;    //potongan jamsostek setahun
+                $jamsostekDeduction = ($fltJamsostekDeduction + $this->JamsostekDeductionBefore) * $taxableMonth / $currentTaxableMonth;
+                $pensionDeduction = ($fltPensionDeduction + $this->PensionDeductionBefore) * $taxableMonth / $currentTaxableMonth;
             } else {
                 $jamsostekDeduction = 0;
                 $pensionDeduction = 0;
@@ -506,7 +505,7 @@ var $strFamilyStatus;
             $taxablenetincome = $countpph21->roundDown(
                 ($netincomeannualize - $functionalCost - $jamsostekDeduction - $pensionDeduction - $fltPTKP),
                 3
-            );                                    //total pendapatan kena pajak bersih
+            );
             if ($taxablenetincome <= 0) {
                 $taxablenetincome = 0;
             }
@@ -557,17 +556,16 @@ var $strFamilyStatus;
         $currentTaxableMonth,
         $bolRegular
     ) {
+        # Hitung base tax, irregular base tax, pension deduction, jamsostek deduction, tax, dan irregular tax di bulan - bulan sebelumnya.
         $this->calculateBaseTaxBefore();
         $countpph21 = new countPPH21(12, $this->arrPTKP);
-        $netincomeannualize = 0;
-        $fltTax = 0;
-        $fltDelta = 0.01;
-        $taxAllowance = 0;
-        $taxIrregularAllowance = 0;
-        $bolPuter = true;
-        $fltNetIncome0 = $fltNetIncome + $this->baseTaxBefore;                                                                    //total upah kotor
-        $fltIrrIncome = $fltIrrIncome + $this->baseIrrTaxBefore;                                                                //total irregular
-        $taxIrregularUntilLastPeriod = $this->irrTaxBefore;                                                                            //PPh Irregular terhutang sampai bulan kemarin
+        # Base tax bulan berjalan + total base tax bulan sebelumnya.
+        $fltNetIncome = $fltNetIncome + $this->baseTaxBefore;
+        # Irregular base tax bulan berjalan + total irregular base tax bulan sebelumnya.
+        $fltIrrIncome = $fltIrrIncome + $this->baseIrrTaxBefore;
+        # Pajak irregular sampai bulan sebelumnya.
+        $taxIrregularUntilLastPeriod = $this->irrTaxBefore;
+        # Pajak setahun kumulatif gross up regular.
         $annualizetaxincomeNet = $this->calculatePph21GrossUpAnnualizedNet(
             $this->fltPKP,
             $this->bolNPWP,
@@ -579,57 +577,44 @@ var $strFamilyStatus;
             $this->taxableMonth,
             $this->currentTaxableMonth
         );
-        while ($bolPuter) {
-            $fltNetIncome = $fltNetIncome0 + $taxAllowance;
-            if ($currentTaxableMonth > 0) {
-                $netincomeannualize = (($taxableMonth / $currentTaxableMonth) * $fltNetIncome) + $fltIrrIncome + $taxIrregularAllowance;
-            }                    //total income kena pajak disetahunkan
-            else {
-                $netincomeannualize = 0;
-            }
-            $functionalCost = $this->calculateFunctionalCost(
-                $netincomeannualize
-            );                                                        //tunjangan jabatan
-            if ($currentTaxableMonth > 0) {
-                $jamsostekDeduction = ($fltJamsostekDeduction + $this->JamsostekDeductionBefore) * $taxableMonth / $currentTaxableMonth;    //potongan jamsostek setahun
-                $pensionDeduction = ($fltPensionDeduction + $this->PensionDeductionBefore) * $taxableMonth / $currentTaxableMonth;    //potongan jamsostek setahun
-            } else {
-                $jamsostekDeduction = 0;
-                $pensionDeduction = 0;
-            }
-            $taxablenetincome = $countpph21->roundDown(
-                ($netincomeannualize - $functionalCost - $jamsostekDeduction - $pensionDeduction - $fltPTKP),
-                3
-            );                                    //total pendapatan kena pajak bersih
-            if ($taxablenetincome <= 0) {
-                $taxablenetincome = 0;
-            }
-            $annualizetaxincome = $countpph21->calculateIncomeTaxAnnualized(
-                $taxablenetincome,
-                $bolNPWP
-            );                                //Pph Terhutang setahun
-            $taxIrregular = $annualizetaxincome - $annualizetaxincomeNet;
-            $monthlytaxIrregular = $countpph21->roundDown(($taxIrregular - $taxIrregularUntilLastPeriod), 0);
-            $taxUntilCurrentPeriod = ($annualizetaxincome - $taxIrregular) * $currentTaxableMonth / $taxableMonth;        //PPh terhutang sampai bulan ini
-            $taxUntilLastPeriod = $this->taxBefore;                                                                                                    //PPh terhutang sampai bulan kemarin
-            $monthlytax = $countpph21->roundDown(($taxUntilCurrentPeriod - $taxUntilLastPeriod), 0);
-            if ((abs($monthlytax - $taxAllowance) >= $fltDelta)
-            ) {
-                $taxAllowance = ($taxAllowance + $monthlytax) / 2;
-                $taxIrregularAllowance = ($taxIrregularAllowance + $monthlytaxIrregular) / 2;
-            } else {
-                $bolPuter = false;
-            }
-            if ((abs($monthlytax - $taxAllowance) >= $fltDelta) && (abs(
-                        $monthlytaxIrregular - $taxIrregularAllowance
-                    ) >= $fltDelta)
-            ) {
-                $taxAllowance = ($taxAllowance + $monthlytax) / 2;
-                $taxIrregularAllowance = ($taxIrregularAllowance + $monthlytaxIrregular) / 2;
-            } else {
-                $bolPuter = false;
-            }
+        # Pajak sebulan kumulatif gross up regular.
+        $monthlytax = ($annualizetaxincomeNet * $currentTaxableMonth / $taxableMonth) - $this->taxBefore;
+        # Mulai cari pajak irregular gross.
+        # Penghasilan + pajak gross up regular bulan berjalan disetahunkan + pendapatan irregular sampai bulan berjalan.
+        if ($currentTaxableMonth > 0) {
+            $netincomeannualize = (($taxableMonth / $currentTaxableMonth) * ($fltNetIncome + $monthlytax)) + $fltIrrIncome;
         }
+        else {
+            $netincomeannualize = 0;
+        }
+        # Biaya jabatan 5%.
+        $functionalCost = $this->calculateFunctionalCost(
+            $netincomeannualize
+        );
+        # Tunjangan jamsostek dan pension sampai bulan berjalan disetahunkan.
+        if ($currentTaxableMonth > 0) {
+            $jamsostekDeduction = ($fltJamsostekDeduction + $this->JamsostekDeductionBefore) * $taxableMonth / $currentTaxableMonth;
+            $pensionDeduction = ($fltPensionDeduction + $this->PensionDeductionBefore) * $taxableMonth / $currentTaxableMonth;
+        } else {
+            $jamsostekDeduction = 0;
+            $pensionDeduction = 0;
+        }
+        # PKP.
+        $taxablenetincome = $countpph21->roundDown(
+            ($netincomeannualize - $functionalCost - $jamsostekDeduction - $pensionDeduction - $fltPTKP),
+            3
+        );
+        if ($taxablenetincome <= 0) {
+            $taxablenetincome = 0;
+        }
+        # Pajak irregular sampai bulan berjalan, hitung per layer.
+        $annualizetaxincome = $countpph21->calculateIncomeTaxAnnualized(
+            $taxablenetincome,
+            $bolNPWP
+        );
+        # Selisih pajak setahun gross up regular dan pajak setahun irregular dikurangi pajak irregular sampai bulan berjalan,
+        # dianggap sebagai pajak irregular bulan berjalan.
+        $monthlytaxIrregular = ($annualizetaxincome - $annualizetaxincomeNet) - $taxIrregularUntilLastPeriod;
         if ($bolRegular) {
             $this->fltTaxRegular = $monthlytax;
             return $monthlytax;
