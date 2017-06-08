@@ -255,19 +255,25 @@ function getQuotaExtraOffData()
         $employeeId = $_POST['id'];
     }
     $strSQL = 'SELECT
-                    emp."id",
-                    qeo."id" AS qeo_id,
-                    qeo.employee_id,
-                    qeo.date_extra_off,
-                    qeo.date_expaired,
-                    qeo.note,
-                    qeo.active
+                    eoq.employee_id,
+                    eoq."id",
+                    eoq.date_eo,
+                    eoq.date_expaired,
+                    eoq.note,
+                    eoq."type",
+                    emp.employee_name,
+                    stp.code,
+                    stp.start_time,
+                    stp.finish_time,
+                    eoq.active
                 FROM
-                    "public".hrd_employee AS emp
-                INNER JOIN "public".hrd_quota_extra_off AS qeo ON qeo.employee_id = emp."id"';
+                    "public".hrd_eo_quota AS eoq
+                INNER JOIN "public".hrd_employee AS emp ON eoq.employee_id = emp."id"
+                INNER JOIN "public".hrd_eo_conf AS eoc ON eoq."type" = eoc."id"
+                INNER JOIN "public".hrd_shift_type AS stp ON eoc.shift_type_id = stp."id"';
     if ($employeeId !== null) {
-        $wheres[] = 'qeo.employee_id = ' . pgEscape($employeeId);
-        $wheres[] = 'qeo.active = ' . pgEscape($active);
+        $wheres[] = ' eoq.employee_id = ' . pgEscape($employeeId);
+        $wheres[] = ' eoq.active = ' . pgEscape($active);
     }
     return pgFetchRows(getQuery($strSQL, $wheres));
 }
@@ -277,11 +283,13 @@ function getRenderedQuotaExtraOffOptions()
     $result = '<option value="">-</option>';
     $record = getQuotaExtraOffData();
     foreach ($record as $row) {
-        $result .= '<option value="' . $row['qeo_id'] . '">'
-            . $row['date_extra_off']
-            . ' - '
+        $result .= '<option value="' . $row['id'] . '">'
+            . $row['employee_name']
+            . ' Date Extra Off : '
+            . $row['date_eo']
+            . ' Date Expaired : '
             . $row['date_expaired']
-            . ' - '
+            . ' Note : '
             . $row['note']
             . '</option>';
     }

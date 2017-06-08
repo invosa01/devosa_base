@@ -42,6 +42,7 @@ function renderPage()
         'formInput'          => '',
         'gridContents'       => null,
         'gridList'           => '',
+        'gridTitle'       => getWords('LIST EXTRA OFF')
     ];
     extractToGlobal($globalVariables);
     # Important to given access to our global variables.
@@ -385,7 +386,7 @@ function changeStatus()
         #duration conf extra off
         $duration = $setModelConfEo['duration'];
         $dataHrdExtraOffQuota->insert($modelEoQuota);
-        $dataHrdExtraOffApplication->update($arrId, $approved);;
+        $dataHrdExtraOffApplication->update($arrId, $approved);
         $dataGridObj->message = $dataHrdExtraOffApplication->strMessage;
     } else {
         $dataGridObj->message = 'Employee : '
