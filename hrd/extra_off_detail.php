@@ -279,7 +279,7 @@ function deleteData()
         $arrId['id'][] = $value;
     }
     $new = checkStatus('NEW');
-    $disable = ['active' => 'f',];
+    $disable = ['active' => 'f'];
     $wheres[] = 'eou."id" = ' . pgEscape($value) . 'AND eou.status = ' . pgEscape($new);
     $approvedExist = pgFetchRows(getExtraOffListQuery($wheres));
     if (($result = count($approvedExist) > 0) === true) {

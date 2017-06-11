@@ -80,6 +80,7 @@ function renderPage()
         'formInput'                  => '',
         'gridContents'               => null,
         'gridList'                   => '',
+        'gridTitle'                  => getWords('LIST SERVICE CHARGE')
     ];
     extractToGlobal($globalVariables);
     # Important to given access to our global variables.
@@ -121,43 +122,87 @@ function getFormObject(array $formOptions = [])
     return getBuildForm($formModel, $formOptions);
 }
 
-function getDataGrid()
+function getQuery($strSQL, array $wheres = [])
 {
-    $strSql = 'SELECT
-                    sch."id",
-                    sch.date_calculation,
-                    sch.date_from,
-                    sch.date_thru,
-                    sch.amount
-                FROM
-                    "public".hrd_service_charge AS sch';
-    $strSqlCount = 'SELECT
-                        "count" (*)
-                    FROM
-                        "public".hrd_service_charge AS sch';
-    $strSql = pgFetchRows($strSql);
-    return [
-        'strSql'      => $strSql,
-        'strSqlCount' => $strSqlCount
-    ];
+    if (count($wheres) > 0) {
+        $strSQL .= ' WHERE ' . implodeArray($wheres, ' AND ');
+    }
+    return $strSQL;
 }
 
-function getGridListContents(array $gridOptions = [])
+function getExtraOffListQuery(array $wheres = [])
 {
-    $strTitleAttrWidth = ['width' => '400'];
-    $strAttrWidth = ['nowrap' => ''];
-    $strAttrExport = array_merge($strAttrWidth, ['showInExcel']);
-    $btnSaveAttr = '"onClick" => "javascript:myClient.confirmStartCalculation();"';
-    $gridDataBinding = getDataGrid();
-    $gridModel = [
-        'no'               => ['no', 'No.', '', ['width' => ''], $strAttrWidth],
-        'date_calculation' => ['data', 'Calculation Date', 'date_calculation', $strTitleAttrWidth, $strAttrWidth],
-        'date_from'        => ['data', 'Date From', 'date_from', $strTitleAttrWidth, $strAttrWidth],
-        'date_thru'        => ['data', 'Date Thru', 'date_thru', $strTitleAttrWidth, $strAttrWidth],
-        'amount'           => ['data', 'Amount', 'amount', ['width' => ''], $strAttrWidth],
-        'id'               => ['data', '', 'id', ['width' => ''], $strAttrExport, '', 'getEditData()'],
+    $strSql = 'SELECT
+                    emp.employee_id,
+                    emp.employee_name,
+                    emp.position_code,
+                    emp.division_code,
+                    emp.department_code,
+                    emp.join_date,
+                    sce.date_from,
+                    sce.date_thru,
+                    scd."id",
+                    scd.workday_employee,
+                    scd.cost_employee,
+                    cpy.company_name
+                FROM
+                    "public".hrd_service_charge_detail AS scd
+                INNER JOIN "public".hrd_service_charge AS sce ON scd.service_charge_id = sce."id"
+                INNER JOIN "public".hrd_employee AS emp ON scd.employee_id = emp."id"
+                INNER JOIN "public".hrd_company AS cpy ON emp.id_company = cpy."id"';
+    return getQuery($strSql, $wheres);
+}
+
+function getGridModelData()
+{
+    $wheres = [];
+    return pgFetchRows(getExtraOffListQuery($wheres));
+}
+
+function getGridObject(array $gridOptions = [])
+{
+    $defaultColHeadAttr = ['width' => '400'];
+    $defaultColContentAttr = ['nowrap' => ''];
+    $gridButtons = [
+        'btnDelete'   => [
+            'delete',
+            'Delete',
+            'onClick="javascript:return myClient.confirmDelete();"',
+            'deleteData()'
+        ]
     ];
-    return getGridObject($gridModel, $gridOptions, $gridDataBinding);
+    $defaultGridOptions = [
+        'formName'          => 'frmServiceChargeGrid',
+        'gridName'          => 'serviceChargeGrid',
+        'gridWidth'         => '100%',
+        'gridHeight'        => '100%',
+        'showPageLimit'     => true,
+        'showSearch'        => true,
+        'showSort'          => true,
+        'showPageNumbering' => true,
+        'path'              => null,
+        'buttons'           => $gridButtons,
+        'calledFile'        => basename($_SERVER['PHP_SELF'])
+    ];
+    $modelData = getGridModelData();
+    $columnHeader = [
+        'id'               => ['ID', ['width' => '10']],
+        'no'               => ['No.', ['width' => '10']],
+        'date_calculation' => ['Calculation Date', $defaultColHeadAttr],
+        'date_from'        => ['Date From', $defaultColHeadAttr],
+        'date_thru'        => ['Date Thru', $defaultColHeadAttr],
+        'amount'           => ['Amount', $defaultColHeadAttr]
+    ];
+    $columnContent = [
+        'id'               => ['id', $defaultColContentAttr, 'checkbox'],
+        'no'               => ['no', ['nowrap' => ''], 'auto'],
+        'date_calculation' => ['date_calculation', $defaultColContentAttr],
+        'date_from'        => ['date_from', $defaultColContentAttr],
+        'date_thru'        => ['date_thru', $defaultColContentAttr],
+        'amount'           => ['amount', $defaultColContentAttr]
+    ];
+    $columnSet = ['head' => $columnHeader, 'content' => $columnContent];
+    return getBuildDataGrid($modelData, $columnSet, getMergedArrayRecursively($defaultGridOptions, $gridOptions));
 }
 
 function getValidationInputDate($startDate, $endDate)
@@ -178,11 +223,6 @@ function getValidationInputDate($startDate, $endDate)
     return [
         'existDate' => $existDate
     ];
-}
-
-function getEditData()
-{
-    return "<a href=''>" . getWords('edit') . "</a>";
 }
 
 function getSaveData()

@@ -16,7 +16,9 @@ function routeMap()
         'quotaExtraOff'                  => 'getQuotaExtraOffData',
         'quotaExtraOff-options'          => 'getRenderedQuotaExtraOffOptions',
         'conExtraOff'                    => 'getConExtraOffData',
-        'conExtraOff-options'            => 'getConExtraOffOptions'
+        'conExtraOff-options'            => 'getConExtraOffOptions',
+        'shiftChange'                    => 'getEmployeeShiftChangeData',
+        'shiftChange-options'            => 'getEmployeeShiftChangeOptions'
     ];
 }
 
@@ -319,12 +321,49 @@ function getConExtraOffData()
 function getConExtraOffOptions()
 {
     $result = '<option value="">-</option>';
-    $record = getConExtraOffData();
+    $record = getShiftChangeEmployee();
     foreach ($record as $row) {
         $result .= '<option value="' . $row['id'] . '">'
             . $row['id']
             . ' - '
             . $row['code']
+            . '</option>';
+    }
+    return $result;
+}
+
+function getEmployeeShiftChangeData()
+{
+    $employeeId = null;
+    $currently = date('Y-m-d');
+    $wheres = [];
+    if (array_key_exists('id', $_POST) === true) {
+        $employeeId = $_POST['id'];
+    }
+    $strSQL = 'SELECT
+                    sse."id",
+                    sse.id_employee,
+                    sht.code,
+                    sse.shift_date
+                FROM
+                    "public".hrd_shift_schedule_employee AS sse
+                INNER JOIN "public".hrd_shift_type AS sht ON sse.shift_code = sht.code';
+    if ($employeeId !== null) {
+        $wheres[] = 'sse.id_employee = ' . pgEscape($employeeId);
+        $wheres[] = 'sse.shift_date >=' . pgEscape($currently);
+    }
+    return pgFetchRows(getQuery($strSQL, $wheres));
+}
+
+function getEmployeeShiftChangeOptions()
+{
+    $result = '<option value="">-</option>';
+    $record = getEmployeeShiftChangeData();
+    foreach ($record as $row) {
+        $result .= '<option value="' . $row['id'] . '">'
+            . $row['code']
+            . ' - '
+            . $row['shift_date']
             . '</option>';
     }
     return $result;

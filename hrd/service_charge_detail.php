@@ -40,7 +40,8 @@ function renderPage()
         'formObject'      => null,
         'formInput'       => '',
         'gridContents'    => null,
-        'gridList'        => ''
+        'gridList'        => '',
+        'gridTitle'       => getWords('LIST SERVICE CHARGE DETAIL')
     ];
     extractToGlobal($globalVariables);
     # Important to given access to our global variables.
@@ -79,26 +80,6 @@ function getFormObject(array $formOptions = [])
     return getBuildForm($formModel, $formOptions);
 }
 
-function getRenderGrid()
-{
-    /**
-     * @var \clsForm $formObject
-     */
-    global $formObject;
-    $startDate = $formObject->getValue('dataDateFrom');
-    $startDate = \DateTime::createFromFormat('d-m-Y', $startDate)->format('Y-m-d');
-    $endDate = $formObject->getValue('dataDateThru');
-    $endDate = \DateTime::createFromFormat('d-m-Y', $endDate)->format('Y-m-d');
-    $model = [
-        'date_from'       => $startDate,
-        'date_thru'       => $endDate,
-        'employee_id'     => $formObject->getValue('dataEmployee'),
-        'division_code'   => $formObject->getValue('dataDivision'),
-        'department_code' => $formObject->getValue('dataDepartment'),
-    ];
-    return $model;
-}
-
 function getQuery($strSQL, array $wheres = [])
 {
     if (count($wheres) > 0) {
@@ -107,21 +88,8 @@ function getQuery($strSQL, array $wheres = [])
     return $strSQL;
 }
 
-function getDataGrid()
+function getExtraOffListQuery(array $wheres = [])
 {
-    $model = [];
-    $wheres = [];
-    $employeeId = null;
-    $divisionCode = null;
-    $departmentCode = null;
-    $dateFrom = null;
-    $dateThru = null;
-    $renderGrid = getRenderGrid($model);
-    $dateFrom = setReleaseModel('date_from', $renderGrid);
-    $dateThru = setReleaseModel('date_thru', $renderGrid);
-    $employeeId = setReleaseModel('employee_id', $renderGrid);
-    $divisionCode = setReleaseModel('division_code', $renderGrid);
-    $deparmentCode = setReleaseModel('department_code', $renderGrid);
     $strSql = 'SELECT
                     emp.employee_id,
                     emp.employee_name,
@@ -140,55 +108,54 @@ function getDataGrid()
                 INNER JOIN "public".hrd_service_charge AS sce ON scd.service_charge_id = sce."id"
                 INNER JOIN "public".hrd_employee AS emp ON scd.employee_id = emp."id"
                 INNER JOIN "public".hrd_company AS cpy ON emp.id_company = cpy."id"';
-    $strSqlCount = 'SELECT
-                        COUNT(emp.employee_id) as Total
-                    FROM
-                        "public".hrd_service_charge_detail AS scd
-                    INNER JOIN "public".hrd_service_charge AS sce ON scd.service_charge_id = sce."id"
-                    INNER JOIN "public".hrd_employee AS emp ON scd.employee_id = emp."id"';
-    if ($dateFrom !== '' and $dateThru !== '') {
-        $wheres[] = 'sce.date_from BETWEEN ' . pgEscape($dateFrom) . ' AND ' . pgEscape($dateThru);
-    }
-    if ($employeeId !== '') {
-        $wheres[] = 'emp.employee_id = ' . pgEscape($employeeId);
-    }
-    if ($divisionCode !== '') {
-        $wheres[] = 'emp.division_code = ' . pgEscape($divisionCode);
-    }
-    if ($departmentCode !== null) {
-        $wheres[] = 'emp.department_code = ' . pgEscape($departmentCode);
-    }
-    $strSql = pgFetchRows(getQuery($strSql, $wheres));
-    $strSqlCount = getQuery($strSqlCount, $wheres);
-    return [
-        'strSql'      => $strSql,
-        'strSqlCount' => $strSqlCount
-    ];
+    return getQuery($strSql, $wheres);
 }
 
-function getGridListContents(array $gridOptions = [])
+function getGridModelData()
 {
-    $strTitleAttrWidth = ['width' => '400'];
-    $strAttrWidth = ['nowrap' => ''];
-    $gridDataBinding = getDataGrid();
-    $gridModel = [
-        'no'               => ['no', 'No.', '', ['width' => '10'], ['nowrap' => '']],
-        'employee_id'      => ['data', 'Employee Id', 'employee_id', $strTitleAttrWidth, $strAttrWidth],
-        'employee_name'    => ['data', 'Employee Name', 'employee_name', $strTitleAttrWidth, $strAttrWidth],
-        'position_code'    => ['data', 'Position', 'position_code', $strTitleAttrWidth, $strAttrWidth],
-        'join_date'        => ['data', 'Join Date', 'join_date', $strTitleAttrWidth, $strAttrWidth],
-        'workday_employee' => ['data', 'Days', 'workday_employee', $strTitleAttrWidth, $strAttrWidth],
-        'cost_employee'    => ['data', 'Nett / Employee', 'cost_employee', $strTitleAttrWidth, $strAttrWidth],
-        'ServiceCharge'    => ['exportExl', 'Export Excel']
-    ];
-    return getGridObject($gridModel, $gridOptions, $gridDataBinding);
+    $wheres = [];
+    return pgFetchRows(getExtraOffListQuery($wheres));
 }
 
-function setReleaseRenderGrid($name, array $modelRole = [])
+function getGridObject(array $gridOptions = [])
 {
-    $normalized = '';
-    if (array_key_exists($name, $modelRole) === true) {
-        $normalized = $modelRole[$name];
-    }
-    return $normalized;
+    $defaultColHeadAttr = ['width' => '400'];
+    $defaultColContentAttr = ['nowrap' => ''];
+    $gridButtons = [];
+    $defaultGridOptions = [
+        'formName'          => 'frmServiceChargeGrid',
+        'gridName'          => 'serviceChargeGrid',
+        'gridWidth'         => '100%',
+        'gridHeight'        => '100%',
+        'showPageLimit'     => true,
+        'showSearch'        => true,
+        'showSort'          => true,
+        'showPageNumbering' => true,
+        'path'              => null,
+        'buttons'           => $gridButtons,
+        'calledFile'        => basename($_SERVER['PHP_SELF'])
+    ];
+    $modelData = getGridModelData();
+    $columnHeader = [
+        'id'               => ['ID', ['width' => '10']],
+        'no'               => ['No.', ['width' => '10']],
+        'employee_id'      => ['Employee Id', $defaultColHeadAttr],
+        'employee_name'    => ['Date From', $defaultColHeadAttr],
+        'position_code'    => ['Date Thru', $defaultColHeadAttr],
+        'join_date'        => ['Join Date', $defaultColHeadAttr],
+        'workday_employee' => ['Work Employee', $defaultColHeadAttr],
+        'cost_employee'    => ['Cost Employee', $defaultColHeadAttr]
+    ];
+    $columnContent = [
+        'id'               => ['id', $defaultColContentAttr, 'checkbox'],
+        'no'               => ['no', ['nowrap' => ''], 'auto'],
+        'employee_id'      => ['employee_id', $defaultColContentAttr],
+        'employee_name'    => ['employee_name', $defaultColContentAttr],
+        'position_code'    => ['position_code', $defaultColContentAttr],
+        'join_date'        => ['join_date', $defaultColContentAttr],
+        'workday_employee' => ['workday_employee', $defaultColContentAttr],
+        'cost_employee'    => ['cost_employee', $defaultColContentAttr]
+    ];
+    $columnSet = ['head' => $columnHeader, 'content' => $columnContent];
+    return getBuildDataGrid($modelData, $columnSet, getMergedArrayRecursively($defaultGridOptions, $gridOptions));
 }
