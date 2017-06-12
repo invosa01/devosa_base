@@ -1124,8 +1124,8 @@ function generateNonOTAttendanceSQL($strIDEmployee, $strDataDate, $arrAttendance
     $strOvertimeStartAuto = $strOvertimeFinishAuto = $strOvertimeStart = $strOvertimeFinish = "";
     if ($bolAutoOT) {
         if ($arrAttendance['holiday'] == 1) {
-            $strOvertimeStart = $strOvertimeStartAuto = $arrAttendance['attendance_start'];
-            $strOvertimeFinish = $strOvertimeFinishAuto = $arrAttendance['attendance_finish'];
+            $strOvertimeStart = $strOvertimeStartAuto = roundOvertimeInOut($arrAttendance['attendance_start'], 1);
+            $strOvertimeFinish = $strOvertimeFinishAuto = roundOvertimeInOut($arrAttendance['attendance_finish'], 0);
             $intEarlyOTMin = 0;
         } else {
             if (timeCompare(
@@ -1146,7 +1146,7 @@ function generateNonOTAttendanceSQL($strIDEmployee, $strDataDate, $arrAttendance
                     $intEarlyOTMin += AUTO_OT_MAXIMUM_DURATION;
                     $intTotalOTMin += AUTO_OT_MAXIMUM_DURATION;
                 } else {
-                    $strOvertimeStartEarlyAuto = $strOvertimeStartEarly = $arrAttendance['attendance_start'];
+                    $strOvertimeStartEarlyAuto = $strOvertimeStartEarly = roundOvertimeInOut($arrAttendance['attendance_start'], 1);
                     $intEarlyOTMin += getTotalHour($arrAttendance['attendance_start'], $arrAttendance['normal_start']);
                     $intTotalOTMin += getTotalHour($arrAttendance['attendance_start'], $arrAttendance['normal_start']);
                 }
@@ -1169,7 +1169,7 @@ function generateNonOTAttendanceSQL($strIDEmployee, $strDataDate, $arrAttendance
                     );
                     $intTotalOTMin += AUTO_OT_MAXIMUM_DURATION;
                 } else {
-                    $strOvertimeFinishAuto = $strOvertimeFinish = $arrAttendance['attendance_finish'];
+                    $strOvertimeFinishAuto = $strOvertimeFinish = roundOvertimeInOut($arrAttendance['attendance_finish'], 0);
                     $intTotalOTMin += getIntervalHour(
                         $arrAttendance['normal_finish'],
                         $arrAttendance['attendance_finish']
