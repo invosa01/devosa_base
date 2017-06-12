@@ -157,7 +157,6 @@ class clsSalaryCalculation
           OR (join_date <= DATE '" . $this->arrData['salary_finish_date'] . "' AND resign_date is null))
           $strKriteria
       ";
-        //die($strSQL);
         $res = $this->data->execute($strSQL);
         while ($row = $this->data->fetchrow($res)) {
             $strIDEmp = $row['id_employee'];
@@ -191,9 +190,6 @@ class clsSalaryCalculation
                     $employeeBranch,
                     $employeeCompanyId
                 );*/
-                //$dump = "====>".$row['id_employee']."--".$employeeCompanyId.">>".$employeeBranch."<<".$this->arrDetail[$row['id_employee']]['base_jamsostek'];
-                //var_dump($dump);
-                //exit();
                 //cek jika prorata atau harian
                 if ($row['prorate'] == 't') {
                     if ($row['allowance_code'] == 'basic_salary') {
@@ -206,7 +202,7 @@ class clsSalaryCalculation
                 } else if ($row['daily'] == 't') {
                     $row['amount'] *= $this->arrDetail[$row['id_employee']]['attendance_day'];
                     $this->arrDA[$row['allowance_code']][$row['id_employee']]['amount'] = $row['amount'];
-                }//exit();
+                }
                 if ($this->arrMA[$row['allowance_code']]['irregular'] == 't') {
                     $this->arrDetail[$row['id_employee']]['base_irregular_tax'] += $row['amount'];
                 } // as base tax
@@ -219,7 +215,6 @@ class clsSalaryCalculation
         $strSQL = "
         SELECT * FROM hrd_employee_basic_salary as t1 WHERE id_salary_set = " . $this->arrData['id_salary_set'] . "
       ";
-        //die($strSQL);
         $res = $this->data->execute($strSQL);
         while ($row = $this->data->fetchrow($res)) {
             $strIDEmp = $row['id_employee'];
@@ -243,8 +238,6 @@ class clsSalaryCalculation
                     $this->arrEmployee[$strIDEmp]['work_year'],
                     $fltProrate
                 );
-                //proses special allowance: otmeal
-                // $this->compute($strIDEmp, "otmeal_allowance", $this->arrConf["otmeal_allowance"], 1, $fltProrate);
                 //proses special allowance: kerajinan
                 $intMultiplier = floor(
                     $this->arrDetail[$strIDEmp]['attendance_day'] / $this->arrDetail[$strIDEmp]['working_day']
@@ -279,13 +272,11 @@ class clsSalaryCalculation
                 //proses tunjangan shift
                 //nilai tunjangan dikalikan jumlah kehadiran pada shift terkait
                 $fltBS = $this->arrDA['basic_salary'][$strIDEmp]['amount'];
-                //$this->compute($strIDEmp, "shift_allowance", (($this->objAtt->getDataShiftAllowance($strIDEmp) * 8 / 173) * $fltBS/ 100), 1, false);
                 $this->compute($strIDEmp, "shift_allowance", $this->objAtt->getDataShiftAllowance($strIDEmp), 1, false);
                 /*
                  * Ade Sanusi | 2016-12-9
                  * Uang Makan Berdasarkan By Grade1 (Dalam Kota) dan Grade2 (Luar Kota) dikali total Kehadiran Dalam Kota / Luar Kota
                  */
-                $intTotalAbsenceDL = 0;
                 $intTotalAbsenceDL = getTotalAbsenceByCode(
                     $this->data,
                     $strIDEmp,
@@ -293,16 +284,7 @@ class clsSalaryCalculation
                     $this->arrData['date_from'],
                     $this->arrData['date_thru']
                 );
-                //$intTotalAttendanceDK = $this->arrDetail[$strIDEmp]['attendance_day'] - $intTotalAbsenceDL;
                 $intTotalAttendanceDK = $this->arrDetail[$strIDEmp]['attendance_day'];
-                /*//if($strIDEmp == 2931){
-                    $EmployeeID = getEmployeeName($this->data,$strIDEmp);
-                    echo "EmployeeID : ".$EmployeeID." == Total DL >> ".$intTotalAbsenceDL." << Total DK >> ".$intTotalAttendanceDK;
-                    echo "<br/>";
-                //}*/
-                /*$EmployeeID = getEmployeeName($this->data, $strIDEmp);
-                echo "EmployeeID : " . $EmployeeID . " == Total DL >> " . $intTotalAbsenceDL . " << Total DK >> " . $intTotalAttendanceDK;
-                echo "<br/>";*/
                 $this->compute(
                     $strIDEmp,
                     "grade1_allowance",
@@ -317,10 +299,8 @@ class clsSalaryCalculation
                     $intTotalAbsenceDL,
                     $fltProrate
                 );
-                //print_r($this->arrDetail[3183]);die();
             }
         }
-        //exit();
     }
 
     /* initEmployee : fungsi untuk mengambil data master karyawan, disimpan dalam array
