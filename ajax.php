@@ -321,7 +321,7 @@ function getConExtraOffData()
 function getConExtraOffOptions()
 {
     $result = '<option value="">-</option>';
-    $record = getShiftChangeEmployee();
+    $record = getConExtraOffData();
     foreach ($record as $row) {
         $result .= '<option value="' . $row['id'] . '">'
             . $row['id']
