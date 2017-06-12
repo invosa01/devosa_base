@@ -385,7 +385,9 @@ function changeStatus()
     if (($result = count($approvedExist) > 0) === true) {
         #duration conf extra off
         $duration = $setModelConfEo['duration'];
-        $dataHrdExtraOffQuota->insert($modelEoQuota);
+        for ($i = 0; $i < $duration; $i++){
+            $dataHrdExtraOffQuota->insert($modelEoQuota);
+        }
         $dataHrdExtraOffApplication->update($arrId, $approved);
         $dataGridObj->message = $dataHrdExtraOffApplication->strMessage;
     } else {

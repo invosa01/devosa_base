@@ -501,7 +501,7 @@ class cModel
         }
         $strMessage = "";
         $isSaved = false;
-        if ($this->REPOSTCHECKING) {
+        /*if ($this->REPOSTCHECKING) {
             if ($this->_isRepostData($strSQL)) {
                 //previous data already save because is still in the cookie with the precies same value
                 if ($this->DEBUGMODE > 0) {
@@ -515,7 +515,7 @@ class cModel
                 $isSaved = true;
                 return $isSaved;
             }
-        }
+        }*/
         if ($strSQL != "") {
             if ($this->db->connect()) {
                 // cek validasi -----------------------
