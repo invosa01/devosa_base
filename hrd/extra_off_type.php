@@ -122,17 +122,11 @@ function getGridObject(array $gridOptions = [])
     $defaultColHeadAttr = ['width' => '400'];
     $defaultColContentAttr = ['nowrap' => ''];
     $gridButtons = [
-        'btnDelete'   => [
+        'btnDelete' => [
             'delete',
             'Delete',
             'onClick="javascript:return myClient.confirmDelete();"',
             'deleteData()'
-        ],
-        'btnApproved' => [
-            'approve',
-            'Approve',
-            'onClick="javascript:return myClient.confirmChangeStatus();"',
-            'changeStatus()'
         ]
     ];
     $defaultGridOptions = [
