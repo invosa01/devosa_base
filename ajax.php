@@ -289,7 +289,7 @@ function getRenderedQuotaExtraOffOptions()
             . $row['employee_name']
             . ' Date Extra Off : '
             . $row['date_eo']
-            . ' Date Expaied : '
+            . ' Date Expired : '
             . $row['date_expired']
             . ' Note : '
             . $row['note']

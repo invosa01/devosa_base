@@ -182,13 +182,15 @@ function getGridObject(array $gridOptions = [])
 function getValidationInputDate($dataDateEo, $empId)
 {
     $existDate = true;
+    $active = 't';
     $strSql = 'SELECT
                    "count" (*)
                 FROM
                     "public".hrd_eo_application AS eoa
                 WHERE
-                   eoa.date_eo = ' . pgEscape($dataDateEo) . '
+                     eoa.date_eo = ' . pgEscape($dataDateEo) . '
                 AND  eoa.employee_id = ' . pgEscape($empId) . '
+                AND  eoa.active = ' . pgEscape($active) . '
                 GROUP BY eoa."id"';
     $validationDate = pgFetchRow($strSql);
     if (($validationDate > 0) === true) {
@@ -377,7 +379,7 @@ function changeStatus()
         'employee_id'       => $setModel['employee_id'],
         'eo_application_id' => $setModel['id'],
         'date_eo'           => $date_eo,
-        'date_expired'      => $expired,
+        'date_expaired'     => $expired,
         'active'            => $active,
         'type'              => $setModel['type'],
         'note'              => $setModel['note']
