@@ -39,7 +39,7 @@ function getDataPrivilegesFromDatabase($idGroup)
           ORDER BY f.sequence_no_module, c.menu_level, f.sequence_no_menu";
             $res = $db->execute($strSQL);
             while ($rowDb = $db->fetchrow($res, "ASSOC")) {
-                $menuPrivileges[$rowDb] = $rowDb;
+                $menuPrivileges[] = $rowDb;
             }
         }
     }

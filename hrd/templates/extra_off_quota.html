@@ -1,0 +1,37 @@
+<script>
+    jQuery(function ($) {
+        $('#dataEmployee').autocomplete({
+            source: "hrd_ajax_source.php?action=getemployee",
+            minLength: 2,
+            select: function (event, ui) {
+                console.log(ui);
+                $('#employee_name').html(ui.item.label);
+            }
+        });
+    })
+</script>
+[var.pageHeader]
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            [var.formInput;protect=no;htmlconv=no]
+        </div>
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">[var.gridTitle]</h3>
+                    <div class="panel-actions">
+                        <div class="pull-right" id="collapse-filter">
+                            <a href="#"
+                               data-toggle="collapse"
+                               data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="list-panel" class="panel-body collapse in">
+                    [var.gridList;protect=no;htmlconv=no]
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
