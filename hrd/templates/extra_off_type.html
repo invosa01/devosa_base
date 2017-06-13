@@ -24,17 +24,17 @@
     </div>
 </div>
 <script>
-    jQuery(function ($) {
         var myClient = {
             editData: function (idx) {
                 $('formMessage').style.visibility = 'hidden';
                 if (idx == 0) {
                     $('dataId').value = "";
-                    $('dataEmployee').value = "";
-                    $('dataNoteEo').value = "";
+                    $('dataEoLvlCode').value = "";
+                    $('dataDuration').value = "";
+                    $('dataExpiredDay').value = "";
                 }
-                $('dataEmployee').focus();
-                $('dataEmployee').select();
+                $('dataEoLvlCode').focus();
+                $('dataEoLvlCode').select();
             },
             confirmDelete: function () {
                 return confirm('[var.strConfirmDelete]');

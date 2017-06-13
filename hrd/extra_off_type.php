@@ -75,13 +75,13 @@ function getFormObject(array $formOptions = [])
     $btnSaveAttr = ["onClick" => "javascript:myClient.confirmSave();"];
     $btnAddNewAttr = ["onClick" => "javascript:myClient.editData(0);"];
     $formModel = [
-        'dataId'          => ['hidden', '', getPostValue('dataId')],
-        'dataEoLvlCode'   => ['input', 'level code', null, ['size' => 30, 'maxlength' => 31, 'required']],
-        'dataShiftType'   => ['select', 'shift type', ['hrd_shift_type', 'id', 'code'], $selectAttr],
-        'dataDuration'    => ['input', 'duration days', null, ['size' => 30, 'maxlength' => 31, 'required']],
-        'dataExpairedDay' => ['input', 'expaired days', null, ['size' => 30, 'maxlength' => 31, 'required']],
-        'btnSave'         => ['submit', 'save', 'getSaveData()', $btnSaveAttr],
-        'btnAdd'          => ['submit', 'add new', '', $btnAddNewAttr]
+        'dataId'         => ['hidden', '', getPostValue('dataId')],
+        'dataEoLvlCode'  => ['input', 'level code', null, ['size' => 30, 'maxlength' => 31, 'required']],
+        'dataShiftType'  => ['select', 'shift type', ['hrd_shift_type', 'id', 'code'], $selectAttr],
+        'dataDuration'   => ['input', 'duration days', null, ['size' => 30, 'maxlength' => 31, 'required']],
+        'dataExpiredDay' => ['input', 'expired days', null, ['size' => 30, 'maxlength' => 31, 'required']],
+        'btnSave'        => ['submit', 'save', 'getSaveData()', $btnSaveAttr],
+        'btnAdd'         => ['submit', 'add new', '', $btnAddNewAttr]
     ];
     return getBuildForm($formModel, $formOptions);
 }
@@ -93,7 +93,7 @@ function getShiftChangeListQuery(array $wheres = [])
                     eof.eo_level_code,
                     eof.shift_type_id,
                     eof.duration,
-                    eof.expaired_day,
+                    eof.expired_day,
                     sht.code
                 FROM
                     "public".hrd_eo_conf AS eof
@@ -155,7 +155,7 @@ function getGridObject(array $gridOptions = [])
         'eo_level_code' => ['Eo Level Code', $defaultColHeadAttr],
         'code'          => ['Shift Type', $defaultColHeadAttr],
         'duration'      => ['Duration', $defaultColHeadAttr],
-        'expaired_day'  => ['Expaired Day', $defaultColHeadAttr]
+        'expired_day'   => ['expired Day', $defaultColHeadAttr]
     ];
     $columnContent = [
         'id'            => ['id', $defaultColContentAttr, 'checkbox'],
@@ -163,7 +163,7 @@ function getGridObject(array $gridOptions = [])
         'eo_level_code' => ['eo_level_code', $defaultColContentAttr],
         'code'          => ['code', $defaultColContentAttr],
         'duration'      => ['duration', $defaultColContentAttr],
-        'expaired_day'  => ['expaired_day', $defaultColContentAttr]
+        'expired_day'   => ['expired_day', $defaultColContentAttr]
     ];
     $columnSet = ['head' => $columnHeader, 'content' => $columnContent];
     return getBuildDataGrid($modelData, $columnSet, getMergedArrayRecursively($defaultGridOptions, $gridOptions));
@@ -182,7 +182,7 @@ function getSaveData()
         'eo_level_code' => $eoLvlCode,
         'shift_type_id' => $formObject->getValue('dataShiftType'),
         'duration'      => $formObject->getValue('dataDuration'),
-        'expaired_day'  => $formObject->getValue('dataExpairedDay')
+        'expired_day'   => $formObject->getValue('dataexpiredDay')
     ];
     # Start to process updating database.
     if ($formObject->isInsertMode() === true) {

@@ -42,7 +42,7 @@ function renderPage()
         'formInput'          => '',
         'gridContents'       => null,
         'gridList'           => '',
-        'gridTitle'       => getWords('LIST EXTRA OFF')
+        'gridTitle'          => getWords('LIST EXTRA OFF')
     ];
     extractToGlobal($globalVariables);
     # Important to given access to our global variables.
@@ -377,7 +377,7 @@ function changeStatus()
         'employee_id'       => $setModel['employee_id'],
         'eo_application_id' => $setModel['id'],
         'date_eo'           => $date_eo,
-        'date_expaired'     => $expired,
+        'date_expired'      => $expired,
         'active'            => $active,
         'type'              => $setModel['type'],
         'note'              => $setModel['note']
@@ -385,7 +385,7 @@ function changeStatus()
     if (($result = count($approvedExist) > 0) === true) {
         #duration conf extra off
         $duration = $setModelConfEo['duration'];
-        for ($i = 0; $i < $duration; $i++){
+        for ($i = 0; $i < $duration; $i++) {
             $dataHrdExtraOffQuota->insert($modelEoQuota);
         }
         $dataHrdExtraOffApplication->update($arrId, $approved);
