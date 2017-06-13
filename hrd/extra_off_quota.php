@@ -91,11 +91,13 @@ function getQuery($strSQL, array $wheres = [])
 function getExtraOffQuotaListQuery(array $wheres = [])
 {
     $strSql = 'SELECT
+                    eoa."id",
                     eoa.employee_id,
                     emp.employee_name,
                     sht.code,
                     eoa.date_eo,
                     eoa.date_expired,
+                    eoc."id",
                     eoc.eo_level_code,
                     eoa.note,
                     eoa.active
@@ -109,7 +111,28 @@ function getExtraOffQuotaListQuery(array $wheres = [])
 
 function getGridModelData()
 {
+    /**
+     * @var \clsForm $formObject
+     */
+    global $formObject;
     $wheres = [];
+    $emptyConditions = [null, ''];
+    $model = [
+        'employee_id' => $formObject->getvalue('dataEmployee'),
+        'date_eo'     => $formObject->getvalue('dataDateEo'),
+        'eoc_id'      => $formObject->getvalue('dataType'),
+        'active'      => $formObject->getvalue('dataActive')
+    ];
+    if (in_array($model['employee_id'], $emptyConditions, false) === false) {
+        $wheres [] = 'eoa.employee_id = ' . pgEscape($model['employee_id']);
+    }
+    if (in_array($model['date_eo'], $emptyConditions, false) === false) {
+        $wheres [] = 'eoa.date_eo = ' . pgEscape($model['date_eo']);
+    }
+    if (in_array($model['eoc_id'], $emptyConditions, false) === false) {
+        $wheres [] = 'eoc."id" = ' . pgEscape($model['eoc_id']);
+    }
+    $wheres [] = 'eoa.active = ' . pgEscape(json_encode($model['active']));
     return pgFetchRows(getExtraOffQuotaListQuery($wheres));
 }
 
@@ -137,7 +160,7 @@ function getGridObject(array $gridOptions = [])
         'no'            => ['No.', ['width' => '10']],
         'employee_name' => ['Employee Name', $defaultColHeadAttr],
         'date_eo'       => ['Date Extra Off', $defaultColHeadAttr],
-        'date_eo'       => ['Date Extra Off', $defaultColHeadAttr],
+        'date_expired'  => ['Expired Date', $defaultColHeadAttr],
         'code'          => ['Type', $defaultColHeadAttr],
         'eo_level_code' => ['Extra Off Level Code', $defaultColHeadAttr],
     ];
@@ -146,6 +169,7 @@ function getGridObject(array $gridOptions = [])
         'no'            => ['no', ['nowrap' => ''], 'auto'],
         'employee_name' => ['employee_name', $defaultColContentAttr],
         'date_eo'       => ['date_eo', $defaultColContentAttr],
+        'date_expired'  => ['date_expired', $defaultColContentAttr],
         'code'          => ['code', $defaultColContentAttr],
         'eo_level_code' => ['eo_level_code', $defaultColContentAttr],
     ];
