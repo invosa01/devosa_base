@@ -73,7 +73,7 @@ function getFormObject(array $formOptions = [])
         'dataId'       => ['hidden', '', getPostValue('dataId')],
         'dataEmployee' => ['input', 'employee', null, ['size' => 30, 'maxlength' => 31]],
         'dataDateEo'   => ['input', 'date extra off', null, $dateFieldAttr, 'date'],
-        'dataType'     => ['select', 'type', ['hrd_shift_type', 'id', 'code'], $selectAttr],
+        'dataType'     => ['select', 'type', [], $selectAttr],
         'dataActive'   => ['checkbox', 'active', null, $selectAttr],
         'btnShow'      => ['submit', 'show', 'getGridModelData()'],
     ];
@@ -127,7 +127,8 @@ function getGridModelData()
         $wheres [] = 'eoa.employee_id = ' . pgEscape($model['employee_id']);
     }
     if (in_array($model['date_eo'], $emptyConditions, false) === false) {
-        $wheres [] = 'eoa.date_eo = ' . pgEscape($model['date_eo']);
+        $dataDateEo = \DateTime::createFromFormat('d-m-Y', $model['date_eo'])->format('Y-m-d');
+        $wheres [] = 'eoa.date_eo = ' . pgEscape($dataDateEo);
     }
     if (in_array($model['eoc_id'], $emptyConditions, false) === false) {
         $wheres [] = 'eoc."id" = ' . pgEscape($model['eoc_id']);
@@ -142,17 +143,18 @@ function getGridObject(array $gridOptions = [])
     $defaultColContentAttr = ['nowrap' => ''];
     $gridButtons = [];
     $defaultGridOptions = [
-        'formName'          => 'frmExtraOffQuotaGrid',
-        'gridName'          => 'extraOffQuotaGrid',
-        'gridWidth'         => '100%',
-        'gridHeight'        => '100%',
-        'showPageLimit'     => true,
-        'showSearch'        => true,
-        'showSort'          => true,
-        'showPageNumbering' => true,
-        'path'              => null,
-        'buttons'           => $gridButtons,
-        'calledFile'        => basename($_SERVER['PHP_SELF'])
+        'formName'            => 'frmExtraOffQuotaGrid',
+        'gridName'            => 'extraOffQuotaGrid',
+        'gridWidth'           => '100%',
+        'gridHeight'          => '100%',
+        'showPageLimit'       => true,
+        'showSearch'          => true,
+        'showSort'            => true,
+        'showPageNumbering'   => true,
+        'showExportXlsButton' => false,
+        'path'                => null,
+        'buttons'             => $gridButtons,
+        'calledFile'          => basename($_SERVER['PHP_SELF'])
     ];
     $modelData = getGridModelData();
     $columnHeader = [
