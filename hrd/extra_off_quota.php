@@ -73,7 +73,7 @@ function getFormObject(array $formOptions = [])
         'dataId'       => ['hidden', '', getPostValue('dataId')],
         'dataEmployee' => ['input', 'employee', null, ['size' => 30, 'maxlength' => 31]],
         'dataDateEo'   => ['input', 'date extra off', null, $dateFieldAttr, 'date'],
-        'dataType'     => ['select', 'type', [], $selectAttr],
+        'dataType'     => ['select', 'type', ['hrd_shift_type', 'id', 'code', 'id', '>=', '18'], $selectAttr],
         'dataActive'   => ['checkbox', 'active', null, $selectAttr],
         'btnShow'      => ['submit', 'show', 'getGridModelData()'],
     ];
@@ -94,6 +94,7 @@ function getExtraOffQuotaListQuery(array $wheres = [])
                     eoa."id",
                     eoa.employee_id,
                     emp.employee_name,
+                    sht."id" AS "shtId",
                     sht.code,
                     eoa.date_eo,
                     eoa.date_expired,
@@ -120,7 +121,7 @@ function getGridModelData()
     $model = [
         'employee_id' => $formObject->getvalue('dataEmployee'),
         'date_eo'     => $formObject->getvalue('dataDateEo'),
-        'eoc_id'      => $formObject->getvalue('dataType'),
+        'shtId'       => $formObject->getvalue('dataType'),
         'active'      => $formObject->getvalue('dataActive')
     ];
     if (in_array($model['employee_id'], $emptyConditions, false) === false) {
@@ -130,8 +131,8 @@ function getGridModelData()
         $dataDateEo = \DateTime::createFromFormat('d-m-Y', $model['date_eo'])->format('Y-m-d');
         $wheres [] = 'eoa.date_eo = ' . pgEscape($dataDateEo);
     }
-    if (in_array($model['eoc_id'], $emptyConditions, false) === false) {
-        $wheres [] = 'eoc."id" = ' . pgEscape($model['eoc_id']);
+    if (in_array($model['shtId'], $emptyConditions, false) === false) {
+        $wheres [] = 'sht."id" = ' . pgEscape($model['shtId']);
     }
     $wheres [] = 'eoa.active = ' . pgEscape(json_encode($model['active']));
     return pgFetchRows(getExtraOffQuotaListQuery($wheres));
@@ -143,18 +144,17 @@ function getGridObject(array $gridOptions = [])
     $defaultColContentAttr = ['nowrap' => ''];
     $gridButtons = [];
     $defaultGridOptions = [
-        'formName'            => 'frmExtraOffQuotaGrid',
-        'gridName'            => 'extraOffQuotaGrid',
-        'gridWidth'           => '100%',
-        'gridHeight'          => '100%',
-        'showPageLimit'       => true,
-        'showSearch'          => true,
-        'showSort'            => true,
-        'showPageNumbering'   => true,
-        'showExportXlsButton' => false,
-        'path'                => null,
-        'buttons'             => $gridButtons,
-        'calledFile'          => basename($_SERVER['PHP_SELF'])
+        'formName'          => 'frmExtraOffQuotaGrid',
+        'gridName'          => 'extraOffQuotaGrid',
+        'gridWidth'         => '100%',
+        'gridHeight'        => '100%',
+        'showPageLimit'     => true,
+        'showSearch'        => true,
+        'showSort'          => true,
+        'showPageNumbering' => true,
+        'path'              => null,
+        'buttons'           => $gridButtons,
+        'calledFile'        => basename($_SERVER['PHP_SELF'])
     ];
     $modelData = getGridModelData();
     $columnHeader = [

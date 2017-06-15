@@ -191,43 +191,63 @@ if (function_exists('getFormPostValue') === false) {
         return $defaultValue;
     }
 }
+if (function_exists('getQuery') === false) {
+    function getQuery($strSql, array $wheres = [])
+    {
+        if (count($wheres) > 0) {
+            $strSql .= ' WHERE ' . implodeArray($wheres, ' AND ');
+        }
+        return $strSql;
+    }
+}
 if (function_exists('getIntoRecordList') === false) {
     function getIntoRecordList(array $defaultValue = [])
     {
         $modelList = [];
         $model = [
-            'source' => '',
-            'item'   => '',
-            'value'  => ''
+            'tableOptions'    => '',
+            'fieldValue'      => '',
+            'fieldOptions'    => '',
+            'criteriaOptions' => '',
+            'operator'        => '',
+            'options'         => ''
         ];
         $defaultNormalizedRecordKeys = array_keys($model);
         $normalizedFieldProps = [];
-        foreach ($defaultValue as $item => $value) {
-            if (is_integer($item) === true) {
-                $keyName = $defaultNormalizedRecordKeys[$item];
+        foreach ($defaultValue as $key => $value) {
+            if (is_integer($key) === true) {
+                $keyName = $defaultNormalizedRecordKeys[$key];
                 $normalizedFieldProps[$keyName] = $value;
                 continue;
             }
-            $normalizedFieldProps[$item] = $value;
+            $normalizedFieldProps[$key] = $value;
         }
         $normalizedFieldProps = getMergedArrayRecursively(
             $model,
             $normalizedFieldProps
         );
-        $source = $normalizedFieldProps['source'];
-        if ($source !== '' AND $source !== null) {
-            $item = $normalizedFieldProps['item'];
-            $value = $normalizedFieldProps['value'];
+        $wheres = [];
+        $emptyConditions = [null, ''];
+        $tableOptions = $normalizedFieldProps['tableOptions'];
+        if (in_array($tableOptions, $emptyConditions, true) === false) {
+            $fieldValue = $normalizedFieldProps['fieldValue'];
+            $fieldOptions = $normalizedFieldProps['fieldOptions'];
+            $criteriaOptions = $normalizedFieldProps['criteriaOptions'];
             $strSql = "SELECT 
-                            $item, 
-                            $value 
+                            $fieldValue, 
+                            $fieldOptions 
                         FROM 
-                            $source";
-            $record = pgFetchRows($strSql);
+                            $tableOptions";
+            if (in_array($criteriaOptions, $emptyConditions, true) === false) {
+                $operator = $normalizedFieldProps['operator'];
+                $options = $normalizedFieldProps['options'];
+                $wheres[] = $criteriaOptions . $operator . pgEscape($options);
+            }
+            $record = pgFetchRows(getQuery($strSql, $wheres));
             foreach ($record as $row) {
                 $modelList [] = [
-                    'value' => $row[$item],
-                    'text'  => $row[$item] . ' - ' . $row[$value]
+                    'value' => $row[$fieldValue],
+                    'text'  => $row[$fieldValue] . ' - ' . $row[$fieldOptions]
                 ];
             }
         }
