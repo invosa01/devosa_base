@@ -198,7 +198,6 @@ class clsSalaryCalculation
                     }
                     $row['amount'] *= $fltProrate;
                     $this->arrDA[$row['allowance_code']][$row['id_employee']]['amount'] = $row['amount'];
-                    //$this->arrDetail[$row['id_employee']]['base_jamsostek'] += $row['grade1_allowance']; // as base jamsostek
                 } else if ($row['daily'] == 't') {
                     $row['amount'] *= $this->arrDetail[$row['id_employee']]['attendance_day'];
                     $this->arrDA[$row['allowance_code']][$row['id_employee']]['amount'] = $row['amount'];
@@ -222,13 +221,6 @@ class clsSalaryCalculation
                 // hitung jika ada prorata
                 $fltProrate = (isset($arrEmpProrate[$row['id_employee']])) ? $arrEmpProrate[$row['id_employee']] : 1;
                 $fltInvProrate = (isset($arrEmpInvProrate[$row['id_employee']])) ? $arrEmpInvProrate[$row['id_employee']] : 1;
-                //proses gaji pokok
-                //$this->arrDetail[$strIDEmp]['actual_basic_salary'] = ($row['basic_salary'] == "") ? 0 : $row['basic_salary'] ;
-                //$this->arrDetail[$strIDEmp]['basic_salary'] = $fltProrate * $row['basic_salary']  ; // gaji adalah bulanan
-                //$this->arrDetail[$strIDEmp]['base_ot']  += $this->arrDetail[$strIDEmp]['actual_basic_salary'];
-                //$this->arrDetail[$strIDEmp]['base_tax'] += $this->arrDetail[$strIDEmp]['basic_salary'];
-                //$this->arrDetail[$strIDEmp]['base_jamsostek'] += $this->arrDetail[$strIDEmp]['basic_salary'];
-                //$this->arrDetail[$strIDEmp]['base_irregular_tax'] = 0;
                 $this->arrDetail[$strIDEmp]['base_irregular_tax'] = $this->arrDetail[$strIDEmp]['base_irregular_tax'];
                 //proses special allowance: seniority
                 $this->compute(
@@ -386,19 +378,6 @@ class clsSalaryCalculation
                 } // as base jamsostek
             }
         }
-        //       foreach($this->arrDetail AS $strID => $arrTemp)
-        //       {
-        //
-        //         $intEffective = $this->getProrateDay($strID);
-        //
-        //         // hitung potongan dari keterlambatan dan pulang cepat
-        //         $this->arrDetail[$strID]['absence_deduction'] = 0;
-        // //        $this->arrDetail[$strID]['absence_deduction'] = $this->arrDA['basic_salary'][$strID]['amount']/ 168 * ($arrTemp['late_round'] + $arrTemp['early_round']);
-        //
-        //
-        //         //ECHO "<br>".($arrTemp['late_min'] + $arrTemp['early_min']) ;
-        //         $this->arrDetail[$strID]['base_tax'] -= $this->arrDetail[$strID]['absence_deduction'] ;
-        //       }
     }
 
     /* initMasterDeduction : fungsi untuk mengambil master deduction tambahan, simpan dalam variabel array
@@ -434,22 +413,10 @@ class clsSalaryCalculation
             $baseJamsostek = 0;
             $baseBPJS = 0;
             $basePension = 0;
-            /*
-            * 2016-11-26 | Ade Sanusi
-            * Base Jamsostek, Base BPJS Kesehatan diambil dari UMK Masing-masing Cabang.
-            * $this->arrDetail[$strID]['base_jamsostek'] *= $this->arrDetail[$strID]['prorate'];
-            * Prorate dihilangkan karena langsung dari UMK Cabang
-            */
-            //$employeeUmk = $this->arrDetail[$strID]['base_jamsostek'];
-            //$basePension = ($this->arrDetail[$strID]['base_jamsostek'] > $this->arrConf['pension_max']) ? $this->arrConf['pension_max'] : $this->arrDetail[$strID]['base_jamsostek'];
-            //$baseJamsostek = $employeeUmk;
             $baseJamsostek = $this->arrDetail[$strID]['base_jamsostek'];
             $basePension = ($baseJamsostek > $this->arrConf['pension_max']) ? $this->arrConf['pension_max'] : $baseJamsostek;
             $baseBPJS = ($baseJamsostek > $this->arrConf['bpjs_max']) ? $this->arrConf['bpjs_max'] : $baseJamsostek;
             $baseJSHK = $this->arrDetail[$strID]['base_jamsostek'];
-            /*if ($fltProrate == 0) {
-                $basePension = 0;
-            }*/
             //base jamsostek di prorata
             $this->arrDetail[$strID]['jkk_allowance'] = ($fltJkkAllowance / 100) * $baseJamsostek;
             $this->arrDetail[$strID]['jkm_allowance'] = ($fltJkmAllowance / 100) * $baseJamsostek;
@@ -468,12 +435,6 @@ class clsSalaryCalculation
                 $this->arrDetail[$strID]['pension_allowance'] = ($fltPensionAllowance / 100) * $basePension;
                 $this->arrDetail[$strID]['pension_deduction'] = ($fltPensionDeduction / 100) * $basePension;
             }
-            //Custom for ICW
-            //$baseBPJS = $this->arrConf['bpjs_max'] + $this->arrDA['tambahan_base_bpjs_kesehatan'][$strID]['amount'];
-            /* $baseBPJSByRange = getBaseBpjsByRange($this->data, $baseBPJS, $this->arrEmployee[$strID]['company_id']);
-             if ($baseBPJSByRange > 0) {
-                 $baseBPJS = $baseBPJSByRange;
-             }*/
             $this->arrDetail[$strID]['bpjs_allowance'] = ($fltBPJSAllowance / 100) * $baseBPJS;
             $this->arrDetail[$strID]['bpjs_deduction'] = ($fltBPJSDeduction / 100) * $baseBPJS;
             if ($bolGetBPJS != "1") {
@@ -549,10 +510,6 @@ class clsSalaryCalculation
             } else {
                 $lateDeduction = $amount;
             }
-            /*}
-            }elseif($companyID == 24){ //baj
-
-            }*/
         }
     }
 
@@ -591,22 +548,6 @@ class clsSalaryCalculation
 
     function calculateLateDeductionByFunctional()
     {
-        /*
-         * SELECT t1.id, t1.employee_id, t2.attendance_date, t1.branch_code, t6.late_tolerance, t1.functional_code, t7.late_deduction, t7.late_deduction_amount, t7.flat_late_deduction, t2.late_duration, t3.approved_duration, (t2.late_duration - CASE WHEN (t3.approved_duration > 0 AND t3.approved_duration <= t2.late_duration) THEN t3.approved_duration WHEN (t3.approved_duration > t2.late_duration) THEN t2.late_duration ELSE 0 END) AS total_late_minutes
-           FROM hrd_employee AS t1
-           LEFT JOIN hrd_attendance as t2 ON t1.id = t2.id_employee
-           LEFT JOIN hrd_absence_partial as t3 ON t2.id_employee = t3.id_employee AND t2.attendance_date = t3.partial_absence_date AND t3.partial_absence_type = '0' AND t3.status = 2
-           LEFT JOIN hrd_branch AS t6 ON t1.branch_code = t6.branch_code
-           LEFT JOIN hrd_functional AS t7 ON t1.functional_code = t7.functional_code
-           WHERE attendance_date between '2016-10-17' AND '2016-11-14'
-           AND attendance_date NOT IN (SELECT absence_date FROM hrd_absence_detail as t4 LEFT JOIN hrd_absence AS t5 ON t5.id = t4.id_absence WHERE absence_date between '2016-10-17' AND '2016-11-14' AND status =2 AND t4.id_employee = t1.id) ORDER BY employee_id ASC, attendance_date ASC;
-         */
-        /*$strSQL = "SELECT t1.id, CASE WHEN (t2.late_duration - CASE WHEN t3.approved_duration > 0 THEN t3.approved_duration ELSE 0 END) > " . $minutes . " THEN (t2.late_duration - CASE WHEN t3.approved_duration > 0 THEN t3.approved_duration ELSE 0 END) ELSE 0 END AS total_late_minutes
-          FROM hrd_employee AS t1
-          LEFT JOIN hrd_attendance as t2 ON t1.id = t2.id_employee
-          LEFT JOIN hrd_absence_partial as T3 ON t2.id_employee = t3.id_employee AND t2.attendance_date = t3.partial_absence_date AND partial_absence_type = '0'
-          WHERE attendance_date between '" . $this->arrData['date_from'] . "' AND '" . $this->arrData['date_thru'] . "'
-          AND attendance_date NOT IN (SELECT absence_date FROM hrd_absence_detail as t4 WHERE absence_date between '" . $this->arrData['date_from'] . "' AND '" . $this->arrData['date_thru'] . "' AND t4.id_employee = t1.id);";*/
         $strSQL = "SELECT t1.id,  t1.employee_id, t2.attendance_date, t6.late_tolerance, t7.late_deduction, t7.late_deduction_amount, t7.flat_late_deduction,  (t2.late_duration - CASE WHEN (t3.approved_duration > 0 AND t3.approved_duration <= t2.late_duration) THEN t3.approved_duration WHEN (t3.approved_duration > t2.late_duration) THEN t2.late_duration ELSE 0 END) AS total_late_minutes
           FROM hrd_employee AS t1
           LEFT JOIN hrd_attendance as t2 ON t1.id = t2.id_employee
@@ -643,7 +584,6 @@ class clsSalaryCalculation
                 $this->arrDetail[$row2['id']]['base_tax'] -= $intDeductionAmount;
             }
         }
-        //exit();
     }
 
     /* setSalaryDate : fungsi untuk mengisi atribut perhitungan gaji dengan tanggal perhitungan gaji
@@ -700,18 +640,12 @@ class clsSalaryCalculation
         $objOT->generateOvertimeSalaryReport($this->arrData['salary_date']);
         foreach ($this->arrDetail AS $strID => $arrInfo) {
             $intTotalOTAll = $objOT->getData($strID, "total_ot_all");
-            // Shift OT
-            //$fltExcessOT   = $this->arrDetail[$strID]['shift_hour'] - ($fltHourPerMonth * 60);
-            //if ($fltExcessOT > 0) $objOT->setExcessOT($strID, $fltExcessOT);
             // Standard
             $intEarlyAutoDay = 0;
             if ($this->arrEmployee[$strID]['ot_platform'] == 2) { // 0 tidak ada ot, 1 base dari basic, 2 base dari platform
                 $this->arrDetail[$strID]['base_ot'] = $this->arrEmployee[$strID]['ot_platform_amount'];
             }
             $this->arrDetail[$strID]['ot_per_hour'] = $this->arrDetail[$strID]['base_ot'] / $fltHourPerMonth * $this->arrConf['ot_percent'] / 100;
-            // Half
-            //if ($this->arrEmployee[$strID]['get_ot'] == 2 && $intTotalOTAll > ($this->arrConf['half_ot_max'] * 60)) // ada batas ot
-            //$objOT->limitOvertime($strID, $this->arrConf['half_ot_max'] * 60);
             // Variable Assign
             $this->arrDetail[$strID]['ot1_min'] = $objOT->getData($strID, "total_ot_1");
             $this->arrDetail[$strID]['ot2_min'] = $objOT->getData($strID, "total_ot_2");
@@ -727,8 +661,6 @@ class clsSalaryCalculation
                 "total_ot_min"
             ); //dalam mennit setelah dikali faktor
             $this->arrDetail[$strID]['ot_day'] = $objOT->getData($strID, "total_ot_day");
-            //$intEarlyAutoDay = $objOT->getData($strID, "early_auto_day");
-            //$intOTMealCounter = $objOT->getData($strID, "ot_meal_counter"); //Jika Lebih dari 3 jam x 1 selain itu 0
             $intOTMealCounter = $this->arrDetail[$strID]['total_ot_min'] / 60;
             $this->arrDetail[$strID]['ot1'] = $objOT->getDataAllowance(
                 $strID,
@@ -755,7 +687,6 @@ class clsSalaryCalculation
                 4,
                 $this->arrDetail[$strID]['ot_per_hour']
             );
-            //if ($this->arrEmployee[$strID]['get_ot'] == 0) {
             if ($this->arrEmployee[$strID]['ot_platform'] == 0) { // tidak dapat overtime
                 $this->arrDetail[$strID]['overtime_allowance'] = 0;
             } else { // dianggap ada overtime
@@ -764,10 +695,6 @@ class clsSalaryCalculation
             }
             $fltOTMealAllowance = $this->arrEmployee[$strID]['ot_meal_fee'] * $intOTMealCounter;
             if ($this->arrEmployee[$strID]['ot_platform'] == 3) { //Jika Flat
-                /*$this->arrDetail[$strID]['overtime_allowance'] = $fltOTMealAllowance;
-                if ($this->arrDetail[$strID]['overtime_allowance'] > $this->arrEmployee[$strID]['ot_limit']) {
-                    $this->arrDetail[$strID]['overtime_allowance'] = $this->arrEmployee[$strID]['ot_limit'];
-                }*/
                 if ($this->arrDetail[$strID]['overtime_allowance'] != $this->arrEmployee[$strID]['ot_platform_amount']) {
                     $this->arrDetail[$strID]['overtime_allowance'] = $this->arrEmployee[$strID]['ot_platform_amount'];
                 }
@@ -775,7 +702,6 @@ class clsSalaryCalculation
             if ($this->arrEmployee[$strID]['ot_platform'] == 4) { //Flat Hour = Tarif OT Per Jam dikali Total Jam OT
                 $this->arrDetail[$strID]['overtime_allowance'] = $this->arrEmployee[$strID]['ot_platform_amount'] * $intOTMealCounter;
             }
-            //$fltOTMealAllowance=($fltOTMealAllowance>$this->arrEmployee[$strID]['ot_limit']) ? $this->arrEmployee[$strID]['ot_limit'] : $fltOTMealAllowance;
             $this->arrDetail[$strID]['overtime_allowance'] += $fltOTMealAllowance;
             if ((isset($this->arrConf['overtime_allowance_tax'])) && $this->arrConf['overtime_allowance_tax'] == 't') {
                 $this->arrDetail[$strID]['base_tax'] += $this->arrDetail[$strID]['overtime_allowance'];
@@ -783,16 +709,7 @@ class clsSalaryCalculation
             if ((isset($this->arrConf['overtime_allowance_jams'])) && $this->arrConf['overtime_allowance_jams'] == 't') {
                 $this->arrDetail[$strID]['base_jamsostek'] += $this->arrDetail[$strID]['overtime_allowance'];
             }
-            /*$this->arrDetail[$strID]['otmeal_allowance'] += $fltOTMealAllowance;
-            if ((isset($this->arrConf['otmeal_allowance_tax'])) && $this->arrConf['otmeal_allowance_tax'] == 't')
-              $this->arrDetail[$strID]['base_tax']       += $this->arrDetail[$strID]['otmeal_allowance'];
-            if ((isset($this->arrConf['otmeal_allowance_jams'])) && $this->arrConf['otmeal_allowance_jams'] == 't')
-              $this->arrDetail[$strID]['base_jamsostek'] += $this->arrDetail[$strID]['otmeal_allowance'];*/
-            //$this->arrDetail[$strID]['overtime_allowance']= $this->arrDetail[$strID]['otx_min'] *$this->arrDetail[$strID]['ot_per_hour']/60;
-            //$this->arrDetail[$strID]['otx_min']= 60;
-            //print_r($this->arrDetail[$strID]['overtime_allowance']);
         }
-        //die();
         unset($objOT);
     }
 
@@ -843,8 +760,6 @@ class clsSalaryCalculation
                     }
                 }
             }
-            //$fltDeduction += $arrInfo['tax'];
-            //$fltDeduction += $arrInfo['irregular_tax'];  // akan dihitung dalam fungsi tersendiri, jadi di exclude dulu
             foreach ($this->arrMD as $strCode => $arrMDDetail) {
                 if (isset($this->arrDD[$strCode][$strID]['amount'])) {
                     $fltTemp = $this->arrDD[$strCode][$strID]['amount'];
@@ -852,7 +767,6 @@ class clsSalaryCalculation
                     $fltTemp = (isset($arrInfo[$strCode])) ? $arrInfo[$strCode] : 0;
                 }
                 $fltDeduction += $fltTemp;
-                // echo $strID."=====".$strCode."=====".$fltTemp."      >>>>>>>>>>>    ".$fltDeduction."<br>";
             }
             if (isset($arrInfo['zakat_deduction'])) {
                 $fltDeduction -= $arrInfo['zakat_deduction'];
@@ -860,10 +774,6 @@ class clsSalaryCalculation
             $this->arrDetail[$strID]['total_net'] = $fltIncome;// total pendapatan
             $this->arrDetail[$strID]['total_deduction'] = $fltDeduction;  // total potongan
             $this->arrDetail[$strID]['total_net_irregular'] = $fltIrregularIncome;      // irregular income - pajak irregular
-            //before: total_gross_irregular jadi base irregular zakat (sehingga dipotong pajak dulu)
-            //total irregular income
-            //$this->arrDetail[$strID]['total_gross_irregular']   = $fltIrregularIncome - $arrInfo['irregular_tax'];
-            //current: karena base zakat tidak dipotong pajak dulu, maka base zakat irregular juga tidak perlu dipotong pajak dulu, perhitungan yang menyertakan pajak dilakukan terakhir. Sehingga total gross irregular tidak perlu dihitung saat ini. Sebagai penggantinya pada perhitungan zakat: total_net_irregular: total pendapatan irregular, belum dikurangi pajak
         }
     }
 
@@ -933,13 +843,21 @@ class clsSalaryCalculation
             //proses nilai thr_allowance sesuai parameter salary setting
             if (isset($this->arrMA['thr_allowance']['irregular']) && $this->arrMA['thr_allowance']['irregular'] == 't') {
                 $this->arrDetail[$strIDEmp]['base_irregular_tax'] += $this->arrDetail[$strIDEmp]['thr_allowance'];
-                //$this->arrDetail[$strIDEmp]['base_tax'] = 0;
             } else {
                 if (isset($this->arrMA['thr_allowance']['tax']) && $this->arrMA['thr_allowance']['tax'] == 't') {
                     $this->arrDetail[$strIDEmp]['base_tax'] = $this->arrDetail[$strIDEmp]['thr_allowance'];
                 }
             }
         }
+    }
+
+    /**
+     * Function to calculate rapel.
+     * TODO: Create the calculation.
+     *
+     */
+    function calculateRapel() {
+
     }
 
     function calculateTax()
@@ -1246,55 +1164,6 @@ class clsSalaryCalculation
     }
     /*end calculateYearDiff
 
-
-      /*function calculateTHR()
-      {
-        $intTHRYearLength = getIntervalDate($this->arrData['date_from_thr'], $this->arrData['date_thru_thr']) + 1;
-        foreach($this->arrDetail AS $strIDEmp => $arrInfo)
-        {
-          //cek masa kerja karyawan dengan acuan tanggal thr
-          //jika 1 tahun atau lebih maka menerima 100%
-          //jika 3 bulan sampai kuang dari 1 tahun, maka menerima proporsional
-          //jika di bawah 3 bulan, tidak menerima thr
-          unset($fltProportion);
-
-          if($this->arrEmployee[$strIDEmp]['join_date'] == "")
-            $fltProportion = 0;
-          elseif(dateCompare($this->arrEmployee[$strIDEmp]['join_date'], $this->arrData['date_from_thr']) <= 0)
-            $fltProportion = 1;
-          /*elseif(dateCompare(getNextDateNextMonth($this->arrEmployee[$strIDEmp]['join_date'], 3), $this->arrData['date_thru_thr']) <= 0)
-            $fltProportion = getIntervalDate($this->arrEmployee[$strIDEmp]['join_date'], $this->arrData['date_thru_thr']) / $intTHRYearLength;
-          else
-            $fltProportion = 0;*/
-    /*else
-      $fltProportion = (getIntervalDate($this->arrEmployee[$strIDEmp]['join_date'], $this->arrData['date_thru_thr']) + 1) / $intTHRYearLength;
-    //ambil gaji all in dari nonfix salary jika ada
-    $fltAllInSalary = (isset($this->arrDA['gaji_all_in'][$strIDEmp]['amount'])) ? $this->arrDA['gaji_all_in'][$strIDEmp]['amount'] : 0;
-
-
-    $this->arrDetail[$strIDEmp]['thr_allowance'] =  $fltProportion * ($this->arrDetail[$strIDEmp]['basic_salary'] +
-                                                    $this->arrDetail[$strIDEmp]['position_allowance'] +
-                                                    $this->arrDetail[$strIDEmp]['meal_allowance'] +
-                                                    $this->arrDetail[$strIDEmp]['transport_allowance'] +
-                                                    $this->arrDetail[$strIDEmp]['vehicle_allowance'] + $fltAllInSalary) ;
-
-    //proses nilai thr sesuai parameter salary setting
-    if (isset($this->arrConf['thr_allowance_irregular']) && $this->arrConf['thr_allowance_irregular'] == 't' )
-      $this->arrDetail[$strIDEmp]['base_irregular_tax'] += $this->arrDetail[$strIDEmp]['thr_allowance'];
-    else
-    {
-      if (isset($this->arrConf['thr_allowance_ot']) && $this->arrConf['thr_allowance_ot'] == 't')
-        $this->arrDetail[$strIDEmp]['base_ot'] += $this->arrDetail[$strIDEmp]['thr_allowance'];
-      //if (isset($this->arrConf['thr_allowance_prorate']) && $this->arrConf['thr_allowance_prorate'] == 't')
-        //$this->arrDetail[$strIDEmp]['thr_allowance'] *= $fltProrate;
-      if (isset($this->arrConf['thr_allowance_jams']) && $this->arrConf['thr_allowance_jams'] == 't')
-        $this->arrDetail[$strIDEmp]['base_jamsostek'] += $this->arrDetail[$strIDEmp]['thr_allowance'];
-      if (isset($this->arrConf['thr_allowance_tax']) && $this->arrConf['thr_allowance_tax'] == 't')
-        $this->arrDetail[$strIDEmp]['base_tax'] += $this->arrDetail[$strIDEmp]['thr_allowance'];
-    }
-  }
-  }
-  */
     /* calculateLeaveAllowance : fungsi untuk menghitung data Leave Allowance (basic salary + fix allowance yang base jamsostek)/2
     */
     function generateMasterAllowanceSQL($strCode)
@@ -1430,7 +1299,6 @@ class clsSalaryCalculation
             } else {
                 $fltLoan = round((((100 + $rowDb['interest']) / 100) * $rowDb['amount']) / $rowDb['periode']);
             }
-            //        if ($rowDb['id_employee']
             if (isset($this->arrLoan[$rowDb['id_employee']])) {
                 $this->arrLoan[$rowDb['id_employee']]['amount'] += $fltLoan;
             } else {
@@ -1614,12 +1482,7 @@ class clsSalaryCalculation
         LEFT JOIN hrd_position AS tp ON tp.position_code = te.position_code
         LEFT JOIN hrd_salary_grade AS tg ON tg.grade_code = te.grade_code
         LEFT JOIN hrd_minimum_living_cost AS tm ON tm.code = te.living_cost_code
-      "; /*
- LEFT JOIN hrd_branch AS tb ON tb.branch_code = tb.branch_code
-        LEFT JOIN hrd_minimum_living_cost AS tm ON tm.code = te.living_cost_code
       ";
- */
-        //die($strSQL);
         $res = $this->data->execute($strSQL);
         while ($row = $this->data->fetchrow($res)) {
             if ($row['id'] != "") {
@@ -1657,15 +1520,9 @@ class clsSalaryCalculation
     */
     function initLeaveEmployee($strKriteria = "")
     {
-        /*
-        $tblHrdLeaveAllowanceBase = new cHrdLeaveAllowanceBase();
-        $arrHrdLeaveAllowanceBase = $tblHrdLeaveAllowanceBase->findAll("id_employee IN (SELECT id FROM hrd_employee WHERE id_company = ".$this->arrData['id_company']." ", "id_employee, cut_off_date, cut_off_counter, EXTRACT(YEAR FROM cut_off_date) AS cut_off_year", "", null, 1, "id_employee");*/
         $strDataDate = $this->arrData['salary_date'];
-        //$arrDate = extractDate($strDataDate);
         $strDataDateFrom = $this->arrData['salary_start_date'];
         $strDataDateThru = $this->arrData['salary_finish_date'];
-        //$strLeaveMonth = intval(substr($strDataDate,5,2));
-        //$strLeaveYear = intval(substr($strDataDate,0,4));
         foreach ($this->arrEmployee AS $strIDEmployee => $arrDetail) {
             $strJoinDate = $arrDetail['join_date'];
             $strEmployeeStatus = $arrDetail['employee_status'];
@@ -1990,12 +1847,7 @@ class clsSalaryCalculation
                 $this->arrDetail[$intID]['late_min'] = $this->objAtt->getData($intID, "total_late_min");
                 $this->arrDetail[$intID]['early_min'] = $this->objAtt->getData($intID, "total_early_min");
                 $this->arrDetail[$intID]['shift_hour'] = $this->objAtt->getDataShiftHour($intID);
-                /*$employeeID = $this->arrDetail[$intID]['employee_id'];
-                if ($employeeID == 'A0001' || $employeeID == 'A0002' || $employeeID == 'A0003' ){
-                    echo "Employee ID >>".$this->arrDetail[$intID]['employee_id']." Working Day : ".$this->arrDetail[$intID]['working_day']." Attendance Day : ".$this->arrDetail[$intID]['attendance_day']." Late Day : ".$this->arrDetail[$intID]['late_day']." Early Day : ".$this->arrDetail[$intID]['early_day']." Absence Day : ".$this->arrDetail[$intID]['total_absence']." Unpaid Absence Day : ".$this->arrDetail[$intID]['total_unpaid_absence'];
-                    echo "<br/>";
-                }*/
-            }//exit();
+            }
         }
     }
 
@@ -2045,7 +1897,6 @@ class clsSalaryCalculation
                 $this->arrData['date_from_thr'] = $row['date_from_thr'];
                 $this->arrData['date_thru_thr'] = $row['date_thru_thr'];
                 $this->arrData['id_company'] = $row['id_company'];
-                //$this->arrData['salary_currency'] = $row['salary_currency'];
                 $this->arrData['id_salary_set'] = $row['id_salary_set'];
                 $this->arrData['hide_blank'] = $row['hide_blank'];
                 $this->arrData['note'] = $row['note'];
@@ -2074,9 +1925,6 @@ class clsSalaryCalculation
         $strSalaryYear = $arrDt[0];
         $strSQL = "SELECT count(*) as total_data FROM hrd_salary_detail AS t1 WHERE id_salary_master IN (SELECT id FROM hrd_salary_master AS t2 WHERE status >=2 AND EXTRACT(MONTH FROM salary_date) = $strSalaryMonth
                   AND EXTRACT(YEAR FROM salary_date) = $strSalaryYear) AND id_employee = $strID;";
-        /*echo "Salary Month : ".$strSalaryMonth." Salary Year : ".$strSalaryYear."<br/>";
-        echo $strSQL;
-        die();*/
         $resDb = $this->data->execute($strSQL);
         while ($rowDb = $this->data->fetchrow($resDb)) {
             $intTotalData = $rowDb['total_data'];
@@ -2182,7 +2030,6 @@ class clsSalaryCalculation
         }
         $resExec = $this->data->execute($strSQL);
         if ($resExec == false) {
-            //die(strSQL);
             $bolOK = false;
         }
         // save data master allowance
@@ -2193,19 +2040,8 @@ class clsSalaryCalculation
         ";
             $resExec = $this->data->execute($strSQL);
             // insert untuk yang tunj tetap dulu
-            /*$strSQL  = $this->generateMasterAllowanceSQL("position_allowance");
-            $strSQL .= $this->generateMasterAllowanceSQL("transport_allowance");
-            $strSQL .= $this->generateMasterAllowanceSQL("vehicle_allowance");
-            $strSQL .= $this->generateMasterAllowanceSQL("meal_allowance");
-            $strSQL .= $this->generateMasterAllowanceSQL("overtime_allowance");
-            $strSQL .= $this->generateMasterAllowanceSQL("jkk_allowance");
-            $strSQL .= $this->generateMasterAllowanceSQL("jkm_allowance");
-            $strSQL .= $this->generateMasterAllowanceSQL("jamsostek_allowance");
-            $resExec = $this->data->execute($strSQL);
-            if ($resExec == false) $bolOK = false;*/
             $strSQL = "";
             foreach ($this->arrMA AS $strCode => $arrM) {
-                //if ($arrM['is_default'] == 'f') // hanya yang tambahan
                 $strSQL .= $this->generateMasterAllowanceSQL($strCode, $arrM);
             }
             if ($strSQL != "") {
@@ -2223,14 +2059,8 @@ class clsSalaryCalculation
         ";
             $resExec = $this->data->execute($strSQL);
             // insert untuk yang tunj tetap dulu
-            /*$strSQL  = $this->generateMasterDeductionSQL("loan_deduction");
-            $strSQL .= $this->generateMasterDeductionSQL("zakat_deduction");
-            $strSQL .= $this->generateMasterDeductionSQL("jamsostek_deduction");
-            $resExec = $this->data->execute($strSQL);
-            if ($resExec == false) $bolOK = false;*/
             $strSQL = "";
             foreach ($this->arrMD AS $strCode => $arrM) {
-                //if ($arrM['is_default'] == 'f') // hanya yang tambahan
                 $strSQL .= $this->generateMasterDeductionSQL($strCode, $arrM);
             }
             if ($strSQL != "") {
@@ -2243,15 +2073,12 @@ class clsSalaryCalculation
         // save data detail salary
         // ambil data terlebih dahulu
         $this->calculateBasic($this->strKriteria);
+        if (isset($this->arrConf['rapel_allowance_active']) && $this->arrConf['rapel_allowance_active'] == 't') {
+            //$this->calculateRapel();
+        }
         if (isset($this->arrConf['thr_allowance_active']) && $this->arrConf['thr_allowance_active'] == 't') {
             $this->calculateTHR();
         }
-        // if(false)
-        // //if (isset($this->arrConf['CUTI']) && $this->arrConf['CUTI_active'] == 't')
-        // {
-        //   $this->initLeaveEmployee($this->strKriteria);
-        //   $this->calculateLeaveAllowance();
-        // }
         if (isset($this->arrConf['overtime_allowance_active']) && $this->arrConf['overtime_allowance_active'] == 't') {
             $this->calculateOvertime();
         }
@@ -2330,14 +2157,12 @@ class clsSalaryCalculation
                 }
                 $resExec = $this->data->execute($strSQL);
                 if ($resExec == false) {
-                    //die($strSQL);
                     $bolOK = false;
                 }
             }
         }
         $this->data->execute("commit");
-        // die('a');
-        if (false) //if ($bolOK)
+        if (false)
         {
             $this->data->execute("commit");
             if (isset($this->arrConf['leave_allowance_active']) && $this->arrConf['leave_allowance_active'] == 't') {
@@ -2416,7 +2241,6 @@ class clsSalaryCalculation
         $this->arrData['date_from_thr'] = $strTHRDateFrom;
         $this->arrData['date_thru_thr'] = $strTHRDateTo;
         $this->arrData['id_company'] = $strCompany;
-        //$this->arrData['salary_currency']  = $strCurrency;
         $this->arrData['hide_blank'] = ($bolHideBlank) ? "t" : "f";
         $this->arrData['flag'] = $intFlag;
         $this->arrData['note'] = ($strNote == getWords("(note)")) ? "" : $strNote;
