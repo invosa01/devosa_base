@@ -42,7 +42,7 @@ function renderPage()
         'formInput'          => '',
         'gridContents'       => null,
         'gridList'           => '',
-        'gridTitle'       => getWords('LIST EXTRA OFF')
+        'gridTitle'          => getWords('LIST EXTRA OFF')
     ];
     extractToGlobal($globalVariables);
     # Important to given access to our global variables.
@@ -182,13 +182,15 @@ function getGridObject(array $gridOptions = [])
 function getValidationInputDate($dataDateEo, $empId)
 {
     $existDate = true;
+    $active = 't';
     $strSql = 'SELECT
                    "count" (*)
                 FROM
                     "public".hrd_eo_application AS eoa
                 WHERE
-                   eoa.date_eo = ' . pgEscape($dataDateEo) . '
+                     eoa.date_eo = ' . pgEscape($dataDateEo) . '
                 AND  eoa.employee_id = ' . pgEscape($empId) . '
+                AND  eoa.active = ' . pgEscape($active) . '
                 GROUP BY eoa."id"';
     $validationDate = pgFetchRow($strSql);
     if (($validationDate > 0) === true) {
@@ -336,7 +338,7 @@ function getConfExtraOff($type, array $wheres = [])
                     eoc.eo_level_code,
                     eoc.shift_type_id,
                     eoc.duration,
-                    eoc.expaired_day
+                    eoc.expired_day
                 FROM
                     "public".hrd_eo_conf AS eoc
                 INNER JOIN "public".hrd_eo_application AS eoa ON eoc."id" = eoa."type"
@@ -369,15 +371,15 @@ function changeStatus()
     $type = $setModel['type'];
     $eoConfType[] = 'eoa."type" = ' . pgEscape($type);
     $setModelConfEo = getConfExtraOff($type, $eoConfType);
-    $expaired_day = $setModelConfEo['expaired_day'];
-    $expaired = date('Y-m-d', strtotime('+' . $expaired_day . 'days', strtotime($date_eo)));
+    $expired_day = $setModelConfEo['expired_day'];
+    $expired = date('Y-m-d', strtotime('+' . $expired_day . 'days', strtotime($date_eo)));
     $active = 't';
     # model data quota extra off
     $modelEoQuota = [
         'employee_id'       => $setModel['employee_id'],
         'eo_application_id' => $setModel['id'],
         'date_eo'           => $date_eo,
-        'date_expaired'     => $expaired,
+        'date_expaired'     => $expired,
         'active'            => $active,
         'type'              => $setModel['type'],
         'note'              => $setModel['note']
@@ -385,7 +387,9 @@ function changeStatus()
     if (($result = count($approvedExist) > 0) === true) {
         #duration conf extra off
         $duration = $setModelConfEo['duration'];
-        $dataHrdExtraOffQuota->insert($modelEoQuota);
+        for ($i = 0; $i < $duration; $i++) {
+            $dataHrdExtraOffQuota->insert($modelEoQuota);
+        }
         $dataHrdExtraOffApplication->update($arrId, $approved);
         $dataGridObj->message = $dataHrdExtraOffApplication->strMessage;
     } else {

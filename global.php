@@ -39,10 +39,11 @@ function getDataPrivilegesFromDatabase($idGroup)
           ORDER BY f.sequence_no_module, c.menu_level, f.sequence_no_menu";
             $res = $db->execute($strSQL);
             while ($rowDb = $db->fetchrow($res, "ASSOC")) {
-                $menuPrivileges[] = $rowDb;
-                if (array_key_exists('php_file', $rowDb) === true) {
-                    $key = $rowDb['php_file'];
-                    $menuPrivileges[$key] = $rowDb;
+                $emptyConditions = [null, ''];
+                if (in_array($rowDb['php_file'], $emptyConditions, true) === true) {
+                    $menuPrivileges[] = $rowDb;
+                } else {
+                    $menuPrivileges[$rowDb['php_file']] = $rowDb;
                 }
             }
         }

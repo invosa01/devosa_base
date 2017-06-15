@@ -8,8 +8,6 @@ include_once('../includes/form2/form2.php');
 include_once('../classes/hrd/hrd_absence_type.php');
 include_once('../classes/hrd/hrd_absence.php');
 include_once('../classes/hrd/hrd_absence_detail.php');
-include_once('../classes/hrd/hrd_quota_extra_off.php');
-include_once('../classes/hrd/hrd_extra_off.php');
 $dataPrivilege = getDataPrivileges(
     basename($_SERVER['PHP_SELF']),
     $bolCanView,

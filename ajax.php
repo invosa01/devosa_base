@@ -260,7 +260,7 @@ function getQuotaExtraOffData()
                     eoq.employee_id,
                     eoq."id",
                     eoq.date_eo,
-                    eoq.date_expaired,
+                    eoq.date_expired,
                     eoq.note,
                     eoq."type",
                     emp.employee_name,
@@ -289,8 +289,8 @@ function getRenderedQuotaExtraOffOptions()
             . $row['employee_name']
             . ' Date Extra Off : '
             . $row['date_eo']
-            . ' Date Expaired : '
-            . $row['date_expaired']
+            . ' Date Expired : '
+            . $row['date_expired']
             . ' Note : '
             . $row['note']
             . '</option>';

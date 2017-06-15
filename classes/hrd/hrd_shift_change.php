@@ -3,7 +3,7 @@
 class cHrdShiftChange extends cModel
 {
 
-    var $strEntityName = "shift change";
+    var $strEntityName = "shift_change";
 
     var $strTableName = "hrd_shift_change";
 
