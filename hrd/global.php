@@ -74,4 +74,10 @@ if ($permissionGroup == 0 || $permissionGroup == null) {
     $strCriteriaPosition = "WHERE position_group >= '$permissionGroup' ";
     $intPermissionGroup = intval($permissionGroup);
 }
+function now()
+{
+    $dateTime = date_create('now')->format('Y-m-d H:i:s');
+    return $dateTime;
+}
+
 ?>
