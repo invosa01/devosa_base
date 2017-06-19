@@ -34,7 +34,7 @@ function renderPage()
         'strConfirmApproved' => getWords("do you want to approved this entry?"),
         'strPageTitle'       => getWords($privileges['menu_name']),
         'pageIcon'           => "../images/icons/" . $privileges['icon_file'],
-        'strPageDesc'        => getWords("shift change management"),
+        'strPageDesc'        => getWords("extra off type managemnet"),
         'pageHeader'         => '',
         'strTemplateFile'    => getTemplate(str_replace(".php", ".html", $calledFile)),
         'formObject'         => null,
@@ -77,7 +77,7 @@ function getFormObject(array $formOptions = [])
     $formModel = [
         'dataId'         => ['hidden', '', getPostValue('dataId')],
         'dataEoLvlCode'  => ['input', 'level code', null, ['size' => 30, 'maxlength' => 31, 'required']],
-        'dataShiftType'  => ['select', 'shift type', ['hrd_shift_type', 'id', 'code'], $selectAttr],
+        'dataShiftType'  => ['select', 'shift type', ['hrd_shift_type', 'id', 'code',  'id', '>=', '18'], $selectAttr],
         'dataDuration'   => ['input', 'duration days', null, ['size' => 30, 'maxlength' => 31, 'required']],
         'dataExpiredDay' => ['input', 'expired days', null, ['size' => 30, 'maxlength' => 31, 'required']],
         'btnSave'        => ['submit', 'save', 'getSaveData()', $btnSaveAttr],
@@ -86,7 +86,7 @@ function getFormObject(array $formOptions = [])
     return getBuildForm($formModel, $formOptions);
 }
 
-function getShiftChangeListQuery(array $wheres = [])
+function getExtraOffTypeListQuery(array $wheres = [])
 {
     $strSql = 'SELECT
                     eof."id",
@@ -114,7 +114,7 @@ function getGridModelData()
     $wheres = [];
     $active = 't';
     $wheres[] = 'eof.active = ' . pgEscape($active);
-    return pgFetchRows(getShiftChangeListQuery($wheres));
+    return pgFetchRows(getExtraOffTypeListQuery($wheres));
 }
 
 function getGridObject(array $gridOptions = [])
@@ -176,13 +176,13 @@ function getSaveData()
         'eo_level_code' => $eoLvlCode,
         'shift_type_id' => $formObject->getValue('dataShiftType'),
         'duration'      => $formObject->getValue('dataDuration'),
-        'expired_day'   => $formObject->getValue('dataexpiredDay')
+        'expired_day'   => $formObject->getValue('dataExpiredDay')
     ];
     # Start to process updating database.
     if ($formObject->isInsertMode() === true) {
         # Insert master data for extra off type
         $whereEoLvlCode [] = 'eof.eo_level_code = ' . pgEscape($eoLvlCode);
-        $valEoLvlCodeExist = pgFetchRow(getShiftChangeListQuery($whereEoLvlCode));
+        $valEoLvlCodeExist = pgFetchRow(getExtraOffTypeListQuery($whereEoLvlCode));
         if (($valEoLvlCodeExist > 0) === false) {
             if (($result = $dataHrdExtraOffType->insert($model)) === true) {
                 $formObject->message = $dataHrdExtraOffType->strMessage;
@@ -200,7 +200,7 @@ function deleteData()
      * @var \cDataGrid $dataGridObj
      */
     global $dataGridObj;
-    //$gridObject = unserialize(getFlashMessage('shiftChangeGrid'), true);
+    //$gridObject = unserialize(getFlashMessage('ExtraOffTypeGrid'), true);
     $arrId = [];
     $dataHrdExtraOffType = new cHrdExtraOffType();
     foreach ($dataGridObj->checkboxes as $value) {
