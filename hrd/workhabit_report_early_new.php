@@ -44,11 +44,11 @@ if ($strAxis == "period" AND $strPeriod == "monthly") {
     // note: ambil salary set yg tanggalnya paling akhir pada bulan itu
     $strSQL = "select COUNT(*) from hrd_employee AS t1
     LEFT JOIN (select * from hrd_salary_detail a,
-    (select * from hrd_salary_master where extract(MONTH from salary_date)=" . $iMonth . " and extract(YEAR from salary_date)=" . $strPYear . "
+    (select * from hrd_salary_master where extract(MONTH from salary_date)=".$iMonth." and extract(YEAR from salary_date)=".$strPYear."
       order by salary_date desc limit 1) b
-    where a.id_salary_master=b.id and extract(YEAR from b.salary_date)=" . $strPYear . " and extract(MONTH from b.salary_date)=" . $iMonth . " )
+    where a.id_salary_master=b.id and extract(YEAR from b.salary_date)=".$strPYear." and extract(MONTH from b.salary_date)=".$iMonth." )
     AS t2 ON t1.id = t2.id_employee
-    WHERE ((resign_date <= '" . $strPYear . "1231' and resign_date >= '" . $strPYear . "0101') or resign_date is null)
+    WHERE ((resign_date <= '".$strPYear."1231' and resign_date >= '".$strPYear."0101') or resign_date is null)
     and join_date<='" . $strPYear . "1231' AND " . $strKriteria;
     for ($i = 0; $i < ($maxearly + 1) / $strDataInterval; $i++) {
       $minRange = $i * $strDataInterval;
@@ -86,11 +86,11 @@ if ($strAxis == "period" AND $strPeriod == "yearly") {
     // note: ambil salary set yg tanggalnya paling akhir pada bulan itu
     $strSQL = "select COUNT(*) from hrd_employee AS t1
       LEFT JOIN (select * from hrd_salary_detail a,
-                  (select * from hrd_salary_master where extract(YEAR from salary_date)=" . $iYear . " order by salary_date desc limit 1) b
-                where a.id_salary_master=b.id and extract(YEAR from b.salary_date)=" . $iYear . " )
+                  (select * from hrd_salary_master where extract(YEAR from salary_date)=".$iYear." order by salary_date desc limit 1) b
+                where a.id_salary_master=b.id and extract(YEAR from b.salary_date)=".$iYear." )
             AS t2 ON t1.id = t2.id_employee
-      WHERE ((resign_date <= '" . $iYear . "1231' and resign_date >= '" . $iYear . "0101') or resign_date is null)
-      and join_date<='" . $iYear . "1231' AND " . $strKriteria;
+      WHERE ((resign_date <= '".$iYear."1231' and resign_date >= '".$iYear."0101') or resign_date is null)
+      and join_date<='".$iYear."1231' AND " . $strKriteria;
     for ($i = 0; $i < ($maxearly + 1) / $strDataInterval; $i++) {
       $minRange = $i * $strDataInterval;
       $maxRange = $minRange + $strDataInterval - 1;
@@ -131,8 +131,8 @@ if ($strAxis == "dept") {
     order by salary_date desc limit 1) b
     where a.id_salary_master=b.id and extract(YEAR from b.salary_date)=" . $strPYear . " and extract(MONTH from b.salary_date)=" . $iMonth . " )
     AS t2 ON t1.id = t2.id_employee
-    WHERE ((resign_date <= '" . $strPYear . "1231' and resign_date >= '" . $strPYear . "0101') or resign_date is null)
-    and join_date<='" . $strPYear . "1231' AND " . $strKriteria;
+    WHERE ((t1.resign_date <= '" . $strPYear . "1231' and t1.resign_date >= '" . $strPYear . "0101') or t1.resign_date is null)
+    and t1.join_date<='".$strPYear."1231' AND ".$strKriteria;
     //echo $strSQL."<br/><br/>";
     for ($i = 0; $i < $numCode; $i++) {
       $strExecuteKriteria = " AND t1.department_code = '$arrCode[$i]' ";
