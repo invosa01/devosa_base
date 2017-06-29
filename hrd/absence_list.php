@@ -295,8 +295,7 @@ function changeStatus($db, $intStatus)
                             t1.created,
                             date_from,
                             absence_type_code,
-                            t1.note,
-                            t1.extra_off_id
+                            t1.note
                         FROM
                             hrd_absence AS t1
                         LEFT JOIN hrd_employee AS t2 ON t1.id_employee = t2.id
