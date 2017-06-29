@@ -665,32 +665,32 @@ if ($db->connect()) {
       $db,
       "dataDivision",
       $strDataDivision,
-      $strEmptyOption,
-      "",
-      "style=\"width:$intDefaultWidthPx\"" . $ARRAY_DISABLE_GROUP['division']
+      $strEmptyOption2,
+      getCriteria('division_code'),
+      "style=\"width:$intDefaultWidthPx\""
   );
   $strInputDepartment = getDepartmentList(
       $db,
       "dataDepartment",
       $strDataDepartment,
-      $strEmptyOption,
-      "",
+      $strEmptyOption2,
+      getCriteria('department_code'),
       "style=\"width:$intDefaultWidthPx\"" . $ARRAY_DISABLE_GROUP['department']
   );
   $strInputSection = getSectionList(
       $db,
       "dataSection",
       $strDataSection,
-      $strEmptyOption,
-      "",
+      $strEmptyOption2,
+      getCriteria('section_code'),
       "style=\"width:$intDefaultWidthPx\"" . $ARRAY_DISABLE_GROUP['section']
   );
   $strInputSubsection = getSubSectionList(
       $db,
       "dataSubSection",
       $strDataSubSection,
-      $strEmptyOption,
-      "",
+      $strEmptyOption2,
+      getCriteria('sub_section_code'),
       "style=\"width:$intDefaultWidthPx\"" . $ARRAY_DISABLE_GROUP['sub_section']
   );
   //$strInputGroup = getGroupList($db,"dataGroup",$strDataGroup, $strEmptyOption,""," style=\"width:$intDefaultWidthPx\"");

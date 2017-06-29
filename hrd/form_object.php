@@ -2205,4 +2205,35 @@ function getLeaveLevelList($db, $varname, $default = "", $extra = "", $criteria 
     return $strResult;
 }
 
+function getCriteria($strCode){
+    global $arrUserInfo;
+    $criteria = '';
+    $strDataDivision = $arrUserInfo['division_code'];
+    $strDataDepartment = $arrUserInfo['department_code'];
+    $strDataSection = $arrUserInfo['section_code'];
+    $strDataSubSection = $arrUserInfo['sub_section_code'];
+    switch ($strCode){
+        case 'division_code':
+            if ($strDataDivision != ''){
+                $criteria = "AND division_code = '$strDataDivision' ";
+            }
+            break;
+        case 'department_code':
+            if ($strDataDepartment !=''){
+                $criteria = "AND department_code = '$strDataDepartment'";
+            }
+            break;
+        case 'section_code':
+            if ($strDataSection != ''){
+                $criteria = "AND section_code = '$strDataSection'";
+            }
+            break;
+        case 'sub_section_code':
+            if ($strDataSubSection != ''){
+                $criteria = "AND sub_section_code = '$strDataSubSection'";
+            }
+            break;
+    }
+    return $criteria;
+}
 ?>
