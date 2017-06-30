@@ -649,6 +649,7 @@ if ($db->connect()) {
   }
   //--- TAMPILKAN INPUT DATA -------------------------
   // generate data hidden input dan element form input
+  //var_dump($arrUserInfo);exit;
   $intDefaultWidthPx = 200;
   $strInputMonth = getMonthList("dataMonth", $strDataMonth);
   $strInputMonth .= getYearList("dataYear", $strDataYear);
@@ -666,7 +667,7 @@ if ($db->connect()) {
       "dataDivision",
       $strDataDivision,
       $strEmptyOption2,
-      getCriteria('division_code'),
+      (SET_FILTERING === true and (integer)$arrUserInfo['id_adm_group'] !== HRD_ADMIN_ID) ? getCriteria('division_code') : '',
       "style=\"width:$intDefaultWidthPx\""
   );
   $strInputDepartment = getDepartmentList(
@@ -674,7 +675,7 @@ if ($db->connect()) {
       "dataDepartment",
       $strDataDepartment,
       $strEmptyOption2,
-      getCriteria('department_code'),
+      (SET_FILTERING === true and (integer)$arrUserInfo['id_adm_group'] !== HRD_ADMIN_ID) ? getCriteria('department_code') : '',
       "style=\"width:$intDefaultWidthPx\"" . $ARRAY_DISABLE_GROUP['department']
   );
   $strInputSection = getSectionList(
@@ -682,7 +683,7 @@ if ($db->connect()) {
       "dataSection",
       $strDataSection,
       $strEmptyOption2,
-      getCriteria('section_code'),
+      (SET_FILTERING === true and (integer)$arrUserInfo['id_adm_group'] !== HRD_ADMIN_ID) ? getCriteria('section_code') : '',
       "style=\"width:$intDefaultWidthPx\"" . $ARRAY_DISABLE_GROUP['section']
   );
   $strInputSubsection = getSubSectionList(
@@ -690,7 +691,7 @@ if ($db->connect()) {
       "dataSubSection",
       $strDataSubSection,
       $strEmptyOption2,
-      getCriteria('sub_section_code'),
+      (SET_FILTERING === true and (integer)$arrUserInfo['id_adm_group'] !== HRD_ADMIN_ID) ? getCriteria('sub_section_code') : '',
       "style=\"width:$intDefaultWidthPx\"" . $ARRAY_DISABLE_GROUP['sub_section']
   );
   //$strInputGroup = getGroupList($db,"dataGroup",$strDataGroup, $strEmptyOption,""," style=\"width:$intDefaultWidthPx\"");

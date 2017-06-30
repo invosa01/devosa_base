@@ -116,7 +116,7 @@ function getDataContract($db)
     if ($strDataSubSection != "") {
         $strSQL .= "AND sub_section_code = '$strDataSubSection' ";
     }
-    if (SET_FIlTERING_CONTRACT_EMPLOYEE_INFO === true){
+    if (SET_FIlTERING_CONTRACT_EMPLOYEE_INFO === true AND $arrUserInfo['employee_id'] !== null){
         $strSQL .= "AND employee_id = '$employeeId'";
     }
     $strSQL .= "ORDER BY due_date DESC, employee_name ";
