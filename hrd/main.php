@@ -87,6 +87,7 @@ function getDataContract($db)
     global $strKriteriaCompany, $strKriteria;
     $intRows = 0;
     $strResult = "";
+    $employeeId = $arrUserInfo['employee_id'];
     // cari info perubahan karyawan yang belum disetujui, untuk status renewalnya
     $arrMutation = [];
     $strSQL = "SELECT t2.id, t2.id_employee FROM hrd_employee_mutation_status AS t1, hrd_employee_mutation AS t2 ";
@@ -114,6 +115,9 @@ function getDataContract($db)
     }
     if ($strDataSubSection != "") {
         $strSQL .= "AND sub_section_code = '$strDataSubSection' ";
+    }
+    if (SET_FIlTERING_CONTRACT_EMPLOYEE_INFO === true){
+        $strSQL .= "AND employee_id = '$employeeId'";
     }
     $strSQL .= "ORDER BY due_date DESC, employee_name ";
     $resDb = $db->execute($strSQL);
