@@ -575,9 +575,6 @@ $intDefaultStart = "08:00";
 $intDefaultFinish = "17:00";
 $db = new CdbClass;
 if ($db->connect()) {
-    // $a = getDataListPosition(getInitialValue("Position"), true, "<option value=\"aa\">aa</option>");
-    // print_r($a);
-    // die();
     getUserEmployeeInfo();
     $arrUserList = getAllUserInfo($db);
     $strDataID = getPostValue('dataID');
@@ -585,6 +582,7 @@ if ($db->connect()) {
         $strDataEmployee,
         $strDataSubSection,
         $strDataSection,
+        $strDataSubDepartment,
         $strDataDepartment,
         $strDataDivision,
         $_SESSION['sessionUserRole'],

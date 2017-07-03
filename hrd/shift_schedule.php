@@ -590,6 +590,7 @@ if ($db->connect()) {
   (isset($_REQUEST['dataEmployee'])) ? $strDataEmployee = $_REQUEST['dataEmployee'] : $strDataEmployee = "";
   (isset($_REQUEST['dataView'])) ? $strDataView = $_REQUEST['dataView'] : $strDataView = "";
   (isset($_REQUEST['dataPage'])) ? $intCurrPage = $_REQUEST['dataPage'] : $intCurrPage = 1;
+  $strDataSubDepartment = '';
   if (!is_numeric($intCurrPage)) {
     $intCurrPage = 1;
   }
@@ -597,11 +598,13 @@ if ($db->connect()) {
       $strDataEmployee,
       $strDataSubSection,
       $strDataSection,
+      $strDataSubDepartment,
       $strDataDepartment,
       $strDataDivision,
       $_SESSION['sessionUserRole'],
       $arrUserInfo
   );
+  $strDisabled = ($_SESSION['sessionUserRole'] == ROLE_EMPLOYEE) ? 'disabled' : 'enabled';
   // ------------ GENERATE KRITERIA QUERY,JIKA ADA -------------
   $strKriteria = "";
   if ($strDataDivision != "") {
@@ -649,7 +652,6 @@ if ($db->connect()) {
   }
   //--- TAMPILKAN INPUT DATA -------------------------
   // generate data hidden input dan element form input
-  //var_dump($arrUserInfo);exit;
   $intDefaultWidthPx = 200;
   $strInputMonth = getMonthList("dataMonth", $strDataMonth);
   $strInputMonth .= getYearList("dataYear", $strDataYear);
@@ -667,15 +669,15 @@ if ($db->connect()) {
       "dataDivision",
       $strDataDivision,
       $strEmptyOption2,
-      (SET_FILTERING === true and (integer)$arrUserInfo['id_adm_group'] !== HRD_ADMIN_ID) ? getCriteria('division_code') : '',
-      "style=\"width:$intDefaultWidthPx\""
+      '',
+      "style=\"width:$intDefaultWidthPx\"". $ARRAY_DISABLE_GROUP['division']
   );
   $strInputDepartment = getDepartmentList(
       $db,
       "dataDepartment",
       $strDataDepartment,
       $strEmptyOption2,
-      (SET_FILTERING === true and (integer)$arrUserInfo['id_adm_group'] !== HRD_ADMIN_ID) ? getCriteria('department_code') : '',
+      '',
       "style=\"width:$intDefaultWidthPx\"" . $ARRAY_DISABLE_GROUP['department']
   );
   $strInputSection = getSectionList(
@@ -683,7 +685,7 @@ if ($db->connect()) {
       "dataSection",
       $strDataSection,
       $strEmptyOption2,
-      (SET_FILTERING === true and (integer)$arrUserInfo['id_adm_group'] !== HRD_ADMIN_ID) ? getCriteria('section_code') : '',
+      '',
       "style=\"width:$intDefaultWidthPx\"" . $ARRAY_DISABLE_GROUP['section']
   );
   $strInputSubsection = getSubSectionList(
@@ -691,11 +693,11 @@ if ($db->connect()) {
       "dataSubSection",
       $strDataSubSection,
       $strEmptyOption2,
-      (SET_FILTERING === true and (integer)$arrUserInfo['id_adm_group'] !== HRD_ADMIN_ID) ? getCriteria('sub_section_code') : '',
+      '',
       "style=\"width:$intDefaultWidthPx\"" . $ARRAY_DISABLE_GROUP['sub_section']
   );
   //$strInputGroup = getGroupList($db,"dataGroup",$strDataGroup, $strEmptyOption,""," style=\"width:$intDefaultWidthPx\"");
-  $strInputEmployee = "<input class=form-control type=text name=dataEmployee id=dataEmployee maxlength=30 value=\"$strDataEmployee\" style=\"width:$intDefaultWidthPx\">";
+  $strInputEmployee = "<input class=form-control type=text name=dataEmployee id=dataEmployee maxlength=30 value=\"$strDataEmployee\" style=\"width:$intDefaultWidthPx\" $strDisabled>";
   $strInputActive = getEmployeeActiveList(
       "dataActive",
       $strDataActive,

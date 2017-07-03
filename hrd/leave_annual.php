@@ -596,6 +596,7 @@ if ($db->connect()) {
       $strDataEmployee,
       $strFilterSubsection,
       $strFilterSection,
+      $strFilterSubDepartment,
       $strFilterDepartment,
       $strFilterDivision,
       $_SESSION['sessionUserRole'],
