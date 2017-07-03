@@ -9,6 +9,8 @@ include_once('../includes/form2/form2.php');
 include_once('form_object.php');
 include_once('cls_salary_calculation.php');
 include_once("cls_employee.php");
+include_once('../includes/krumo/class.krumo.php');
+//krumo($_SESSION);die();
 $dataPrivilege = getDataPrivileges("salary_report_slip.php", $bolCanView, $bolCanEdit, $bolCanDelete, $bolCanApprove);
 $dataPrivilegeManagerial = getDataPrivileges(
     "salary_calculation_managerial.php",
@@ -65,27 +67,25 @@ $f->addSelect(
     false
 );
 // $f->addSelect(getWords("employee level"), "dataLevel", getDataLevel(), array("style" => "width:$strDefaultWidthPx"), "", false);
-$autoCompleteValue = getInitialValue("Employee", null, $_SESSION['sessionEmployeeID']);
+//$autoCompleteValue = getInitialValue("Employee", null, $_SESSION['sessionEmployeeID']);
+$autoCompleteValue = $_SESSION['sessionEmployeeID']; //getInitialValue("Employee", null, $_SESSION['sessionEmployeeID']);
 $employeeName = '';
 if (!empty($autoCompleteValue)) {
   $employeeData = getEmployeNameByID($db, $autoCompleteValue);
   $employeeName = $employeeData['employee_name'];
+  $employeeID = $employeeData['employee_id'];
 }
-$f->addInputAutoComplete(
+$f->addInput(
     getWords("employee id"),
     "employeeName",
-    getDataEmployee(getInitialValue("Employee", null, $_SESSION['sessionEmployeeID'])),
+    $employeeID,
     "style=width:$strDefaultWidthPx readonly",
     "string",
     false,
     true,
     true,
     "",
-    "",
-    true,
-    null,
-    "../global/hrd_ajax_source.php?action=getemployee",
-    $autoCompleteValue
+    ""
 );
 $f->addLabelAutoComplete("", "employeeName", $employeeName);
 //  $f->addInputAutoComplete(getWords("employee id"), "employeeName", getDataEmployee(getInitialValue("Employee", null, $strDataEmployee)), "style=width:$strDefaultWidthPx ".$strEmpReadonly, "string", true, true, true, "", "", true, null, "../global/hrd_ajax_source.php?action=getemployee");
