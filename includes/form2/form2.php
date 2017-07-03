@@ -1768,8 +1768,10 @@ class clsForm
             $values = $value;
             if (count($values)) {
                 foreach ($values as $idx => $valData) {
-                    $selectedValue = $valData['value'];
-                    $selectedText = $valData['text'];
+                    if ($valData['selected']) {
+                        $selectedValue = $valData['value'];
+                        $selectedText = $valData['text'];
+                    }
                 }
             }
         } else if ($type == "labelautocomplete") {
