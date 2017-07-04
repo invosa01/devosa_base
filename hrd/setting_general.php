@@ -91,6 +91,15 @@ $arrSetting = [
         "default"      => "20",
         "oldparameter" => "oldMaxOTMember"
     ],
+    /*adam*/
+     "strLateDuration"          => [
+        "code"         => "late_duration",
+        "value"        => "",
+        "note"         => "maximum late duration",
+        "default"      => "0",
+        "oldparameter" => "oldLateDuration"
+    ],
+    /*end adam*/
     /*new by chen*/
     "strMinAutoOT"            => [
         "code"         => "min_auto_ot",
@@ -254,8 +263,10 @@ $strWordsMaximumAutoOT = getWords("maximum auto overtime");
 $strWordsFilePath = getWords("file path");
 $strWordsFileType = getWords("file type");
 $strWordsLeaveReference = getWords('Leave Reference');
+$strWordsLateAbsentee = getWords('Tolerance Late Absentee');
+$strWordsLateDuration = getWords('Late Duration');
 //----------------------------------------------------------------------
-//--- DAFTAR FUNSI------------------------------------------------------
+//--- DAFTAR FUNGSI------------------------------------------------------
 // fungsi untuk menampilkan data
 // $db = kelas database
 // return berubah $arrOvertime (parameter)
@@ -533,6 +544,8 @@ $strMinAutoOT = $arrSetting['strMinAutoOT']['value'];
 $oldMinAutoOT = $arrSetting['strMinAutoOT']['value'];
 $strMaxAutoOT = $arrSetting['strMaxAutoOT']['value'];
 $oldMaxAutoOT = $arrSetting['strMaxAutoOT']['value'];
+$strLateDuration = $arrSetting['strLateDuration']['value'];
+$oldLateDuration = $arrSetting['strLateDuration']['value'];
 if ($arrSetting['strSaturday']['value'] == 't') {
     $strSaturday = "checked";
     $oldSaturday = "t";

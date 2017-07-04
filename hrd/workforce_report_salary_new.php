@@ -21,8 +21,8 @@ for ($iYear = $startAxis; $iYear <= $untilAxis; $iYear++) {
                 (select * from hrd_salary_master where extract(YEAR from salary_date)=" . $iYear . " order by salary_date desc limit 1) b
               where a.id_salary_master=b.id and extract(YEAR from b.salary_date)=" . $iYear . " )
           AS t2 ON t1.id = t2.id_employee
-    WHERE ((resign_date <= '" . $iYear . "1231' and resign_date >= '" . $iYear . "0101') or resign_date is null)
-    and join_date<='" . $iYear . "1231' AND " . $strKriteria;
+    WHERE ((t1.resign_date <= '" . $iYear . "-12-31' and t1.resign_date >= '" . $iYear . "-01-01') or t1.resign_date is null)
+    and t1.join_date<='" . $iYear . "-12-31' AND " . $strKriteria;
   for ($i = 0; $i < ($maxSalary + 1) / $strDataInterval; $i++) {
     $minRange = $i * $strDataInterval;
     $maxRange = $minRange + $strDataInterval - 1;
@@ -87,6 +87,7 @@ foreach ($arrData as $key => $arrDataYear) {
   $strDatastack .= "]}";
   $strData100 .= "]}";
 }
+
 $strChartNew = '
 <div id="chartContainer" style="height: 400px; width: 800px;"></div>
 <div id="chartContainerStack" style="height: 400px; width: 800px;"></div>

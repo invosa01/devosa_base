@@ -2165,8 +2165,19 @@ class clsSalaryCalculation
         input : id karyawan, field yang ada dalam salary detail
         output: nilai data yang ada di salary detail, sesuai field yang diinginkan
     */
-    function saveData()
+    
+    /* Function get branch_code employee adam 20-06-2017 */
+    function getBranchCode($Idemployee){
+    	$sql = "SELECT branch_code FROM hrd_employee WHERE employee_id = '".$Idemployee."'";
+    	$res = $this->data->execute($sql);
+    	$row = $this->data->fetchrow($res);
+    	return $row['branch_code'];
+    }
+    /* End Function get branch_code employee adam 20-06-2017 */
+    
+    function saveData()	
     {
+		
         $bolOK = true;
         // proses save data
         $this->data->execute("begin");
@@ -2303,6 +2314,7 @@ class clsSalaryCalculation
                 // detail salary
                 $strFields = $strValues = "";
                 foreach ($arrInfo AS $strField => $strValue) {
+                	$arrInfo['branch_code'] = $this->getBranchCode($arrInfo['employee_id']);
                     if ($strField != "id") {
                         if ($strFields != "") {
                             $strFields .= ", ";
@@ -2322,6 +2334,9 @@ class clsSalaryCalculation
             INSERT INTO hrd_salary_detail ($strFields)
             VALUES ($strValues);
           ";
+		  //adam
+		 
+		  //end adam
                 // allowance
                 foreach ($this->arrMA AS $strCode => $arrM) {
                     if (isset($this->arrDA[$strCode][$strID])) {

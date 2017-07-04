@@ -166,6 +166,10 @@ function getData($db, $bolSync = false)
         $objAttendanceClass->resetAttendance();
         $objAttendanceClass->setFilter($strDateFrom, $strDateThru, $strIDEmployee, $strKriteria, $arrData);
         $objAttendanceClass->getAttendanceResource();
+		//adam 07-06-2017 **Add waktu toleransi dari general setting
+		$generalLate = $objAttendanceClass->getGeneralLateTolerance();
+		$branchTolerance = $objToday->intLateTolerance;
+		//end adam 07-06-2017
         $objToday = new clsAttendanceInfo($db);
         $intLate = 0;
         $intEarly = 0;
@@ -213,7 +217,65 @@ function getData($db, $bolSync = false)
                             $intApprovedEarly = "";
                         }
                     } else {
-                        $intLate = ($objToday->intLate == 0) ? "" : $objToday->intLate;
+                        //$intLate = ($objToday->intLate == 0) ? "" : $objToday->intLate; //adam
+						$branchTolerance = $objToday->intLateTolerance;
+						if($generalLate > 0){ //jika general late nya ada
+							if($objToday->intLate == 0){
+								$intLate= "";
+							}elseif($objToday->intLate <= $generalLate){
+								//$intLate = $objToday->intLate-$generalLate;
+								$intLate = "";
+							}else{
+								$intLate = $objToday->intLate;
+							}
+						}else{ //jika general late nya kosong, maka late tolerance diambil dari branch
+							if($objToday->intLate == 0){
+								$intLate= "";
+							}elseif($objToday->intLate <= $branchTolerance){
+								//$intLate = $objToday->intLate-$generalLate;
+								$intLate = "";
+							}else{
+								$intLate = $objToday->intLate;
+							}
+						}
+						
+						if(!empty($objToday->strShiftCode) && $generalLate > 0){ //jika general late > 0 dan kondisi shift terisi
+								$d1=new DateTime($objToday->strAttendanceStart);
+								$d2=new DateTime($objToday->strNormalStart);
+								$diff=$d2->diff($d1);
+								
+								if($diff->i == 0){
+									$intLate= "";
+								}elseif($diff->i > $generalLate){
+									//$intLate = $objToday->intLate-$generalLate;
+									$intLate = $diff->i;
+								}elseif($diff->i < $generalLate){
+									$intLate = "";
+								}else{
+									$intLate = $diff->i;
+								}
+						}
+						
+						if(!empty($objToday->strShiftCode) && $generalLate == 0){ //jika general late = 0 dan kondisi shift terisi, maka toleransi waktu diambil dari branch
+								$d1=new DateTime($objToday->strAttendanceStart);
+								$d2=new DateTime($objToday->strNormalStart);
+								$diff=$d2->diff($d1);
+								
+								if($diff->i == 0){
+									$intLate= "";
+								}elseif($diff->i > $branchTolerance){
+									//$intLate = $objToday->intLate-$generalLate;
+									$intLate = $diff->i;
+								}elseif($diff->i < $branchTolerance){
+									$intLate = "";
+								}else{
+									$intLate = $diff->i;
+								}
+						}
+						
+						//end adam **penyesuaian endlate berdasarkan general setting//
+						
+						$objToday->intLate;
                         $intEarly = ($objToday->intEarly == 0) ? "" : $objToday->intEarly;
                         $intApprovedLate = "";
                         $intApprovedEarly = "";
@@ -245,6 +307,9 @@ function getData($db, $bolSync = false)
                         "normal_start" => $objToday->strNormalStart,
                         "normal_finish" => $objToday->strNormalFinish,
                         "late" => $intLate,
+                        //adam 08-07-2017
+                        //"late" => ($intLate-$generalLate),
+                        //end adam 08-07-2017
                         "early" => $intEarly,
                         "approved_late" => $intApprovedLate,
                         "approved_early" => $intApprovedEarly,

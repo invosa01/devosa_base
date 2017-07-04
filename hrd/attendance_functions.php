@@ -102,6 +102,17 @@ class clsAttendanceClass
         $this->getAttendanceData();
         $this->getOvertimeData();
     }
+          
+    //adam 08-07-2017 **get late tolerance from general settings
+    function getGeneralLateTolerance(){
+    	$db = $this->db;
+    	
+    	$strSQL = "SELECT value FROM all_setting WHERE	code = 'late_duration'";
+   		$resExec = $db->execute($strSQL);
+   		$rowDb = $db->fetchrow($resExec);
+   		return $rowDb['value'];
+    }
+    //end adam 08-07-2017 **get late tolerance from general settings
 
     // bolGetData: perintah untuk mengambil informasi penting di tanggal tersebut, untuk disimpan di array dulu
     function getBreakTime()
@@ -914,6 +925,7 @@ var $strBranchCode;
     }
     //end get normal start normal finish
     /* End Flexi Time Setting*/
+
 }
 
 ?>

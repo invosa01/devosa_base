@@ -41,6 +41,16 @@ $f->addSelect(
     true
 );
 $f->addSelect("Year", "dataYear", getDataYear(), ["style" => "width:$strDefaultWidthPx"], "", true);
+//adam add filter branch
+$f->addSelect(
+    getWords("branch"),
+    "dataBranch",
+    getDataListBranch($strDataBranch, false, $arrBranchEmptyData, $strKriteria2),
+    ["style" => "width:$strDefaultWidthPx"],
+    "",
+    false
+);
+// end adam
 $f->addSelect(
     getWords("employee status"),
     "employeeStatus",
@@ -79,6 +89,7 @@ $strStatus = $f->getValue('employeeStatus');
 $strName = $f->getValue('employeeName');
 // $strLevel = $f->getValue('dataLevel');
 $strCompany = $f->getValue('dataCompany');
+$strBranch = $f->getValue('dataBranch');
 if ($showReport) {
     $intYear = intval($f->getValue('dataYear'));
     $strKriteria = "";
@@ -91,6 +102,9 @@ if ($showReport) {
     if ($strCompany != "") {
         $strKriteria .= " AND t1.id_company = '$strCompany' ";
     }
+	if ($strBranch != ""){
+		$strKriteria .= " AND t0.branch_code = '$strBranch' ";
+	}
     // if($strLevel != "")
     // {
     //   if($strLevel == 1)
@@ -569,6 +583,9 @@ function printNumeric($params)
 // output berupa array
 function getAnnualTax($db, $intYear, $strKriteria = "")
 {
+	// echo "<pre>";
+	// print_r($_POST);die();
+	
     global $_POST;
     $arrResult = [];
     if ($intYear == "") {
@@ -594,6 +611,7 @@ function getAnnualTax($db, $intYear, $strKriteria = "")
                         LEFT JOIN \"hrd_family_status\" AS t2 ON t2.family_status_code = t1.\"family_status_code\"
                         LEFT JOIN \"hrd_position\" AS t3 ON t3.\"position_code\" = t0.\"position_code\"
                     WHERE \"id_salary_master\" ='$salaryMasterID' $strKriteria ORDER BY t1.\"employee_name\"";
+        //print_r($strSQL2);die();
         $res3 = $db->execute($strSQL2);
         while ($row3 = $db->fetchrow($res3)) {
             $totalData += 1;
@@ -815,6 +833,7 @@ function getMasterSalaryByYear($intYear, $intCompany)
     global $db;
     $bolExist = 0;
     $strSQL = "SELECT id FROM \"hrd_salary_master\" WHERE EXTRACT (YEAR FROM \"salary_date\") = $intYear AND status = " . REQUEST_STATUS_APPROVED . " AND id_company = $intCompany";
+	
     $res = $db->execute($strSQL);
     if (pg_num_rows($res) >= 1) {
         $bolExist = 1;
