@@ -305,18 +305,10 @@ function deleteData()
     $arrId = [];
     $dataHrdExtraOffApplication = new cHrdExtraOffApplication();
     foreach ($dataGridObj->checkboxes as $value) {
-        $arrId['id'][] = $value;
+        $arrId['id'] = $value;
     }
-    $new = checkStatus('NEW');
-    $disable = ['active' => 'f',];
-    $wheres[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($new);
-    $approvedExist = pgFetchRows(getExtraOffListQuery($wheres));
-    if (($result = count($approvedExist) > 0) === true) {
-        $dataHrdExtraOffApplication->deleteMultiple($arrId);
-    } else {
-        $arr2Id = ['id' => $value];
-        $dataHrdExtraOffApplication->update($arr2Id, $disable);
-    }
+    $disable = ['active' => 'f'];
+    $dataHrdExtraOffApplication->update($arrId, $disable);
     $dataGridObj->message = 'Data Deleted';
     //setFlashMessage($gridName, serialize($dataGridObj));
 }
