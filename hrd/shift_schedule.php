@@ -590,6 +590,7 @@ if ($db->connect()) {
   (isset($_REQUEST['dataEmployee'])) ? $strDataEmployee = $_REQUEST['dataEmployee'] : $strDataEmployee = "";
   (isset($_REQUEST['dataView'])) ? $strDataView = $_REQUEST['dataView'] : $strDataView = "";
   (isset($_REQUEST['dataPage'])) ? $intCurrPage = $_REQUEST['dataPage'] : $intCurrPage = 1;
+  $strDataSubDepartment = '';
   if (!is_numeric($intCurrPage)) {
     $intCurrPage = 1;
   }
@@ -597,11 +598,13 @@ if ($db->connect()) {
       $strDataEmployee,
       $strDataSubSection,
       $strDataSection,
+      $strDataSubDepartment,
       $strDataDepartment,
       $strDataDivision,
       $_SESSION['sessionUserRole'],
       $arrUserInfo
   );
+  $strDisabled = ($_SESSION['sessionUserRole'] == ROLE_EMPLOYEE) ? 'disabled' : 'enabled';
   // ------------ GENERATE KRITERIA QUERY,JIKA ADA -------------
   $strKriteria = "";
   if ($strDataDivision != "") {
@@ -665,36 +668,36 @@ if ($db->connect()) {
       $db,
       "dataDivision",
       $strDataDivision,
-      $strEmptyOption,
-      "",
-      "style=\"width:$intDefaultWidthPx\"" . $ARRAY_DISABLE_GROUP['division']
+      $strEmptyOption2,
+      '',
+      "style=\"width:$intDefaultWidthPx\"". $ARRAY_DISABLE_GROUP['division']
   );
   $strInputDepartment = getDepartmentList(
       $db,
       "dataDepartment",
       $strDataDepartment,
-      $strEmptyOption,
-      "",
+      $strEmptyOption2,
+      '',
       "style=\"width:$intDefaultWidthPx\"" . $ARRAY_DISABLE_GROUP['department']
   );
   $strInputSection = getSectionList(
       $db,
       "dataSection",
       $strDataSection,
-      $strEmptyOption,
-      "",
+      $strEmptyOption2,
+      '',
       "style=\"width:$intDefaultWidthPx\"" . $ARRAY_DISABLE_GROUP['section']
   );
   $strInputSubsection = getSubSectionList(
       $db,
       "dataSubSection",
       $strDataSubSection,
-      $strEmptyOption,
-      "",
+      $strEmptyOption2,
+      '',
       "style=\"width:$intDefaultWidthPx\"" . $ARRAY_DISABLE_GROUP['sub_section']
   );
   //$strInputGroup = getGroupList($db,"dataGroup",$strDataGroup, $strEmptyOption,""," style=\"width:$intDefaultWidthPx\"");
-  $strInputEmployee = "<input class=form-control type=text name=dataEmployee id=dataEmployee maxlength=30 value=\"$strDataEmployee\" style=\"width:$intDefaultWidthPx\">";
+  $strInputEmployee = "<input class=form-control type=text name=dataEmployee id=dataEmployee maxlength=30 value=\"$strDataEmployee\" style=\"width:$intDefaultWidthPx\" $strDisabled>";
   $strInputActive = getEmployeeActiveList(
       "dataActive",
       $strDataActive,

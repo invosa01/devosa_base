@@ -421,7 +421,7 @@ function getUserEmployeeInfo()
     }
     $strSQL = "SELECT t1.id, t1.employee_id, t1.employee_name, t1.position_code, t1.employee_status, ";
     $strSQL .= "t1.functional_code,t1.division_code, t1.department_code, t1.section_code, ";
-    $strSQL .= "t1.sub_section_code, t1.id_company, t1.grade_code, t3.weight ";
+    $strSQL .= "t1.sub_section_code, t1.id_company, t1.grade_code, t3.weight, t2.id_adm_group ";
     $strSQL .= "FROM adm_user AS t2 ";
     $strSQL .= "LEFT JOIN hrd_employee AS t1 ON TRIM(t1.employee_id) = TRIM(t2.employee_id)  ";
     $strSQL .= "LEFT JOIN hrd_salary_grade t3 ON t1.grade_code = t3.grade_code ";
@@ -442,6 +442,7 @@ function getUserEmployeeInfo()
         $arrUserInfo['id_company'] = $rowDb['id_company'];
         $arrUserInfo['grade_code'] = $rowDb['grade_code'];
         $arrUserInfo['grade_weight'] = is_null($rowDb['weight']) ? 0 : $rowDb['weight'];
+        $arrUserInfo['id_adm_group'] = $rowDb['id_adm_group'];
         if ($rowDb['id_company'] != "") {
             $strSQL = "SELECT * FROM hrd_company WHERE id = " . $rowDb['id_company'];
             $resDb = $db->execute($strSQL);

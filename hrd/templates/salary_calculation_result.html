@@ -2,9 +2,27 @@
 <script src="scripts/ylib.js"></script>
 <script src="employee_data.php"></script>
 <link href="../css/ac.css" rel="stylesheet" type="text/css">
-<script>
-  <!--
+<!-- js dan css untuk modal dialog slip gaji pdf -->
+	<script src="scripts/alertify.min.js"></script>
+	<link rel="stylesheet" href="../css/alertify.core.css" />
+	<link rel="stylesheet" href="../css/alertify.default.css" id="toggleCSS" />
+<!-- -->
 
+<script>
+  <!-- function export to pdf -->
+function nullFunction() {
+}
+function cekpwd(){
+	var pwd=document.getElementById("txtpdf").value;
+	if (pwd!=""){
+		alertify.success("Successfully export data slip to pdf");
+		return true;
+	} else {
+		alertify.error("Error: Password cannot be blank!");
+		return false;
+	}
+}
+<!--  -->
   AC_targetElements = ["dataEmployee"];
 
   // fungsi yang melakukan proses jika kode (dari input box yang yang diinginkan(
@@ -97,6 +115,7 @@
     document.formData.target = "_blank";
   }//goSlip
   -->
+  
   jQuery(function($) {
   	$('#dataEmployee').autocomplete({
 			source: "hrd_ajax_source.php?action=getemployee",
@@ -106,7 +125,31 @@
 				$('#employee_name').html(ui.item.label);
 			}
 		});
+	<!-- jquery untuk export to pdf -->	
+		$('#btnpdf').click(function(){
+			document.getElementById("txtpdf").value=""; //kosongkan jika input pwd lagi
+			$('#DialogPDF').modal('show');	
+			$("#txtpdf").focus();
+		}); 
+		$('#DialogPDF').blur(function(){
+			$('#DialogPDF').modal('hide');		
+			alertify.error("Error: Password cannot be blank!");
+		}); 
+		$("#DialogPDF").focusout(function(){
+			$("#DialogPDF").modal('hide');
+		});
+		
+		//hide button hide pdf
+		$("#hidepdf").modal('hide');		
+		
 	});	
+
+	$(document).keypress(function(event) {
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+		if (keycode == '13') {
+			return cekpwd();
+		}
+	});
 </script>
 [var.pageHeader]
 	<div class="main-content">
@@ -119,7 +162,7 @@
   			<div class="panel">
 					<div class="panel-heading">
 						<div class="panel-actions">
-							<div class="pull-right" id="collapse-filter">
+						  <div class="pull-right" id="collapse-filter">
 						  	<a href="#" data-toggle="collapse" data-target="#filter-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
 						  </div>
 						</div>
@@ -127,34 +170,35 @@
 					</div>
 					<div id="filter-panel" class="panel-body collapse in">
 						<form action="" method="post" name="formInput" id="formInput" class="form-horizontal" role="form">
+							
 							<div class="col-md-8" style="display:[var.strDisplay]">
-								<div class="col-md-6">
-		      				<div class="form-group">
-										<label class="col-sm-4 control-label" for="dataSalaryCurrency">[var.strWordsCurrency]</label>
-										<div class="col-sm-8">
-											[var.strInputDataCurrency]
-										</div>
+							  <div class="col-md-6">
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="dataSalaryCurrency">[var.strWordsCurrency]</label>
+									<div class="col-sm-8">
+										[var.strInputDataCurrency]
 									</div>
-									<div class="form-group">
+								</div>
+								<div class="form-group">
 										<label class="col-sm-4 control-label" for="dataBranch">[var.strWordsOutlet]</label>
 										<div class="col-sm-8">
 											[var.strInputBranch]
 										</div>
-									</div>
-									<div class="form-group">
+								</div>
+								<div class="form-group">
 										<label class="col-sm-4 control-label" for="dataDivision">[var.strWordsDivision]</label>
 										<div class="col-sm-8">
 											[var.strInputDivision]
 										</div>
-									</div>
-									<div class="form-group">
+								</div>
+								<div class="form-group">
 										<label class="col-sm-4 control-label" for="dataDepartment">[var.strWordsDepartment]</label>
 										<div class="col-sm-8">
 											[var.strInputDepartment]
 										</div>
-									</div>
 								</div>
-								<div class="col-md-6">
+							  </div>
+							  <div class="col-md-6">
 									<div class="form-group">
 										<label class="col-sm-4 control-label" for="dataSection">[var.strWordsSection]</label>
 										<div class="col-sm-8">
@@ -179,20 +223,20 @@
 											[var.strInputEmployee]
 										</div>
 									</div>
-								</div>
-								<div class="col-md-12 form-actions" align="right">
-									<input class="btn btn-primary btn-small" name="btnShow" type="submit" id="btnShow2" value="Filter">
-	                <input type=hidden name=dataPage value=1> <input name=dataID type=hidden id="dataID" value=[var.strDataID]>
-	              </div>
+							  </div>
+							  <div class="col-md-12 form-actions" align="right">
+								<input class="btn btn-primary btn-small" name="btnShow" type="submit" id="btnShow2" value="Filter">
+								<input type=hidden name=dataPage value=1> <input name=dataID type=hidden id="dataID" value=[var.strDataID]>
+							  </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label class="col-sm-4 control-label" for="dataSalaryCurrency"><strong>[var.strWordsReport]</strong></label>
 									<div class="col-sm-8">
-										<select name="dataReport" id="dataReport" class="form-control select2">
-		                  <option value="2">[var.strWordsBankTransferS]</option>
-		                  <option value="3">[var.strWordsBankTransferL]</option>
-		                </select>
+									  <select name="dataReport" id="dataReport" class="form-control select2">
+										<option value="2">[var.strWordsBankTransferS]</option>
+										<option value="3">[var.strWordsBankTransferL]</option>
+									  </select>
 									</div>
 								</div>
 								<div class="form-group">
@@ -207,7 +251,7 @@
 							</div>
 						</form>
 					</div>	
-				</div>
+			</div>
   		</div>
   		<div class="col-md-12">
   			<div class="panel">
@@ -225,11 +269,34 @@
 						</div>
 						<div class="col-md-12">
 							<form action="" method="post" name="formData" id="formData">
-      					[var.strDataDetail][var.strHidden]
-      				</form>
+								[var.strDataDetail][var.strHidden]
+								<div class="container"> 
+								  <!-- Modal -->
+								  <div class="modal fade" id="DialogPDF" role="dialog">
+									<div class="modal-dialog">    
+									  <!-- Modal content-->
+									  <div class="modal-content">
+										<div class="modal-header">
+										  <button type="button" class="close" data-dismiss="modal">&times;</button>
+										  <h4 class="modal-title">File Password</h4>
+										</div>
+										<div class="modal-body">
+											<p>Due to data security and to prevent data exposure, slip should be locked with password.</p>
+											<p><label>Your Password : </label>
+											<input type="password" id="txtpdf" name="txtpdf" value="" />	 
+											</p>
+										</div>
+										<div class="modal-footer">
+											<p>Press key <b>ENTER</b> for submit this action</p>
+										</div>
+									  </div>									  
+									</div>
+								  </div>  
+								</div>
+							</form>
 						</div>
 					</div>
-				</div>
 			</div>
+		</div>
   	</div>
   </div>

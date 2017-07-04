@@ -501,7 +501,7 @@ class cModel
         }
         $strMessage = "";
         $isSaved = false;
-        if ($this->REPOSTCHECKING) {
+        /*if ($this->REPOSTCHECKING) {
             if ($this->_isRepostData($strSQL)) {
                 //previous data already save because is still in the cookie with the precies same value
                 if ($this->DEBUGMODE > 0) {
@@ -515,7 +515,7 @@ class cModel
                 $isSaved = true;
                 return $isSaved;
             }
-        }
+        }*/
         if ($strSQL != "") {
             if ($this->db->connect()) {
                 // cek validasi -----------------------
@@ -876,7 +876,7 @@ class cModel
 
     function update($varKey, $varData)
     {
-        $strModified = '';
+        $strModified = date('Y-m-d H:i:s');
         $strCriteria = $this->_serializeCondition($varKey);
         if (isset($this->db->columns['datetime']['formatter']) && isset($this->db->columns['datetime']['format'])) {
             $formatter = $this->db->columns['datetime']['formatter'];

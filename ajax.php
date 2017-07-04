@@ -16,7 +16,9 @@ function routeMap()
         'quotaExtraOff'                  => 'getQuotaExtraOffData',
         'quotaExtraOff-options'          => 'getRenderedQuotaExtraOffOptions',
         'conExtraOff'                    => 'getConExtraOffData',
-        'conExtraOff-options'            => 'getConExtraOffOptions'
+        'conExtraOff-options'            => 'getConExtraOffOptions',
+        'shiftChange'                    => 'getEmployeeShiftChangeData',
+        'shiftChange-options'            => 'getEmployeeShiftChangeOptions'
     ];
 }
 
@@ -255,19 +257,25 @@ function getQuotaExtraOffData()
         $employeeId = $_POST['id'];
     }
     $strSQL = 'SELECT
-                    emp."id",
-                    qeo."id" AS qeo_id,
-                    qeo.employee_id,
-                    qeo.date_extra_off,
-                    qeo.date_expaired,
-                    qeo.note,
-                    qeo.active
+                    eoq.employee_id,
+                    eoq."id",
+                    eoq.date_eo,
+                    eoq.date_expired,
+                    eoq.note,
+                    eoq."type",
+                    emp.employee_name,
+                    stp.code,
+                    stp.start_time,
+                    stp.finish_time,
+                    eoq.active
                 FROM
-                    "public".hrd_employee AS emp
-                INNER JOIN "public".hrd_quota_extra_off AS qeo ON qeo.employee_id = emp."id"';
+                    "public".hrd_eo_quota AS eoq
+                INNER JOIN "public".hrd_employee AS emp ON eoq.employee_id = emp."id"
+                INNER JOIN "public".hrd_eo_conf AS eoc ON eoq."type" = eoc."id"
+                INNER JOIN "public".hrd_shift_type AS stp ON eoc.shift_type_id = stp."id"';
     if ($employeeId !== null) {
-        $wheres[] = 'qeo.employee_id = ' . pgEscape($employeeId);
-        $wheres[] = 'qeo.active = ' . pgEscape($active);
+        $wheres[] = ' eoq.employee_id = ' . pgEscape($employeeId);
+        $wheres[] = ' eoq.active = ' . pgEscape($active);
     }
     return pgFetchRows(getQuery($strSQL, $wheres));
 }
@@ -277,11 +285,13 @@ function getRenderedQuotaExtraOffOptions()
     $result = '<option value="">-</option>';
     $record = getQuotaExtraOffData();
     foreach ($record as $row) {
-        $result .= '<option value="' . $row['qeo_id'] . '">'
-            . $row['date_extra_off']
-            . ' - '
-            . $row['date_expaired']
-            . ' - '
+        $result .= '<option value="' . $row['id'] . '">'
+            . $row['employee_name']
+            . ' Date Extra Off : '
+            . $row['date_eo']
+            . ' Date Expired : '
+            . $row['date_expired']
+            . ' Note : '
             . $row['note']
             . '</option>';
     }
@@ -296,13 +306,14 @@ function getConExtraOffData()
         $employeeId = $_POST['id'];
     }
     $strSQL = 'SELECT
-                    ceo."id" AS ceo_id,
-                    ceo."type"
+                    eoc."id",
+                    stp.code
                 FROM
-                    "public".hrd_employee AS emp
-                INNER JOIN "public".hrd_con_extra_off AS ceo ON ceo.employee_id = emp."id"';
+                    "public".hrd_eo_conf AS eoc
+                INNER JOIN "public".hrd_employee AS emp ON emp.eo_level_code = eoc.eo_level_code
+                INNER JOIN "public".hrd_shift_type AS stp ON eoc.shift_type_id = stp."id"';
     if ($employeeId !== null) {
-        $wheres[] = 'emp.employee_id = ' . pgEscape($employeeId);
+        $wheres[] = ' emp.employee_id = ' . pgEscape($employeeId);
     }
     return pgFetchRows(getQuery($strSQL, $wheres));
 }
@@ -312,8 +323,47 @@ function getConExtraOffOptions()
     $result = '<option value="">-</option>';
     $record = getConExtraOffData();
     foreach ($record as $row) {
-        $result .= '<option value="' . $row['type'] . '">'
-            . $row['type']
+        $result .= '<option value="' . $row['id'] . '">'
+            . $row['id']
+            . ' - '
+            . $row['code']
+            . '</option>';
+    }
+    return $result;
+}
+
+function getEmployeeShiftChangeData()
+{
+    $employeeId = null;
+    $currently = date('Y-m-d');
+    $wheres = [];
+    if (array_key_exists('id', $_POST) === true) {
+        $employeeId = $_POST['id'];
+    }
+    $strSQL = 'SELECT
+                    sse."id",
+                    sse.id_employee,
+                    sht.code,
+                    sse.shift_date
+                FROM
+                    "public".hrd_shift_schedule_employee AS sse
+                INNER JOIN "public".hrd_shift_type AS sht ON sse.shift_code = sht.code';
+    if ($employeeId !== null) {
+        $wheres[] = 'sse.id_employee = ' . pgEscape($employeeId);
+        $wheres[] = 'sse.shift_date >=' . pgEscape($currently);
+    }
+    return pgFetchRows(getQuery($strSQL, $wheres));
+}
+
+function getEmployeeShiftChangeOptions()
+{
+    $result = '<option value="">-</option>';
+    $record = getEmployeeShiftChangeData();
+    foreach ($record as $row) {
+        $result .= '<option value="' . $row['id'] . '">'
+            . $row['code']
+            . ' - '
+            . $row['shift_date']
             . '</option>';
     }
     return $result;

@@ -1,13 +1,13 @@
 <?php
 
-class cHrdExtraOff extends cModel
+class cHrdExtraOffApplication extends cModel
 {
 
     var $strEntityName = "extra_off";
 
-    var $strTableName = "hrd_extra_off";
+    var $strTableName = "hrd_eo_application";
 
-    function cHrdExtraOff()
+    function cHrdExtraOffApplication()
     {
         parent::cModel();
     }

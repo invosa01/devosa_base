@@ -998,6 +998,72 @@ $arrSetting = [
         "note"    => "BPJS allowance  is hidden if the value is zero",
         "default" => "f",
     ],
+    "strRapelName"            => [
+        "code"    => "rapel_allowance_name",
+        "value"   => "Rapel Allowance",
+        "note"    => "Display Name for Rapel Allowance",
+        "default" => "Rapel Allowance",
+    ],
+    "strRapelActive"          => [
+        "code"    => "rapel_allowance_active",
+        "value"   => "t",
+        "note"    => "Is Rapel Allow Active?",
+        "default" => "t",
+    ],
+    "strRapelIr"              => [
+        "code"    => "rapel_allowance_irregular",
+        "value"   => "t",
+        "note"    => "Is Irregular",
+        "default" => "f",
+    ],
+    "strRapelBen"             => [
+        "code"    => "rapel_allowance_benefit",
+        "value"   => "t",
+        "note"    => "Is Benefit",
+        "default" => "t",
+    ],
+    "strRapelShow"            => [
+        "code"    => "rapel_allowance_show",
+        "value"   => "t",
+        "note"    => "Show Rapel Allow",
+        "default" => "t",
+    ],
+    "strRapelProrate"         => [
+        "code"    => "rapel_allowance_prorate",
+        "value"   => "t",
+        "note"    => "Prorate Rapel Allow",
+        "default" => "t",
+    ],
+    "strRapelOT"              => [
+        "code"    => "rapel_allowance_ot",
+        "value"   => "f",
+        "note"    => "Rapel Allow include OT",
+        "default" => "f",
+    ],
+    "strRapelTax"             => [
+        "code"    => "rapel_allowance_tax",
+        "value"   => "t",
+        "note"    => "Rapel Allow include in tax",
+        "default" => "t",
+    ],
+    "strRapelJams"            => [
+        "code"    => "rapel_allowance_jams",
+        "value"   => "t",
+        "note"    => "Rapel Allow include in jamsostek",
+        "default" => "t",
+    ],
+    "strRapelDaily"           => [
+        "code"    => "rapel_allowance_daily",
+        "value"   => "t",
+        "note"    => "Rapel Allow is daily allowance",
+        "default" => "f",
+    ],
+    "strRapelHidezero"        => [
+        "code"    => "rapel_allowance_hidezero",
+        "value"   => "t",
+        "note"    => "Rapel Allow is hidden if the value is zero",
+        "default" => "f",
+    ],
     //Jamostek Deduction
     "strJamsDeducName"     => [
         "code"    => "jamsostek_deduction_name",
@@ -1499,9 +1565,12 @@ $arrFixAllowance = [
     "PensionAllow"  => ["Pension allowance", "%"],
 ];
 // daftar tunjangan yang "FIX" -> settingnya dari data master
-$arrFixAllowance2["Overtime"] = ["overtime allowance", ""];
-$arrFixAllowance2["Shift"] = array("shift allowance","data_shift_type.php");
-$arrFixAllowance2["THR"] = ["THR allowance", ""];
+$arrFixAllowance2 = [
+    'Overtime' => ['overtime allowance',''],
+    'Shift' => ['shift allowance','data_shift_type.php'],
+    'THR' => ['0' => 'THR allowance','1' => ''],
+    'Rapel' => ['0' => 'rapel','1' => '']
+];
 foreach ($ARRAY_ALLOWANCE_SET AS $strKey => $arrVal) {
     for ($i = 1; $i <= MAX_ALLOWANCE_SET; $i++) {
         $arrFixAllowance2[$strKey . $i] = [$strKey . $i . "_allowance", $arrVal['page_name']];

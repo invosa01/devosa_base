@@ -1,5 +1,4 @@
 <?php
-include_once('../global/session.php');
 include_once("../global.php");
 include_once("../global/common_function.php");
 //include_once("../includes/krumo/class.krumo.php");
