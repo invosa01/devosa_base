@@ -233,9 +233,9 @@ var $imageName;
     } else {
       $dataLanguage = $globalLanguage;
     }
-    $this->CSSFileName = ereg_replace('/+', '/', $CLASSDATAGRIDPATH . "/css/" . $DATAGRID_CSS . ".css");
-    $this->CSSFileNameExcel = ereg_replace('/+', '/', $CLASSDATAGRIDPATH . "/css/" . $DATAGRID_CSS . ".excel.css");
-    $this->JSFileName = ereg_replace('/+', '/', $CLASSDATAGRIDPATH . "/scripts/datagrid_" . $dataLanguage . ".js");
+    $this->CSSFileName = preg_replace('/\/+/', '/', $CLASSDATAGRIDPATH . "/css/" . $DATAGRID_CSS . ".css");
+    $this->CSSFileNameExcel = preg_replace('/\/+/', '/', $CLASSDATAGRIDPATH . "/css/" . $DATAGRID_CSS . ".excel.css");
+    $this->JSFileName = preg_replace('/\/+/', '/', $CLASSDATAGRIDPATH . "/scripts/datagrid_" . $dataLanguage . ".js");
     if (!is_file($this->CSSFileName)) {
       die("SKIN/CSS for datagrid was not found, please check your SETTING below in datagrid.config.php:<br />
 - \$CLASSDATAGRIDPATH<br />
@@ -248,7 +248,7 @@ var $imageName;
       die("Javascript for datagrid was not found, please check your SETTING below in datagrid.config.php:<br />
 - \$CLASSDATAGRIDPATH");
     }
-    $imagePath = ereg_replace('/+', '/', $CLASSDATAGRIDPATH . "/css/" . $DATAGRID_CSS . "/");
+    $imagePath = preg_replace('/\/+/', '/', $CLASSDATAGRIDPATH . "/css/" . $DATAGRID_CSS . "/");
     $this->imageList = [
         "sort_desc"   => $imagePath . "sortDesc.gif",
         "sort_asc"    => $imagePath . "sortAsc.gif",
@@ -646,7 +646,8 @@ var $imageName;
 
   function _initWorkBook()
   {
-    $this->wkb =& new workbook("-");
+    $workbook = new workbook("-");
+    $this->wkb =& $workbook;
     //create custom color index 50
     $this->wkb->set_custom_color(50, 200, 200, 200);
     // Add a worksheet to the file, returning an object to add data to
