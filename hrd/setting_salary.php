@@ -188,6 +188,12 @@ $arrSetting = [
         'note'    => 'Prorate method',
         'default' => '0'
     ],
+    'radioRound' => [
+        'code'    => 'radio_round',
+        'value'   => '0',
+        'note'    => '0 => round up; 1 => round down',
+        'default' => '0'
+    ],
     //Basic Salary
     /*"strBasicSalaryName" => array("code" => "basic_salary_name", "value" => "Basic Salary Allowance", "note" => "Display Name for Basic Salary", "default" => "Basic Salary",),
     "strBasicSalaryActive" => array("code" => "basic_salary_active", "value" => "t", "note" => "Is Basic Salary Active?", "default" => "t",),
@@ -2561,6 +2567,7 @@ if ($db->connect()) {
 $strHour = $arrSetting['strHour']['value'];
 $strDays = $arrSetting['strDays']['value'];
 $strRound = $arrSetting['strRound']['value'];
+$bolRoundUpDown = $arrSetting['radioRound']['value'];
 $strHalfOTMax = $arrSetting['strHalfOTMax']['value'];
 $strHalfOTRate = $arrSetting['strHalfOTRate']['value'];
 $strOTBreakfastAllowance = $arrSetting['strOTBreakfastAllowance']['value'];

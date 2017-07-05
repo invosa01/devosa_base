@@ -64,42 +64,63 @@
   				<h6 class="header"><strong>[var.strWordsCommonSetting]</strong></h6>
 	  			<form action="" method="post" name="formData" id="formData" onSubmit="return validInput()" class="form-horizontal" role="form">
 	  				<div class="col-md-4">
-		  			<!--	<div class="form-group">
-								<label class="col-sm-4 control-label" for="strHour">[var.strWordsHourPerMonth]</label>
-								<div class="col-sm-8">
-									<input name="strHour" type="text" id="strHour" value="[var.strHour]" size="50" maxlength="10" class="numeric form-control">
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="strRound">[var.strWordsRoundSalaryTo]</label>
+							<div class="col-sm-8">
+								<input name="strRound" type="text" id="strRound" value="[var.strRound]" size="50" maxlength="10" class="numeric form-control">
+								<div class="radiobox">
+									<label><input name="radioRound" type="radio" id="radioRound" value="0">Round Up</label>
+									<label><input name="radioRound" type="radio" id="radioRound" value="1">Round Down</label>
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-sm-4 control-label" for="strDays">[var.strWordsDaysPerMonth]</label>
-								<div class="col-sm-8">
-									<input name="strDays" type="text" id="strDays" value="[var.strDays]" size="50" maxlength="10" class="numeric form-control">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-4 control-label" for="strRound">[var.strWordsRoundSalaryTo]</label>
-								<div class="col-sm-8">
-									<input name="strRound" type="text" id="strRound" value="[var.strRound]" size="50" maxlength="10" class="numeric form-control">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-4 control-label" for="strHalfOTMax">[var.strWordsMaxStandardOT]</label>
-								<div class="col-sm-8">
-									<input name="strHalfOTMax" type="text" id="strHalfOTMax" value="[var.strHalfOTMax]" size="50" maxlength="10" class="numeric form-control">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-4 control-label" for="intOTPercent">[var.strWordsOTBase]</label>
-								<div class="col-sm-8">
-									<input name="intOTPercent" type="text" id="intOTPercent" value="[var.intOTPercent]" size="50" maxlength="10" class="numeric form-control">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-4 control-label" for="strBasicSalaryCode">[var.strWordsBasicSalaryCode]</label>
-								<div class="col-sm-8">
-									<input name="strBasicSalaryCode" type="text" id="strBasicSalaryCode" value="[var.strBasicSalaryCode]" size="50" maxlength="100" class="form-control">
-								</div>
-							</div> -->
+							<input id="bolRoundUpDown" type="hidden" name="bolRoundUpDown" value="[var.bolRoundUpDown]">
+							<script>
+								var bolRoundUpDown = document.getElementById('bolRoundUpDown').value;
+								if (bolRoundUpDown == '0') {
+									document.getElementsByName('radioRound')[0].checked = true;
+								}
+								else if (bolRoundUpDown == '1') {
+									document.getElementsByName('radioRound')[1].checked = true;
+								}
+							</script>
+						</div>
+
+						<!--	<div class="form-group">
+                                  <label class="col-sm-4 control-label" for="strHour">[var.strWordsHourPerMonth]</label>
+                                  <div class="col-sm-8">
+                                      <input name="strHour" type="text" id="strHour" value="[var.strHour]" size="50" maxlength="10" class="numeric form-control">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-4 control-label" for="strDays">[var.strWordsDaysPerMonth]</label>
+                                  <div class="col-sm-8">
+                                      <input name="strDays" type="text" id="strDays" value="[var.strDays]" size="50" maxlength="10" class="numeric form-control">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-4 control-label" for="strRound">[var.strWordsRoundSalaryTo]</label>
+                                  <div class="col-sm-8">
+                                      <input name="strRound" type="text" id="strRound" value="[var.strRound]" size="50" maxlength="10" class="numeric form-control">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-4 control-label" for="strHalfOTMax">[var.strWordsMaxStandardOT]</label>
+                                  <div class="col-sm-8">
+                                      <input name="strHalfOTMax" type="text" id="strHalfOTMax" value="[var.strHalfOTMax]" size="50" maxlength="10" class="numeric form-control">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-4 control-label" for="intOTPercent">[var.strWordsOTBase]</label>
+                                  <div class="col-sm-8">
+                                      <input name="intOTPercent" type="text" id="intOTPercent" value="[var.intOTPercent]" size="50" maxlength="10" class="numeric form-control">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-4 control-label" for="strBasicSalaryCode">[var.strWordsBasicSalaryCode]</label>
+                                  <div class="col-sm-8">
+                                      <input name="strBasicSalaryCode" type="text" id="strBasicSalaryCode" value="[var.strBasicSalaryCode]" size="50" maxlength="100" class="form-control">
+                                  </div>
+                              </div> -->
               <div class="form-group">
 								<label class="col-sm-4 control-label" for="strBPJSMax">[var.strWordsBPJSMax]</label>
 								<div class="col-sm-8">
