@@ -312,7 +312,7 @@ function timeCompare($time1, $time2)
     }
     return $intResult;
 }//timeCompare
-if (function_exists('getDataInterval') === false) {
+if (function_exists('getDateInterval') === false) {
     /**
      * Get date interval date from and date thru.
      *
