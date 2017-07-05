@@ -181,6 +181,8 @@ class cDataGrid
 
     var $reportFooter = false;
 
+    var $insertJamsostekLogo = false;
+
     //---------------------------------------
     // Class constructor
     function cDataGrid(
@@ -776,7 +778,11 @@ class cDataGrid
             $formatCaption1->set_size($this->fontSize + 2);
             $formatCaption1->set_bold(1);
             $formatCaption1->set_align('vcenter');
-            $this->sheet->write_string($this->intExcelRows++, 0, $this->strTitle1, $formatCaption1);
+            $this->sheet->write_string($this->intExcelRows++, 1, $this->strTitle1, $formatCaption1);
+            if ($this->DATAGRID_RENDER_OUTPUT == DATAGRID_RENDER_EXCEL_BIFF && $this->insertJamsostekLogo === TRUE) {
+                $this->sheet->insert_bitmap(0, 0, JAMSOSTEK_LOGO_DIR, 0, 0, 0.5, 0.5);
+                $this->intExcelRows++;
+            }
         }
         if ($this->strTitle2 != '') {
             $formatCaption2 =& $this->wkb->add_format();
@@ -943,9 +949,6 @@ class cDataGrid
         $startNumber = $intRows;
         $intNomor = $startNumber;
         $isFirst = true;
-        //if ($this->DATAGRID_RENDER_OUTPUT == DATAGRID_RENDER_EXCEL_BIFF) {
-        //    $this->sheet->insert_bitmap(0, 0, 'D:\Development\WebRoot\DevosaBase\images\jamsostek.bmp');
-        //}
         foreach ($this->dataset as $rowDb) {
             $intRows++;
             //print TR
@@ -973,7 +976,7 @@ class cDataGrid
             }
             $this->intExcelRows++;
             $intNomor++;
-            $counter = 0;
+            $counter = ($this->DATAGRID_RENDER_OUTPUT == DATAGRID_RENDER_EXCEL_BIFF && $this->insertJamsostekLogo === TRUE) ? 1 : 0;
             foreach ($this->columnSet as $idx => $value) {
                 //do not print data if it is spanned column and no fieldName and no item _formatter
                 if (($value->fieldName === "" || $value->fieldName == null) &&
@@ -1321,6 +1324,9 @@ class cDataGrid
     {
         if ($col->showInExcel) {
             $intColPosition = $col->intColumnPosition - $this->intHiddenExcelColumn;
+            if ($this->DATAGRID_RENDER_OUTPUT == DATAGRID_RENDER_EXCEL_BIFF && $this->insertJamsostekLogo === TRUE) {
+                $intColPosition++;
+            }
             if ($col->xlsColumnWidth > 0) {
                 $this->sheet->set_column($intColPosition, $intColPosition, $col->xlsColumnWidth);
             }
