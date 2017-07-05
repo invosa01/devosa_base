@@ -969,6 +969,8 @@ class clsSalaryCalculation
                 $fltRound = roundMoney($this->arrDetail[$strID]['total_gross'], $intRound);
                 $this->arrDetail[$strID]['total_gross_irregular'] = $this->arrDetail[$strID]['total_gross'];
             }
+            $this->arrDetail[$strID]['total_gross'] = $this->roundTHP($this->arrDetail[$strID]['total_gross'], getSetting('radio_round'), getSetting('salary_round'));
+            $this->arrDetail[$strID]['total_gross_irregular'] = $this->roundTHP($this->arrDetail[$strID]['total_gross_irregular'], getSetting('radio_round'), getSetting('salary_round'));
             /*//Tambahan kalkulasi tax pesangon disini
             if (isset($this->arrDA['pesangon']) && isset($this->arrDA['pesangon'][$strID]) && isset($this->arrDA['pesangon'][$strID]['amount']) && $this->arrDA['pesangon'][$strID]['amount'] > 0){
                 $fltPesangon = $this->arrDA['pesangon'][$strID]['amount'];
@@ -2271,7 +2273,33 @@ class clsSalaryCalculation
         $this->getStandardWorkingDay();
         $this->arrData['id_salary_set'] = $strSalarySet;
     }
-    /* End getArrayDetailBaseTaxPayedTaxBefore */
+
+    /**
+     * Function to round up/down thp.
+     *
+     * @param $fltValue
+     * @param $mode
+     * @param $intRoundBy
+     *
+     * @return float
+     */
+    function roundTHP($fltValue, $mode, $intRoundBy) {
+        # No changes if $intRoundBy is equal or less than 0 OR $intRoundBy digits exceeds $fltValue.
+        if (!is_numeric($intRoundBy) || $intRoundBy > $fltValue || $intRoundBy <= 0) {
+            return $fltValue;
+        }
+        $fltResult = $fltValue;
+        # Round up.
+        if ($mode == '0') {
+            $fltResult = ceil($fltResult/$intRoundBy);
+        }
+        # Round down.
+        else if ($mode == '1') {
+            $fltResult = floor($fltResult/$intRoundBy);
+        }
+        $fltResult = $fltResult * $intRoundBy;
+        return $fltResult;
+    }
 }
 
 ?>
