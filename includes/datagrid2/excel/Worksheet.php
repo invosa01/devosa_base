@@ -349,7 +349,7 @@ class Worksheet extends BIFFwriter
     function _process_bitmap($bitmap)
     {
         // Open file.
-        $bmp_fd = fopen($bitmap, "rb");
+        $bmp_fd = fopen($bitmap, "r+");
         if (!$bmp_fd) {
             die("Couldn't import $bitmap");
         }
@@ -361,7 +361,7 @@ class Worksheet extends BIFFwriter
         }
         // The first 2 bytes are used to identify the bitmap.
         $identity = unpack("A2", $data);
-        if ($identity[''] != "BM") {
+        if ($identity[1] != "BM") {
             die("$bitmap doesn't appear to be a valid bitmap image.\n");
         }
         // Remove bitmap data: ID.
@@ -370,7 +370,7 @@ class Worksheet extends BIFFwriter
         // the data size at offset 0x22.
         //
         $size_array = unpack("V", substr($data, 0, 4));
-        $size = $size_array[''];
+        $size = $size_array[1];
         $data = substr($data, 4);
         $size -= 0x36; // Subtract size of bitmap header.
         $size += 0x0C; // Add size of BIFF header.

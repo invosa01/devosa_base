@@ -943,6 +943,9 @@ class cDataGrid
         $startNumber = $intRows;
         $intNomor = $startNumber;
         $isFirst = true;
+        if ($this->DATAGRID_RENDER_OUTPUT == DATAGRID_RENDER_EXCEL_BIFF) {
+            $this->sheet->insert_bitmap(0, 0, 'D:\Development\WebRoot\DevosaBase\images\jamsostek.bmp');
+        }
         foreach ($this->dataset as $rowDb) {
             $intRows++;
             //print TR

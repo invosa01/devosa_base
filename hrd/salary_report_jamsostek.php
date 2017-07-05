@@ -1024,7 +1024,7 @@ if ($showReport) {
     }
     if (isset($_POST['btnExportXLS'])) {
       $myDataGrid->DATAGRID_RENDER_OUTPUT = DATAGRID_RENDER_EXCEL_BIFF;
-      $myDataGrid->strFileNameXLS = "jamsostek Report.xls";
+      $myDataGrid->strFileNameXLS = "jamsostek_report.xls";
       $myDataGrid->strTitle1 = getWords("Report Jamsostek - $intYear - $intMonth");
       $myDataGrid->hasGrandTotal = true;
     }
@@ -1044,7 +1044,7 @@ $pageHeader = pageHeader($pageIcon, $strPageTitle, $strPageDesc);
 $strWordsBPJSKT = getWords("BPJS ketenagakerjaan report");
 $pageSubMenu = salaryReportSubMenu($strWordsBPJSKT);
 if ($bolPrint) {
-  $strMainTemplate = getTemplate("employee_search_print.html");
+  $strMainTemplate = getTemplate("salary_report_jamsostek_print.html");
 } else {
   $strTemplateFile = getTemplate(str_replace(".php", ".html", basename($_SERVER['PHP_SELF'])));
 }
