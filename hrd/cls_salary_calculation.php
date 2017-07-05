@@ -394,6 +394,7 @@ class clsSalaryCalculation
         $fltBPJSDeduction = (isset($this->arrConf['bpjs_deduction'])) ? $this->arrConf['bpjs_deduction'] : 0;
         $fltPensionAllowance = (isset($this->arrConf['pension_allowance'])) ? $this->arrConf['pension_allowance'] : 0;
         $fltPensionDeduction = (isset($this->arrConf['pension_deduction'])) ? $this->arrConf['pension_deduction'] : 0;
+        $fltJSHKAllowance = (isset($this->arrConf['jshk_allowance'])) ? $this->arrConf['jshk_allowance'] : 0;
         $fltJSHKDeduction = (isset($this->arrConf['jshk_deduction'])) ? $this->arrConf['jshk_deduction'] : 0;
         $bolJkkAllowanceTax = (isset($this->arrMA['jkk_allowance']['tax']) && $this->arrMA['jkk_allowance']['tax'] == 't');
         $bolJkmAllowanceTax = (isset($this->arrMA['jkm_allowance']['tax']) && $this->arrMA['jkm_allowance']['tax'] == 't');
@@ -403,6 +404,7 @@ class clsSalaryCalculation
         $bolBPJSDeductionTax = (isset($this->arrMD['bpjs_deduction']['tax']) && $this->arrMD['bpjs_deduction']['tax'] == 't');
         $bolPensionAllowanceTax = (isset($this->arrMA['pension_allowance']['tax']) && $this->arrMA['pension_allowance']['tax'] == 't');
         $bolPensionDeductionTax = (isset($this->arrMD['pension_deduction']['tax']) && $this->arrMD['pension_deduction']['tax'] == 't');
+        $bolJSHKAllowanceTax = (isset($this->arrMA['jshk_allowance']['tax']) && $this->arrMA['jshk_allowance']['tax'] == 't');
         $bolJSHKDeductionTax = (isset($this->arrMD['jshk_deduction']['tax']) && $this->arrMD['jshk_deduction']['tax'] == 't');
         foreach ($this->arrDetail AS $strID => $arrInfo) {
             $bolGetJamsostek = $this->arrEmployee[$strID]['get_jamsostek'];
@@ -441,8 +443,10 @@ class clsSalaryCalculation
                 $this->arrDetail[$strID]['bpjs_allowance'] = 0;
                 $this->arrDetail[$strID]['bpjs_deduction'] = 0;
             }
+            $this->arrDetail[$strID]['jshk_allowance'] = ($fltJSHKAllowance / 100) * $baseJSHK;
             $this->arrDetail[$strID]['jshk_deduction'] = ($fltJSHKDeduction / 100) * $baseJSHK;
             if ($bolGetJSHK != "1") {
+                $this->arrDetail[$strID]['jshk_allowance'] = 0;
                 $this->arrDetail[$strID]['jshk_deduction'] = 0;
             }
             if (($this->isResignLastMonth($strID) && $this->isPaidProratedLastMonth(
@@ -457,6 +461,7 @@ class clsSalaryCalculation
                 $this->arrDetail[$strID]['pension_deduction'] = 0;
                 $this->arrDetail[$strID]['bpjs_allowance'] = 0;
                 $this->arrDetail[$strID]['bpjs_deduction'] = 0;
+                $this->arrDetail[$strID]['jshk_allowance'] = 0;
                 $this->arrDetail[$strID]['jshk_deduction'] = 0;
             }
             if ($bolJkkAllowanceTax) {
@@ -482,6 +487,9 @@ class clsSalaryCalculation
             } // as base tax
             if ($bolBPJSDeductionTax) {
                 $this->arrDetail[$strID]['base_tax'] -= $this->arrDetail[$strID]['bpjs_deduction'];
+            } // as base tax
+            if ($bolJSHKAllowanceTax) {
+                $this->arrDetail[$strID]['base_tax'] += $this->arrDetail[$strID]['jshk_allowance'];
             } // as base tax
             if ($bolJSHKDeductionTax) {
                 $this->arrDetail[$strID]['base_tax'] -= $this->arrDetail[$strID]['jshk_deduction'];
@@ -961,6 +969,8 @@ class clsSalaryCalculation
                 $fltRound = roundMoney($this->arrDetail[$strID]['total_gross'], $intRound);
                 $this->arrDetail[$strID]['total_gross_irregular'] = $this->arrDetail[$strID]['total_gross'];
             }
+            $this->arrDetail[$strID]['total_gross'] = $this->roundTHP($this->arrDetail[$strID]['total_gross'], getSetting('radio_round'), getSetting('salary_round'));
+            $this->arrDetail[$strID]['total_gross_irregular'] = $this->roundTHP($this->arrDetail[$strID]['total_gross_irregular'], getSetting('radio_round'), getSetting('salary_round'));
             /*//Tambahan kalkulasi tax pesangon disini
             if (isset($this->arrDA['pesangon']) && isset($this->arrDA['pesangon'][$strID]) && isset($this->arrDA['pesangon'][$strID]['amount']) && $this->arrDA['pesangon'][$strID]['amount'] > 0){
                 $fltPesangon = $this->arrDA['pesangon'][$strID]['amount'];
@@ -2263,7 +2273,33 @@ class clsSalaryCalculation
         $this->getStandardWorkingDay();
         $this->arrData['id_salary_set'] = $strSalarySet;
     }
-    /* End getArrayDetailBaseTaxPayedTaxBefore */
+
+    /**
+     * Function to round up/down thp.
+     *
+     * @param $fltValue
+     * @param $mode
+     * @param $intRoundBy
+     *
+     * @return float
+     */
+    function roundTHP($fltValue, $mode, $intRoundBy) {
+        # No changes if $intRoundBy is equal or less than 0 OR $intRoundBy digits exceeds $fltValue.
+        if (!is_numeric($intRoundBy) || $intRoundBy > $fltValue || $intRoundBy <= 0) {
+            return $fltValue;
+        }
+        $fltResult = $fltValue;
+        # Round up.
+        if ($mode == '0') {
+            $fltResult = ceil($fltResult/$intRoundBy);
+        }
+        # Round down.
+        else if ($mode == '1') {
+            $fltResult = floor($fltResult/$intRoundBy);
+        }
+        $fltResult = $fltResult * $intRoundBy;
+        return $fltResult;
+    }
 }
 
 ?>

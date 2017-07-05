@@ -32,6 +32,7 @@ function renderPage()
     $globalVariables = [
         'privileges'         => $privileges,
         'strConfirmSave'     => getWords("do you want to save this entry?"),
+        'strConfirmCheck'    => getWords("do you want to check this entry?"),
         'strConfirmApproved' => getWords("do you want to approved this entry?"),
         'strPageTitle'       => getWords($privileges['menu_name']),
         'pageIcon'           => "../images/icons/" . $privileges['icon_file'],
@@ -136,11 +137,17 @@ function getGridObject(array $gridOptions = [])
             'onClick="javascript:return myClient.confirmDelete();"',
             'deleteData()'
         ],
+        'btnCheck'    => [
+            'check',
+            'Check',
+            'onClick="javascript:return myClient.confirmCheck();"',
+            'changeStatusCheck()'
+        ],
         'btnApproved' => [
             'approve',
             'Approve',
-            'onClick="javascript:return myClient.confirmChangeStatus();"',
-            'changeStatus()'
+            'onClick="javascript:return myClient.confirmApproved();"',
+            'changeStatusApproved()'
         ]
     ];
     $defaultGridOptions = [
@@ -298,18 +305,10 @@ function deleteData()
     $arrId = [];
     $dataHrdExtraOffApplication = new cHrdExtraOffApplication();
     foreach ($dataGridObj->checkboxes as $value) {
-        $arrId['id'][] = $value;
+        $arrId['id'] = $value;
     }
-    $new = checkStatus('NEW');
-    $disable = ['active' => 'f',];
-    $wheres[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($new);
-    $approvedExist = pgFetchRows(getExtraOffListQuery($wheres));
-    if (($result = count($approvedExist) > 0) === true) {
-        $dataHrdExtraOffApplication->deleteMultiple($arrId);
-    } else {
-        $arr2Id = ['id' => $value];
-        $dataHrdExtraOffApplication->update($arr2Id, $disable);
-    }
+    $disable = ['active' => 'f'];
+    $dataHrdExtraOffApplication->update($arrId, $disable);
     $dataGridObj->message = 'Data Deleted';
     //setFlashMessage($gridName, serialize($dataGridObj));
 }
@@ -348,7 +347,43 @@ function getConfExtraOff($type, array $wheres = [])
     return $setConfExtraOff;
 }
 
-function changeStatus()
+function changeStatusCheck()
+{
+    /**
+     * @var \cDataGrid $dataGridObj
+     */
+    //$gridObject = unserialize(getFlashMessage('shiftChangeGrid'), true);
+    global $dataGridObj;
+    $result = false;
+    $arrId = [];
+    $dataHrdExtraOffApplication = new cHrdExtraOffApplication();
+    $dataHrdExtraOffQuota = new cHrdExtraOffQuota();
+    foreach ($dataGridObj->checkboxes as $value) {
+        $arrId = ['id' => $value];
+    }
+    $approved = ['status' => checkStatus('CHECK')];
+    $new = checkStatus('NEW');
+    $check = checkStatus('CHECK');
+    $eoIdAndNew[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($new);
+    $checkNew = pgFetchRows(getExtraOffListQuery($eoIdAndNew));
+    $eoIdAndCheck[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($check);
+    $checkExist = pgFetchRows(getExtraOffListQuery($eoIdAndCheck));
+    $setModel = getDataExtraOff($arrId['id']);
+    if (($result = count($checkNew) > 0) === true) {
+        $dataHrdExtraOffApplication->update($arrId, $approved);
+        $dataGridObj->message = $dataHrdExtraOffApplication->strMessage;
+    } elseif (($result = count($checkExist) > 0) === true) {
+        $dataGridObj->message = 'Employee : '
+            . $setModel['employee_id'] . ' And Date  : '
+            . $setModel['date_eo'] . ' Is Check';
+    } else {
+        $dataGridObj->message = 'Employee : '
+            . $setModel['employee_id'] . ' And Date  : '
+            . $setModel['date_eo'] . ' Is Approved';
+    }
+}
+
+function changeStatusApproved()
 {
     /**
      * @var \cDataGrid $dataGridObj
@@ -364,8 +399,11 @@ function changeStatus()
     }
     $approved = ['status' => checkStatus('APPROVED')];
     $new = checkStatus('NEW');
+    $check = checkStatus('CHECK');
     $eoIdAndNew[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($new);
-    $approvedExist = pgFetchRows(getExtraOffListQuery($eoIdAndNew));
+    $newExist = pgFetchRows(getExtraOffListQuery($eoIdAndNew));
+    $eoIdAndCheck[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($check);
+    $checkExist = pgFetchRows(getExtraOffListQuery($eoIdAndCheck));
     $setModel = getDataExtraOff($arrId['id']);
     $date_eo = $setModel['date_eo'];
     $type = $setModel['type'];
@@ -384,7 +422,7 @@ function changeStatus()
         'type'              => $setModel['type'],
         'note'              => $setModel['note']
     ];
-    if (($result = count($approvedExist) > 0) === true) {
+    if (($result = count($checkExist) > 0) === true) {
         #duration conf extra off
         $duration = $setModelConfEo['duration'];
         for ($i = 0; $i < $duration; $i++) {
@@ -392,6 +430,10 @@ function changeStatus()
         }
         $dataHrdExtraOffApplication->update($arrId, $approved);
         $dataGridObj->message = $dataHrdExtraOffApplication->strMessage;
+    } elseif (($result = count($newExist) > 0) === true) {
+        $dataGridObj->message = 'Employee : '
+            . $modelEoQuota['employee_id'] . ' And Date  : '
+            . $modelEoQuota['date_eo'] . ' Cant Check';
     } else {
         $dataGridObj->message = 'Employee : '
             . $modelEoQuota['employee_id'] . ' And Date  : '

@@ -513,10 +513,10 @@ class clsAnnualLeave
             } # Work period is less than one year.
             else if ($intTerm === 0) {
                 # Work period is less than one year in different year.
-                if ($arrDuration['year'] === 1) {
+                if (intval($arrDuration['year']) === 1) {
                     $intQuota = $fltLeaveQuota ;
                 } # Work period is less than one year in the same year.
-                else if ($arrDuration['year'] === 0) {
+                else if (intval($arrDuration['year']) === (int)0) {
                     $intQuota = ($fltLeaveQuota / 12) * $arrDuration['month'];
                 }
             } else {

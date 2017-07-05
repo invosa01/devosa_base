@@ -188,6 +188,12 @@ $arrSetting = [
         'note'    => 'Prorate method',
         'default' => '0'
     ],
+    'radioRound' => [
+        'code'    => 'radio_round',
+        'value'   => '0',
+        'note'    => '0 => round up; 1 => round down',
+        'default' => '0'
+    ],
     //Basic Salary
     /*"strBasicSalaryName" => array("code" => "basic_salary_name", "value" => "Basic Salary Allowance", "note" => "Display Name for Basic Salary", "default" => "Basic Salary",),
     "strBasicSalaryActive" => array("code" => "basic_salary_active", "value" => "t", "note" => "Is Basic Salary Active?", "default" => "t",),
@@ -998,6 +1004,79 @@ $arrSetting = [
         "note"    => "BPJS allowance  is hidden if the value is zero",
         "default" => "f",
     ],
+    // JSHK Allowance
+    "strJSHKAllowanceName"       => [
+        "code"    => "jshk_allowance_name",
+        "value"   => "JSHK allowance",
+        "note"    => "Display Name for JSHK",
+        "default" => "JSHK allowance",
+    ],
+    "strJSHKAllowanceAmount"     => [
+        "code"    => "jshk_allowance",
+        "value"   => "0.4",
+        "note"    => "Amount for JSHK allowance %",
+        "default" => "0.4",
+    ],
+    "strJSHKAllowanceActive"     => [
+        "code"    => "jshk_allowance_active",
+        "value"   => "t",
+        "note"    => "Is JSHK allowance Active?",
+        "default" => "t",
+    ],
+    "strJSHKAllowanceIr"         => [
+        "code"    => "jshk_allowance_irregular",
+        "value"   => "f",
+        "note"    => "Is Irregular",
+        "default" => "f",
+    ],
+    "strJSHKAllowanceBen"        => [
+        "code"    => "jshk_allowance_benefit",
+        "value"   => "t",
+        "note"    => "Is Benefit",
+        "default" => "t",
+    ],
+    "strJSHKAllowanceShow"       => [
+        "code"    => "jshk_allowance_show",
+        "value"   => "f",
+        "note"    => "Show JSHK allowance ",
+        "default" => "f",
+    ],
+    "strJSHKAllowanceProrate"    => [
+        "code"    => "jshk_allowance_prorate",
+        "value"   => "f",
+        "note"    => "Prorate JSHK allowance ",
+        "default" => "f",
+    ],
+    "strJSHKAllowanceOT"         => [
+        "code"    => "jshk_allowance_ot",
+        "value"   => "f",
+        "note"    => "JSHK allowance include OT",
+        "default" => "f",
+    ],
+    "strJSHKAllowanceTax"        => [
+        "code"    => "jshk_allowance_tax",
+        "value"   => "t",
+        "note"    => "JSHK allowance include in tax",
+        "default" => "t",
+    ],
+    "strJSHKAllowanceJams"       => [
+        "code"    => "jshk_allowance_jams",
+        "value"   => "f",
+        "note"    => "JSHK allowance include in jamsostek",
+        "default" => "f",
+    ],
+    "strJSHKAllowanceDaily"      => [
+        "code"    => "jshk_allowance_daily",
+        "value"   => "f",
+        "note"    => "JSHK allowance include is daily allowance",
+        "default" => "f",
+    ],
+    "strJSHKAllowanceHidezero"   => [
+        "code"    => "jshk_allowance_hidezero",
+        "value"   => "f",
+        "note"    => "JSHK allowance  is hidden if the value is zero",
+        "default" => "f",
+    ],
     "strRapelName"            => [
         "code"    => "rapel_allowance_name",
         "value"   => "Rapel Allowance",
@@ -1563,6 +1642,7 @@ $arrFixAllowance = [
     "JkmAllow"      => ["jkm allowance", "%"],
     "BPJSAllowance" => ["BPJS allowance", "%"],
     "PensionAllow"  => ["Pension allowance", "%"],
+    "JSHKAllowance" => ["JSHK allowance", "%"]
 ];
 // daftar tunjangan yang "FIX" -> settingnya dari data master
 $arrFixAllowance2 = [
@@ -2487,6 +2567,7 @@ if ($db->connect()) {
 $strHour = $arrSetting['strHour']['value'];
 $strDays = $arrSetting['strDays']['value'];
 $strRound = $arrSetting['strRound']['value'];
+$bolRoundUpDown = $arrSetting['radioRound']['value'];
 $strHalfOTMax = $arrSetting['strHalfOTMax']['value'];
 $strHalfOTRate = $arrSetting['strHalfOTRate']['value'];
 $strOTBreakfastAllowance = $arrSetting['strOTBreakfastAllowance']['value'];
