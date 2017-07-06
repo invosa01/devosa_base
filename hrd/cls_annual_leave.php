@@ -91,14 +91,14 @@ class clsAnnualLeave
             }
             $arrLeave['prev']['year'] = $strThisYear - 1;
             $arrLeave['curr']['year'] = $strThisYear;
-            //$arrLeave['next']['year'] = $strThisYear + 1;
+            $arrLeave['next']['year'] = $strThisYear + 1;
             if ($arrDur['year'] <= 0) // satu tahun
             {
                 $arrLeave['prev']['year'] = "";
             }
             $arrLeave['prev'] = $this->getAnnualLeaveByYear($strID, $arrInfo['join_date'], $arrLeave['prev']['year']);
             $arrLeave['curr'] = $this->getAnnualLeaveByYear($strID, $arrInfo['join_date'], $arrLeave['curr']['year']);
-            //$arrLeave['next'] = $this->getAnnualLeaveByYear($strID, $arrInfo['join_date'], $arrLeave['next']['year']);
+            $arrLeave['next'] = $this->getAnnualLeaveByYear($strID, $arrInfo['join_date'], $arrLeave['next']['year']);
             //tmbhn untuk cuti besar
             include_once("../global/common_function.php");
             $intPCB = getSetting("pcb"); //untuk mencari cuti besar
@@ -512,7 +512,7 @@ class clsAnnualLeave
                 if (intval($arrDuration['year']) === 1) {
                     $intQuota = $fltLeaveQuota ;
                 } # Work period is less than one year in the same year.
-                else if (intval($arrDuration['year']) === (int)0) {
+                else if (intval($arrDuration['year']) === 0) {
                     $intQuota = ($fltLeaveQuota / 12) * $arrDuration['month'];
                 }
             } else {
@@ -543,16 +543,15 @@ class clsAnnualLeave
         else if ($this->bolBalanceJanuary) {
             $strNextYear = $strYear + 1;
             $intExpiredMonth = $intMBCN % 12;
-            if ($strToday < $strNextYear.'-'.date('m', $intExpiredMonth).'-01') {
+            $strExpiry = getNextDateNextMonth($strNextYear.'-01-01', $intExpiredMonth - 1);
+            if ($strToday < $strExpiry) {
                 $arrDuration = getDateInterval($strStart, $strToday);
-                $arrDuration['month'] = ($arrDuration['year'] >= 1) ? 11 : $arrDuration['month'];
-                //$arrDuration['month'] += 1;
-                //$strExpiry = getNextDateNextMonth($strStart, $intPeriod - 1);
+                $arrDuration['month'] = ((intval($arrDuration['year']) === 1 && intval($arrDuration['month']) === 0) || intval($arrDuration['year']) >= 1) ? 12 : $arrDuration['month'] + 1;
             }
             else {
                 $arrDuration = getDateInterval($strStart, $strNextYear.'-01-01');
+                $arrDuration['month'] = (intval($arrDuration['year']) >= 1 && intval($arrDuration['month']) === 0) ? 12 : $arrDuration['month'];
             }
-            $strExpiry = getNextDateNextMonth($strNextYear.'-01-01', $intExpiredMonth - 1);
             $intQuota = ($fltLeaveQuota / 12) * ($arrDuration['month']);
         }
         //bila berubah, artinya ada cuti yg disimpan di masa cuti sebelumnya; if-nya meaningless, cuma untuk debug: toh kalau tdk berubah $strCurrentStart = $strStart
