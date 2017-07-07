@@ -42,6 +42,11 @@ class clsAnnualLeave
 
     var $strIDEmployee;
 
+    var $intOverQuota;
+
+    var $intLastYearQuota;
+
+    var $intLastYearUsage;
     // konstruktor
     // jika ID Employee disii, artiya hanya mencari info 1 karyawan saja, jika kosong, berarti mengambil semua data
     function clsAnnualLeave($db, $strIDEmployee = "")
@@ -57,6 +62,9 @@ class clsAnnualLeave
         $this->bolProrate = (getSetting("leave_method") == "1");
         $this->bolCutoff = (getSetting("leave_method") == "2");
         $this->bolBalanceJanuary = (getSetting('leave_method') == '3');
+        $this->intOverQuota = 0;
+        $this->intLastYearQuota = 0;
+        $this->intLastYearUsage = 0;
     }
 
     /* setEmployeeID : fungsi untuk mengisi data id karyawan
@@ -91,14 +99,14 @@ class clsAnnualLeave
             }
             $arrLeave['prev']['year'] = $strThisYear - 1;
             $arrLeave['curr']['year'] = $strThisYear;
-            $arrLeave['next']['year'] = $strThisYear + 1;
+            //$arrLeave['next']['year'] = $strThisYear + 1;
             if ($arrDur['year'] <= 0) // satu tahun
             {
                 $arrLeave['prev']['year'] = "";
             }
             $arrLeave['prev'] = $this->getAnnualLeaveByYear($strID, $arrInfo['join_date'], $arrLeave['prev']['year']);
             $arrLeave['curr'] = $this->getAnnualLeaveByYear($strID, $arrInfo['join_date'], $arrLeave['curr']['year']);
-            $arrLeave['next'] = $this->getAnnualLeaveByYear($strID, $arrInfo['join_date'], $arrLeave['next']['year']);
+            //$arrLeave['next'] = $this->getAnnualLeaveByYear($strID, $arrInfo['join_date'], $arrLeave['next']['year']);
             //tmbhn untuk cuti besar
             include_once("../global/common_function.php");
             $intPCB = getSetting("pcb"); //untuk mencari cuti besar
@@ -543,7 +551,8 @@ class clsAnnualLeave
         else if ($this->bolBalanceJanuary) {
             $strNextYear = $strYear + 1;
             $intExpiredMonth = $intMBCN % 12;
-            $strExpiry = getNextDateNextMonth($strNextYear.'-01-01', $intExpiredMonth - 1);
+            $strExpiry = getNextDateNextMonth($strNextYear.'-01-01', $intExpiredMonth);
+            $strFinish = $strExpiry;
             if ($strToday < $strExpiry) {
                 $arrDuration = getDateInterval($strStart, $strToday);
                 $arrDuration['month'] = ((intval($arrDuration['year']) === 1 && intval($arrDuration['month']) === 0) || intval($arrDuration['year']) >= 1) ? 12 : $arrDuration['month'] + 1;
@@ -563,7 +572,14 @@ class clsAnnualLeave
         $addLeave = $rsAdditionalQuota["add_quota"];
         $validuntil = $rsAdditionalQuota["expired_date"];
         //by Brian - tambahan selesai
-        $intTaken = (isset($addLeave) && $addLeave > 0) ? $this->getEmployeeLeaveAnnualByYear($strID, date('Y-m-d', (strtotime($validuntil) + 86400)), $strFinish) : $this->getEmployeeLeaveAnnualByYear($strID, $strStart1, $strFinish);
+        if (isset($addLeave) && $addLeave > 0) {
+            $intTaken = 0;
+        }
+        else {
+            $intTaken = $this->getEmployeeLeaveAnnualByYear($strID, $strStart1, $strFinish) - $this->intLastYearUsage;
+            $this->intLastYearUsage = $intTaken;
+        }
+        //$intTaken = (isset($addLeave) && $addLeave > 0) ? $this->getEmployeeLeaveAnnualByYear($strID, date('Y-m-d', (strtotime($validuntil) + 86400)), $strFinish) : $this->getEmployeeLeaveAnnualByYear($strID, $strStart1, $strFinish);
         $intTakenAdditional = $this->getEmployeeLeaveAnnualAdditionalByYear($strID, $strStart1, $validuntil);
         //uddin
         // cek startup cuti/cuti tanpa record absence
