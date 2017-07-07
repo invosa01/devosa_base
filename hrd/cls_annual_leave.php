@@ -567,20 +567,24 @@ class clsAnnualLeave
         if ($strCurrentStart != $strStart) {
             $strStart = $strCurrentStart;
         }
-        // cuti tambahan harus input ke tabel hrd_leave_additional_request
+        # Get additional leave quota and expired date.
         $rsAdditionalQuota = $this->getAdditionalLeave($strID, $strYear);
         $addLeave = $rsAdditionalQuota["add_quota"];
         $validuntil = $rsAdditionalQuota["expired_date"];
-        //by Brian - tambahan selesai
         if (isset($addLeave) && $addLeave > 0) {
+            # If there exists additional quota, then normal usage period is calculated starting from additional leave expired date up to normal leave expired date.
             $intTaken = $this->getEmployeeLeaveAnnualByYear($strID, date('Y-m-d', (strtotime($validuntil) + 86400)), $strFinish);
         }
         else {
-            $intTaken = $this->getEmployeeLeaveAnnualByYear($strID, $strStart1, $strFinish) - $this->getEmployeeLeaveAnnualByYear($strID, $strStart1, $this->strLastYearExpiredDate);
+            # If there isn't any additional quota, then normal usage period is calculated starting from normal start up to normal leave expired date minus last period overlapped usage.
+            $intTaken = $this->getEmployeeLeaveAnnualByYear($strID, $strStart1, $strFinish)
+                        - $this->getEmployeeLeaveAnnualByYear($strID, $strStart1, $this->strLastYearExpiredDate);
+            # Get last period expired, to be used on next period.
             $this->strLastYearExpiredDate = $strExpiry;
         }
-        //$intTaken = (isset($addLeave) && $addLeave > 0) ? $this->getEmployeeLeaveAnnualByYear($strID, date('Y-m-d', (strtotime($validuntil) + 86400)), $strFinish) : $this->getEmployeeLeaveAnnualByYear($strID, $strStart1, $strFinish);
-        $intTakenAdditional = $this->getEmployeeLeaveAnnualAdditionalByYear($strID, $strStart1, $validuntil);
+        # Additional leave usage is calculated starting from normal start up to additional leave expired date minus last period overlapped usage.
+        $intTakenAdditional = $this->getEmployeeLeaveAnnualAdditionalByYear($strID, $strStart1, $validuntil)
+                              - $this->getEmployeeLeaveAnnualByYear($strID, $strStart1, $this->strLastYearExpiredDate);
         //uddin
         // cek startup cuti/cuti tanpa record absence
         $arrStartupTaken = $this->getStartupLeave($strID, $strYear);
