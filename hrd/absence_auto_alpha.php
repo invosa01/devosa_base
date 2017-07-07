@@ -137,6 +137,8 @@ function setAutoAlpha($db, $strDateFrom, $strDateThru, $strDataAbsenceType, $str
  * @param $db
  * @param $strDateFrom
  * @param $strDateThru
+ * @param $strDataAbsenceType
+ * @param $strDataToAbsenceType
  *
  * @return string
  */
