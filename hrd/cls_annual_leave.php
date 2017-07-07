@@ -46,7 +46,7 @@ class clsAnnualLeave
 
     var $intLastYearQuota;
 
-    var $intLastYearUsage;
+    var $strLastYearExpiredDate;
     // konstruktor
     // jika ID Employee disii, artiya hanya mencari info 1 karyawan saja, jika kosong, berarti mengambil semua data
     function clsAnnualLeave($db, $strIDEmployee = "")
@@ -64,7 +64,7 @@ class clsAnnualLeave
         $this->bolBalanceJanuary = (getSetting('leave_method') == '3');
         $this->intOverQuota = 0;
         $this->intLastYearQuota = 0;
-        $this->intLastYearUsage = 0;
+        $this->strLastYearExpiredDate = 0;
     }
 
     /* setEmployeeID : fungsi untuk mengisi data id karyawan
@@ -99,14 +99,14 @@ class clsAnnualLeave
             }
             $arrLeave['prev']['year'] = $strThisYear - 1;
             $arrLeave['curr']['year'] = $strThisYear;
-            //$arrLeave['next']['year'] = $strThisYear + 1;
+            $arrLeave['next']['year'] = $strThisYear + 1;
             if ($arrDur['year'] <= 0) // satu tahun
             {
                 $arrLeave['prev']['year'] = "";
             }
             $arrLeave['prev'] = $this->getAnnualLeaveByYear($strID, $arrInfo['join_date'], $arrLeave['prev']['year']);
             $arrLeave['curr'] = $this->getAnnualLeaveByYear($strID, $arrInfo['join_date'], $arrLeave['curr']['year']);
-            //$arrLeave['next'] = $this->getAnnualLeaveByYear($strID, $arrInfo['join_date'], $arrLeave['next']['year']);
+            $arrLeave['next'] = $this->getAnnualLeaveByYear($strID, $arrInfo['join_date'], $arrLeave['next']['year']);
             //tmbhn untuk cuti besar
             include_once("../global/common_function.php");
             $intPCB = getSetting("pcb"); //untuk mencari cuti besar
@@ -477,7 +477,7 @@ class clsAnnualLeave
         }
         $strJoinDate = $this->arrEmployee[$strID]['join_date'];
         # Get max leave quota referencing hrd_employee.
-        $fltLeaveQuota = 0;
+        $fltLeaveQuota = $intJCN;
         if (isset($this->arrEmployee[$strID]['leave_level_code']) && $this->arrEmployee[$strID]['leave_level_code'] !== '') {
             $strSQL = "SELECT max_quota FROM hrd_leave_level_quota WHERE level_code = '" . $this->arrEmployee[$strID]['leave_level_code'] . "';";
             $res = $this->data->execute($strSQL);
@@ -573,11 +573,11 @@ class clsAnnualLeave
         $validuntil = $rsAdditionalQuota["expired_date"];
         //by Brian - tambahan selesai
         if (isset($addLeave) && $addLeave > 0) {
-            $intTaken = 0;
+            $intTaken = $this->getEmployeeLeaveAnnualByYear($strID, date('Y-m-d', (strtotime($validuntil) + 86400)), $strFinish);
         }
         else {
-            $intTaken = $this->getEmployeeLeaveAnnualByYear($strID, $strStart1, $strFinish) - $this->intLastYearUsage;
-            $this->intLastYearUsage = $intTaken;
+            $intTaken = $this->getEmployeeLeaveAnnualByYear($strID, $strStart1, $strFinish) - $this->getEmployeeLeaveAnnualByYear($strID, $strStart1, $this->strLastYearExpiredDate);
+            $this->strLastYearExpiredDate = $strExpiry;
         }
         //$intTaken = (isset($addLeave) && $addLeave > 0) ? $this->getEmployeeLeaveAnnualByYear($strID, date('Y-m-d', (strtotime($validuntil) + 86400)), $strFinish) : $this->getEmployeeLeaveAnnualByYear($strID, $strStart1, $strFinish);
         $intTakenAdditional = $this->getEmployeeLeaveAnnualAdditionalByYear($strID, $strStart1, $validuntil);
