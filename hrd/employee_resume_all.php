@@ -314,6 +314,7 @@ if ($db->connect()) {
   (isset($_REQUEST['dataPage'])) ? $intCurrPage = $_REQUEST['dataPage'] : $intCurrPage = 1;
   (isset($_REQUEST['dataSort'])) ? $strSortBy = $_REQUEST['dataSort'] : $strSortBy = "";
   $strInputSortBy = $strSortBy;
+  $strDataSubDepartment = '';
   if (!is_numeric($intCurrPage)) {
     $intCurrPage = 1;
   }
@@ -324,11 +325,13 @@ if ($db->connect()) {
       $strFilterEmployeeID,
       $strfilterSubSection,
       $strFilterSection,
+      $strDataSubDepartment,
       $strFilterDepartment,
       $strFilterDivision,
       $_SESSION['sessionUserRole'],
       $arrUserInfo
   );
+  $strDisabled = ($_SESSION['sessionUserRole'] == ROLE_EMPLOYEE) ? 'disabled' : 'enabled';
   // ------------ GENERATE KRITERIA QUERY,JIKA ADA -------------
   $strKriteria = "";
   $strInfoKriteria = "";
