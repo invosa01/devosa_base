@@ -555,12 +555,11 @@ class clsAnnualLeave
             $strFinish = $strExpiry;
             if ($strToday < $strExpiry) {
                 $arrDuration = getDateInterval($strStart, $strToday);
-                $arrDuration['month'] = ((intval($arrDuration['year']) === 1 && intval($arrDuration['month']) === 0) || intval($arrDuration['year']) >= 1) ? 12 : $arrDuration['month'] + 1;
             }
             else {
                 $arrDuration = getDateInterval($strStart, $strNextYear.'-01-01');
-                $arrDuration['month'] = (intval($arrDuration['year']) >= 1 && intval($arrDuration['month']) === 0) ? 12 : $arrDuration['month'];
             }
+            $arrDuration['month'] = (intval($arrDuration['year']) >= 1 && intval($arrDuration['month']) === 0) ? 12 : $arrDuration['month'];
             $intQuota = ($fltLeaveQuota / 12) * ($arrDuration['month']);
         }
         //bila berubah, artinya ada cuti yg disimpan di masa cuti sebelumnya; if-nya meaningless, cuma untuk debug: toh kalau tdk berubah $strCurrentStart = $strStart
