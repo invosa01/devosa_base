@@ -64,6 +64,7 @@ function getData($db, $bolSync = false)
     global $DataGrid;
     global $strKriteriaCompany;
     global $arrUserInfo;
+    global $strCriteriaPosition;
     //var_dump($arrUserInfo);
     if ($db->connect()) {
         $arrData = $f->getObjectValues();
@@ -134,6 +135,7 @@ function getData($db, $bolSync = false)
         }
         // end tambah kriteria functional code
         $strKriteria .= $strKriteriaCompany;
+        $strKriteria .= $strCriteriaPosition;
         $strKriteriaBackup = $strKriteria;
         if ($bolSync) {
             syncShiftAttendance($db, $strDateFrom, $strDateThru, $strKriteria);
