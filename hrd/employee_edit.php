@@ -637,7 +637,7 @@ function saveData($db, &$strDataID, &$strError)
     } else if (!is_numeric($strDataHeight)) {
         $strError = $error['invalid_number'];
         return false;
-    } else if (!isDataExists($db, 'hrd_leave_level_quota', 'level_code', $strDataLeaveLevel)) {
+    } else if (isset($strDataLeaveLevel) && $strDataLeaveLevel !== '' && !isDataExists($db, 'hrd_leave_level_quota', 'level_code', $strDataLeaveLevel)) {
         $strError = 'Reference does not exist in master data leave level, vice versa.';
         return false;
     } else {
