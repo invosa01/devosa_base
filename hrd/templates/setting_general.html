@@ -586,6 +586,12 @@
 																					   value="2"
 																					   style="padding-top: 0 !important;">[var.strWordsJoinDateCutoff]</label>
 								</div>
+								<div class='radiobox col-sm-5 no-margin'><label><input name="strLeaveMethod"
+																					   type="radio"
+																					   id="strLeaveMethod"
+																					   value="3"
+																					   style="padding-top: 0 !important;">[var.strWordsBalanceJanuary]</label>
+								</div>
 								<input name="oldLeaveMethod"
 									   type="hidden"
 									   id="oldLeaveMethod"
@@ -598,6 +604,8 @@
 										document.getElementsByName("strLeaveMethod")[1].checked = true;
 									} else if (leaveMethod == 2) {
 										document.getElementsByName("strLeaveMethod")[2].checked = true;
+									} else if (leaveMethod == 3) {
+										document.getElementsByName("strLeaveMethod")[3].checked = true;
 									}
 								</script>
 							</div>

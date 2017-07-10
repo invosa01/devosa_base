@@ -328,10 +328,10 @@ function saveData($db, &$strDataID, &$strError)
             $bolOK = false;
         } else if (dateCompare($strDataDateThru, $arrCuti['curr']['finish']) <= 0) {
             if ($arrCuti["prev"]["overdue"] == 't') {
-                if ($strDataDuration > ($arrCuti['curr']['remain'] - $arrCuti['curr']['add_taken'] + $arrCuti['curr']['add_quota'])) {
-                    $strError = $error['leave_overquota'];
-                    $bolOK = false;
-                }
+                //if ($strDataDuration > ($arrCuti['curr']['remain'] - $arrCuti['curr']['add_taken'] + $arrCuti['curr']['add_quota'])) {
+                //    $strError = $error['leave_overquota'];
+                //    $bolOK = false;
+                //}
             } else {
                 if ($strDataDuration > ($arrCuti['curr']['remain'] - $arrCuti['curr']['add_taken'] + $arrCuti['curr']['add_quota']) + ($arrCuti['prev']['remain'] - $arrCuti['prev']['add_taken'] + $arrCuti['prev']['add_quota'])) {
                     $strError = $error['leave_overquota'];

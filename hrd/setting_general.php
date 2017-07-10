@@ -257,6 +257,7 @@ $strWordsLeaveMethod = getWords("leave method");
 $strWordsJoinDate = getWords("join date");
 $strWordsProrate = getWords("prorate");
 $strWordsJoinDateCutoff = getWords("join date with december cutoff");
+$strWordsBalanceJanuary = getWords('balance january');
 $strWordsSave = getWords("save");
 $strWordsMinimumAutoOT = getWords("minimum auto overtime");
 $strWordsMaximumAutoOT = getWords("maximum auto overtime");

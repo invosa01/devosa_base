@@ -209,10 +209,10 @@ function getData($db)
         }
         //tampilkan buttons sesuai dengan otoritas, common_function.php
         generateRoleButtons(
-            $dataPrivilege['edit'],
-            $dataPrivilege['delete'],
-            false,
-            $dataPrivilege['approve'],
+            $dataPrivilege['bolEdit'],
+            $dataPrivilege['bolDelete'],
+            $dataPrivilege['bolCheck'],
+            $dataPrivilege['bolApprove'],
             false,
             true,
             $myDataGrid

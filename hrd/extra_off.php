@@ -417,7 +417,7 @@ function changeStatusApproved()
         'employee_id'       => $setModel['employee_id'],
         'eo_application_id' => $setModel['id'],
         'date_eo'           => $date_eo,
-        'date_expaired'     => $expired,
+        'date_expired'      => $expired,
         'active'            => $active,
         'type'              => $setModel['type'],
         'note'              => $setModel['note']
