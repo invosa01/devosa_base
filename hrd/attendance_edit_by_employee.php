@@ -495,7 +495,7 @@ function getData($db)
 								}elseif($diff->i > $generalLate){
 									//$intLate = $objToday->intLate-$generalLate;
 									$intLate = $diff->i;
-								}elseif($diff->i < $generalLate){
+								}elseif($diff->i <= $generalLate){
 									$intLate = "";
 								}else{
 									$intLate = $diff->i;

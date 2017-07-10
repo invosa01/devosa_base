@@ -20,6 +20,7 @@ if (!$bolCanView) {
 //krumo($_SESSION);
 $db = new CdbClass;
 if ($db->connect()) {
+    getUserEmployeeInfo();
     $arrUser = getAllUserInfo($db);
     $strDataID = (isset($_REQUEST['dataID'])) ? $_REQUEST['dataID'] : "";
     if ($bolCanEdit) {
@@ -56,7 +57,7 @@ if ($db->connect()) {
             "dataCompany",
             getDataListCompany(-1, true, ["value" => -1, "text" => "ALL"])
         );
-        $f->addSelect(getWords("group"), "dataGroup", getDataGroup());
+        $f->addSelect(getWords("group"), "dataGroup", getDataGroup($arrUserInfo['id_adm_group']));
         $f->addSelect(
             getWords("level group"),
             "dataPermissionGroup",
@@ -223,12 +224,17 @@ $strTemplateFile = getTemplate(str_replace(".php", ".html", basename($_SERVER['P
 $tbsPage->LoadTemplate("../templates/master.html");
 $tbsPage->Show();
 //--------------------------------------------------------------------------------
-function getDataGroup()
+function getDataGroup($id_adm_group)
 {
     global $db;
     $result = [];
+    $criteria = '';
+    if ($id_adm_group !== '1'){
+        $criteria = "AND id_adm_group != '1'";
+    }
     if ($db->connect()) {
-        $strSQL = "SELECT * FROM adm_group WHERE active='t' ORDER BY id_adm_group";
+        $strSQL = "SELECT * FROM adm_group WHERE active='t' $criteria ";
+        $strSQL .= "ORDER BY id_adm_group ";
         $res = $db->execute($strSQL);
         while ($rowDb = $db->fetchrow($res)) {
             $result[] = [

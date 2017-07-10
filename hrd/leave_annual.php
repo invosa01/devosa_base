@@ -752,7 +752,7 @@ if ($db->connect()) {
       "filterDivision",
       $strFilterDivision,
       $strEmptyOption2,
-      (SET_FILTERING === true and (integer)$arrUserInfo['id_adm_group'] !== HRD_ADMIN_ID) ? getCriteria('division_code') : '',
+      '',
       " style=\"width:$intDefaultWidthPx\" " . $ARRAY_DISABLE_GROUP['division']
   );
   $strInputFilterDepartment = getDepartmentList(
@@ -760,7 +760,7 @@ if ($db->connect()) {
       "filterDepartment",
       $strFilterDepartment,
       $strEmptyOption,
-      (SET_FILTERING === true and (integer)$arrUserInfo['id_adm_group'] !== HRD_ADMIN_ID) ? getCriteria('department_code') : '',
+      '',
       " style=\"width:$intDefaultWidthPx\" " . $ARRAY_DISABLE_GROUP['department']
   );
   $strInputFilterSection = getSectionList(
@@ -768,7 +768,7 @@ if ($db->connect()) {
       "filterSection",
       $strFilterSection,
       $strEmptyOption,
-      (SET_FILTERING === true and (integer)$arrUserInfo['id_adm_group'] !== HRD_ADMIN_ID) ? getCriteria('section_code') : '',
+      '',
       " style=\"width:$intDefaultWidthPx\" " . $ARRAY_DISABLE_GROUP['section']
   );
   $strInputFilterSubsection = getSubSectionList(
@@ -776,7 +776,7 @@ if ($db->connect()) {
       "filterSubsection",
       $strFilterSubsection,
       $strEmptyOption,
-      (SET_FILTERING === true and (integer)$arrUserInfo['id_adm_group'] !== HRD_ADMIN_ID) ? getCriteria('sub_section_code') : '',
+      '',
       " style=\"width:$intDefaultWidthPx\" " . $ARRAY_DISABLE_GROUP['sub_section']
   );
   //handle user company-access-right
