@@ -71,7 +71,7 @@ if ($permissionGroup == 0 || $permissionGroup == null) {
     $strCriteriaPosition = ""; // Bisa lihat semua level position
     $intPermissionGroup = 0;
 } else {
-    $strCriteriaPosition = "WHERE position_group >= '$permissionGroup' ";
+    $strCriteriaPosition = "AND position_group >= '$permissionGroup' ";
     $intPermissionGroup = intval($permissionGroup);
 }
 function now()

@@ -165,11 +165,20 @@ function getEmployeeData($db, $strSearch)
             $strKriteria .= "AND (functional_code in " . $strFunctionalcode . " or employee_id='" . $strDataEmployee . "')";
         }
         //echo $strKriteria;
-        $strSQL = "SELECT id, employee_id, employee_name FROM hrd_employee WHERE 1=1 $strKriteriaCompany $strKriteria
+        //$permissionGroup = $_SESSION['sessionPermissionGroup'];
+        //if ($permissionGroup === 0 || $permissionGroup == null) {
+        //    $strCriteriaPosition = ""; // Bisa lihat semua level position
+        //} else {
+        //    $strCriteriaPosition = " and position_group >= $permissionGroup ";
+        //}
+        $strSQL = "SELECT id, employee_id, employee_name
+                   FROM hrd_employee as t1
+                   left join hrd_position as t2 on t1.position_code = t2.position_code
+                   WHERE 1=1 $strKriteriaCompany $strKriteria
 		and (lower(employee_id) LIKE '%" . strtolower($strSearch) . "%' OR lower(employee_name) LIKE '%" . strtolower(
                 $strSearch
             ) . "%')
-		AND active = 1";
+		AND active = 1 ";
         //		echo $strSQL;
         //var_dump($arrUserInfo);
         //echo "<br/><br/>".ROLE_SUPERVISOR.$strDataUserRole.$strSQL;
