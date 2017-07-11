@@ -484,6 +484,8 @@ function getData($db)
 								$intLate = $objToday->intLate;
 							}
 						}
+
+
 						
 						if(!empty($objToday->strShiftCode) && $generalLate > 0){ //jika general late > 0 dan kondisi shift terisi
 								$d1=new DateTime($objToday->strAttendanceStart);
@@ -507,12 +509,18 @@ function getData($db)
 									$intLate = $diff->i;
 								}
 						}
-						
+
 						if(!empty($objToday->strShiftCode) && $generalLate == 0){ //jika general late = 0 dan kondisi shift terisi, maka toleransi waktu diambil dari branch
 								$d1=new DateTime($objToday->strAttendanceStart);
 								$d2=new DateTime($objToday->strNormalStart);
 								$diff=$d2->diff($d1);
-								
+
+                                if($objToday->strAttendanceStart < $objToday->strNormalStart){
+                                    $diff->i = "";
+                                }else{
+                                    $diff->i = $diff->i;
+                                }
+
 								if($diff->i == 0){
 									$intLate= "";
 								}elseif($diff->i > $branchTolerance){
