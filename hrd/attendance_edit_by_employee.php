@@ -489,10 +489,7 @@ function getData($db)
 								$d1=new DateTime($objToday->strAttendanceStart);
 								$d2=new DateTime($objToday->strNormalStart);
 								$diff=$d2->diff($d1);
-								
-								// echo "<pre>";
-								// print_r($objToday->strNormalStart);die();
-								
+
 								if($objToday->strAttendanceStart < $objToday->strNormalStart){
 									$diff->i = "";
 								}else{
