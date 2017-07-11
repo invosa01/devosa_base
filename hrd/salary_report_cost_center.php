@@ -39,11 +39,8 @@ $f->addSelect(
 );
 $f->addSelect("Year", "dataYear", getDataYear(), ["style" => "width:$strDefaultWidthPx"], "", true);
 $f->addSelect("Month", "dataMonth", getDataMonth(), ["style" => "width:$strDefaultWidthPx"], "", true);
-// $f->addSelect(getWords("employee status"), "employeeStatus", getDataListEmployeeStatus(getInitialValue("EmployeeStatus"), true, array("value" => "", "text" => "", "selected" => true)), array("style" => "width:$strDefaultWidthPx"), "", false);
-// // $f->addSelect(getWords("employee level"), "dataLevel", getDataLevel(), array("style" => "width:$strDefaultWidthPx"), "", false);
-// $f->addInputAutoComplete(getwords("employee id"), "employeeName", getDataEmployee($strDataEmployee), "style=width:$strDefaultWidthPx ".$strReadonly, "string", false);
-// $f->addLabelAutoComplete("", "employeeName", "");
-//  //this save button will hide after save <toggle>
+$f->addCheckBox('YTD', 'dataFlagYTD', false, '', 'boolean', false);
+//this save button will hide after save <toggle>
 $f->addSubmit("btnShow", "Show Report", ["onClick" => "return validInput();"], true, true, "", "", "");
 $f->addSubmit("btnExportXLS", "Export Excel", ["onClick" => "return validInput();"], true, true, "", "", "");
 $formInput = $f->render();
@@ -56,6 +53,7 @@ $strInitAction = "";
 // $strLevel = $f->getValue('dataLevel');
 $strCompany = $f->getValue('dataCompany');
 if ($showReport) {
+    $bolFlagYTD = $f->getValue('dataFlagYTD');
     $intYear = intval($f->getValue('dataYear'));
     $intMonth = intval($f->getValue('dataMonth'));
     $strKriteria = "";
@@ -88,7 +86,7 @@ if ($showReport) {
         $myDataGrid->disableFormTag();
         $intPageLimit = $myDataGrid->getPageLimit();
         $intPageNumber = $myDataGrid->getPageNumber();
-        $arrSalary = getSalaryCostCenterReport($db, $intYear, $intMonth, $strKriteria);
+        $arrSalary = getSalaryCostCenterReport($db, $intYear, $intMonth, $strKriteria, $bolFlagYTD);
         $myDataGrid->setCaption("Salary Report Cost Center - $intYear - $intMonth");
         $myDataGrid->pageSortBy = "";
         $myDataGrid->addColumnNumbering(
@@ -350,14 +348,19 @@ function printNumeric($params)
 // fungsi untuk mengambil data total pajak tahunan karyawan, jika ada
 //  jika tidak ada, maka akan dilakukan perhitungan
 // output berupa array
-function getSalaryCostCenterReport($db, $intYear, $intMonth, $strKriteria = "")
+function getSalaryCostCenterReport($db, $intYear, $intMonth, $strKriteria = "", $bolFlagYTD = false)
 {
     global $_POST;
     $arrResult = [];
     if ($intYear == "") {
         return $arrResult;
     }
-    $strSQL = "SELECT id FROM \"hrd_salary_master\" WHERE EXTRACT(YEAR FROM \"salary_date\") = '$intYear' AND EXTRACT(MONTH FROM \"salary_date\") = '$intMonth' AND status=" . REQUEST_STATUS_APPROVED;
+    if (isset($bolFlagYTD) && $bolFlagYTD === true) {
+        $strSQL = "SELECT id FROM \"hrd_salary_master\" WHERE EXTRACT(YEAR FROM \"salary_date\") = '$intYear' AND EXTRACT(MONTH FROM \"salary_date\") <= '$intMonth' AND status=" . REQUEST_STATUS_APPROVED;
+    }
+    else {
+        $strSQL = "SELECT id FROM \"hrd_salary_master\" WHERE EXTRACT(YEAR FROM \"salary_date\") = '$intYear' AND EXTRACT(MONTH FROM \"salary_date\") = '$intMonth' AND status=" . REQUEST_STATUS_APPROVED;
+    }
     $res = $db->execute($strSQL);
     while ($row = $db->fetchrow($res)) {
         $salaryMasterID = $row['id'];

@@ -61,6 +61,7 @@ $f->addInputAutoComplete(
     false
 );
 $f->addLabelAutoComplete("", "employeeName", "");
+$f->addCheckBox('YTD', 'dataFlagYTD', false, '', 'boolean', false);
 //  //this save button will hide after save <toggle>
 $f->addSubmit("btnShow", "Show Report", ["onClick" => "return validInput();"], true, true, "", "", "");
 $f->addSubmit("btnExportXLS", "Export Excel", ["onClick" => "return validInput();"], true, true, "", "", "");
@@ -74,6 +75,7 @@ $strName = $f->getValue('employeeName');
 // $strLevel = $f->getValue('dataLevel');
 $strCompany = $f->getValue('dataCompany');
 if ($showReport) {
+    $bolFlagYTD = $f->getValue('dataFlagYTD');
     $intYear = intval($f->getValue('dataYear'));
     $intMonth = intval($f->getValue('dataMonth'));
     $strKriteria = "";
@@ -104,7 +106,7 @@ if ($showReport) {
         $myDataGrid->disableFormTag();
         $intPageLimit = $myDataGrid->getPageLimit();
         $intPageNumber = $myDataGrid->getPageNumber();
-        $arrBPJSKesehatan = getBPJSKesehatanReport($db, $intYear, $intMonth, $strKriteria);
+        $arrBPJSKesehatan = getBPJSKesehatanReport($db, $intYear, $intMonth, $strKriteria, $bolFlagYTD);
         $myDataGrid->setCaption("Report BPJS Kesehatan - $intYear - $intMonth");
         $myDataGrid->pageSortBy = "";
         $myDataGrid->addColumnNumbering(
@@ -292,7 +294,7 @@ function printNumeric($params)
 // fungsi untuk mengambil data total pajak tahunan karyawan, jika ada
 //  jika tidak ada, maka akan dilakukan perhitungan
 // output berupa array
-function getBPJSKesehatanReport($db, $intYear, $intMonth, $strKriteria = "")
+function getBPJSKesehatanReport($db, $intYear, $intMonth, $strKriteria = "", $bolFlagYTD)
 {
     global $_POST;
     $arrResult = [];
@@ -304,7 +306,12 @@ function getBPJSKesehatanReport($db, $intYear, $intMonth, $strKriteria = "")
     global $intPageNumber;
     global $totalData;
     $intPage = $intPageNumber;
-    $strSQL = "SELECT id FROM \"hrd_salary_master\" WHERE EXTRACT(YEAR FROM \"salary_date\") = '$intYear' AND EXTRACT(MONTH FROM \"salary_date\") = '$intMonth' AND status=" . REQUEST_STATUS_APPROVED;
+    if (isset($bolFlagYTD) && $bolFlagYTD === true) {
+        $strSQL = "SELECT id FROM \"hrd_salary_master\" WHERE EXTRACT(YEAR FROM \"salary_date\") = '$intYear' AND EXTRACT(MONTH FROM \"salary_date\") <= '$intMonth' AND status=" . REQUEST_STATUS_APPROVED;
+    }
+    else {
+        $strSQL = "SELECT id FROM \"hrd_salary_master\" WHERE EXTRACT(YEAR FROM \"salary_date\") = '$intYear' AND EXTRACT(MONTH FROM \"salary_date\") = '$intMonth' AND status=" . REQUEST_STATUS_APPROVED;
+    }
     $res = $db->execute($strSQL);
     $intStart = (($intPage - 1) * $intPageLimit);
     while ($row = $db->fetchrow($res)) {
@@ -347,8 +354,8 @@ function getBPJSKesehatanReport($db, $intYear, $intMonth, $strKriteria = "")
             // else {
             //   $arrResult[$row2['id_employee']]['bpjs_base'] = 0;
             // }
-            $arrResult[$row2['id_employee']]['bpjs_allowance'] = $row2['bpjs_allowance'];
-            $arrResult[$row2['id_employee']]['bpjs_deduction'] = $row2['bpjs_deduction'];
+            $arrResult[$row2['id_employee']]['bpjs_allowance'] += $row2['bpjs_allowance'];
+            $arrResult[$row2['id_employee']]['bpjs_deduction'] += $row2['bpjs_deduction'];
         }
     }
     return $arrResult;
