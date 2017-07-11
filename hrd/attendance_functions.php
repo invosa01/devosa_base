@@ -77,7 +77,7 @@ class clsAttendanceClass
         }
         $strSQL = "SELECT t0.* FROM hrd_attendance AS t0 ";
         $strSQL .= "LEFT JOIN hrd_employee AS t1 ON t0.id_employee = t1.id ";
-        $strSQL .= "LEFT JOIN hrd_position AS t2 ON t1.position_code = t2.position_code ";
+        //$strSQL .= "LEFT JOIN hrd_position AS t2 ON t1.position_code = t2.position_code ";
         //$strSQL .= "LEFT JOIN hrd_overtime_application_employee as t2 ON  t0.id_employee = t2.id_employee AND t0.attendance_date = t2.overtime_date ";
         $strSQL .= "WHERE (attendance_date = '" . $this->strDateFrom . "' ";
         $strSQL .= "   OR attendance_date BETWEEN '" . $this->strDateFrom . "' AND '" . $this->strDateThru . "') ";

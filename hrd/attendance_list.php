@@ -135,7 +135,7 @@ function getData($db, $bolSync = false)
         }
         // end tambah kriteria functional code
         $strKriteria .= $strKriteriaCompany;
-        $strKriteria .= $strCriteriaPosition;
+        //$strKriteria .= $strCriteriaPosition;
         $strKriteriaBackup = $strKriteria;
         if ($bolSync) {
             syncShiftAttendance($db, $strDateFrom, $strDateThru, $strKriteria);
