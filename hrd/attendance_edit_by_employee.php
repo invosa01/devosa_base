@@ -490,6 +490,15 @@ function getData($db)
 								$d2=new DateTime($objToday->strNormalStart);
 								$diff=$d2->diff($d1);
 								
+								// echo "<pre>";
+								// print_r($objToday->strNormalStart);die();
+								
+								if($objToday->strAttendanceStart < $objToday->strNormalStart){
+									$diff->i = "";
+								}else{
+									$diff->i = $diff->i;
+								}
+								
 								if($diff->i == 0){
 									$intLate= "";
 								}elseif($diff->i > $generalLate){
