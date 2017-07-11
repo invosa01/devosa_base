@@ -177,6 +177,7 @@ if ($db->connect()) {
     $myDataGrid->getRequest();
     //--------------------------------
     //get Data and set to Datagrid's DataSource by set the data binding (bind method)
+    $criteria = '';
     $strSQLCOUNT = "
       SELECT COUNT(*) AS total 
       FROM
@@ -191,6 +192,9 @@ if ($db->connect()) {
             INNER JOIN ((SELECT id, company_name FROM hrd_company) UNION (select -1 as id, 'ALL' as company_name)) AS c on a.id_adm_company = c.id ";
     if ($arrUser[$_SESSION['sessionUserID']]['car'] != -1) {
         $strSQL .= " WHERE id_adm_company = " . $arrUser[$_SESSION['sessionUserID']]['car'];
+    }
+    if ( $arrUserInfo['id_adm_group'] !== '1'){
+        $strSQL .= " AND b.id_adm_group != '1'";
     }
     $myDataGrid->totalData = $myDataGrid->getTotalData($db, $strSQLCOUNT);
     $dataset = $myDataGrid->getData($db, $strSQL);
