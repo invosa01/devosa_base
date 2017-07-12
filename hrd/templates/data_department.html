@@ -317,13 +317,13 @@
       var deptCode = eval("document.formData.detailCode" + index + ".value");
       var deptName = eval("document.formData.detailName" + index + ".value");
 
-      document.formInputSection.dataManCode.value = manCode;
+      document.formInputSubDepartment.dataManCode.value = manCode;
       var objD = document.getElementById("subDepartmentManagement");
       objD.innerHTML = manCode + " - " + manName;
-      document.formInputSection.dataDivCode.value = divCode;
+      document.formInputSubDepartment.dataDivCode.value = divCode;
       var objD = document.getElementById("subDepartmentDivision");
       objD.innerHTML = divCode + " - " + divName;
-      document.formInputSection.dataDeptCode.value = deptCode;
+      document.formInputSubDepartment.dataDeptCode.value = deptCode;
       var obj = document.getElementById("subDepartmentDepartment");
       obj.innerHTML = deptCode + " - " + deptName;
 
@@ -494,7 +494,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label" for="dataEmployeeStatus">[var.strWordsName]</label>
 										<div class="col-sm-8">
-											<input class="form-control" name="dataName" type="text" id="dataCode3" size="50" maxlength="50">
+											<input class="form-control" name="dataName" type="text" id="dataName" size="50" maxlength="50">
 										</div>
 									</div>
 								</div>
