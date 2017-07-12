@@ -164,24 +164,23 @@ function getEmployeeData($db, $strSearch)
             $strFunctionalcode .= ")";
             $strKriteria .= "AND (functional_code in " . $strFunctionalcode . " or employee_id='" . $strDataEmployee . "')";
         }
-        //echo $strKriteria;
-        //$permissionGroup = $_SESSION['sessionPermissionGroup'];
-        //if ($permissionGroup === 0 || $permissionGroup == null) {
-        //    $strCriteriaPosition = ""; // Bisa lihat semua level position
-        //} else {
-        //    $strCriteriaPosition = " and position_group >= $permissionGroup ";
-        //}
-        $strSQL = "SELECT id, employee_id, employee_name
-                   FROM hrd_employee as t1
-                   left join hrd_position as t2 on t1.position_code = t2.position_code
-                   WHERE 1=1 $strKriteriaCompany $strKriteria
-		and (lower(employee_id) LIKE '%" . strtolower($strSearch) . "%' OR lower(employee_name) LIKE '%" . strtolower(
-                $strSearch
-            ) . "%')
-		AND active = 1 ";
-        //		echo $strSQL;
-        //var_dump($arrUserInfo);
-        //echo "<br/><br/>".ROLE_SUPERVISOR.$strDataUserRole.$strSQL;
+        $permissionGroup = $_SESSION['sessionPermissionGroup'];
+        if (isset($permissionGroup) && ($permissionGroup == '0' || $permissionGroup === null || $permissionGroup === '')) {
+            $strCriteriaPosition = ""; // Bisa lihat semua level position
+        } else {
+            $strCriteriaPosition = " and permission_group >= $permissionGroup ";
+        }
+        $strSQL = "SELECT t1.id, t1.employee_id, t1.employee_name
+                   FROM hrd_employee as t1 ";
+        if (isset($_SESSION['sessionEmployeeID']) && $_SESSION['sessionEmployeeID'] !== '') {
+            $strSQL .= " LEFT JOIN adm_user AS t2 ON t1.employee_id = t2.employee_id ";
+        }
+        $strSQL .= "WHERE 1=1 $strKriteriaCompany $strKriteria
+                    and (lower(t1.employee_id) LIKE '%" . strtolower($strSearch) . "%' OR lower(employee_name) LIKE '%" . strtolower($strSearch) . "%')
+                    AND t1.active = 1 ";
+        if (isset($_SESSION['sessionEmployeeID']) && $_SESSION['sessionEmployeeID'] !== '') {
+            $strSQL .= " $strCriteriaPosition ";
+        }
         $resDb = $db->execute($strSQL);
         $employeeList = [];
         while ($rowDb = $db->fetchrow($resDb)) {

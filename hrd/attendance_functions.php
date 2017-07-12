@@ -75,14 +75,17 @@ class clsAttendanceClass
         if ($this->arrData['dataEarlyLate'] === '4') {
             $this->strKriteria .= ' AND (attendance_start is null OR attendance_finish is null) ';
         }
+        $this->strKriteria = str_replace('employee_id', 't1.employee_id', $this->strKriteria);
         $strSQL = "SELECT t0.* FROM hrd_attendance AS t0 ";
         $strSQL .= "LEFT JOIN hrd_employee AS t1 ON t0.id_employee = t1.id ";
-        //$strSQL .= "LEFT JOIN hrd_position AS t2 ON t1.position_code = t2.position_code ";
+        if (isset($_SESSION['sessionEmployeeID']) && $_SESSION['sessionEmployeeID'] !== '') {
+            $strSQL .= " LEFT JOIN adm_user AS t2 ON t1.employee_id = t2.employee_id ";
+        }
         //$strSQL .= "LEFT JOIN hrd_overtime_application_employee as t2 ON  t0.id_employee = t2.id_employee AND t0.attendance_date = t2.overtime_date ";
         $strSQL .= "WHERE (attendance_date = '" . $this->strDateFrom . "' ";
         $strSQL .= "   OR attendance_date BETWEEN '" . $this->strDateFrom . "' AND '" . $this->strDateThru . "') ";
         $strSQL .= "AND (attendance_date <= resign_date ";
-        $strSQL .= "   OR (active = 1)) ";
+        $strSQL .= "   OR (t1.active = 1)) ";
         $strSQL .= $this->strKriteria;
         $strSQL .= " ORDER BY attendance_date";
         $resDb = $this->db->execute($strSQL);
@@ -156,6 +159,8 @@ class clsAttendanceClass
         $strTempKriteria = str_replace("division_code", "t0.division_code", $strTempKriteria);
         $strTempKriteria = str_replace("position_code", "t0.position_code", $strTempKriteria);
         $strTempKriteria = str_replace("branch_code", "t0.branch_code", $strTempKriteria);
+        $strTempKriteria = str_replace('employee_id', 't0.employee_id', $strTempKriteria);
+        $strTempKriteria = str_replace('active', 't0.active', $strTempKriteria);
         $strSQL = "
         SELECT t0.*, t1.get_ot, t1.get_auto_ot, t2.division_name, t3.department_name, t5.sub_department_name, t4.section_name, t6.branch_name, t6.late_tolerance
         FROM hrd_employee AS t0
@@ -165,6 +170,7 @@ class clsAttendanceClass
         LEFT JOIN hrd_sub_department AS t5 ON t0.sub_department_code = t5.sub_department_code
         LEFT JOIN hrd_section AS t4 ON t0.section_code = t4.section_code
         LEFT JOIN hrd_branch AS t6 ON t0.branch_code = t6.branch_code
+        LEFT JOIN adm_user AS t7 ON t7.employee_id = t0.employee_id
         WHERE 1=1 " . $strTempKriteria . " ";
         if ($this->strIDEmployee != "") {
             $strSQL .= "AND t0.id = '" . $this->strIDEmployee . "' ";

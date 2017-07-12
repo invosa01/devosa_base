@@ -67,11 +67,11 @@ $strKriteriaOrganizational .= (!isset($_SESSION['sessionUserSection']) || $_SESS
 $strKriteriaOrganizational .= (!isset($_SESSION['sessionUserSubsection']) || $_SESSION['sessionUserSubsection'] == "") ? "" : "AND sub_section_code = '" . $_SESSION['sessionUserSubsection'] . "' ";
 $intPageLimit = 10; // jumlah link page maksimal yang ditampilkan
 $intRowsLimit = 50; // jumlah baris yang ditampilkan satu page
-if ($permissionGroup == 0 || $permissionGroup == null) {
+if (isset($permissionGroup) && ($permissionGroup == '0' || $permissionGroup === null || $permissionGroup === '')) {
     $strCriteriaPosition = ""; // Bisa lihat semua level position
     $intPermissionGroup = 0;
 } else {
-    $strCriteriaPosition = "AND position_group >= '$permissionGroup' ";
+    $strCriteriaPosition = "AND permission_group >= '$permissionGroup' ";
     $intPermissionGroup = intval($permissionGroup);
 }
 function now()
