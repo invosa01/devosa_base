@@ -61,6 +61,7 @@ $f->addInputAutoComplete(
     false
 );
 $f->addLabelAutoComplete("", "employeeName", "");
+$f->addCheckBox('YTD', 'dataFlagYTD', false, '', 'boolean', false);
 //  //this save button will hide after save <toggle>
 $f->addSubmit("btnShow", "Show Report", ["onClick" => "return validInput();"], true, true, "", "", "");
 $f->addSubmit("btnExportXLS", "Export Excel", ["onClick" => "return validInput();"], true, true, "", "", "");
@@ -74,6 +75,7 @@ $strName = $f->getValue('employeeName');
 // $strLevel = $f->getValue('dataLevel');
 $strCompany = $f->getValue('dataCompany');
 if ($showReport) {
+    $bolFlagYTD = $f->getValue('dataFlagYTD');
     $intYear = intval($f->getValue('dataYear'));
     $intMonth = intval($f->getValue('dataMonth'));
     $strKriteria = "";
@@ -104,7 +106,7 @@ if ($showReport) {
         $myDataGrid->disableFormTag();
         $intPageLimit = $myDataGrid->getPageLimit();
         $intPageNumber = $myDataGrid->getPageNumber();
-        $arrOvertime = getOvertimeReport($db, $intYear, $intMonth, $strKriteria);
+        $arrOvertime = getOvertimeReport($db, $intYear, $intMonth, $strKriteria, $bolFlagYTD);
         $myDataGrid->setCaption("Report Overtime - $intYear - $intMonth");
         $myDataGrid->pageSortBy = "";
         $myDataGrid->addColumnNumbering(
@@ -383,7 +385,7 @@ function printNumeric($params)
 // fungsi untuk mengambil data total pajak tahunan karyawan, jika ada
 //  jika tidak ada, maka akan dilakukan perhitungan
 // output berupa array
-function getOvertimeReport($db, $intYear, $intMonth, $strKriteria = "")
+function getOvertimeReport($db, $intYear, $intMonth, $strKriteria = "", $bolFlagYTD)
 {
     global $_POST;
     $arrResult = [];
@@ -395,7 +397,12 @@ function getOvertimeReport($db, $intYear, $intMonth, $strKriteria = "")
     global $intPageNumber;
     global $totalData;
     $intPage = $intPageNumber;
-    $strSQL = "SELECT id FROM \"hrd_salary_master\" WHERE EXTRACT(YEAR FROM \"salary_date\") = '$intYear' AND EXTRACT(MONTH FROM \"salary_date\") = '$intMonth' AND status=" . REQUEST_STATUS_APPROVED;
+    if (isset($bolFlagYTD) && $bolFlagYTD === true) {
+        $strSQL = "SELECT id FROM \"hrd_salary_master\" WHERE EXTRACT(YEAR FROM \"salary_date\") = '$intYear' AND EXTRACT(MONTH FROM \"salary_date\") <= '$intMonth' AND status=" . REQUEST_STATUS_APPROVED;
+    }
+    else {
+        $strSQL = "SELECT id FROM \"hrd_salary_master\" WHERE EXTRACT(YEAR FROM \"salary_date\") = '$intYear' AND EXTRACT(MONTH FROM \"salary_date\") = '$intMonth' AND status=" . REQUEST_STATUS_APPROVED;
+    }
     $res = $db->execute($strSQL);
     $intStart = (($intPage - 1) * $intPageLimit);
     while ($row = $db->fetchrow($res)) {
@@ -428,9 +435,9 @@ function getOvertimeReport($db, $intYear, $intMonth, $strKriteria = "")
             $arrResult[$row2['id_employee']]['resign_date'] = $row2['resign_date'];
             $arrResult[$row2['id_employee']]['employee_name'] = $row2['employee_name'];
             $arrResult[$row2['id_employee']]['employee_status'] = $row2['employee_status'];
-            $arrResult[$row2['id_employee']]['total_ot_hour'] = toHour($row2['total_ot_min']);
-            $arrResult[$row2['id_employee']]['total_ot_day'] = $row2['ot_day'];
-            $arrResult[$row2['id_employee']]['overtime_allowance'] = $row2['overtime_allowance'];
+            $arrResult[$row2['id_employee']]['total_ot_hour'] += toHour($row2['total_ot_min']);
+            $arrResult[$row2['id_employee']]['total_ot_day'] += $row2['ot_day'];
+            $arrResult[$row2['id_employee']]['overtime_allowance'] += $row2['overtime_allowance'];
         }
     }
     return $arrResult;

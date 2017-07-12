@@ -119,7 +119,7 @@ $firstLevel = 1; // isi dengan level functional yg deiset sebagai head (presiden
 if ($pMgt == 'true') {
     $strKriteria .= "AND is_managerial is true";
 }
-$companyId = isset($_GET['company_id']) ? $_GET['company_id'] : 24;
+$companyId = isset($_GET['company_id']) ? $_GET['company_id'] : 1;
 $strSQL .= " SELECT * FROM hrd_functional ";
 $strSQL .= " WHERE head_code = '' AND company_id='$companyId'";
 

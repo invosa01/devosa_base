@@ -168,7 +168,7 @@ function getData($db, &$intRows, $strKriteria = "", $strOrder = "")
             $strHidden .= "<input type=hidden name='detailSubDepartmentName$intRows' value=\"" . $rowSubDept['sub_department_name'] . "\" disabled>";
             $strResult .= "  <td colspan=5>$strHidden&nbsp;</td>\n";
             $strResult .= "  <td colspan=5>&nbsp;</td>\n";
-            $strResult .= "  <td colspan=5>&nbsp;</td>\n";
+            $strResult .= "  <td colspan=10>&nbsp;</td>\n";
           }
           //tampilkan dta section
           $strResult .= "  <td><div class=\"checkbox no-margin\"><label><input class=\"checkbox-inline\" type=\"checkbox\" name='chkSectionID$intRows' value=\"" . $rowSec['id'] . "\"></label></div></td>\n";
@@ -431,12 +431,12 @@ function saveData($db, &$strError)
       if ($strDataOldCode != $strDataCode) {
         $tbl->query(
             "
-            UPDATE hrd_section SET section_code = '$strDataCode'
-              WHERE section_code = '$strDataOldCode';
-            UPDATE hrd_sub_section SET section_code = '$strDataCode'
-              WHERE section_code = '$strDataOldCode';
-            UPDATE hrd_employee SET section_code = '$strDataCode' 
-              WHERE section_code = '$strDataOldCode'"
+            UPDATE hrd_section SET sub_department_code = '$strDataCode'
+              WHERE sub_department_code = '$strDataOldCode';
+            UPDATE hrd_sub_section SET sub_department_code = '$strDataCode'
+              WHERE sub_department_code = '$strDataOldCode';
+            UPDATE hrd_employee SET sub_department_code = '$strDataCode'
+              WHERE sub_department_code = '$strDataOldCode'"
         );
       }
     }
@@ -524,6 +524,13 @@ function saveData($db, &$strError)
     } else {
       $tbl->update(["id" => $strDataID], $data);
       writeLog(ACTIVITY_EDIT, MODULE_PAYROLL, "$strDataCode", 0);
+      // update data2 dibawahnya, jika ada perubahan kode
+      if ($strDataOldCode != $strDataCode) {
+        $tbl->query(
+            "UPDATE hrd_employee SET sub_section_code = '$strDataCode'
+              WHERE sub_section_code = '$strDataOldCode'"
+        );
+      }
     }
   }
   return true;
@@ -544,6 +551,8 @@ function deleteData($db)
         $resExec = $db->execute($strSQL);
         $strSQL = "DELETE FROM hrd_department WHERE management_code = '$strCode' ";
         $resExec = $db->execute($strSQL);
+        $strSQL = "DELETE FROM hrd_sub_department WHERE management_code = '$strCode' ";
+        $resExec = $db->execute($strSQL);
         $strSQL = "DELETE FROM hrd_section WHERE management_code = '$strCode' ";
         $resExec = $db->execute($strSQL);
         $strSQL = "DELETE FROM hrd_sub_section WHERE management_code = '$strCode' ";
@@ -561,12 +570,30 @@ function deleteData($db)
         $strCode = $rowDb['division_code'];
         $strSQL = "DELETE FROM hrd_department WHERE division_code = '$strCode' ";
         $resExec = $db->execute($strSQL);
+        $strSQL = "DELETE FROM hrd_sub_department WHERE division_code = '$strCode' ";
+        $resExec = $db->execute($strSQL);
         $strSQL = "DELETE FROM hrd_section WHERE division_code = '$strCode' ";
         $resExec = $db->execute($strSQL);
         $strSQL = "DELETE FROM hrd_sub_section WHERE division_code = '$strCode' ";
         $resExec = $db->execute($strSQL);
       }
       $strSQL = "DELETE FROM hrd_division WHERE id = '$strValue' ";
+      $resExec = $db->execute($strSQL);
+      $i++;
+    }
+    if (substr($strIndex, 0, 18) == 'chkSubDepartmentID') {
+      // cari dulu data Department code
+      $strSQL = "SELECT * FROM hrd_sub_department WHERE id = '$strValue' ";
+      $resDb = $db->execute($strSQL);
+      if ($rowDb = $db->fetchrow($resDb)) {
+        $strCode = $rowDb['sub_department_code'];
+        $resExec = $db->execute($strSQL);
+        $strSQL = "DELETE FROM hrd_section WHERE sub_department_code = '$strCode' ";
+        $resExec = $db->execute($strSQL);
+        $strSQL = "DELETE FROM hrd_sub_section WHERE sub_department_code = '$strCode' ";
+        $resExec = $db->execute($strSQL);
+      }
+      $strSQL = "DELETE FROM hrd_sub_department WHERE id = '$strValue' ";
       $resExec = $db->execute($strSQL);
       $i++;
     }
