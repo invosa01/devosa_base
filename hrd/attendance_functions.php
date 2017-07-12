@@ -107,17 +107,6 @@ class clsAttendanceClass
         $this->getAttendanceData();
         $this->getOvertimeData();
     }
-          
-    //adam 08-07-2017 **get late tolerance from general settings
-    function getGeneralLateTolerance(){
-    	$db = $this->db;
-    	
-    	$strSQL = "SELECT value FROM all_setting WHERE	code = 'late_duration'";
-   		$resExec = $db->execute($strSQL);
-   		$rowDb = $db->fetchrow($resExec);
-   		return $rowDb['value'];
-    }
-    //end adam 08-07-2017 **get late tolerance from general settings
 
     // bolGetData: perintah untuk mengambil informasi penting di tanggal tersebut, untuk disimpan di array dulu
     function getBreakTime()
@@ -846,6 +835,29 @@ var $strBranchCode;
     }//getflexytimesetting by date
 
     //get normal start normal finish
+
+    function checklateTolerance()
+    {
+        $shift = $this->strShiftCode;
+        $attendanceStart = $this->strAttendanceStart;
+        $normalStart = $this->strNormalStart;
+        $generalLate = getSetting("late_duration", $bolGeneral = false);
+
+        $getTheAttendance = strtotime($attendanceStart);
+        $timeStart = strtotime($normalStart);
+        $differenceTime = ($getTheAttendance - $timeStart) / 60;
+
+        if($differenceTime > $generalLate)
+        {
+            $late = 1; //telat
+        }else{
+            $late = 0; // tidak telat
+        }
+
+        return $late;
+
+    }
+
     function saveCurrentAttendance($objAttendanceClass, $strDataSource = "")
     {
         //periksa perbedaan waktu
@@ -866,6 +878,15 @@ var $strBranchCode;
                 $this->strNormalStart,
                 $this->strAttendanceStart
             ) >= $this->intLateTolerance && $this->bolHoliday == 0) ? "'t'" : "'f'";
+
+        $checkLate = $this->checklateTolerance();
+        if($checkLate==1)
+        {
+            $strNotLate =  "'f'";
+        }else{
+            $strNotLate = "'t'";
+        }
+
         $strHoliday = ($this->bolHoliday) ? "'1'" : "'0'";
         $strShiftType = ($this->bolShiftNight) ? 1 : 0;
         $strShiftCode = $this->strShiftCode;

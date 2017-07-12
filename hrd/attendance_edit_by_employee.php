@@ -409,7 +409,7 @@ function getData($db)
         $objAttendanceClass->setFilter($strDateFrom, $strDateThru, $strIDEmployee, $strKriteria);
         $objAttendanceClass->getAttendanceResource();
 		//adam 07-06-2017 **Add waktu toleransi dari general setting
-		$generalLate = $objAttendanceClass->getGeneralLateTolerance();
+        $generalLate = getSetting("late_duration", $bolGeneral = false);
 		$branchTolerance = $objToday->intLateTolerance;
 		//end adam 07-06-2017
         $objToday = new clsAttendanceInfo($db);
@@ -482,8 +482,6 @@ function getData($db)
 							}
 						}
 
-
-						
 						if(!empty($objToday->strShiftCode) && $generalLate > 0){ //jika general late > 0 dan kondisi shift terisi
 								$d1=new DateTime($objToday->strAttendanceStart);
 								$d2=new DateTime($objToday->strNormalStart);
@@ -523,7 +521,7 @@ function getData($db)
 								}elseif($diff->i > $branchTolerance){
 									//$intLate = $objToday->intLate-$generalLate;
 									$intLate = $diff->i;
-								}elseif($diff->i < $branchTolerance){
+								}elseif($diff->i <= $branchTolerance){
 									$intLate = "";
 								}else{
 									$intLate = $diff->i;

@@ -171,7 +171,7 @@ function getData($db, $bolSync = false)
         $objAttendanceClass->setFilter($strDateFrom, $strDateThru, $strIDEmployee, $strKriteria, $arrData);
         $objAttendanceClass->getAttendanceResource();
 		//adam 07-06-2017 **Add waktu toleransi dari general setting
-		$generalLate = $objAttendanceClass->getGeneralLateTolerance();
+        $generalLate = getSetting("late_duration", $bolGeneral = false);
 		$branchTolerance = $objToday->intLateTolerance;
 		//end adam 07-06-2017
         $objToday = new clsAttendanceInfo($db);
@@ -222,38 +222,44 @@ function getData($db, $bolSync = false)
                         }
                     } else {
                         //$intLate = ($objToday->intLate == 0) ? "" : $objToday->intLate; //adam
-						$branchTolerance = $objToday->intLateTolerance;
-						if($generalLate > 0){ //jika general late nya ada
-							if($objToday->intLate == 0){
-								$intLate= "";
-							}elseif($objToday->intLate <= $generalLate){
-								//$intLate = $objToday->intLate-$generalLate;
-								$intLate = "";
-							}else{
-								$intLate = $objToday->intLate;
-							}
-						}else{ //jika general late nya kosong, maka late tolerance diambil dari branch
-							if($objToday->intLate == 0){
-								$intLate= "";
-							}elseif($objToday->intLate <= $branchTolerance){
-								//$intLate = $objToday->intLate-$generalLate;
-								$intLate = "";
-							}else{
-								$intLate = $objToday->intLate;
-							}
-						}
+                        $branchTolerance = $objToday->intLateTolerance;
+                        if($generalLate > 0){ //jika general late nya ada
+                            if($objToday->intLate == 0){
+                                $intLate= "";
+                            }elseif($objToday->intLate <= $generalLate){
+                                //$intLate = $objToday->intLate-$generalLate;
+                                $intLate = "";
+                            }else{
+                                $intLate = $objToday->intLate;
+                            }
+                        }else{ //jika general late nya kosong, maka late tolerance diambil dari branch
+                            if($objToday->intLate == 0){
+                                $intLate= "";
+                            }elseif($objToday->intLate <= $branchTolerance){
+                                //$intLate = $objToday->intLate-$generalLate;
+                                $intLate = "";
+                            }else{
+                                $intLate = $objToday->intLate;
+                            }
+                        }
 						
 						if(!empty($objToday->strShiftCode) && $generalLate > 0){ //jika general late > 0 dan kondisi shift terisi
 								$d1=new DateTime($objToday->strAttendanceStart);
 								$d2=new DateTime($objToday->strNormalStart);
 								$diff=$d2->diff($d1);
-								
+
+                                if($objToday->strAttendanceStart < $objToday->strNormalStart){
+                                    $diff->i = "";
+                                }else{
+                                    $diff->i = $diff->i;
+                                }
+
 								if($diff->i == 0){
 									$intLate= "";
 								}elseif($diff->i > $generalLate){
 									//$intLate = $objToday->intLate-$generalLate;
 									$intLate = $diff->i;
-								}elseif($diff->i < $generalLate){
+								}elseif($diff->i <= $generalLate){
 									$intLate = "";
 								}else{
 									$intLate = $diff->i;
@@ -264,13 +270,19 @@ function getData($db, $bolSync = false)
 								$d1=new DateTime($objToday->strAttendanceStart);
 								$d2=new DateTime($objToday->strNormalStart);
 								$diff=$d2->diff($d1);
+
+                                if($objToday->strAttendanceStart < $objToday->strNormalStart){
+                                    $diff->i = "";
+                                }else{
+                                    $diff->i = $diff->i;
+                                }
 								
 								if($diff->i == 0){
 									$intLate= "";
 								}elseif($diff->i > $branchTolerance){
 									//$intLate = $objToday->intLate-$generalLate;
 									$intLate = $diff->i;
-								}elseif($diff->i < $branchTolerance){
+								}elseif($diff->i <= $branchTolerance){
 									$intLate = "";
 								}else{
 									$intLate = $diff->i;
