@@ -76,6 +76,7 @@ class clsAttendanceClass
             $this->strKriteria .= ' AND (attendance_start is null OR attendance_finish is null) ';
         }
         $this->strKriteria = str_replace('employee_id', 't1.employee_id', $this->strKriteria);
+        $this->strKriteria = str_replace('active', 't1.active', $this->strKriteria);
         $strSQL = "SELECT t0.* FROM hrd_attendance AS t0 ";
         $strSQL .= "LEFT JOIN hrd_employee AS t1 ON t0.id_employee = t1.id ";
         if (isset($_SESSION['sessionEmployeeID']) && $_SESSION['sessionEmployeeID'] !== '') {

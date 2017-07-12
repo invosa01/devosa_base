@@ -66,15 +66,10 @@ function getData($db)
     global $DataGrid;
     global $strKriteriaCompany;
     global $strKriteria;
+    global $strCriteriaPosition;
     if ($db->connect()) {
         $arrData = $f->getObjectValues();
         $strKriteria = "";
-        //$strDateFrom = $arrData['dataDateFrom'];
-        //$arrDate = explode("-", $strDateFrom);
-        //$strDateFrom = $arrDate[2] . "-" . $arrDate[1] . "-" . $arrDate[0];
-        //$strDateThru = $arrData['dataDateThru'];
-        //$arrDate = explode("-", $strDateThru);
-        //$strDateThru = $arrDate[2] . "-" . $arrDate[1] . "-" . $arrDate[0];
         $strDateFrom = standardDateToSQLDateNew(
             $arrData['dataDateFrom'],
             $_SESSION['sessionDateSetting']['date_sparator'],
@@ -127,7 +122,9 @@ function getData($db)
         if ($arrData['dataCompany'] != "") {
             $strKriteria .= "AND id_company = '" . $arrData['dataCompany'] . "'";
         }
-        $strKriteria .= "AND active = '1'";
+        if (isset($_SESSION['sessionEmployeeID']) && $_SESSION['sessionEmployeeID'] !== '') {
+            $strKriteria .= $strCriteriaPosition;
+        }
         //$strKriteria .= $strKriteriaCompany;
         $myDataGrid = new cDataGrid("formData", "DataGrid1", "100%", "100%", false, true, false);
         $myDataGrid->caption = getWords(
