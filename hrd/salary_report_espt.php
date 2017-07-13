@@ -1130,7 +1130,7 @@ function getESPTTahunan($db, $intYear, $strKriteria = "")
                 $arrResult[$row2['id_employee']]['jumlah_7']; // total 1-7
             $arrResult[$row2['id_employee']]['jumlah_9'] = (0.05 * $arrResult[$row2['id_employee']]['jumlah_8'] < 500000 * ($arrResult[$row2['id_employee']]['masa_akhir'] - $arrResult[$row2['id_employee']]['masa_awal'] + 1))
                 ? 0.05 * $arrResult[$row2['id_employee']]['jumlah_8'] : 500000 * ($arrResult[$row2['id_employee']]['masa_akhir'] - $arrResult[$row2['id_employee']]['masa_awal'] + 1); // biaya jabatan
-            $arrResult[$row2['id_employee']]['jumlah_10'] = $row2['jamsostek_deduction']; // jht/pensiun yang dibayar employee setahun
+            $arrResult[$row2['id_employee']]['jumlah_10'] += $row2['jamsostek_deduction']; // jht/pensiun yang dibayar employee setahun
             $arrResult[$row2['id_employee']]['jumlah_11'] = $arrResult[$row2['id_employee']]['jumlah_9'] + $arrResult[$row2['id_employee']]['jumlah_10']; // total 9-10
             $arrResult[$row2['id_employee']]['jumlah_12'] = $arrResult[$row2['id_employee']]['jumlah_8'] - $arrResult[$row2['id_employee']]['jumlah_11']; // jumlah_8 - jumlah_11
             $arrResult[$row2['id_employee']]['jumlah_13'] = 0; // penyambungan pendapatan (untuk sekarang diisi nol dulu, system belum cover)
