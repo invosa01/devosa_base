@@ -1116,9 +1116,10 @@ function getESPTTahunan($db, $intYear, $strKriteria = "")
             $arrResult[$row2['id_employee']]['wp_luar_negeri'] = 'N'; // untuk sementara hard code, system tidak cover
             $arrResult[$row2['id_employee']]['kode_negara'] = ''; // biarkan kosong
             $arrResult[$row2['id_employee']]['kode_pajak'] = '21-100-01'; // untuk sementara di hard code
-            $arrResult[$row2['id_employee']]['jumlah_1'] += ''; // basic salary setahun
+            $fltBasicSalary = (isset($row2['basic_salary']) && $row2['basic_salary'] > 0) ? $row2['basic_salary'] : getBasicSalary($row2['id_salary_master'], $row2['id_employee']);
+            $arrResult[$row2['id_employee']]['jumlah_1'] +=  $fltBasicSalary;// basic salary setahun
             $arrResult[$row2['id_employee']]['jumlah_2'] += $row2['tax_allowance'] + $row2['irregular_tax_allowance']; // tax allowance
-            $arrResult[$row2['id_employee']]['jumlah_3'] += ''; // tunjangan lain
+            $arrResult[$row2['id_employee']]['jumlah_3'] += $row2['base_tax'] - $fltBasicSalary; // tunjangan lain
             $arrResult[$row2['id_employee']]['jumlah_4'] += 0; // pendapatan tambahan setahun
             $arrResult[$row2['id_employee']]['jumlah_5'] += $row2['jkk_allowance'] + $row2['jkm_allowance'] + $row2['bpjs_allowance']; // premi yang dibayar company
             $arrResult[$row2['id_employee']]['jumlah_6'] += 0; // pendapatan tambahan (natura)
@@ -1266,6 +1267,48 @@ function toHour($minutes)
     }
     $hour_minutes = $hour . ":" . $minutes . ":00";
     return $hour_minutes;
+}
+
+function getBasicSalary($strIDSalary, $strIDEmployee)
+{
+    global $db;
+    $strResult = 0;
+    $strSQL = "SELECT amount FROM hrd_salary_allowance
+                WHERE \"id_salary_master\" = $strIDSalary AND id_employee = $strIDEmployee AND allowance_code = 'basic_salary';";
+    $res = $db->execute($strSQL);
+    while ($row = $db->fetchrow($res)) {
+        $strResult += $row['amount'];
+    }
+    return $strResult;
+}
+
+function getAnnualTaxESPT($fltPKP)
+{
+    $tax = 0;
+    $tarif1 = 0;
+    $tarif2 = 0;
+    $tarif3 = 0;
+    $tarif4 = 0;
+    if ($fltPKP > 0) {
+        $batas1 = 50000000;
+        $tarif1 = ($fltPKP > $batas1) ? $batas1 * 0.05 : $fltPKP * 0.05;
+        $sisa1 = $fltPKP - $batas1;
+    }
+    if ($sisa1 > 0) {
+        $batas2 = 200000000;
+        $tarif2 = ($sisa1 > $batas2) ? $batas2 * 0.15 : $sisa1 * 0.15;
+        $sisa2 = $sisa1 - $batas2;
+    }
+    if ($sisa2 > 0) {
+        $batas3 = 250000000;
+        $tarif3 = ($sisa2 > $batas3) ? $batas3 * 0.25 : $sisa2 * 0.25;
+        $sisa3 = $sisa2 - $batas3;
+    }
+    if ($sisa3 > 0) {
+        $tarif4 = $sisa3 * 0.30;
+    }
+    $tax = $tarif1 + $tarif2 + $tarif3 + $tarif4;
+    return $tax;
 }
 
 ?>
