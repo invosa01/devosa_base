@@ -1091,9 +1091,9 @@ function getESPTTahunan($db, $intYear, $strKriteria = "")
             } elseif ($intJoinDateYear == $intYear && $strResignDate == '') {
                 $row2['masa_awal'] = $intJoinDateMonth;
                 $row2['masa_akhir'] = 12;
-                if ($intJoinDateDay >= JOIN_DATE_LIMIT) {
-                    $row2['masa_awal'] -= 1;
-                }
+                //if ($intJoinDateDay >= JOIN_DATE_LIMIT) {
+                //    $row2['masa_awal'] -= 1;
+                //}
             } elseif ($intJoinDateYear == $intYear && $strResignDate != '') {
                 $row2['masa_awal'] = $intJoinDateMonth;
                 $row2['masa_akhir'] = $intResignDateMonth;
@@ -1119,25 +1119,25 @@ function getESPTTahunan($db, $intYear, $strKriteria = "")
             $fltBasicSalary = (isset($row2['basic_salary']) && $row2['basic_salary'] > 0) ? $row2['basic_salary'] : getBasicSalary($row2['id_salary_master'], $row2['id_employee']);
             $arrResult[$row2['id_employee']]['jumlah_1'] +=  $fltBasicSalary;// basic salary setahun
             $arrResult[$row2['id_employee']]['jumlah_2'] += $row2['tax_allowance'] + $row2['irregular_tax_allowance']; // tax allowance
-            $arrResult[$row2['id_employee']]['jumlah_3'] += $row2['base_tax'] - $fltBasicSalary; // tunjangan lain
+            $arrResult[$row2['id_employee']]['jumlah_3'] += $row2['base_tax'] - $fltBasicSalary - $row2['tax_allowance'] + $row2['irregular_tax_allowance']; // tunjangan lain
             $arrResult[$row2['id_employee']]['jumlah_4'] += 0; // pendapatan tambahan setahun
             $arrResult[$row2['id_employee']]['jumlah_5'] += $row2['jkk_allowance'] + $row2['jkm_allowance'] + $row2['bpjs_allowance']; // premi yang dibayar company
             $arrResult[$row2['id_employee']]['jumlah_6'] += 0; // pendapatan tambahan (natura)
             $arrResult[$row2['id_employee']]['jumlah_7'] += $row2['base_irregular_tax']; // pendapatan tambahan (irregular)
             $arrResult[$row2['id_employee']]['jumlah_8'] = $arrResult[$row2['id_employee']]['jumlah_1'] + $arrResult[$row2['id_employee']]['jumlah_2'] +
-                $arrResult[$row2['id_employee']]['jumlah_3'] + $arrResult[$row2['id_employee']]['jumlah_4'] +
-                $arrResult[$row2['id_employee']]['jumlah_5'] + $arrResult[$row2['id_employee']]['jumlah_6'] +
+                $arrResult[$row2['id_employee']]['jumlah_3'] + $arrResult[$row2['id_employee']]['jumlah_4'] /*+
+                $arrResult[$row2['id_employee']]['jumlah_5']*/ + $arrResult[$row2['id_employee']]['jumlah_6'] +
                 $arrResult[$row2['id_employee']]['jumlah_7']; // total 1-7
             $arrResult[$row2['id_employee']]['jumlah_9'] = (0.05 * $arrResult[$row2['id_employee']]['jumlah_8'] < 500000 * ($arrResult[$row2['id_employee']]['masa_akhir'] - $arrResult[$row2['id_employee']]['masa_awal'] + 1))
                 ? 0.05 * $arrResult[$row2['id_employee']]['jumlah_8'] : 500000 * ($arrResult[$row2['id_employee']]['masa_akhir'] - $arrResult[$row2['id_employee']]['masa_awal'] + 1); // biaya jabatan
-            $arrResult[$row2['id_employee']]['jumlah_10'] += $row2['jamsostek_deduction']; // jht/pensiun yang dibayar employee setahun
+            $arrResult[$row2['id_employee']]['jumlah_10'] = $row2['jamsostek_deduction']; // jht/pensiun yang dibayar employee setahun
             $arrResult[$row2['id_employee']]['jumlah_11'] = $arrResult[$row2['id_employee']]['jumlah_9'] + $arrResult[$row2['id_employee']]['jumlah_10']; // total 9-10
             $arrResult[$row2['id_employee']]['jumlah_12'] = $arrResult[$row2['id_employee']]['jumlah_8'] - $arrResult[$row2['id_employee']]['jumlah_11']; // jumlah_8 - jumlah_11
             $arrResult[$row2['id_employee']]['jumlah_13'] = 0; // penyambungan pendapatan (untuk sekarang diisi nol dulu, system belum cover)
             $arrResult[$row2['id_employee']]['jumlah_14'] = $arrResult[$row2['id_employee']]['jumlah_12'] + $arrResult[$row2['id_employee']]['jumlah_13']; // jumlah_12 + jumlah_13
             $arrResult[$row2['id_employee']]['jumlah_15'] = $row2['tax_reduction']; // PTKP
-            $arrResult[$row2['id_employee']]['jumlah_16'] = ($arrResult[$row2['id_employee']]['jumlah_14'] - $arrResult[$row2['id_employee']]['jumlah_15'] >= 0) ? $arrResult[$row2['id_employee']]['jumlah_14'] - $arrResult[$row2['id_employee']]['jumlah_15'] : 0; // jumlah_14 - jumlah_15
-            $arrResult[$row2['id_employee']]['jumlah_17'] = 0; // total pph until december
+            $arrResult[$row2['id_employee']]['jumlah_16'] += ($arrResult[$row2['id_employee']]['jumlah_14'] - $arrResult[$row2['id_employee']]['jumlah_15'] >= 0) ? $arrResult[$row2['id_employee']]['jumlah_14'] - $arrResult[$row2['id_employee']]['jumlah_15'] : 0; // jumlah_14 - jumlah_15
+            $arrResult[$row2['id_employee']]['jumlah_17'] += getAnnualTaxESPT($arrResult[$row2['id_employee']]['jumlah_16']); // total pph until december
             $arrResult[$row2['id_employee']]['jumlah_18'] += $row2['tax'] + $row2['irregular_tax']; // pph paid
             $arrResult[$row2['id_employee']]['jumlah_19'] = $arrResult[$row2['id_employee']]['jumlah_17'] - $arrResult[$row2['id_employee']]['jumlah_18']; // jumlah_17 - jumlah_18
             $arrResult[$row2['id_employee']]['jumlah_20'] = $arrResult[$row2['id_employee']]['jumlah_19']; // pph yang harus dibayarkan
