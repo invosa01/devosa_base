@@ -82,13 +82,13 @@ if ($showReport) {
     $intMonth = intval($f->getValue('dataMonth'));
     $strKriteria = "";
     if ($strStatus != "") {
-        $strKriteria .= " AND t1.\"employee_status\" = $strStatus";
+        $strKriteria .= " AND \"employee_status\" = $strStatus";
     }
     if ($strName != "") {
-        $strKriteria .= " AND t1.\"employee_id\" = '$strName' ";
+        $strKriteria .= " AND \"employee_id\" = '$strName' ";
     }
     if ($strCompany != "") {
-        $strKriteria .= " AND t1.id_company = '$strCompany' ";
+        $strKriteria .= " AND id_company = '$strCompany' ";
     }
     $dataMasterSalary = getMasterSalarybyYearAndMonth($intYear, $intMonth, $strCompany);
     if ($dataMasterSalary == 0) {
@@ -1114,7 +1114,7 @@ function getJamsostekReport($db, $intYear, $intMonth, $strKriteria = "", $strTyp
         $resDb = $db->execute($strSQL);
         while ($rowDb = $db->fetchrow($resDb)) {
             $arrDataSalaryThisMonth = $rowDb;
-            $strSQL2 = "SELECT * FROM hrd_salary_detail WHERE total_net > 0 AND total_gross > 0 AND id_salary_master = " . $rowDb['id'] . " AND jamsostek_deduction > 0";
+            $strSQL2 = "SELECT * FROM hrd_salary_detail WHERE total_net > 0 AND total_gross > 0 AND id_salary_master = " . $rowDb['id'] . " AND jamsostek_deduction > 0 $strKriteria";
             $resDb2 = $db->execute($strSQL2);
             while ($rowDb2 = $db->fetchrow($resDb2)) {
                 $arrDataSalaryDetailThisMonth[$rowDb2['id_employee']] = $rowDb2;//array_merge($arrDataSalaryDetailThisMonth[$rowDb2['id_employee']], $rowDb2);
@@ -1135,7 +1135,7 @@ function getJamsostekReport($db, $intYear, $intMonth, $strKriteria = "", $strTyp
     $resDb = $db->execute($strSQL);
     while ($rowDb = $db->fetchrow($resDb)) {
         $arrDataSalaryPrevMonth = $rowDb;
-        $strSQL2 = "SELECT * FROM hrd_salary_detail WHERE total_net > 0 AND total_gross > 0 AND id_salary_master = " . $rowDb['id'] . " AND jamsostek_deduction > 0";
+        $strSQL2 = "SELECT * FROM hrd_salary_detail WHERE total_net > 0 AND total_gross > 0 AND id_salary_master = " . $rowDb['id'] . " AND jamsostek_deduction > 0 $strKriteria";
         $resDb2 = $db->execute($strSQL2);
         while ($rowDb2 = $db->fetchrow($resDb2)) {
             $arrDataSalaryDetailPrevMonth[$rowDb2['id_employee']] = $rowDb2;//array_merge($arrDataSalaryDetailPrevMonth[$rowDb2['id_employee']], $rowDb2);
