@@ -1114,7 +1114,7 @@ function getJamsostekReport($db, $intYear, $intMonth, $strKriteria = "", $strTyp
         $resDb = $db->execute($strSQL);
         while ($rowDb = $db->fetchrow($resDb)) {
             $arrDataSalaryThisMonth = $rowDb;
-            $strSQL2 = "SELECT * FROM hrd_salary_detail WHERE total_net > 0 AND total_gross > 0 AND id_salary_master = " . $rowDb['id'] . " AND jamsostek_deduction > 0 $strKriteria";
+            $strSQL2 = "SELECT * FROM hrd_salary_detail WHERE total_net > 0 AND total_gross > 0 AND id_salary_master = " . $rowDb['id'] . " AND jamsostek_deduction > 0";
             $resDb2 = $db->execute($strSQL2);
             while ($rowDb2 = $db->fetchrow($resDb2)) {
                 $arrDataSalaryDetailThisMonth[$rowDb2['id_employee']] = $rowDb2;//array_merge($arrDataSalaryDetailThisMonth[$rowDb2['id_employee']], $rowDb2);
@@ -1135,7 +1135,7 @@ function getJamsostekReport($db, $intYear, $intMonth, $strKriteria = "", $strTyp
     $resDb = $db->execute($strSQL);
     while ($rowDb = $db->fetchrow($resDb)) {
         $arrDataSalaryPrevMonth = $rowDb;
-        $strSQL2 = "SELECT * FROM hrd_salary_detail WHERE total_net > 0 AND total_gross > 0 AND id_salary_master = " . $rowDb['id'] . " AND jamsostek_deduction > 0 $strKriteria";
+        $strSQL2 = "SELECT * FROM hrd_salary_detail WHERE total_net > 0 AND total_gross > 0 AND id_salary_master = " . $rowDb['id'] . " AND jamsostek_deduction > 0";
         $resDb2 = $db->execute($strSQL2);
         while ($rowDb2 = $db->fetchrow($resDb2)) {
             $arrDataSalaryDetailPrevMonth[$rowDb2['id_employee']] = $rowDb2;//array_merge($arrDataSalaryDetailPrevMonth[$rowDb2['id_employee']], $rowDb2);
