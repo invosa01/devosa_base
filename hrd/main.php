@@ -124,8 +124,10 @@ function getDataContract($db)
     while ($rowDb = $db->fetchrow($resDb)) {
         $intRows++;
         $strID = $rowDb['id'];
-        $strJoinDate = pgDateFormat($rowDb['join_date'], "d-M-y");
-        $strDueDate = pgDateFormat($rowDb['due_date'], "d-M-y");
+        $strJoinDate = pgDateFormat($rowDb['join_date'], "Ymd");//Untuk Sorting dataTable (bug dataTable Sorting Date)
+        $strDueDate = pgDateFormat($rowDb['due_date'], "Ymd");//Untuk Sorting dataTable (bug dataTable Sorting Date)
+        $strJoinDate2 = pgDateFormat($rowDb['join_date'], "d-M-Y");
+        $strDueDate2 = pgDateFormat($rowDb['due_date'], "d-M-Y");
         //$strEmployeeID = ($bolIsEmployee) ? $rowDb['employee_id'] : "<a href='employee_resume.php?dataID=$strID'>" .$rowDb['employee_id']."</a>";
         $strEmployeeID = $rowDb['employee_id'];
         $strName = $rowDb['employee_name'];
@@ -141,16 +143,16 @@ function getDataContract($db)
             $strLinkPar = "dataIDEmployee=" . $rowDb['id'];
             $strConfirm = "";
         }
-        $strResult .= "<tr valign=top $strClass>\n";
-        $strResult .= "  <td nowrap>$strEmployeeID&nbsp;</td>";
-        $strResult .= "  <td nowrap>$strName&nbsp;</td>";
-        $strResult .= "  <td align=center>$strJoinDate&nbsp;</td>";
-        $strResult .= "  <td align=center>$strDueDate&nbsp;</td>";
-        $strResult .= "  <td>$strSelisih&nbsp;</td>";
-        $strResult .= "  <td align=center nowrap><a href=\"mutation_edit.php?btnRenew=Renew&$strLinkPar\">" . getWords(
+        $strResult .= "<tr valign=top $strClass>";
+        $strResult .= "<td nowrap>$strEmployeeID</td>";
+        $strResult .= "<td nowrap>$strName</td>";
+        $strResult .= "<td align=center data-order=$strJoinDate>$strJoinDate2</td>"; //data order untuk order dataTable
+        $strResult .= "<td align=center data-order=$strDueDate>$strDueDate2</td>"; ////data order untuk order dataTable
+        $strResult .= "<td>$strSelisih</td>";
+        $strResult .= "<td align=center nowrap><a href=\"mutation_edit.php?btnRenew=Renew&$strLinkPar\">" . getWords(
                 "renew"
             ) . " $strConfirm</a>&nbsp;</td>";
-        $strResult .= "</tr>\n";
+        $strResult .= "</tr>";
     }
     $intTotalData = $intRows;
     return $strResult;
