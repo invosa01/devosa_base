@@ -469,6 +469,12 @@ function getSlip()
     $i++;
     // inisialisasi detail
     $GLOBALS['strCompany'] = "";
+    $GLOBALS['strCompanyAddress'] = "";
+    $GLOBALS['strCompanyCity'] = "";
+    $GLOBALS['strCompanyPhone'] = "";
+    $GLOBALS['strCompanyFax'] = "";
+    $GLOBALS['strCompanyEmail'] = "";
+    $GLOBALS['strCompanyLogo'] = "";
     $GLOBALS['strEmployeeName'] = "";
     $GLOBALS['strEmployeeID'] = "";
     $GLOBALS['strDivision'] = "";
@@ -494,14 +500,20 @@ function getSlip()
     } else {
       $strIDEmployee = $strValue;
     }
-    // echo "kurajasckasjkas";
-    // echo $strIDEmployee;
-    // echo "kecebog";
-    // die($strValue);
     $objLeave->generateEmployeeAnnualLeave($strIDEmployee);
     $arrCuti = $objLeave->getEmployeeLeaveInfo($strIDEmployee);
     $intCompany = $objEmp->getInfoByID($strIDEmployee, "id_company");
-    $GLOBALS['strCompany'] = printCompanyName($intCompany);
+    $arrCompany = [];
+    $arrCompany = arrCompanyInfo($db, $intCompany);
+    $GLOBALS['strCompany'] = $arrCompany['company_name'];
+    $GLOBALS['strCompanyAdress'] = $arrCompany['address'];
+    $GLOBALS['strCompanyCity'] = $arrCompany['city'];
+    if($GLOBALS['strCompanyCity'] === null)$GLOBALS['strCompanyCity'] = $arrCompany['address'];
+    $GLOBALS['strCompanyPhone'] = $arrCompany['phone'];
+    $GLOBALS['strCompanyFax'] = $arrCompany['fax'];
+    $GLOBALS['strCompanyEmail'] = $arrCompany['email'];
+    $GLOBALS['strCompanyLogo'] = $arrCompany['logo'];
+    if($GLOBALS['strCompanyLogo'] === null) $GLOBALS['strCompanyLogo']= 'logo_back_slip.png';
     $strDiv = $objSalary->getEmployeeSalaryDetail($strIDEmployee, "division_code");
     $strBrch = $objEmp->getInfoByID($strIDEmployee, "branch_code");
     $GLOBALS['strBranch'] = getBranchName($strBrch);

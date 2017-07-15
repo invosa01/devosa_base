@@ -801,20 +801,20 @@ function saveData()
   if ($db->connect()) {
     $strmodified_byID = $_SESSION['sessionUserID'];
     $tblEmployeeTemporary = new cHrdEmployeeTemporary();
-    $arrDate = explode("/", $f->getValue('dataBirthday'));
-    if ($f->getValue('dataBirthday') != "") {
-      $strTempBday = $arrDate[2] . "-" . $arrDate[0] . "-" . $arrDate[1];
-    } else {
-      $strTempBday = "";
-    }
-    $arrDate = explode("/", $f->getValue('dataWeddingDate'));
-    if ($f->getValue('dataWeddingDate') != "") {
-      $strTempWedday = $arrDate[2] . "-" . $arrDate[0] . "-" . $arrDate[1];
-    } else {
-      $strTempWedday = "";
-    }
-    // echo $strTempWedday;
-    // exit();
+    $strTempBday = standardDateToSQLDateNew(
+        $f->getValue('dataBirthday'),
+        $_SESSION['sessionDateSetting']['date_sparator'],
+        $_SESSION['sessionDateSetting']['pos_year'],
+        $_SESSION['sessionDateSetting']['pos_month'],
+        $_SESSION['sessionDateSetting']['pos_day']
+    );
+    $strTempWedday = standardDateToSQLDateNew(
+        $f->getValue('dataWeddingDate'),
+        $_SESSION['sessionDateSetting']['date_sparator'],
+        $_SESSION['sessionDateSetting']['pos_year'],
+        $_SESSION['sessionDateSetting']['pos_month'],
+        $_SESSION['sessionDateSetting']['pos_day']
+    );
     $data = [
         "employee_id"          => $f->getValue('dataEmployeeID'),
         "nickname"             => $f->getValue('dataNickname'),

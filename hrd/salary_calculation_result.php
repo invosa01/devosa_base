@@ -215,11 +215,13 @@ function getSlip($flag="",$pwd="")
         //krumo($arrCompany);
         $GLOBALS['strCompany'] = $arrCompany['company_name'];
         $GLOBALS['strCompanyAdress'] = $arrCompany['address'];
-        if($GLOBALS['strCompanyCity']!=null) $GLOBALS['strCompanyCity'] = $arrCompany['city']; else $GLOBALS['strCompanyCity'] = $arrCompany['address'];
+        $GLOBALS['strCompanyCity'] = $arrCompany['city'];
+        if($GLOBALS['strCompanyCity'] === null)$GLOBALS['strCompanyCity'] = $arrCompany['address'];
         $GLOBALS['strCompanyPhone'] = $arrCompany['phone'];
         $GLOBALS['strCompanyFax'] = $arrCompany['fax'];
         $GLOBALS['strCompanyEmail'] = $arrCompany['email'];
-        if($GLOBALS['strCompanyLogo']!=null) $GLOBALS['strCompanyLogo']= $arrCompany['logo']; else $GLOBALS['strCompanyLogo'] = 'logo_back_slip.png';
+        $GLOBALS['strCompanyLogo'] = $arrCompany['logo'];
+        if($GLOBALS['strCompanyLogo'] === null) $GLOBALS['strCompanyLogo']= 'logo_back_slip.png';
         $strDiv = $objSalary->getEmployeeSalaryDetail($strIDEmployee, "division_code");
         $GLOBALS['strDivision'] = getDivisionName($strDiv);
         $strBrch = $objEmp->getInfoByID($strIDEmployee, "branch_code");
