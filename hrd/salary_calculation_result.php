@@ -369,14 +369,6 @@ function getSlip($flag="",$pwd="")
                 }
             }
             //$GLOBALS['strDeduction'] .= wrapRow("Potongan L/E", "Rp", standardFormat($objSalary->getEmployeeSalaryDetail($strIDEmployee, "absence_deduction")), true /*isNumeric*/); //form_function.php
-            $GLOBALS['strDeduction'] .= wrapRow(
-                "Potongan Koreksi",
-                "Rp",
-                standardFormat(
-                    $objSalary->getEmployeeSalaryDetail($strIDEmployee, "koreksi_deduction")
-                ),
-                true /*isNumeric*/
-            ); //form_function.php
         }
         // else
         //tampilkan zakat utk irregular income
@@ -406,7 +398,6 @@ function getSlip($flag="",$pwd="")
         $fltTotalDeduction += $objSalary->getEmployeeSalaryDetail($strIDEmployee, "tax");
         $fltTotalDeduction += $objSalary->getEmployeeSalaryDetail($strIDEmployee, "irregular_tax");
         $fltTotalDeduction += $objSalary->getEmployeeSalaryDetail($strIDEmployee, "tax_pesangon");
-        $fltTotalDeduction += $objSalary->getEmployeeSalaryDetail($strIDEmployee, "koreksi_deduction");
         $GLOBALS['strTotalIncome'] = standardFormat($fltTotalIncome);
         $GLOBALS['strTotalDeduction'] = standardFormat($fltTotalDeduction);
         $GLOBALS['strTotalSalary'] = standardFormat(round($fltTotalIncome, 2) - round($fltTotalDeduction, 2));
