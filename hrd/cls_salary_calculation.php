@@ -1167,7 +1167,7 @@ class clsSalaryCalculation
         foreach ($arrayDetail as $idEmp => $detailValue) {
             $arrayDetail[$idEmp]['base_jamsostek'] = 0;
             $arrayDetail[$idEmp]['base_tax'] = 0;
-            $arrayDetail[$idEmp]['tax_allowance'] = 0;
+            //$arrayDetail[$idEmp]['tax_allowance'] = 0;
             $arrayDetail[$idEmp]['base_ot'] = 0;
         }
         return $arrayDetail;

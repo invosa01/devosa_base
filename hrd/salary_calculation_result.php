@@ -151,7 +151,7 @@ function getSlip($flag="",$pwd="")
     // die();
     $objDate = new clsCommonDate();
     $objEmp = new clsEmployees($db);
-    $objEmp->loadData("id, employee_id, employee_name, id_company, join_date, grade_code, branch_code");
+    $objEmp->loadData("id, employee_id, employee_name, id_company, join_date, grade_code, branch_code, functional_code");
     // tampilkan header HTML dulu
     echo "
 <html>
@@ -228,7 +228,7 @@ function getSlip($flag="",$pwd="")
         $GLOBALS['strBranch'] = getBranchName($strBrch);
         $GLOBALS['strEmployeeID'] = $objEmp->getInfoByID($strIDEmployee, "employee_id");
         $GLOBALS['strEmployeeName'] = $objEmp->getInfoByID($strIDEmployee, "employee_name");
-        //$GLOBALS['strEmployeeGrade']  = $objEmp->getInfoByID($strIDEmployee, "grade_code");
+        $GLOBALS['strEmployeeFunctional']  = $objEmp->getInfoByID($strIDEmployee, "functional_code");
         $GLOBALS['strJoinDate'] = $objDate->getDateFormat($objEmp->getInfoByID($strIDEmployee, "join_date"), "d-M-y");
         $GLOBALS['strWorkingDay'] = $objSalary->getEmployeeSalaryDetail($strIDEmployee, "attendance_day");
         $GLOBALS['strSisaCuti'] = $arrCuti['curr']['remain'];
