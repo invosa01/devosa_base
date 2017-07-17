@@ -54,42 +54,42 @@
                 }
             });
         });
-        $('#dataJoinDate').on('change', function () {
-            var dataJoinDate = $(this).val();
-            var dataBirthday = $('#dataBirthday').val();
-            var dataCompany = $('#dataCompany').val();
-            $.ajax({
-                type: "POST",
-                url: "employee_nik_maker.php",
-                data: "join=" + dataJoinDate + "&company_id=" + dataCompany + "&birthday=" + dataBirthday + "&dataID=" + document.formInput.dataID.value,
-                success: function (data) {
-                    var result = data;
-
-                    if (result != '') {
-                        $("#dataEmployeeID").html(data);
-                        document.formInput.dataEmployeeID.value = result;
-                    }
-                }
-            });
-        });
-        $('#dataBirthday').on('change', function () {
-            var dataJoinDate = $('#dataJoinDate').val();
-            var dataBirthday = $(this).val();
-            var dataCompany = $('#dataCompany').val();
-            $.ajax({
-                type: "POST",
-                url: "employee_nik_maker.php",
-                data: "join=" + dataJoinDate + "&company_id=" + dataCompany + "&birthday=" + dataBirthday + "&dataID=" + document.formInput.dataID.value,
-                success: function (data) {
-                    var result = data;
-
-                    if (result != '') {
-                        $("#dataEmployeeID").html(data);
-                        document.formInput.dataEmployeeID.value = result;
-                    }
-                }
-            });
-        });
+//        $('#dataJoinDate').on('change', function () {
+//            var dataJoinDate = $(this).val();
+//            var dataBirthday = $('#dataBirthday').val();
+//            var dataCompany = $('#dataCompany').val();
+//            $.ajax({
+//                type: "POST",
+//                url: "employee_nik_maker.php",
+//                data: "join=" + dataJoinDate + "&company_id=" + dataCompany + "&birthday=" + dataBirthday + "&dataID=" + document.formInput.dataID.value,
+//                success: function (data) {
+//                    var result = data;
+//
+//                    if (result != '') {
+//                        $("#dataEmployeeID").html(data);
+//                        document.formInput.dataEmployeeID.value = result;
+//                    }
+//                }
+//            });
+//        });
+//        $('#dataBirthday').on('change', function () {
+//            var dataJoinDate = $('#dataJoinDate').val();
+//            var dataBirthday = $(this).val();
+//            var dataCompany = $('#dataCompany').val();
+//            $.ajax({
+//                type: "POST",
+//                url: "employee_nik_maker.php",
+//                data: "join=" + dataJoinDate + "&company_id=" + dataCompany + "&birthday=" + dataBirthday + "&dataID=" + document.formInput.dataID.value,
+//                success: function (data) {
+//                    var result = data;
+//
+//                    if (result != '') {
+//                        $("#dataEmployeeID").html(data);
+//                        document.formInput.dataEmployeeID.value = result;
+//                    }
+//                }
+//            });
+//        });
         $('#dataCompany').on('change', function () {
             var dataJoinDate = $('#dataJoinDate').val();
             var dataBirthday = $('#dataBirthday').val();
