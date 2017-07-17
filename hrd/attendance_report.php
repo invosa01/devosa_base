@@ -77,33 +77,9 @@ function getData(
     while ($rowDb = $db->fetchrow($resDb)) {
         $arrAbsType[$rowDb['code']] = $rowDb['note'];
     }
-    // uddin untuk membalik tanggal menjadi format asli
-    /*$arrDate = explode("-", $strDataDateFrom);
-    $strDataDateFrom = $arrDate[2] . "-" . $arrDate[1] . "-" . $arrDate[0];*/
-    //die($_SESSION['sessionDateSetting']['date_sparator']);
-    /*$strDataDateFrom = standardDateToSQLDateNew(
-        $strDataDateFrom,
-        $_SESSION['sessionDateSetting']['date_sparator'],
-        $_SESSION['sessionDateSetting']['pos_year'],
-        $_SESSION['sessionDateSetting']['pos_month'],
-        $_SESSION['sessionDateSetting']['pos_day']
-    );*/
-    /* $strDataDateThru = standardDateToSQLDateNew(
-         $strDataDateThru,
-         $_SESSION['sessionDateSetting']['date_sparator'],
-         $_SESSION['sessionDateSetting']['pos_year'],
-         $_SESSION['sessionDateSetting']['pos_month'],
-         $_SESSION['sessionDateSetting']['pos_day']
-     );*/
-    /*$arrDate = explode("-", $strDataDateThru);
-    $strDataDateThru = $arrDate[2] . "-" . $arrDate[1] . "-" . $arrDate[0];*/
     // ambil data informasi kehadiran dan absen
     $arrEmpAtt = getEmployeeAttendance($db, $strDataDateFrom, $strDataDateThru);
-    //$arrEmpAttRecap = getEmployeeAttendanceRecap($db,$strDataDateFrom,$strDataDateThru); // yang recap
     $arrEmpAbs = getEmployeeAbsence($db, $strDataDateFrom, $strDataDateThru);
-    //$arrEmpLv   = getEmployeeLeave($db,$strDataDateFrom,$strDataDateThru);
-    //$arrEmpTrip  = getEmployeeTrip($db,$strDataDateFrom,$strDataDateThru);
-    //$arrEmpTrn = getEmployeeTraining($db, $strDataDateFrom, $strDataDateThru);
     //get approved late or early
     $tblAbsPart = new cHrdAbsencePartial();
     $strCriteria = "partial_absence_date BETWEEN '$strDataDateFrom' AND '$strDataDateThru' AND status >= " . REQUEST_STATUS_APPROVED . " ";
@@ -151,9 +127,9 @@ function getData(
         // ambil dulu data employee
         $arrEmployee = [];
         $i = 0;
-        $strSQL = "SELECT * FROM hrd_employee ";
-        $strSQL .= "WHERE active=1  $strKriteria ORDER BY $strOrder employee_id ";
-        // echo $strSQL;
+        $strSQL = "SELECT t1.* FROM hrd_employee AS t1
+                   LEFT JOIN adm_user AS t2 ON t1.employee_id = t2.employee_id
+                   WHERE t1.active=1  $strKriteria ORDER BY $strOrder t1.employee_id ";
         $resDb = $db->execute($strSQL);
         while ($rowDb = $db->fetchrow($resDb)) {
             $intRows++;
@@ -174,9 +150,6 @@ function getData(
             $intEarly = (isset($arrCancelLate[$strID])) ? $intEarly - $arrCancelLate[$strID]['cancel_early_day'] : $intEarly;
             $intLateDuration = (isset($arrCancelLate[$strID])) ? $intLateDuration - $arrCancelLate[$strID]['cancel_late_duration'] : $intLateDuration;
             $intEarlyDuration = (isset($arrCancelLate[$strID])) ? $intEarlyDuration - $arrCancelLate[$strID]['cancel_early_duration'] : $intEarlyDuration;
-            //$intAbsLv      = (isset($arrEmpAbs[$strID][''])) ? $arrEmpAbs[$strID][''] : 0;// absen potong cuti (ALPHA)
-            //$intSpecialAbs = (isset($arrEmpAbs[$strID][SPECIAL_ABSENCE_CODE])) ? $arrEmpAbs[$strID][SPECIAL_ABSENCE_CODE] : 0; // absen khusus
-            //$intTrip = (isset($arrEmpTrip[$strID])) ? $arrEmpTrip[$strID]['total'] : 0;
             $intTraining = (isset($arrEmpTrn[$strID])) ? $arrEmpTrn[$strID]['total'] : 0;
             $intAbs = 0;
             $intLv = 0; // total
@@ -188,12 +161,6 @@ function getData(
                 }
                 $arrResult[$intRows]['absence_' . $kode] = $intTmp;
             }
-            /*foreach ($ARRAY_LEAVE_TYPE AS $kode => $nama) {
-              $intTmp = (isset($arrEmpLv[$strID][$kode])) ? $arrEmpLv[$strID][$kode] : 0;
-              $intLv += $intTmp;
-              if ($intTmp == 0) $intTmp = "";
-              $arrResult[$intRows]['leave_'.$kode] = $intTmp;
-            }*/
             // jika nilainya 0, kosongkan
             if ($intLate == 0) {
                 $intLate = "";
@@ -210,13 +177,9 @@ function getData(
             if ($intAbs == 0) {
                 $intAbs = "";
             }
-            //if ($intAbsLv == 0) $intAbsLv = "";
-            //       if ($intLeave == 0) $intLeave = "";
             if ($intLv == 0) {
                 $intLv = "";
             }
-            //if ($intSpecialAbs == 0) $intSpecialAbs = "";
-            //if ($intTrip == 0) $intTrip = "";
             if ($intTraining == 0) {
                 $intTraining = "";
             }
@@ -236,11 +199,7 @@ function getData(
             $arrResult[$intRows]['totalLate'] = $intLateDuration;
             $arrResult[$intRows]['early'] = $intEarly;
             $arrResult[$intRows]['totalEarly'] = $intEarlyDuration;
-            //$arrResult[$intRows]['absenceleave'] = $intAbsLv;
             $arrResult[$intRows]['absence'] = $intAbs;
-            //$arrResult[$intRows]['special'] = $intSpecialAbs;
-            //$arrResult[$intRows]['leave'] = $intLv;
-            //$arrResult[$intRows]['trip'] = $intTrip;
             $arrResult[$intRows]['training'] = $intTraining;
         }
     }
@@ -283,9 +242,7 @@ function showHeader()
     $strResult .= "<table cellspacing=0 cellpadding=1 border=0 class=\"table table-striped table-hover gridTable\">\n";
     // bikin header table
     $strDefaultWidth = "width=40";
-    $strDefaultWidth = "width=40";
     $intNumAbsType = count($arrAbsType);
-    //$intNumLvType = count($ARRAY_LEAVE_TYPE);
     $strResult .= " <tr align=center class=tableHeader>\n";
     $strResult .= "  <td nowrap rowspan=2 align=right>&nbsp;</td>";
     $strResult .= "  <td class=\"center\" nowrap rowspan=2>&nbsp;" . strtoupper(getWords("no")) . "</td>\n";
@@ -315,9 +272,6 @@ function showHeader()
     $strResult .= "  <td class=\"center\" nowrap colspan=" . ($intNumAbsType + 3) . ">&nbsp;" . strtoupper(
             getWords("absence")
         ) . "</td>\n";
-    //$strResult .= "  <td nowrap colspan=" .($intNumLvType + 1).">&nbsp;" .strtoupper(getWords("leave"))."</td>\n";
-    //$strResult .= "  <td nowrap rowspan=2 $strDefaultWidth>&nbsp;" .strtoupper(getWords("business trip"))."</td>\n";
-    //$strResult .= "  <td nowrap rowspan=2 $strDefaultWidth>&nbsp;" .strtoupper(getWords("training"))."</td>\n";
     $strResult .= " </tr>\n";
     $strResult .= " <tr align=center class=tableHeader>\n";
     foreach ($arrAbsType AS $kode => $nama) {
@@ -325,20 +279,13 @@ function showHeader()
                 $kode
             ) . "</td>\n";
     }
-    //$strResult .= "  <td nowrap $strDefaultWidth>&nbsp;A</td>\n"; // absen lain-lain
-    //$strResult .= "  <td nowrap $strDefaultWidth title=\"special absence\">&nbsp;K</td>\n"; // ijin khusus
     $strResult .= "  <td class=\"center\" nowrap $strDefaultWidth>&nbsp;" . strtoupper(getWords("total")) . "</td>\n";
-    /*foreach($ARRAY_LEAVE_TYPE AS $kode => $nama) {
-      $strResult .= "  <td nowrap $strDefaultWidth>&nbsp;" .strtoupper(getWords($nama))."</td>\n";
-    }*/
-    //$strResult .= "  <td nowrap $strDefaultWidth>&nbsp;" .strtoupper(getWords("total"))."</td>\n";
     $strResult .= " </tr>\n";
     return $strResult;
 } //showHeader
 // fungsi buat nampilin data per baris doank
 function showRows($strNo, $rowData, $strClass = "")
 {
-    //global $ARRAY_LEAVE_TYPE;
     global $arrAbsType;
     global $bolPrint;
     global $intRows;
@@ -400,16 +347,8 @@ function showRows($strNo, $rowData, $strClass = "")
     foreach ($arrAbsType AS $kode => $nama) {
         $strResult .= "  <td nowrap class=\"center\">&nbsp;" . $rowData['absence_' . $kode] . "</td>\n";
     }
-    //$strResult .= "  <td nowrap align=center>&nbsp;" .$rowData['absenceleave']."</td>\n";
-    //$strResult .= "  <td nowrap align=center>&nbsp;" .$rowData['special']."</td>\n";
     $strResult .= "  <td nowrap class=\"center\">&nbsp;" . $rowData['absence'] . "</td>\n";
     // hitung cuti
-    /*foreach ($ARRAY_LEAVE_TYPE AS $kode => $nama) {
-      $strResult .= "  <td nowrap align=center>&nbsp;" .$rowData['leave_'.$kode]."</td>\n";
-    }*/
-    //$strResult .= "  <td nowrap align=center>&nbsp;" .$rowData['leave']."</td>\n";
-    //$strResult .= "  <td nowrap align=center>&nbsp;" .$rowData['trip']."</td>\n";
-    //$strResult .= "  <td nowrap align=center>&nbsp;" .$rowData['training']."</td>\n";
     $strResult .= " </tr>\n";
     return $strResult;
 } //showRows
@@ -418,19 +357,13 @@ function showRows($strNo, $rowData, $strClass = "")
 function showData($db, $arrData)
 {
     global $words;
-    //global $ARRAY_LEAVE_TYPE;
     global $arrAbsType;
     $intRows = 0;
     $strResult = "";
-    //$strResult .= "<table>";
-    //$strResult .= "</table>";
-    // $strResult .= "<table cellspacing=0 cellpadding=1 border=0 class=gridTable>\n";
     // bikin header table
     $strDefaultWidth = "width=40";
     $intNumAbsType = count($arrAbsType);
-    //$intNumLvType = count($ARRAY_LEAVE_TYPE);
     $strResult .= showHeader();
-    // print_r($arrData);
     foreach ($arrData AS $x => $rowDb) {
         $intRows++;
         $strResult .= showRows($intRows, $rowDb);
@@ -442,7 +375,6 @@ function showData($db, $arrData)
 function showDataDepartment($db, $arrData)
 {
     global $words;
-    //global $ARRAY_LEAVE_TYPE;
     global $arrAbsType;
     global $_SESSION;
     global $strDataCompany;
@@ -454,6 +386,7 @@ function showDataDepartment($db, $arrData)
     global $chkDept;
     global $chkSect;
     global $chkEmp;
+    global $strCriteriaPosition;
     $bolShowTotalDept = ($chkDept != "");
     $bolShowTotalSect = ($chkSect != "");
     $bolShowEmp = ($chkEmp != "");
@@ -601,9 +534,6 @@ function showDataDepartment($db, $arrData)
     foreach ($arrAbsType AS $kode => $nama) {
         $arrEmptyData['absence_' . $kode] = 0;
     }
-    /*foreach ($ARRAY_LEAVE_TYPE AS $kode => $nama) {
-      $arrEmptyData['leave_'.$kode] = 0;
-    }*/
     $arrTotal = $arrEmptyData;
     $arrTotal['employee_id'] = "<strong>" . strtoupper(getWords("grand total")) . "</strong>";
     // tampilkan data
@@ -611,7 +541,6 @@ function showDataDepartment($db, $arrData)
     // bikin header table
     $strDefaultWidth = "width=40";
     $intNumAbsType = count($arrAbsType);
-    //$intNumLvType = count($ARRAY_LEAVE_TYPE);
     $strResult .= showHeader();
     $intColspan = 14 + count($arrAbsType);
     foreach ($arrMan AS $strManCode => $strManName) {
@@ -634,26 +563,16 @@ function showDataDepartment($db, $arrData)
             $arrTotal['totalEarly'] += $rowDb['totalEarly'];
             $arrTotal['holiday'] += $rowDb['holiday'];
             $arrTotal['absence'] += $rowDb['absence'];
-            //$arrTotal['leave'] += $rowDb['leave'];
-            //$arrTotal['special'] += $rowDb['special'];
-            // $arrTotal['absenceleave'] += $rowDb['absenceleave'];
             $arrTotalMan['late'] += $rowDb['late'];
             $arrTotalMan['totalLate'] += $rowDb['totalLate'];
             $arrTotalMan['attendance'] += $rowDb['attendance'];
             $arrTotalMan['totalEarly'] += $rowDb['totalEarly'];
             $arrTotalMan['holiday'] += $rowDb['holiday'];
             $arrTotalMan['absence'] += $rowDb['absence'];
-            //$arrTotalMan['leave'] += $rowDb['leave'];
-            //$arrTotalMan['special'] += $rowDb['special'];
-            //$arrTotalMan['absenceleave'] += $rowDb['absenceleave'];
             foreach ($arrAbsType AS $kode => $nama) {
                 $arrTotalMan['absence_' . $kode] += $rowDb['absence_' . $kode];
                 $arrTotal['absence_' . $kode] += $rowDb['absence_' . $kode];
             }
-            /*foreach ($ARRAY_LEAVE_TYPE AS $kode => $nama) {
-              $arrTotalMan['leave_'.$kode] += $rowDb['leave_'.$kode];
-              $arrTotal['leave_'.$kode] += $rowDb['leave_'.$kode];
-            }*/
             $strResult .= showRows("", $rowDb);
         }
         $arrTmpDiv = (isset($arrDiv[$strManCode])) ? $arrDiv[$strManCode] : [];
@@ -678,26 +597,16 @@ function showDataDepartment($db, $arrData)
                 $arrTotal['totalEarly'] += $rowDb['totalEarly'];
                 $arrTotal['holiday'] += $rowDb['holiday'];
                 $arrTotal['absence'] += $rowDb['absence'];
-                //$arrTotal['leave'] += $rowDb['leave'];
-                //$arrTotal['special'] += $rowDb['special'];
-                // $arrTotal['absenceleave'] += $rowDb['absenceleave'];
                 $arrTotalDiv['late'] += $rowDb['late'];
                 $arrTotalDiv['totalLate'] += $rowDb['totalLate'];
                 $arrTotalDiv['attendance'] += $rowDb['attendance'];
                 $arrTotalDiv['totalEarly'] += $rowDb['totalEarly'];
                 $arrTotalDiv['holiday'] += $rowDb['holiday'];
                 $arrTotalDiv['absence'] += $rowDb['absence'];
-                //$arrTotalDiv['leave'] += $rowDb['leave'];
-                //$arrTotalDiv['special'] += $rowDb['special'];
-                //$arrTotalDiv['absenceleave'] += $rowDb['absenceleave'];
                 foreach ($arrAbsType AS $kode => $nama) {
                     $arrTotalDiv['absence_' . $kode] += $rowDb['absence_' . $kode];
                     $arrTotal['absence_' . $kode] += $rowDb['absence_' . $kode];
                 }
-                /*foreach ($ARRAY_LEAVE_TYPE AS $kode => $nama) {
-                  $arrTotalDiv['leave_'.$kode] += $rowDb['leave_'.$kode];
-                  $arrTotal['leave_'.$kode] += $rowDb['leave_'.$kode];
-                }*/
                 $strResult .= showRows("", $rowDb);
             }
             $arrTmpDept = (isset($arrDept[$strManCode][$strDivCode])) ? $arrDept[$strManCode][$strDivCode] : [];
@@ -722,26 +631,16 @@ function showDataDepartment($db, $arrData)
                     $arrTotal['totalEarly'] += $rowDb['totalEarly'];
                     $arrTotal['holiday'] += $rowDb['holiday'];
                     $arrTotal['absence'] += $rowDb['absence'];
-                    //$arrTotal['leave'] += $rowDb['leave'];
-                    //$arrTotal['special'] += $rowDb['special'];
-                    // $arrTotal['absenceleave'] += $rowDb['absenceleave'];
                     $arrTotalDept['late'] += $rowDb['late'];
                     $arrTotalDept['totalLate'] += $rowDb['totalLate'];
                     $arrTotalDept['attendance'] += $rowDb['attendance'];
                     $arrTotalDept['totalEarly'] += $rowDb['totalEarly'];
                     $arrTotalDept['holiday'] += $rowDb['holiday'];
                     $arrTotalDept['absence'] += $rowDb['absence'];
-                    //$arrTotalDept['leave'] += $rowDb['leave'];
-                    //$arrTotalDept['special'] += $rowDb['special'];
-                    //$arrTotalDept['absenceleave'] += $rowDb['absenceleave'];
                     foreach ($arrAbsType AS $kode => $nama) {
                         $arrTotalDept['absence_' . $kode] += $rowDb['absence_' . $kode];
                         $arrTotal['absence_' . $kode] += $rowDb['absence_' . $kode];
                     }
-                    /*foreach ($ARRAY_LEAVE_TYPE AS $kode => $nama) {
-                      $arrTotalDept['leave_'.$kode] += $rowDb['leave_'.$kode];
-                      $arrTotal['leave_'.$kode] += $rowDb['leave_'.$kode];
-                    }*/
                     $strResult .= showRows("", $rowDb);
                 }
                 $arrTmpSect = (isset($arrSect[$strManCode][$strDivCode][$strDeptCode])) ? $arrSect[$strManCode][$strDivCode][$strDeptCode] : [];
@@ -767,9 +666,6 @@ function showDataDepartment($db, $arrData)
                         $arrTotal['totalEarly'] += $rowDb['totalEarly'];
                         $arrTotal['holiday'] += $rowDb['holiday'];
                         $arrTotal['absence'] += $rowDb['absence'];
-                        //$arrTotal['leave'] += $rowDb['leave'];
-                        //$arrTotal['special'] += $rowDb['special'];
-                        //$arrTotal['absenceleave'] += $rowDb['absenceleave'];
                         $arrTotalDept['attendance'] += $rowDb['attendance'];
                         $arrTotalDept['late'] += $rowDb['late'];
                         $arrTotalDept['totalLate'] += $rowDb['totalLate'];
@@ -777,9 +673,6 @@ function showDataDepartment($db, $arrData)
                         $arrTotalDept['totalEarly'] += $rowDb['totalEarly'];
                         $arrTotalDept['holiday'] += $rowDb['holiday'];
                         $arrTotalDept['absence'] += $rowDb['absence'];
-                        //$arrTotalDept['leave'] += $rowDb['leave'];
-                        //$arrTotalDept['special'] += $rowDb['special'];
-                        //$arrTotalDept['absenceleave'] += $rowDb['absenceleave'];
                         $arrTotalSect['attendance'] += $rowDb['attendance'];
                         $arrTotalSect['late'] += $rowDb['late'];
                         $arrTotalSect['totalLate'] += $rowDb['totalLate'];
@@ -787,19 +680,11 @@ function showDataDepartment($db, $arrData)
                         $arrTotalSect['totalEarly'] += $rowDb['totalEarly'];
                         $arrTotalSect['holiday'] += $rowDb['holiday'];
                         $arrTotalSect['absence'] += $rowDb['absence'];
-                        //$arrTotalSect['leave'] += $rowDb['leave'];
-                        //$arrTotalSect['special'] += $rowDb['special'];
-                        //$arrTotalSect['absenceleave'] += $rowDb['absenceleave'];
                         foreach ($arrAbsType AS $kode => $nama) {
                             $arrTotalDept['absence_' . $kode] += $rowDb['absence_' . $kode];
                             $arrTotalSect['absence_' . $kode] += $rowDb['absence_' . $kode];
                             $arrTotal['absence_' . $kode] += $rowDb['absence_' . $kode];
                         }
-                        /*foreach ($ARRAY_LEAVE_TYPE AS $kode => $nama) {
-                          $arrTotalDept['leave_'.$kode] += $rowDb['leave_'.$kode];
-                          $arrTotalSect['leave_'.$kode] += $rowDb['leave_'.$kode];
-                          $arrTotal['leave_'.$kode] += $rowDb['leave_'.$kode];
-                        }*/
                         if ($bolShowEmp) {
                             $strResult .= showRows("", $rowDb);
                         }
@@ -837,10 +722,6 @@ if ($db->connect()) {
     $chkDept = (isset($_REQUEST['chkDept'])) ? "checked" : "";
     $chkSect = (isset($_REQUEST['chkSect'])) ? "checked" : "";
     $chkEmp = (isset($_REQUEST['chkEmp'])) ? "checked" : "";
-    //global $strDataDateFrom;
-    //global $strDataDateThru;
-    //$strDataDateFrom    = (isset($_SESSION['sessionFilterDateFrom']))   ? $_SESSION['sessionFilterDateFrom']    : date($_SESSION['sessionDateSetting']['php_format']);
-    //$strDataDateThru    = (isset($_SESSION['sessionFilterDateThru']))   ? $_SESSION['sessionFilterDateThru']    : date($_SESSION['sessionDateSetting']['php_format']);
     $strDataDateFrom = (isset($_SESSION['sessionFilterDateFrom'])) ? $_SESSION['sessionFilterDateFrom'] : date(
         $_SESSION['sessionDateSetting']['php_format']
     );
@@ -910,12 +791,15 @@ if ($db->connect()) {
         $strKriteria .= "AND sub_section_code = '$strDataSubSection' ";
     }
     if ($strDataEmployee != "") {
-        $strKriteria .= "AND employee_id = '$strDataEmployee' ";
+        $strKriteria .= "AND t1.employee_id = '$strDataEmployee' ";
     }
     if ($strDataEmployeeStatus != "") {
         $strKriteria .= "AND employee_status = '$strDataEmployeeStatus' ";
     }
     $strKriteria .= $strKriteriaCompany;
+    if (isset($_SESSION['sessionEmployeeID']) && $_SESSION['sessionEmployeeID'] !== '') {
+        $strKriteria .= $strCriteriaPosition;
+    }
     if ($bolCanView) {
         getAbsenceType($db);
         $bolShow = (isset($_REQUEST['btnShow']) || $bolPrint);
@@ -945,7 +829,6 @@ if ($db->connect()) {
                 $intTotalData,
                 $strKriteria
             );
-            // print_r($arrDataDetail);
             $strDataDetail = showData($db, $arrDataDetail);
             $strDataDetail = showDataDepartment($db, $arrDataDetail);
             $strHidden .= "<input type=hidden name=btnShow value=show>";
