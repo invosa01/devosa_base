@@ -237,10 +237,11 @@ function deleteData()
     $dataHrdShiftChange = new cHrdShiftChange();
     foreach ($dataGridObj->checkboxes as $value) {
         $arrId['id'] = $value;
+        $disable = ['active' => 'f'];
+        $dataHrdShiftChange->update($arrId, $disable);
     }
-    $disable = ['active' => 'f'];
-    $dataHrdShiftChange->update($arrId, $disable);
     $dataGridObj->message = 'Data Deleted';
+    redirectPage($_SERVER['PHP_SELF']);
     //setFlashMessage($gridName, serialize($dataGridObj));
 }
 
@@ -256,27 +257,28 @@ function changeStatus()
     $dataHrdShiftScheduleEmp = new cHrdShiftScheduleEmployee();
     foreach ($dataGridObj->checkboxes as $value) {
         $arrId = ['id' => $value];
+        $approved = ['status' => checkStatus('APPROVED')];
+        $new = checkStatus('NEW');
+        $wheres[] = 'sch."id" = ' . pgEscape($value) . 'AND sch.status = ' . pgEscape($new);
+        $approvedExist = pgFetchRow(getShiftChangeListQuery($wheres));
+        foreach ($approvedExist as $value => $item) {
+            #model data shift schedule employee
+            $modelShiftSchEmp = [
+                'id' => $item['sseId']
+            ];
+            $modelShiftType = [
+                'shift_code'  => $item['code'],
+                'start_time'  => $item['start_time'],
+                'finish_time' => $item['finish_time']
+            ];
+        }
+        if (($result = count($approvedExist) > 0) === true) {
+            $dataHrdShiftChange->update($arrId, $approved);
+            $dataHrdShiftScheduleEmp->update($modelShiftSchEmp, $modelShiftType);
+            $dataGridObj->message = $dataHrdShiftChange->strMessage;
+        } else {
+            $dataGridObj->message = 'Data Is Approved';
+        }
     }
-    $approved = ['status' => checkStatus('APPROVED')];
-    $new = checkStatus('NEW');
-    $wheres[] = 'sch."id" = ' . pgEscape($value) . 'AND sch.status = ' . pgEscape($new);
-    $approvedExist = pgFetchRows(getShiftChangeListQuery($wheres));
-    foreach ($approvedExist as $value => $item) {
-        #model data shift schedule employee
-        $modelShiftSchEmp = [
-            'id'          => $item['sseId']
-        ];
-        $modelShiftType = [
-            'shift_code'  => $item['code'],
-            'start_time'  => $item['start_time'],
-            'finish_time' => $item['finish_time']
-        ];
-    }
-    if (($result = count($approvedExist) > 0) === true) {
-        $dataHrdShiftChange->update($arrId, $approved);
-        $dataHrdShiftScheduleEmp->update($modelShiftSchEmp, $modelShiftType);
-        $dataGridObj->message = $dataHrdShiftChange->strMessage;
-    } else {
-        $dataGridObj->message = 'Data Is Approved';
-    }
+    redirectPage($_SERVER['PHP_SELF']);
 }
