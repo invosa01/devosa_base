@@ -507,8 +507,8 @@ $db = new CdbClass;
 if ($db->connect()) {
   getUserEmployeeInfo();
   // ------ AMBIL DATA KRITERIA -------------------------
-  (isset($_REQUEST['dataDateFrom'])) ? $strDate = $_REQUEST['dataDateFrom'] : $strDate = "";
-  (isset($_REQUEST['dataDateThru'])) ? $strDateThru = $_REQUEST['dataDateThru'] : $strDateThru = "";
+  (isset($_REQUEST['dataDateFrom'])) ? $strDate = date('Y-m-d', strtotime($_REQUEST['dataDateFrom'])) : $strDate = date('Y-m-d');
+  (isset($_REQUEST['dataDateThru'])) ? $strDateThru = date('Y-m-d', strtotime($_REQUEST['dataDateThru'])) : $strDateThru = date('Y-m-d');
   (isset($_REQUEST['dataDivision'])) ? $strDataDivision = $_REQUEST['dataDivision'] : $strDataDivision = "";
   (isset($_REQUEST['dataDepartment'])) ? $strDataDepartment = $_REQUEST['dataDepartment'] : $strDataDepartment = "";
   (isset($_REQUEST['dataSection'])) ? $strDataSection = $_REQUEST['dataSection'] : $strDataSection = "";
