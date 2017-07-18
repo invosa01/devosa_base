@@ -10,7 +10,7 @@ include_once('../includes/datagrid2/datagrid.php');
 include_once("cls_salary_calculation.php");
 include_once("cls_employee.php");
 include_once('../includes/krumo/class.krumo.php');
-  include_once('../global/tcpdf_include.php');
+include_once('../global/tcpdf_include.php');
 $dataPrivilege = getDataPrivileges(
     "salary_calculation.php",
     $bolCanView,
@@ -68,12 +68,7 @@ function saveData()
     global $objSalary;
     $objSalary->saveData();
 }
-// fungsi untuk export slip ke pdf
-function getPDF()
-{
-	$pwdpdf = $_POST['txtpdf'];
-	getSlip("exportpdf",$pwdpdf);
-}
+
 // fungsi untuk meng-approve data
 function approveData($db)
 {
@@ -85,55 +80,16 @@ function approveData($db)
     $objSalary->setApproved();
     $intStatus = $objSalary->arrData['status'];
 }// approveData
-// fungsi untuk melakukan proses slip gaji
-function getSlip($flag="",$pwd="")
+// fungsi untuk export slip ke pdf
+function getPDF()
 {
-	if ($flag=="exportpdf") {
-		ob_start();
-		 // create new PDF document
-		$pdf = new MYPDF('L', PDF_UNIT, 'A5', true, 'UTF-8', false);
+    $pwdpdf = $_POST['txtpdf'];
+    getSlip("exportpdf", $pwdpdf);
+}
 
-
-		$pdf->SetCreator(PDF_CREATOR);
-		$pdf->SetAuthor('Devosa');
-		$pdf->SetTitle('Devosa Payslip');
-		$pdf->SetSubject('Employee Salary Slip');
-		$pdf->SetKeywords('devosa, Employee');
-
-		// remove default header/footer
-		$pdf->setPrintHeader(true);
-		$pdf->setPrintFooter(false);
-
-		// set default monospaced font
-		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-		// set margins
-		$pdf->SetMargins(10, 15, 15);
-
-		// set auto page breaks
-		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-		// set image scale factor
-		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-		// set some language-dependent strings (optional)
-		if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-		  require_once(dirname(__FILE__).'/lang/eng.php');
-		  $pdf->setLanguageArray($l);
-		}
-
-		// ---------------------------------------------------------
-
-		// set font
-		$pdf->SetFont('helvetica', '', 8);
-		//$pwd=123;
-		$pdf->SetProtection(array('copy'), $pwd, null, 0, null);
-
-		// add a page
-		$pdf->AddPage();
-
-		ob_get_clean();
-	}	
+// fungsi untuk melakukan proses slip gaji
+function getSlip($flag = "", $pwd = "")
+{
     global $bolIrregular;
     global $bolHideBlank;
     global $myDataGrid;
@@ -145,13 +101,15 @@ function getSlip($flag="",$pwd="")
     foreach ($objSalary->arrMA AS $strCode => $arrInfo) {        //echo $strCode."|".$arrInfo['show']."<br>";
         if ($arrInfo['is_default'] == "t") {
             $strVar = "bolShow_" . $strCode;
-            $$strVar = (getSetting($strCode . "_show") == 't');
+            $strVar = (getSetting($strCode . "_show") == "t");
         }
     }
     // die();
     $objDate = new clsCommonDate();
     $objEmp = new clsEmployees($db);
-    $objEmp->loadData("id, employee_id, employee_name, id_company, join_date, grade_code, branch_code, functional_code");
+    $objEmp->loadData(
+        "id, employee_id, employee_name, id_company, join_date, grade_code, branch_code, functional_code"
+    );
     // tampilkan header HTML dulu
     echo "
 <html>
@@ -161,15 +119,15 @@ function getSlip($flag="",$pwd="")
 <meta http-equiv='Content-Disposition' content='attachment; charset=iso-8859-1'>
 <link href='../css/invosa.css' rel='stylesheet' type='text/css'>
 </head>";
-	if ($flag=="exportpdf") {
-		echo "<body onLoad='' marginheight=0 marginwidth=0 leftmargin=10 rightmargin=0 topmargin=0>
+    if ($flag == "exportpdf") {
+        echo "<body marginheight=0 marginwidth=0 leftmargin=10 rightmargin=0 topmargin=0>
 		<table cellspacing=0 cellpadding=0 border=0 width='100%'>
 		";
-	} else {
-		echo "<body onLoad=\"window.print();\" marginheight=0 marginwidth=0 leftmargin=10 rightmargin=0 topmargin=0>
+    } else {
+        echo "<body onLoad=\"window.print();\" marginheight=0 marginwidth=0 leftmargin=10 rightmargin=0 topmargin=0>
 		<table cellspacing=0 cellpadding=0 border=0 width='100%'>
 		";
-	}
+    }
     // inisialisasi
     $strThisPage = "
                       <span>&nbsp;";
@@ -216,19 +174,24 @@ function getSlip($flag="",$pwd="")
         $GLOBALS['strCompany'] = $arrCompany['company_name'];
         $GLOBALS['strCompanyAdress'] = $arrCompany['address'];
         $GLOBALS['strCompanyCity'] = $arrCompany['city'];
-        if($GLOBALS['strCompanyCity'] === null)$GLOBALS['strCompanyCity'] = $arrCompany['address'];
+        if ($GLOBALS['strCompanyCity'] === null) {
+            $GLOBALS['strCompanyCity'] = $arrCompany['address'];
+        }
         $GLOBALS['strCompanyPhone'] = $arrCompany['phone'];
         $GLOBALS['strCompanyFax'] = $arrCompany['fax'];
         $GLOBALS['strCompanyEmail'] = $arrCompany['email'];
-        $GLOBALS['strCompanyLogo'] = $arrCompany['logo'];
-        if($GLOBALS['strCompanyLogo'] === null) $GLOBALS['strCompanyLogo']= 'logo_back_slip.png';
+        if ($GLOBALS['strCompanyLogo'] != null) {
+            $GLOBALS['strCompanyLogo'] = $arrCompany['logo'];
+        } else {
+            $GLOBALS['strCompanyLogo'] = "logo_back_slip.png";
+        }
         $strDiv = $objSalary->getEmployeeSalaryDetail($strIDEmployee, "division_code");
         $GLOBALS['strDivision'] = getDivisionName($strDiv);
         $strBrch = $objEmp->getInfoByID($strIDEmployee, "branch_code");
         $GLOBALS['strBranch'] = getBranchName($strBrch);
         $GLOBALS['strEmployeeID'] = $objEmp->getInfoByID($strIDEmployee, "employee_id");
         $GLOBALS['strEmployeeName'] = $objEmp->getInfoByID($strIDEmployee, "employee_name");
-        $GLOBALS['strEmployeeFunctional']  = $objEmp->getInfoByID($strIDEmployee, "functional_code");
+        $GLOBALS['strEmployeeFunctional'] = $objEmp->getInfoByID($strIDEmployee, "functional_code");
         $GLOBALS['strJoinDate'] = $objDate->getDateFormat($objEmp->getInfoByID($strIDEmployee, "join_date"), "d-M-y");
         $GLOBALS['strWorkingDay'] = $objSalary->getEmployeeSalaryDetail($strIDEmployee, "attendance_day");
         $GLOBALS['strSisaCuti'] = $arrCuti['curr']['remain'];
@@ -410,35 +373,64 @@ function getSlip($flag="",$pwd="")
         {
             echo $strNewPage;
         }
-		if ($flag=="exportpdf"){
-			$tbsPage = new clsTinyButStrong;
-			$tbsPage->LoadTemplate("templates/slip_template3.html");
-			$tbsPage->Render = TBS_NOTHING;
-            $tbsPage->Show() ;
-		
-		$strContent = $tbsPage->Source;
-			$pdf->writeHTML($strContent, true, false, true, false, '');	
-		} else {
-			$tbsPage = new clsTinyButStrong;
-			$tbsPage->LoadTemplate("templates/slip_template2.html");
-			$tbsPage->Show(TBS_OUTPUT);
-			$strContent = $tbsPage->Source;
-		}
-		
+        if ($flag == "exportpdf") {
+            // create new PDF document
+            $pdf = new TCPDF("L", PDF_UNIT, "A5", true, "UTF-8", false);
+            // set document information
+            $pdf->SetCreator(PDF_CREATOR);
+            $pdf->SetAuthor("Devosa");
+            $pdf->SetTitle("Devosa Payslip");
+            $pdf->SetSubject("Employee Salary Slip");
+            $pdf->SetKeywords("devosa, Employee");
+            // remove default header/footer
+            $pdf->setPrintHeader(false);
+            $pdf->setPrintFooter(false);
+            // set default monospaced font
+            $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+            // set margins
+            $pdf->SetMargins(10, 10, 5);
+            // set auto page breaks
+            $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+            // set image scale factor
+            $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+            // set some language-dependent strings (optional)
+            if (@file_exists(dirname(__FILE__) . "/lang/eng.php")) {
+                require_once(dirname(__FILE__) . "/lang/eng.php");
+                //$pdf->setLanguageArray($l);
+            }
+            // set font
+            $pdf->SetFont("helvetica", "", 8);
+            // set password pdf
+            $pdf->SetProtection(["copy"], $pwd, null, 0, null);
+            // Add a page
+            $pdf->AddPage();
+            //tambahkan logo gambar
+            $img_file = "../images/" . $GLOBALS["strCompanyLogo"];
+            $pdf->Image($img_file, 10, 15, -200);
+            $tbsPage = new clsTinyButStrong;
+            $tbsPage->LoadTemplate("templates/slip_template3.html");
+            $tbsPage->Render = TBS_NOTHING;
+            $tbsPage->Show();
+            $strContent = $tbsPage->Source;
+            $pdf->writeHTML($strContent, true, false, true, false, '');
+            //FI untuk langsung ditampilkan di browser, D jika langsung download ke file
+            $pdf->Output("salary.pdf", "FI");
+            ob_clean();
+        } else {
+            $tbsPage = new clsTinyButStrong;
+            $tbsPage->LoadTemplate("templates/slip_template2.html");
+            $tbsPage->Show(TBS_OUTPUT);
+            $strContent = $tbsPage->Source;
+        }
     }
-	if ($flag=="exportpdf"){
-		$pdf->Output('salary.pdf', 'FI'); //FI untuk lngsung ditampilkan
-		ob_clean(); 
-	} else {
-		// tampilkan footer HTML
-		echo "
-			</table>
-			</body>
-			</html>
-				";
-		unset($objEmp);
-		exit();
-	}
+    // tampilkan footer HTML
+    echo "
+	</table>
+	</body>
+	</html>
+		";
+    unset($objEmp);
+    exit();
 }
 
 //----------------------------------------------------------------------
@@ -643,8 +635,8 @@ function getDataGrid($db, $strCriteria, $bolLimit = true, $isFullView = false, $
         new DataGrid_Column(
             getWords("position"),
             "position_code",
-            array("rowspan" => 2, "width" => 80),
-            array("nowrap" => "nowrap"),
+            ["rowspan" => 2, "width" => 80],
+            ["nowrap" => "nowrap"],
             true,
             true,
             "",
@@ -1179,12 +1171,13 @@ function getDataGrid($db, $strCriteria, $bolLimit = true, $isFullView = false, $
            myDataGrid->addSpecialButton("btnApprove", "btnApprove", "submit", getWords("approve"), "onClick=\"return confirmCheck();\"", "approveData()");
         }
         */
-		$myDataGrid->addSpecialButton(
+        #untuk submit export pdf di form dialog, karena button btnpdf hanya untuk menampilkan modal dialog saja.
+        $myDataGrid->addSpecialButton(
             "hidepdf",
             "hidepdf",
             "submit",
             getWords(""),
-			"onClick=\"return nullFunction();\"",
+            "onClick=\"document.formData.target = '_blank'\"",
             "getPDF()"
         );
         $myDataGrid->addSpecialButton(
@@ -1195,7 +1188,7 @@ function getDataGrid($db, $strCriteria, $bolLimit = true, $isFullView = false, $
             "onClick=\"document.formData.target = '_blank'\"",
             "getSlip()"
         );
-		$myDataGrid->addSpecialButton(
+        $myDataGrid->addSpecialButton(
             "btnpdf",
             "btnpdf",
             "button",
@@ -1203,7 +1196,6 @@ function getDataGrid($db, $strCriteria, $bolLimit = true, $isFullView = false, $
             "onClick=\"document.formData.target = '_blank'\"",
             "getPDF()"
         );
-    
         if ($bolCanEdit) {
             //$myDataGrid->addButton("btnPrint", "btnPrint", "submit", getWords("print"), "onClick=\"document.formData.target = '_blank';\"");
             //$myDataGrid->addButton("btnCalculate", "btnCalculate", "submit", getWords("recalculate"), "onClick=\"return confirm('Are you sure want to recalculate this salary calculation?');\"", "saveData()");
@@ -1477,27 +1469,30 @@ function printStaff($params)
     return $str;
 }
 
-    // Extend the TCPDF class to create custom Header and Footer
-  class MYPDF extends TCPDF {
+// Extend the TCPDF class to create custom Header and Footer
+class MYPDF extends TCPDF
+{
+
     //Page header
-    public function Header() {
-      // get the current page break margin
-      $bMargin = $this->getBreakMargin();
-      // get current auto-page-break mode
-      $auto_page_break = $this->AutoPageBreak;
-      // disable auto-page-break
-      $this->SetAutoPageBreak(false, 0);
-      // set bacground image
-      $img_file = '../images/logo_back_slip.png';
-      //$this->Image($img_file, 0, 45, '', '', '', '', 'M', false, 300, 'C', false, false, 0);
-      $this->Image($img_file, 10, 20, -300);
-      // restore auto-page-break status
-      $this->SetAutoPageBreak($auto_page_break, $bMargin);
-      // set the starting point for the page content
-      $this->setPageMark();
+    public function Header()
+    {
+        // get the current page break margin
+        $bMargin = $this->getBreakMargin();
+        // get current auto-page-break mode
+        $auto_page_break = $this->AutoPageBreak;
+        // disable auto-page-break
+        $this->SetAutoPageBreak(false, 0);
+        // set bacground image
+        $img_file = '../images/logo_back_slip.png';
+        //$this->Image($img_file, 0, 45, '', '', '', '', 'M', false, 300, 'C', false, false, 0);
+        $this->Image($img_file, 10, 20, -300);
+        // restore auto-page-break status
+        $this->SetAutoPageBreak($auto_page_break, $bMargin);
+        // set the starting point for the page content
+        $this->setPageMark();
     }
-  }
-  
+}
+
 // format tampilan tanggal
 // format tampilan angka
 //----MAIN PROGRAM -----------------------------------------------------

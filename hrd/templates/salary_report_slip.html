@@ -1,48 +1,150 @@
+<!-- js dan css untuk modal dialog slip gaji pdf -->
+<script src="scripts/alertify.min.js"></script>
+<link rel="stylesheet" href="../css/alertify.core.css" />
+<link rel="stylesheet" href="../css/alertify.default.css" id="toggleCSS" />
+<!-- -->
 <script type="text/javascript">
-// fungsi memeriksa validasi input
-  function goPage(no) {
-  if (no != "") {
-    document.formInput.dataPage.value = no;
-    document.formInput.btnShow.click();
-  }
-}//goPage
+    // fungsi memeriksa validasi input
+    function goPage(no) {
+        if (no != "") {
+            document.formInput.dataPage.value = no;
+            document.formInput.btnShow.click();
+        }
+    }//goPage
 
-function validInput() {
-  if (document.form1.dataCompany.value == "") {
-    alert("Please Choose Company!");
-    return false;
-  }
-  else {
-    return true;
-  }
-} //validInput
+    function validInput() {
+        if (document.form1.dataCompany.value == "") {
+            alert("Please Choose Company!");
+            return false;
+        }
+        else {
+            return true;
+        }
+    } //validInput
+    function cekPasswordPdf() {
+        var pwd = document.getElementById("txtpdf").value;
+        if (pwd != "") {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-[var.strInitAction]
+    // jquery untuk export to pdf
+    jQuery(function ($) {
+        //tombol export ke pdf untuk menampilkan modal dialog
+        $("#btnpdf").click(function () {
+            document.getElementById("txtpdf").value = ""; //kosongkan jika input pwd lagi
+            $("#DialogPDF").modal("show");
+            return true;
+        });
+        //tombol simpan pada modal dialog
+        $("#simpan").click(function (event) {
+            if (cekPasswordPdf() == true) {
+                $("#DialogPDF").modal("hide");
+                alertify.success("Successfully export data slip to pdf");
+                document.form1.hidepdf.click();
+            } else {
+                alertify.error("Error: Password cannot be blank!");
+                return cekPasswordPdf();
+            }
+        });
+
+        $("#DialogPDF").blur(function () {
+            $("#DialogPDF").modal("hide");
+        });
+        /*
+         $("#DialogPDF").focusout(function () {
+         $("#DialogPDF").modal("hide");
+         }); */
+        //focus ke textbox input, bootstrap 3
+        $("#DialogPDF").on("shown.bs.modal", function () {
+            $("#txtpdf").focus();
+        })
+
+        //hidden button hide pdf
+        $("#hidepdf").modal("hide");
+
+        //untuk tombol enter jika sudah input password
+        $(document).keypress(function (event) {
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode == "13") {
+                if (cekPasswordPdf() == true) {
+                    $("#DialogPDF").modal("hide");
+                    alertify.success("Successfully export data slip to pdf");
+                    document.form1.hidepdf.click();
+                } else {
+                    alertify.error("Error: Password cannot be blank!");
+                    return cekPasswordPdf();
+                }
+            }
+        });
+    });
 </script>
+[var.strInitAction]
 [var.pageHeader]
-	<div class="main-content">
-  	<div class="row">
-  		<div class="col-md-12">
-  			<form name="form1" id="form1" method="post"  class="form-horizontal" role="form">
-  				<div class="col-md-12">
-  					[var.formInput; protect=no; htmlconv=no]	
-  				</div>
-  				<div class="col-md-12">
-  					<div class="panel">
-							<div class="panel-heading">
-								<div class="panel-actions">
-									<div class="pull-right" id="collapse-filter">
-								  	<a href="#" data-toggle="collapse" data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
-								  </div>
-								</div>
-								<h3 class="panel-title"><strong>SALARY REPORT SLIP LIST</strong></h3>
-							</div>
-							<div id="list-panel" class="panel-body collapse in">
-  							[var.dataGrid; protect=no; htmlconv=no]
-  						</div>
-  					</div>
-  				</div>
-  			</form>
-  		</div>
-  	</div>
-  </div>
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form name="form1" id="form1" method="post" class="form-horizontal" role="form">
+                <div class="col-md-12">
+                    [var.formInput; protect=no; htmlconv=no]
+                </div>
+                <div class="col-md-12">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="panel-actions">
+                                <div class="pull-right" id="collapse-filter">
+                                    <a href="#"
+                                       data-toggle="collapse"
+                                       data-target="#list-panel"><i class="fa fa-chevron-circle-down bigger-130"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="panel-title"><strong>SALARY REPORT SLIP LIST</strong></h3>
+                        </div>
+                        <div id="list-panel" class="panel-body collapse in">
+                            [var.dataGrid; protect=no; htmlconv=no]
+                            <div class="container">
+                                <!-- Modal -->
+                                <div class="modal fade" id="DialogPDF" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button"
+                                                        class="close"
+                                                        data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">File Password</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Due to data security and to prevent data exposure, slip should be
+                                                   locked with password.</p>
+                                                <p><label>Your Password : </label>
+                                                    <input type="password"
+                                                           class="form-control"
+                                                           id="txtpdf"
+                                                           name="txtpdf"
+                                                           value="" /></p>
+                                                <p>
+                                                    <input type="button"
+                                                           class="btn btn-info"
+                                                           id="simpan"
+                                                           name="simpan"
+                                                           value="Create to PDF" />
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <p>Press key <b>ENTER</b> or press button <b>Create to PDF</b> for
+                                                   submit this action</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
