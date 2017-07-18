@@ -306,10 +306,11 @@ function deleteData()
     $dataHrdExtraOffApplication = new cHrdExtraOffApplication();
     foreach ($dataGridObj->checkboxes as $value) {
         $arrId['id'] = $value;
+        $disable = ['active' => 'f'];
+        $dataHrdExtraOffApplication->update($arrId, $disable);
     }
-    $disable = ['active' => 'f'];
-    $dataHrdExtraOffApplication->update($arrId, $disable);
     $dataGridObj->message = 'Data Deleted';
+    redirectPage($_SERVER['PHP_SELF']);
     //setFlashMessage($gridName, serialize($dataGridObj));
 }
 
@@ -381,6 +382,7 @@ function changeStatusCheck()
             . $setModel['employee_id'] . ' And Date  : '
             . $setModel['date_eo'] . ' Is Approved';
     }
+    redirectPage($_SERVER['PHP_SELF']);
 }
 
 function changeStatusApproved()
@@ -439,4 +441,5 @@ function changeStatusApproved()
             . $modelEoQuota['employee_id'] . ' And Date  : '
             . $modelEoQuota['date_eo'] . ' Is Approved';
     }
+    redirectPage($_SERVER['PHP_SELF']);
 }

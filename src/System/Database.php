@@ -147,7 +147,7 @@ if (function_exists('pgExecuteQuery') === false) {
      */
     function pgExecuteQuery($query, array $params = [])
     {
-        $queryStatementName = uniqid('query', false);
+        $queryStatementName = uniqid('query', true);
         $result = false;
         if (pg_prepare(getCurrentDbConnection(), $queryStatementName, $query) !== false) {
             $result = pg_execute(getCurrentDbConnection(), $queryStatementName, $params);
