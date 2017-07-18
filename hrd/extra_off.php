@@ -361,26 +361,26 @@ function changeStatusCheck()
     $dataHrdExtraOffQuota = new cHrdExtraOffQuota();
     foreach ($dataGridObj->checkboxes as $value) {
         $arrId = ['id' => $value];
-    }
-    $approved = ['status' => checkStatus('CHECK')];
-    $new = checkStatus('NEW');
-    $check = checkStatus('CHECK');
-    $eoIdAndNew[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($new);
-    $checkNew = pgFetchRows(getExtraOffListQuery($eoIdAndNew));
-    $eoIdAndCheck[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($check);
-    $checkExist = pgFetchRows(getExtraOffListQuery($eoIdAndCheck));
-    $setModel = getDataExtraOff($arrId['id']);
-    if (($result = count($checkNew) > 0) === true) {
-        $dataHrdExtraOffApplication->update($arrId, $approved);
-        $dataGridObj->message = $dataHrdExtraOffApplication->strMessage;
-    } elseif (($result = count($checkExist) > 0) === true) {
-        $dataGridObj->message = 'Employee : '
-            . $setModel['employee_id'] . ' And Date  : '
-            . $setModel['date_eo'] . ' Is Check';
-    } else {
-        $dataGridObj->message = 'Employee : '
-            . $setModel['employee_id'] . ' And Date  : '
-            . $setModel['date_eo'] . ' Is Approved';
+        $approved = ['status' => checkStatus('CHECK')];
+        $new = checkStatus('NEW');
+        $check = checkStatus('CHECK');
+        $eoIdAndNew[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($new);
+        $checkNew = pgFetchRow(getExtraOffListQuery($eoIdAndNew));
+        $eoIdAndCheck[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($check);
+        $checkExist = pgFetchRow(getExtraOffListQuery($eoIdAndCheck));
+        $setModel = getDataExtraOff($arrId['id']);
+        if (($result = count($checkNew) > 0) === true) {
+            $dataHrdExtraOffApplication->update($arrId, $approved);
+            $dataGridObj->message = $dataHrdExtraOffApplication->strMessage;
+        } elseif (($result = count($checkExist) > 0) === true) {
+            $dataGridObj->message = 'Employee : '
+                . $setModel['employee_id'] . ' And Date  : '
+                . $setModel['date_eo'] . ' Is Check';
+        } else {
+            $dataGridObj->message = 'Employee : '
+                . $setModel['employee_id'] . ' And Date  : '
+                . $setModel['date_eo'] . ' Is Approved';
+        }
     }
     redirectPage($_SERVER['PHP_SELF']);
 }
@@ -398,48 +398,48 @@ function changeStatusApproved()
     $dataHrdExtraOffQuota = new cHrdExtraOffQuota();
     foreach ($dataGridObj->checkboxes as $value) {
         $arrId = ['id' => $value];
-    }
-    $approved = ['status' => checkStatus('APPROVED')];
-    $new = checkStatus('NEW');
-    $check = checkStatus('CHECK');
-    $eoIdAndNew[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($new);
-    $newExist = pgFetchRows(getExtraOffListQuery($eoIdAndNew));
-    $eoIdAndCheck[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($check);
-    $checkExist = pgFetchRows(getExtraOffListQuery($eoIdAndCheck));
-    $setModel = getDataExtraOff($arrId['id']);
-    $date_eo = $setModel['date_eo'];
-    $type = $setModel['type'];
-    $eoConfType[] = 'eoa."type" = ' . pgEscape($type);
-    $setModelConfEo = getConfExtraOff($type, $eoConfType);
-    $expired_day = $setModelConfEo['expired_day'];
-    $expired = date('Y-m-d', strtotime('+' . $expired_day . 'days', strtotime($date_eo)));
-    $active = 't';
-    # model data quota extra off
-    $modelEoQuota = [
-        'employee_id'       => $setModel['employee_id'],
-        'eo_application_id' => $setModel['id'],
-        'date_eo'           => $date_eo,
-        'date_expired'      => $expired,
-        'active'            => $active,
-        'type'              => $setModel['type'],
-        'note'              => $setModel['note']
-    ];
-    if (($result = count($checkExist) > 0) === true) {
-        #duration conf extra off
-        $duration = $setModelConfEo['duration'];
-        for ($i = 0; $i < $duration; $i++) {
-            $dataHrdExtraOffQuota->insert($modelEoQuota);
+        $approved = ['status' => checkStatus('APPROVED')];
+        $new = checkStatus('NEW');
+        $check = checkStatus('CHECK');
+        $eoIdAndNew[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($new);
+        $newExist = pgFetchRow(getExtraOffListQuery($eoIdAndNew));
+        $eoIdAndCheck[] = 'eoa."id" = ' . pgEscape($value) . 'AND eoa.status = ' . pgEscape($check);
+        $checkExist = pgFetchRow(getExtraOffListQuery($eoIdAndCheck));
+        $setModel = getDataExtraOff($arrId['id']);
+        $date_eo = $setModel['date_eo'];
+        $type = $setModel['type'];
+        $eoConfType[] = 'eoa."type" = ' . pgEscape($type);
+        $setModelConfEo = getConfExtraOff($type, $eoConfType);
+        $expired_day = $setModelConfEo['expired_day'];
+        $expired = date('Y-m-d', strtotime('+' . $expired_day . 'days', strtotime($date_eo)));
+        $active = 't';
+        # model data quota extra off
+        $modelEoQuota = [
+            'employee_id'       => $setModel['employee_id'],
+            'eo_application_id' => $setModel['id'],
+            'date_eo'           => $date_eo,
+            'date_expired'      => $expired,
+            'active'            => $active,
+            'type'              => $setModel['type'],
+            'note'              => $setModel['note']
+        ];
+        if (($result = count($checkExist) > 0) === true) {
+            #duration conf extra off
+            $duration = $setModelConfEo['duration'];
+            for ($i = 0; $i < $duration; $i++) {
+                $dataHrdExtraOffQuota->insert($modelEoQuota);
+            }
+            $dataHrdExtraOffApplication->update($arrId, $approved);
+            $dataGridObj->message = $dataHrdExtraOffApplication->strMessage;
+        } elseif (($result = count($newExist) > 0) === true) {
+            $dataGridObj->message = 'Employee : '
+                . $modelEoQuota['employee_id'] . ' And Date  : '
+                . $modelEoQuota['date_eo'] . ' Cant Check';
+        } else {
+            $dataGridObj->message = 'Employee : '
+                . $modelEoQuota['employee_id'] . ' And Date  : '
+                . $modelEoQuota['date_eo'] . ' Is Approved';
         }
-        $dataHrdExtraOffApplication->update($arrId, $approved);
-        $dataGridObj->message = $dataHrdExtraOffApplication->strMessage;
-    } elseif (($result = count($newExist) > 0) === true) {
-        $dataGridObj->message = 'Employee : '
-            . $modelEoQuota['employee_id'] . ' And Date  : '
-            . $modelEoQuota['date_eo'] . ' Cant Check';
-    } else {
-        $dataGridObj->message = 'Employee : '
-            . $modelEoQuota['employee_id'] . ' And Date  : '
-            . $modelEoQuota['date_eo'] . ' Is Approved';
     }
     redirectPage($_SERVER['PHP_SELF']);
 }
